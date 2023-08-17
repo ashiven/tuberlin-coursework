@@ -1,0 +1,300 @@
+\documentclass[10pt,a4paper]{scrartcl}
+
+%%% Eine Erklärung der meisten eingebundenen Pakete finden sie in der LaTeX-Vorlage für die freiwilligen Hausaufgaben.
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black!20!blue,
+	citecolor=black!20!blue,
+	urlcolor=black!20!blue
+}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ebproof}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{forloop}
+\usepackage{MnSymbol}
+\usepackage[noend]{algpseudocode}
+
+\usetikzlibrary{calc,through,arrows,automata,decorations.pathmorphing,decorations.pathreplacing,shapes,backgrounds,fit,positioning,shapes.geometric,patterns}
+
+\usepackage{xstring}
+\usepackage{xspace}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=(\roman*)}
+
+
+%%% Zusätzliche Befehle %%%
+\newcommand{\N}{\ensuremath{\mathds{N}}}
+\newcommand{\Z}{\ensuremath{\mathds{Z}}}
+\newcommand{\Q}{\ensuremath{\mathds{Q}}}
+\newcommand{\R}{\ensuremath{\mathds{R}}}
+\newcommand{\AL}{\ensuremath{\mathrm{AL}}\xspace}
+\newcommand{\AVAR}{\textsc{AVar}}
+\newcommand{\VAR}{\textsc{Var}}
+\newcommand{\EF}{Ehrenfeucht-Fra\"{i}ss\'{e}\xspace}
+\newcommand*{\FO}[1]{\ifx\relax #1\relax
+	\ensuremath{\mathrm{FO}}\xspace
+	\else
+	\ensuremath{\mathrm{FO}[#1]}\xspace
+	\fi}
+\newcommand*{\Eval}[2]{\ensuremath{\left\llbracket #1 \right\rrbracket}^{#2}}
+\newcommand{\sequent}{\Rightarrow}
+\newcommand*{\axiom}[2]{\overline{#1 \overset{\phantom{.}}{\sequent} #2}}
+% Makros für Induktionsbeweise
+\newenvironment{induktion}
+{
+	\newif\ifIA
+	\newif\ifIV
+	\newif\ifIS
+	\IAfalse
+	\IVfalse
+	\ISfalse
+}
+{
+	\ifIA
+	\else
+	\errmessage{Der Induktionsanfang fehlt}
+	\fi
+	\ifIV
+	\else
+	\errmessage{Die Induktionsvoraussetzung fehlt}
+	\fi
+	\ifIS
+	\else
+	\errmessage{Der Induktionsschritt fehlt}
+	\fi
+}
+\newcommand{\InduktionsAnfang}[1][]{\IAtrue \noindent\textbf{IA:} #1\\}
+\newcommand{\InduktionsVoraussetzung}[1][]{\IVtrue \noindent\textbf{IV:} #1\\}
+\newcommand{\InduktionsSchritt}[1][]{\IStrue \noindent\textbf{IS:}
+	\ifx\relax #1\relax
+	\else
+	zu zeigen: #1
+	\fi\\}
+% Kiste für die Punkte der Teilaufgaben
+	\newcounter{Iterator}
+	\newcounter{Aux}
+\newcommand{\PunkteKiste}[1]{%
+	\newcommand{\CellHeight}{1}
+	\newcommand{\CellWidth}{1.15}
+	\begin{tikzpicture}
+		\setcounter{Aux}{#1}
+		\stepcounter{Aux}
+		\forloop{Iterator}{1}{\value{Iterator} < \value{Aux}}{
+			\node (v) at (\CellWidth * \value{Iterator}, \CellHeight+0.3) {({\roman{Iterator}})};%
+			\draw[line width=0.5pt] (\CellWidth * \value{Iterator}+0.5, \CellHeight) -- (\CellWidth * \value{Iterator}+0.5,0);
+			}
+		\node (f) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {Form};
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\stepcounter{Aux}
+		\node (s) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {$\sum$};
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (0.5 * \CellWidth, \CellHeight);
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, \CellHeight) -- (\CellWidth*\value{Aux}+0.5,\CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (\CellWidth*\value{Aux}+0.5,0);
+	\end{tikzpicture}
+	}
+% Aufgabe Umgebung
+\newcounter{aufgabeNum}
+\newenvironment{aufgabe}[1]
+{
+
+	\noindent\textbf{\underline{Aufgabe \refstepcounter{aufgabeNum}\arabic{aufgabeNum}}}\hfill\PunkteKiste{#1}
+
+}
+{}
+
+
+%%% ANFANG DECKBLATT %%%
+
+\begin{document}
+\noindent
+\noindent \large WiSe 21/22 \hfill
+Logik
+
+\begin{center}
+\textbf{Hausarbeit 1 Aufgabe 1}\\
+\vspace*{0.5cm}
+\textbf{Gruppe:} 402355, 392210, 413316, 457146  % Tragen Sie hier die Matrikelnummern der Mitglieder ihrer Gruppe ein.
+\end{center}
+
+\newpage
+
+%%% ENDE DECKBLATT %%%
+
+\section*{Lösungen}
+\begin{aufgabe}{4}
+    \begin{enumerate}
+    	\item
+    	Wir zeigen die Gueltigkeit dieser Aussage mithilfe des Kompaktheitssatzes.\\ 
+    	In den Folien der Vorlesung aus Woche 5 steht:\\
+    	
+    	$"$Sei $C$ eine unendlich unerfüllbare Klauselmenge, dann folgt aus dem Kompaktheitssatz, dass
+        bereits eine endliche Teilmenge $C_0 \subseteq C$ unerfüllbar ist. Also hat $C_0$ eine Resolutionswiderlegung. Diese ist aber auch eine Resolutionswiderlegung von $C$.$"$\\
+        
+        Sei $Z$ eine unendliche Klauselmenge mit $\Phi \subseteq Z$ und eine endliche Teilmenge $\Phi^{'} \subseteq \Phi$.\\ Wenn es eine Resolutionswiderlegung für $\Phi'$ gibt, so gibt es auch eine Resolutionswiderlegung für $\Phi$, da $\Phi' \subseteq \Phi$.
+    	\item
+    	Aus Teilaufgabe (i) wissen wir, wenn eine Resolutionswiderlegung fuer eine Teilmenge $\Phi' \subseteq \Phi$ existiert, so existiert auch eine Resolutionswiderlegung fuer die Formelmenge $\Phi$.\\
+    	Wir definieren also die folgenden Teilmengen:
+    	\[
+    	\Phi_{H,E}' := \{E_{1,4}, E_{1,8}, E_{4,8}, E_{2,3}, E_{2,6}, E_{3,6}\}, \Phi_{H,E}' \subseteq \Phi_{H,E}
+    	\]
+    	\[
+    	\Phi_{H,2}' := \{\lnot E_{1,4} \lor \lnot E_{1,8}\lor  \lnot E_{4,8} \lor \lnot E_{2,3} \lor  \lnot E_{2,6} \lor \lnot E_{3,6}\}, \Phi_{H,2}' \subseteq \Phi_{H,2}
+    	\]
+    	\[
+    	\Phi_{H}' := \Phi_{H,E}' \cup \Phi_{H,2}', \Phi_{H}' \subseteq \Phi_{H}
+    	\]
+    	Wir geben im folgenden eine Resolutionswiderlegung fuer $\Phi_{H}'$ an:
+    	\\
+    	\begin{tikzpicture}[scale=1]
+		\node (A0) at (7.5,0) {$\{E_{1,4}\}$};
+		\node (A1) at (6,0) {$\{E_{1,8}\}$};
+		\node (A2) at (4.5,0) {$\{E_{4,8}\}$};
+		\node (A3) at (3,0) {$\{E_{2,3}\}$};
+		\node (A4) at (1.5,0) {$\{E_{2,6}\}$};
+		\node (A5) at (0,0) {$\{E_{3,6}\}$};
+		\node (A6) at (12,0) {$\{\lnot E_{1,4}, \lnot E_{1,8},\lnot E_{4,8},\lnot E_{2,3},\lnot E_{2,6},\lnot E_{3,6}\}$};
+		
+		% Die ersten abgeleiteten Klauseln, eine Ebene tiefer und leicht versetzt.
+		\node (B0) at (11,-1) {$\{\lnot E_{1,8},\lnot E_{4,8},\lnot E_{2,3},\lnot E_{2,6},\lnot E_{3,6}\}$};
+		
+		\node (C0) at (9,-2) {$\{\lnot E_{4,8},\lnot E_{2,3},\lnot E_{2,6},\lnot E_{3,6}\}$};
+		
+		\node (D0) at (7,-3) {$\{\lnot E_{2,3},\lnot E_{2,6},\lnot E_{3,6}\}$};
+
+		\node (E0) at (5,-4) {$\{\lnot E_{2,6},\lnot E_{3,6}\}$};
+		
+		\node (F0) at (3,-5) {$\{\lnot E_{3,6}\}$};
+
+		\node (G0) at (1,-6) {$\Box $};
+        
+        \path
+        (A0) edge (B0)
+        (A6) edge (B0)
+        (B0) edge (C0)
+        (A1) edge (C0)
+        (C0) edge (D0)
+        (A2) edge (D0)
+        (A3) edge (E0)
+        (D0) edge (E0)
+        (A2) edge (D0)
+        (E0) edge (F0)
+        (A3) edge (E0)
+        (F0) edge (G0)
+        (A4) edge (F0)
+        (A5) edge (G0)
+        ;
+	    \end{tikzpicture}
+	    Da $\Phi_{H}' \subseteq \Phi_{H}$ gibt es somit auch eine Resolutionswiderlegung fuer $\Phi_{H}$.
+    	\item
+    	Aus Teilaufgabe (i) wissen wir, wenn eine Resolutionswiderlegung fuer eine Teilmenge $\Phi' \subseteq \Phi$ existiert, so existiert auch eine Resolutionswiderlegung fuer die Formelmenge $\Phi$.\\
+    	\\
+    	Angenommen es gibt zwei disjunkte Kreise $C$ und $K$ der Laenge drei in $\Phi_{G}$, dann wählen wir eine Teilmenge $\Phi_{G}' = \Phi_{G,E}' \cup \Phi_{G,2}'$, $\Phi^{'}_{G} \subseteq \Phi_{G}$ und betrachten die zwei disjunkten Kreise:
+    	\[
+    	C = \{E_{a,b}, E_{a,c}, E_{b,c}\}, K = \{E_{u,v}, E_{u,w}, E_{v,w}\}
+    	\]
+    	\[
+    	\vert\{a,b,c,u,v,w\}\vert = 6, 1 \leq a \leq b \leq c \leq \vert V(G)\vert, 1 \leq u \leq v \leq w \leq \vert V(G)\vert
+    	\]
+    	Wir definieren $\Phi_{G,E}'$ wie folgt:
+    	\[
+    	\Phi_{G,E}'=\{E_{a,b},E_{a,c},E_{b,c},E_{u,v},E_{u,w},E_{v,w}\}
+    	\]
+    	%Betrachten wir nun $\Phi^{'}_{G,2}$, dann erkennen wir, dass $\Phi^{'}_{G,2}$ aus negierten Kanten von zwei mengen von 3 %unterschiedlichen knoten besteht. Egal wie also \{a,b,c\} und \{u,v,w\} belegt sind, es werden nur existierende Kanten negiert.\\
+    	Weiterhin definieren wir $\Phi_{G,2}'$ wie folgt:
+    	\[
+    	\Phi_{G,2}' = \{\lnot E_{a,b} \lor \lnot E_{a,c} \lor \lnot E_{b,c} \lor \lnot E_{u,v} \lor \lnot E_{u,w} \lor \lnot E_{v,w}\}
+    	\]
+    	Im folgenden geben wir eine Resolutionswiderlegung fuer $\Phi_{G}'$ an:
+    	%Da in $\Phi^{'}_{G,E}$ alle möglichen Kanten enhalten sind, kann $\Phi^{'}_{G}$ analog zur Teilaufgabe ii) mit dem %Resolutionskalkül gelöst werden und somit existiert auch eine Resolutionswiderlegung für $\Phi_{G}$
+    	\\
+    	\begin{tikzpicture}[scale=1]
+		\node (A0) at (7.5,0) {$\{E_{v,w}\}$};
+		\node (A1) at (6,0) {$\{E_{u,w}\}$};
+		\node (A2) at (4.5,0) {$\{E_{u,v}\}$};
+		\node (A3) at (3,0) {$\{E_{b,c}\}$};
+		\node (A4) at (1.5,0) {$\{E_{a,c}\}$};
+		\node (A5) at (0,0) {$\{E_{a,b}\}$};
+		\node (A6) at (12,0) {$\{\lnot E_{a,b}, \lnot E_{a,c},\lnot E_{b,c},\lnot E_{u,v},\lnot E_{u,w},\lnot E_{v,w}\}$};
+		
+		% Die ersten abgeleiteten Klauseln, eine Ebene tiefer und leicht versetzt.
+		\node (B0) at (11,-1) {$\{\lnot E_{a,b},\lnot E_{a,c},\lnot E_{b,c},\lnot E_{u,v},\lnot E_{u,w}\}$};
+		
+		\node (C0) at (9,-2) {$\{\lnot E_{a,b},\lnot E_{a,c},\lnot E_{b,c},\lnot E_{u,v}\}$};
+		
+		\node (D0) at (7,-3) {$\{\lnot E_{a,b},\lnot E_{a,c},\lnot E_{b,c}\}$};
+
+		\node (E0) at (5,-4) {$\{\lnot E_{a,b},\lnot E_{a,c}\}$};
+		
+		\node (F0) at (3,-5) {$\{\lnot E_{a,b}\}$};
+
+		\node (G0) at (1,-6) {$\Box $};
+        
+        \path
+        (A0) edge (B0)
+        (A6) edge (B0)
+        (B0) edge (C0)
+        (A1) edge (C0)
+        (C0) edge (D0)
+        (A2) edge (D0)
+        (A3) edge (E0)
+        (D0) edge (E0)
+        (A2) edge (D0)
+        (E0) edge (F0)
+        (A3) edge (E0)
+        (F0) edge (G0)
+        (A4) edge (F0)
+        (A5) edge (G0)
+        ;
+	    \end{tikzpicture}
+    	Da $\Phi_{G}' \subseteq \Phi_{G}$ gibt es somit auch eine Resolutionswiderlegung fuer $\Phi_{G}$. Somit ist $\Phi_{G}$ unerfuellbar.
+    	
+    	\item
+    	Angenommen $\Phi_{G}$ ist unerfuellbar.\\Die Formelmenge $\Phi_{G}$ ist wie folgt definiert:
+    	\[
+    	\Phi_{G} = \Phi_{G,E} \cup \Phi_{G,2}
+    	\]
+    	Die Formelmenge $\Phi_{G,E}$ beinhaltet alle Kanten und Nichtkanten des Graphen $G$ und wird somit fuer $G$ erfuellt.\\
+    	
+    	Sei die Formel $\varphi$, $\varphi \in \Phi_{G,2}$ wie folgt definiert:
+    	\[
+    	\varphi = \lnot E_{a,b} \lor \lnot E_{a,c} \lor \lnot E_{b,c} \lor \lnot E_{u,v} \lor \lnot E_{u,w} \lor \lnot E_{v,w}
+    	\]
+    	\[
+    	\vert\{a,b,c,u,v,w\}\vert = 6, 1 \leq a \leq b \leq c \leq \vert V(G)\vert, 1 \leq u \leq v \leq w \leq \vert V(G)\vert
+    	\]
+    	Es werden alle Formeln $\psi \in \Phi_{G,2}$ durch $\varphi$ allgemein dargestellt.\\
+
+    	Wenn die Formelmenge $\Phi_{G}' := \Phi_{G,E} \cup \{\varphi\}$ unerfuellbar ist, so folgt aus dem Kompaktheitssatz auch $\Phi_{G}$ ist unerfuellbar, da $\Phi_{G}' \subseteq \Phi_{G}$.\\
+    	Somit folgt laut unserer Annahme, in $G$ existieren die Kanten:
+    	\[
+    	\ E_{a,b}, E_{a,c}, E_{b,c}, E_{u,v}, E_{u,w}, E_{v,w}
+    	\]
+    	,da nur in diesem Fall $\Phi_{G}'$ unerfuellbar ist.\\
+    	
+    	Um dies zu zeigen definieren wir die Formelmenge $\Phi_{G,E}'$, $\Phi_{G,E}' \subseteq \Phi_{G,E}$ wie folgt:
+        \[
+    	\Phi_{G,E}' := \{E_{a,b}, E_{a,c}, E_{b,c}, E_{u,v}, E_{u,w}, E_{v,w}\}
+    	\]
+    	Es existiert eine Resolutionswiderlegung fuer $\Phi_{G}'' := \Phi_{G,E}' \cup \{\varphi\}$, $\Phi_{G}'' \subseteq \Phi_{G}'$ und somit laut Teilaufgabe (i) auch fuer $\Phi_{G}'$. Jedoch offensichtlich nur genau dann wenn $\Phi_{G,E}'$ die besagten Kanten enthaelt. Dies haben wir bereits in der Teilaufgabe (iii) veranschaulicht.\\
+    	
+        Somit existieren in G die disjunkten Kreise $C$ und $K$ der Laenge drei:
+        \[
+        C = \{E_{a,b}, E_{a,c}, E_{b,c}\}, K = \{E_{u,v}, E_{u,w}, E_{v,w}\}
+        \]
+ 
+        
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}

@@ -1,0 +1,259 @@
+\documentclass[10pt,a4paper]{scrartcl}
+
+%%% Eine Erklärung der meisten eingebundenen Pakete finden sie in der LaTeX-Vorlage für die freiwilligen Hausaufgaben.
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black!20!blue,
+	citecolor=black!20!blue,
+	urlcolor=black!20!blue
+}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ebproof}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{forloop}
+\usepackage{MnSymbol}
+\usepackage[noend]{algpseudocode}
+
+\usetikzlibrary{calc,through,arrows,automata,decorations.pathmorphing,decorations.pathreplacing,shapes,backgrounds,fit,positioning,shapes.geometric,patterns}
+
+\usepackage{xstring}
+\usepackage{xspace}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=(\roman*)}
+
+
+%%% Zusätzliche Befehle %%%
+\newcommand{\N}{\ensuremath{\mathds{N}}}
+\newcommand{\Z}{\ensuremath{\mathds{Z}}}
+\newcommand{\Q}{\ensuremath{\mathds{Q}}}
+\newcommand{\R}{\ensuremath{\mathds{R}}}
+\newcommand{\AL}{\ensuremath{\mathrm{AL}}\xspace}
+\newcommand{\AVAR}{\textsc{AVar}}
+\newcommand{\VAR}{\textsc{Var}}
+\newcommand{\EF}{Ehrenfeucht-Fra\"{i}ss\'{e}\xspace}
+\newcommand*{\FO}[1]{\ifx\relax #1\relax
+	\ensuremath{\mathrm{FO}}\xspace
+	\else
+	\ensuremath{\mathrm{FO}[#1]}\xspace
+	\fi}
+\newcommand*{\Eval}[2]{\ensuremath{\left\llbracket #1 \right\rrbracket}^{#2}}
+\newcommand{\sequent}{\Rightarrow}
+\newcommand*{\axiom}[2]{\overline{#1 \overset{\phantom{.}}{\sequent} #2}}
+% Makros für Induktionsbeweise
+\newenvironment{induktion}
+{
+	\newif\ifIA
+	\newif\ifIV
+	\newif\ifIS
+	\IAfalse
+	\IVfalse
+	\ISfalse
+}
+{
+	\ifIA
+	\else
+	\errmessage{Der Induktionsanfang fehlt}
+	\fi
+	\ifIV
+	\else
+	\errmessage{Die Induktionsvoraussetzung fehlt}
+	\fi
+	\ifIS
+	\else
+	\errmessage{Der Induktionsschritt fehlt}
+	\fi
+}
+\newcommand{\InduktionsAnfang}[1][]{\IAtrue \noindent\textbf{IA:} #1\\}
+\newcommand{\InduktionsVoraussetzung}[1][]{\IVtrue \noindent\textbf{IV:} #1\\}
+\newcommand{\InduktionsSchritt}[1][]{\IStrue \noindent\textbf{IS:}
+	\ifx\relax #1\relax
+	\else
+	zu zeigen: #1
+	\fi\\}
+% Kiste für die Punkte der Teilaufgaben
+	\newcounter{Iterator}
+	\newcounter{Aux}
+\newcommand{\PunkteKiste}[1]{%
+	\newcommand{\CellHeight}{1}
+	\newcommand{\CellWidth}{1.15}
+	\begin{tikzpicture}
+		\setcounter{Aux}{#1}
+		\stepcounter{Aux}
+		\forloop{Iterator}{1}{\value{Iterator} < \value{Aux}}{
+			\node (v) at (\CellWidth * \value{Iterator}, \CellHeight+0.3) {({\roman{Iterator}})};%
+			\draw[line width=0.5pt] (\CellWidth * \value{Iterator}+0.5, \CellHeight) -- (\CellWidth * \value{Iterator}+0.5,0);
+			}
+		\node (f) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {Form};
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\stepcounter{Aux}
+		\node (s) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {$\sum$};
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (0.5 * \CellWidth, \CellHeight);
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, \CellHeight) -- (\CellWidth*\value{Aux}+0.5,\CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (\CellWidth*\value{Aux}+0.5,0);
+	\end{tikzpicture}
+	}
+% Aufgabe Umgebung
+\newcounter{aufgabeNum}
+\newenvironment{aufgabe}[1]
+{
+
+	\noindent\textbf{\underline{Aufgabe \refstepcounter{aufgabeNum}\arabic{aufgabeNum}}}\hfill\PunkteKiste{#1}
+
+}
+{}
+
+
+%%% ANFANG DECKBLATT %%%
+
+\begin{document}
+\noindent
+\noindent \large WiSe 21/22 \hfill
+Logik
+
+\begin{center}
+\textbf{Hausarbeit 2 Aufgabe 1}\\
+\vspace*{0.5cm}
+\textbf{Gruppe:} 402355, 392210, 413316, 457146  % Tragen Sie hier die Matrikelnummern der Mitglieder ihrer Gruppe ein.
+\end{center}
+
+\newpage
+
+%%% ENDE DECKBLATT %%%
+
+\section*{Lösungen}
+\begin{aufgabe}{10}
+    \begin{enumerate}
+    	\item
+    	Gaifmangraphen von $\mathcal{B}$ :
+    	\\
+    	\begin{tikzpicture}[scale=1]
+		\node [circle, draw](A0) at (0,0) {$2$};
+		\node [circle, draw](A1) at (2,-1) {$6$};
+		\node [circle, draw](A2) at (4,0) {$3$};
+		\node [circle, draw](A3) at (2,-2) {$1$};
+		\node [circle, draw](A4) at (0,-2) {$4$};
+		\node [circle, draw](A5) at (4,-2) {$5$};
+		\node [circle, draw](A6) at (2,-3) {$7$};
+        
+        \path
+        (A0) edge (A1)
+        (A0) edge (A2)
+        (A1) edge (A2)
+        (A0) edge (A3)
+        (A1) edge (A3)
+        (A2) edge (A3)
+        (A4) edge (A3)
+        (A5) edge (A3)
+        (A6) edge (A3)
+        (A0) edge (A4)
+        ;
+	\end{tikzpicture}
+    	\item
+    	
+    	$ \mathcal{C} := ( [4], \: \mathcal{R}^\mathcal{C} := \{(a,b,c) \in [4]^3 \: | \: a.b = c\} ) $
+        \\
+
+        $ \mathcal{D} := ( [4], \: \mathcal{R}^\mathcal{D} := \{(a,b,c) \in [4]^3 \: | \: a/b = c\} ) $\\
+        
+        $\mathcal{R}^\mathcal{C} = \{(1,2,2)(2,1,2)(1,3,3)(3,1,3)(1,4,4)(4,1,4)(2,2,4)\} \\ \mathcal{R}^\mathcal{D} = \{(2,1,2)(3,1,3)(4,1,4)(4,2,4)\}$
+        
+        $\mathcal{R}^\mathcal{C} \not \cong \matDcal{R}^\mathcal{D}$
+        
+        $\mathcal{G}(\mathcal{C}) \cong \mathcal{G}(\mathcal{D})$
+        
+        \begin{tikzpicture}[node distance={15mm}, thick, main/.style = {draw, circle}]
+        
+            \node[main] (1) {$1$};
+            \node[main] (2) [below left of=1] {$2$};
+            \node[main] (3) [right  of=1] {$3$}; 
+            \node[main] (4) [below right  of=1] {$4$};
+        
+            \draw (1) -- (2);
+            \draw (1) -- (3);
+            \draw (1) -- (4);
+            \draw (2) -- (4);
+        
+        
+        \end{tikzpicture}
+        
+
+    	\item
+    	Die Struktur $I_{\psi_1}(G_1)$ sieht wie folgt aus:\\
+    	\\
+    	\begin{tikzpicture}[scale=1]
+		\node [circle, draw](A0) at (0,0) {$b$};
+		\node [circle, draw](A1) at (2,-0.75) {$g$};
+		\node [circle, draw](A2) at (4,0) {$d$};
+		\node [circle, draw](A3) at (2,-2) {$e$};
+
+		\node [circle, draw](B0) at (6,0) {$a$};
+		\node [circle, draw](B1) at (8,-0.75) {$f$};
+		\node [circle, draw](B2) at (10,0) {$c$};
+		\node [circle, draw](B3) at (8,-2) {$h$};
+        
+        \path
+        (A0) edge (A1)
+        (A0) edge (A2)
+        (A1) edge (A2)
+        (A0) edge (A3)
+        (A1) edge (A3)
+        (A2) edge (A3)
+        
+        (B0) edge (B1)
+        (B0) edge (B2)
+        (B1) edge (B2)
+        (B0) edge (B3)
+        (B1) edge (B3)
+        (B2) edge (B3)
+        ;
+	\end{tikzpicture}
+    	\item
+    	 $\psi_2 := \exists z \exists w ((E(x,z) \wedge E(y,z)) \wedge (E(x,w) \wedge E(y,w)) \wedge (z \not = w \wedge \neg E(z,w)) )$
+\\
+        \item
+        $\psi_3(u,v) := \exists z(R(u,v,z) \vee R(u,z,v) \vee R(z,u,v))$ \\
+        Da die Formel sich auf $\tau$-Signaturen bezieht, können wir nur das Dreistellige Relationssymbol R nutzen. Wir suchen durch jede mögliche Kombination aus R-Relationen die u und v beinhalten. Wenn es eine davon gibt, geben wir das Tupel (u,v) aus.
+    	\item
+    	$\varphi_1(a,b) := E(a,b) \wedge E(b,a)$
+    	\item
+    	Die Aussage ist Falsch.\\
+    	Angenommen G $\equiv_m$ H mit m $>$ 0 gilt, dann muss dies auch gelten wenn G $\nequiv_0$ H.
+    	Sind G und H nicht 0-äquivalent und berechnen nun I$_\varphi$(G) und I$_\varphi$(H) für alle $\varphi \in $ FO[$\delta$] mit qr($\varphi$) $=$ 0. Dann sind I$_\varphi$(G) und I$_\varphi$(H) nicht äquivalent zueinander. Laut der Definition von m-äquivalenz können sie somit auch nicht für alle m $>$ 0 äquivalent zueinander sein.
+    	\item
+    	Die Aussage Stimmt.\\
+    	Seien $I_{\varphi}(G) \equiv_m I_{\varphi}(H)$ mit m $>$ 0 und qr($\varphi) =$ 0. Dann gilt dadurch, dass $\varphi$ nur mit einem zweistelligen Relationssymbol definiert ist, dass $I_{\varphi}(G) \equiv_m I_{\varphi}(H)$ auch auf m $=$ 0 äquivalent sein müssen. Daher sind $I_{\varphi}(G)$ und $ I_{\varphi}(H)$ elementär äquivalent.\\
+    	Laut "Tut 10 Lösung 3iii" gilt, dass wenn $I_{\varphi}(G) \equiv I_{\varphi}(H)$ gilt, dann gilt auch $I_{\varphi}(G) \cong I_{\varphi}(H)$ auf allen $\varphi_a \in$ FO[$\delta$].\\
+    	Es gibt also eine Formel $\varphi_2 \in$ FO[$\delta$] für die gilt, $I_{\varphi_2}(I_{\varphi}(G)) =$ G, dann gilt auch  $I_{\varphi_2}(I_{\varphi}(H)) =$ H. Somit gilt die Aussage wenn $I_{\varphi}(G) \equiv_m I_{\varphi}(H)$, dann auch $G \equiv_m H$.\\
+     	\item
+     	
+IA: Angenommen T ist ein Baum mit $|V(T)|$ $=$ n $=$ 2, dann ist $|E(T)|$ $=$ 1. Dann ist T' ein Graph mit $|V(T')|$ $=$ n $=$ 2 und $|E(T')|$ $=$ 1. Daraus folgt es gibt ein Hamiltonpfad von u nach v der Länge 2.\\
+
+IV: Für ein festen $n \in \mathbb{N}$ mit $n \geq 2$ hat ein aus der Baum T konstruierten Graphen T' ein Hamiltonpfad für alle $\{u,v\} \in V(T')$ \\
+
+IS: Laut $\chi(x,y)$ gilt: T ist ein Teilgraph von T'. Für alle $\{u,v\} \in E(T)$ existiert auch $\{u,v\} \in E(T')$. Für alle $\{u,z\},\{z,v\} \in E(T)$ existiert auch $\{u,v\} \in E(T')$, was bedeuted, dass T' einen vollständigen Teilgraph ($K_3$) der Länge 3 hat.
+Für alle $\{u,z\},\{z,w\},\{w,v\} \in E(T)$ existiert auch $\{u,v\},\{u,w\},\{z,v\} \in E(T')$, was bedeuted, dass T' einen vollständigen Teilgraph ($K_4$) der Länge 4 hat.
+
+Daraus folgt, dass T' enthält eine Menge aus vollstendigen $K_3$ und $K_4$ Teilgraphen, und jeder Knoten $x \in V(T')$ teil mindestens einen solchen vollständigen Teilgraph ist. (Für $n \geq 3$ sind alle $x \in V(T')$ immer Teil mindestens einen vollständigen $K_4$ Teilgraph).
+
+Da jeder vollständigen Graph einen Hamiltonpfad hat, folgt, dass für alle $\{u,v\} \in E(T)$ einen Hamiltonpfad in T' existiert.
+
+\item
+    	Aus Aufgabe ix) können wir ableiten, dass es einen Hamiltonpfad in $H^'$ gibt von u nach v für jedem Zusammenhängenden Graphen $H$, da durch $\chi$ alle 3er und 4er Knotenpaare einen Kreis bilden. somit gibt es auch ein 3er Kreis mit (u,v,x) wobei x $\in$ V(H). Durch den Hamiltonpfad von u nach v und der Kante E(u,v) existiert somit auch ein Hamiltonkreis in $H^'$
+        
+    \end{enumerate}
+\end{aufgabe}
+
+
+
+\end{document}

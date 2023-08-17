@@ -1,0 +1,258 @@
+\documentclass[10pt,a4paper,ngerman]{scrartcl}
+
+%%% Eine Erklärung der meisten eingebundenen Pakete finden sie in der LaTeX-Vorlage für die freiwilligen Hausaufgaben.
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black!20!blue,
+	citecolor=black!20!blue,
+	urlcolor=black!20!blue
+}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ebproof}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{forloop}
+\usepackage{MnSymbol}
+\usepackage[noend]{algpseudocode}
+\usepackage[noabbrev]{cleveref}
+
+\usetikzlibrary{calc,through,arrows,automata,decorations.pathmorphing,decorations.pathreplacing,shapes,backgrounds,fit,positioning,shapes.geometric,patterns}
+\tikzset{inner sep = 2pt,
+	vertex/.style={
+		radius=8pt,
+		circle,
+		minimum size=6pt,
+		fill=black,
+		draw=black
+		},
+	triangle/.style={
+		regular polygon,
+		regular polygon sides=3,
+		inner sep=2pt,
+		fill=red,
+		draw=red
+		},
+	square/.style={
+		regular polygon,
+		regular polygon sides=4,
+		inner sep=2pt,
+		fill=red,
+		draw=red
+		},
+	->/.style={-latex,
+		line width = 1,
+		shorten >= 2pt, shorten <= 0pt
+		},
+	<-/.style={latex-,
+		line width = 1,
+		shorten >= 0pt, shorten <= 2pt
+		},
+	-/.style={
+		line width=0.8
+		}
+}
+
+\usepackage{xstring}
+\usepackage{xspace}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=(\roman*)}
+
+
+%%% Zusätzliche Befehle %%%
+\DeclareMathOperator{\fvs}{fvn}
+\DeclareMathOperator{\dege}{degeneracy}
+\DeclareMathOperator{\mc}{mc}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\ggT}{ggT}
+\newcommand{\N}{\ensuremath{\mathds{N}}}
+\newcommand{\Z}{\ensuremath{\mathds{Z}}}
+\newcommand{\Q}{\ensuremath{\mathds{Q}}}
+\newcommand{\R}{\ensuremath{\mathds{R}}}
+\newcommand{\Mod}{\operatorname{mod}}
+% Makros für Induktionsbeweise
+\newenvironment{induktion}
+{
+	\newif\ifIA
+	\newif\ifIV
+	\newif\ifIS
+	\IAfalse
+	\IVfalse
+	\ISfalse
+}
+{
+	\ifIA
+	\else
+	\errmessage{Der Induktionsanfang fehlt}
+	\fi
+	\ifIV
+	\else
+	\errmessage{Die Induktionsvoraussetzung fehlt}
+	\fi
+	\ifIS
+	\else
+	\errmessage{Der Induktionsschritt fehlt}
+	\fi
+}
+\newcommand{\InduktionsAnfang}[1][]{\IAtrue \noindent\textbf{IA:} #1\\}
+\newcommand{\InduktionsVoraussetzung}[1][]{\IVtrue \noindent\textbf{IV:} #1\\}
+\newcommand{\InduktionsSchritt}[1][]{\IStrue \noindent\textbf{IS:}
+	\ifx\relax #1\relax
+	\else
+	zu zeigen: #1
+	\fi\\}
+% Kiste für die Punkte der Teilaufgaben
+	\newcounter{Iterator}
+	\newcounter{Aux}
+\newcommand{\PunkteKiste}[1]{%
+	\newcommand{\CellHeight}{1}
+	\newcommand{\CellWidth}{1.15}
+	\begin{tikzpicture}
+		\setcounter{Aux}{#1}
+		\stepcounter{Aux}
+		\forloop{Iterator}{1}{\value{Iterator} < \value{Aux}}{
+			\node (v) at (\CellWidth * \value{Iterator}-0.07, \CellHeight+0.3) {({\roman{Iterator}})};%
+			\draw[line width=0.5pt] (\CellWidth * \value{Iterator}+0.5, \CellHeight) -- (\CellWidth * \value{Iterator}+0.5,0);
+			}
+		\node (f) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {Form};
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\stepcounter{Aux}
+		\node (s) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {$\sum$};
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (0.5 * \CellWidth, \CellHeight);
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, \CellHeight) -- (\CellWidth*\value{Aux}+0.5,\CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (\CellWidth*\value{Aux}+0.5,0);
+	\end{tikzpicture}
+	}
+% Aufgabe Umgebung
+\newcounter{aufgabeNum}
+\newenvironment{aufgabe}[1]
+{
+
+	\noindent\textbf{\underline{Aufgabe 2}}\hfill\PunkteKiste{#1}
+
+}
+{}
+
+
+%%% ANFANG DECKBLATT %%%
+
+\begin{document}
+\noindent
+\noindent \large SoSe 2022 \hfill
+Diskrete Strukturen
+
+\begin{center}
+\textbf{Hausaufgabe 1 Aufgabe 2}\\
+\vspace*{0.5cm}
+\textbf{Gruppe:} 457818, 410265, 456732, 392210 % Tragen Sie hier die Matrikelnummern der Mitglieder Ihrer Gruppe ein.
+
+\end{center}
+
+\newpage
+
+%%% ENDE DECKBLATT %%%
+
+% Aufgabe 2
+\begin{aufgabe}{5}
+	\begin{enumerate}
+		\item Sei $G$ der Graph $C_3$. \\
+		Eine Vierteilung $H$ von $G$ könnte folgende graphische Darstellung von $H$ sein: 
+		\begin{center}
+		\begin{tikzpicture}
+		    \node[circle, draw, label=below left:$a$] (a) at (-1,-1) {};
+			\node[circle, draw, label=below right:$b$] (b) at (1,-1) {};
+			\node[circle, draw, label=below:$x_{a,b}^1$] (ab1) at (-0.333,-1) {} edge (a);
+			\node[circle, draw, label=below:$x_{a,b}^2$] (ab2) at (0.333,-1) {} edge (ab1) edge (b);
+			\node[circle, draw, label=$c$] (c) at (0,0.732) {};
+			\node[circle, draw, label=left:$x_{a,c}^1$] (ac1) at (-0.5,-0.14) {} edge (a) edge (c);
+			\node[circle, draw, label=right:$x_{b,c}^1$] (cb1) at (0.5,-0.14) {} edge (c) edge (b);
+			\node[] at (-2,-0.14) {$H:$};
+		\end{tikzpicture}
+		\end{center}
+		Die Kante $\{a,b\}$ wurde zweimal geteilt, alle anderen Kanten wurden einmal geteilt.\\
+		Da $H$ einen Kreis ungerader Länge enthält (und dem Graph $C_7$ entspricht), kann $H$ nicht bipartit sein. Dies gilt nach dem Satz aus VL 12 // S. 245 \\
+        Damit gilt die Aussage nicht für alle möglichen Vierteilungen. 
+        
+		\item Wir wollen die Aussage zeigen.
+		
+		Sei dazu $G = (V,E)$ ein beliebiger Graph und $H = (V',E')$ eine beliebige Vierteilung von $G$. \\
+		Damit $H$ 3-partit ist, muss er in maximal drei disjunkte Knotenmengen zerlegt werden, sodass keine zwei Knoten innerhalb einer Menge mit einer Kante verbunden sind. \\
+        Schauen wir uns die Ausgangslage an. Laut der Definition einer Vierteilung wird jede Kante $e\in E$ mindestens einmal geteilt, dass heißt, sie wird gelöscht und durch mindestens einen Knoten und zwei neuen Kanten ersetzt. Somit gilt $e \notin E'$. Für je zwei Knoten $v_1,v_2 \in V$ gilt also, dass $\{v_1,v_2\} \notin E'$. Somit gilt für jeden beliebigen Knoten $v$ aus $H$, für den $v\in V$ gilt, und für jeden anderen Knoten $w$ aus $H$, für den $w\in V$ gilt, dass sie nicht adjazent sind. Somit haben wir die erste Knotenmenge, welche aus den Knoten besteht, die ursprünglich auch in der Menge $V$ waren. \\
+		Da wir mit der ersten Menge alle Knoten aus $H$ abdecken, die bereits in $G$ enthalten sind, so muss man nur noch die Knoten betrachten, die durch die Vierteilung dazugekommen sind. \\
+		Nach der Definition der Vierteilung werden mindestens ein und maximal vier Knoten hinzugefügt. Da wir vorher schon gezeigt haben, dass alle Knoten in $H$, die auch in $G$ existieren, in $H$ eine einzelne Knotenmenge bilden, reicht es hier aus, eine Vierteilung von einer beliebigen Kante zu betrachten. Das liegt daran, dass eine geteilte Kante immer von zwei Knoten eingeschlossen wird, die adjazent sind. Per Konstruktion ist somit ein Knoten $x^{i}_{v,u}$ von einer geteilten Kante $\{v,u\}$ mit $v \neq u$ zu keinem Knoten $x^{j}_{w,k}$ adjazent, welcher eine anderen Kante $\{w,k\}$ mit $w \neq k$ teilt, wobei gilt $i,j \in {1,..,4} $ und $w \neq u$ oder $k \neq u$. \\
+		Betrachten wir also im Folgenden die Anzahl der Knoten, die eine Kante teilen und ihre Aufteilung in disjunkte Mengen. Wenn die Kante nur einmal geteilt wird, so ist dieser Knoten adjazent zu keinem anderen Knoten einer anderen geteilten Kante. Somit erhalten wir eine zweite Menge Knoten, disjunkt zur ersten, der Graph wäre also in jedem Fall 3-partit. \\
+		Wenn die Kante zweimal geteilt wird, so lassen sich die entstanden zwei Knoten auf zwei Mengen aufteilen. Insgesamt erhalten wir also wieder 3 disjunkte Knotenmengen und der Graph $H$ wäre 3-partit. \\
+		Wenn die Kante dreimal geteilt wird, so wären in jedem Fall zwei der drei Knoten nicht adjazent und somit ließen sich diese wieder auf zwei Mengen aufteilen. \\
+		Wenn die Kante viermal geteilt wird, so wären in jedem Fall jeweils zwei von den vier Knoten nicht adjazent zueinander und die Knoten ließen sich also ebenfalls auf zwei Mengen aufteilen. \\
+		Somit erhalten wir pro geteilter Kante eine oder zwei disjunkte Knotenmengen. Da die Knoten verschiedener geteilter Kanten nicht adjazent sein können, reicht es also aus, jeweils eine Menge aus einer geteilten Kante mit einer beliebig gewählten Menge aus den zwei Mengen einer jeden anderen geteilten Kante zu vereinigen. Somit erhalten wir in jedem Fall 3 disjunkte Teilmengen und der Graph $H$ ist also immer 3-partit.
+		
+		\item Wir wollen die Aussage zeigen.
+		
+		Damit $H$ ein Baum ist, muss $H$ zusammenhängend und kreisfrei sein. \\
+		Sei $G = (V,E)$ ein Baum und $H = (V', E')$ eine beliebige Vierteilung von $G$. Da $G$ per Definition kreisfrei und zusammenhängend ist, muss gezeigt werden, dass die Vierteilung diese Eigenschaften nicht verletzt.
+		
+		\textbf{Zusammenhang:} \\
+		Da $G$ ein Baum und damit zusammenhängend ist, gibt es per Definition zwischen allen Knoten $v, w \in V$ einen Pfad in $G$. Die Vierteilung bewirkt, dass jede Kante $e \in E$ durch einen Pfad in $H$ ersetzt wird, welcher die zu $e$ inzidenten Knoten miteinander verbindet. Per Konstruktion von $H$ wissen wir, dass es für jede Kante in $G$ einen solchen \glqq Kanten-Pfad\grqq{} in $H$ gibt. Damit können wir jede Kante eines Pfades, der $v$ und $w$ in $G$ verbunden hat, durch den Pfad mit den neuen Knoten ersetzen und erhalten einen Pfad, welcher die Knoten $v,w$ in $H$ verbindet. \\
+        Um von einem ursprünglichen Knoten aus $G$ zu einem beliebigen anderen ursprünglichen Knoten aus $H$ zu gelangen, müssen alle Knoten, welche bei der Vierteilung eine Kante als Pfad in $H$ abbilden getroffen werden. Somit kann auch jeder beliebige neue Knoten von einem ursprünglichen erreicht werden und andersherum. Gleichzeitig gibt es demnach auch Pfade zwischen allen neu-hinzugefügten Knoten in $V'$. Somit folgt, dass $H$ auch zusammenhängend ist.
+        
+		\textbf{Kreisfreiheit:} \\
+		Damit $H$ die Eigenschaft der Kreisfreiheit besitzt, darf es keine zwei Pfade zwischen zwei Knoten  $v,w \in V'$ geben. \\
+		Da die existierenden Pfade in $G$ durch die Vierteilung von Knoten nur erweitert werden, bleibt die Anzahl der möglichen Pfade von einem beliebigen Knoten zu einem anderen gleich. Dies gilt, da durch die Konstruktion von $H$ keine neuen Kanten zwischen den ursprünglichen Knoten geschaffen werden und es keine Kanten zwischen Knoten auf unterschiedlichen "Kanten-Pfaden" gibt. Da $G$ kreisfrei ist, bedeutet das, dass auch $H$ kreisfrei sein muss.  \\
+		%?? Da steht gefühlt das gleiche 20x :D - Jup, hab ich auch den Eindruck. 
+		\item Sei $G = (V,E)$ der Graph auf der linken Seite und eine mögliche Vierteilung $H = (V',E')$ von $G$ auf der rechten Seite abgebildet: \\
+		\begin{center}
+		    \begin{tikzpicture}
+		        \node[circle, draw, label=below left:$a$] (a) at (-3,-1) {};
+		        \node[circle, draw, label=above left:$b$] (b) at (-3,1) {} edge(a);
+		        \node[circle, draw, label=above right:$c$] (c) at (-1,1) {} edge(b);
+		        \node[circle, draw, label=below right:$d$] (d) at (-1,-1) {} edge (b) edge (c) edge(a);
+		        \node[] at (-4.5,0) {$G:$};
+		        
+		        \node[circle, draw, label=below left:$a$] (a) at (3,-1) {};
+		        \node[circle, draw, label=above left:$b$] (b) at (3,1) {};
+		        \node[circle, draw, label=left:$x_{a,b}^1$] (ab1) at (3,0) {} edge (a) edge (b);
+		        \node[circle, draw, label=above right:$c$] (c) at (5,1) {};
+		        \node[circle, draw, label=above:$x_{b,c}^1$] (bc1) at (4,1) {} edge (b) edge (c);
+		        \node[circle, draw, label=below right:$d$] (d) at (5,-1) {};
+		        \node[circle, draw, label=right:$x_{c,d}^1$] (cd1) at (5,0) {} edge (c) edge (d);
+		        \node[circle, draw, label=below:$x_{a,d}^1$] (ad1) at (4,-1) {} edge (a) edge (d);
+		        \node[circle, draw, label=below left:$x_{b,d}^1$] (bd1) at (4,0) {} edge (b) edge (d);
+		        \node[] at (1.5,0) {$H:$};
+		    \end{tikzpicture} \\
+		    Jede Kante aus $G$ wurde in $H$ genau einmal geteilt.
+		\end{center}
+		Der Graph $G$ hat einen Hamiltonkreis $(a,b,c,d,a)$, wobei nicht jede Kante des Graphen benutzt wird. \\
+		Die Vierteilung $H$ hat keinen Hamiltonkreis, da genau zwei Knoten $b,d \in V'$ existieren, für die gilt: $\deg(b) = \deg(d) = 3 \wedge \{b,d\} \notin E'$. \\
+		Um den Knoten $x_{b,d}^1 \in V'$ in einem Hamiltonkreis zusätzlich zu erfassen, müsste man also beide Knoten $b$ und $d$ zweimal besuchen, was aber nicht möglich ist, da nur der Anfangs- bzw. Endknoten zweimal besucht werden darf und nicht beide Knoten Anfangs- bzw. Endknoten sein können. Somit kann $H$ keinen Hamiltonkreis besitzen und die Aussage ist widerlegt.
+		
+		\item %Damit eine Vierteilung $H = (V',E')$ eines Graphen $G = (V,E)$ ein Dreieck $K_3$ enthalten kann, müssen $3$ Knoten vollständig miteinander verbunden sein. Es muss also gelten: $\{x,y\},\{y,z\},\{x,z\}\in E'$ für $x,y,z \in V'$. \\
+		%Nehmen wir an, dass ein solches $K_3$ in $H$ enthalten ist. Es existieren also drei Knoten $x,y,z \in V'$, für die gilt: %$\{x,y\},\{y,z\},\{x,z\}\in E'$. Laut der Definition einer Vierteilung muss jede Kante aus $G$ mindestens einmal geteilt werden. Somit muss %für eine Kante $\{a,b\} \in E$ für $a,b\in V$ gelten: $\{a,b\} \notin E'$. Wir müssen nun jeden Fall überprüfen. \\
+		%Wählen wir nun beliebig zwei der drei Knoten, die das Dreieck $K_3$ bilden. Seien $x$ und $y$ diese Knoten und es soll gelten: $x,y \in V$. Da %$\{x,y\} \in E$ wahr ist, folgt, dass $\{x,y\} \notin E'$ gelten muss. Da wir durch das Dreieck $K_3$ aber $\{x,y\},\{y,z\},\{x,z\}\in E'$ %voraussetzen, erhalten wir hier einen Widerspruch. \\ 
+		%Wählen wir nun einen beliebigen der drei Knoten. Sei $x$ dieser Knoten und es soll gelten: $x\in V$. Da $x \in V$ unsere Annahme ist, folgt %daraus, dass wenn $\{x,y\} \in E'$ und $\{x,z\}\in E'$ wahr ist, $\{x,y\}\notin E'$ gelten muss. Das liegt daran, dass der Knoten $x$ aus dem %Graph $G$ übernommen wurde und nun in jedem Fall mit zwei neu erstellten Knoten der Vierteilung verbunden sein muss. Das setzt voraus, dass %zwei weitere Knoten $u,v\in V$ existieren, für die gilt: $\{u,x\},\{v,x\} \notin E' \wedge \{u,x\},\{v,x\} \in E$. Dafür muss aber folgendes %gelten: $\{u,y\},\{v,z\} \in E'$. Auf unser Dreieck angewandt erhalten wir hier einen Widerspruch. \\
+		%Die Fälle, dass alle Knoten oder kein Knoten die Eigenschaft $x \in V$ erfüllen und die daraus folgenden Widersprüche sind trivial. \\
+		%Somit kann $H$ kein Dreieck $K_3$ enthalten.
+		Wir widerlegen die Aussage.
+		
+		Sei dazu $H$ die Vierteilung eines Graphen $G$. 
+		
+		Angenommen $H$ enthält das Dreieck $C_3=(\{u,v\},\{v,w\},\{u,w\})$. Es gilt für alle Kanten $\{a,b\} \in E(G)$ existiert ein Pfad $P_{a,b} = (a,x_1,...,x_l,b)$ mit $l\in\{1,...,4\}$ in $H$. Weiterhin gilt für alle Kanten $\{a,b\} \in E(G)$ dass $\{a,b\} \not \in E(H)$. Somit gilt für alle Kanten $\{x,y\} \in E(H)$, dass höchstens ein Endpunkt der Kanten auch in der Knotenmenge von $G$ vorkommt. Nun können wir eine Fallunterscheidung für die drei Knoten $u,v,w$ aus $C_3$ aufstellen. 
+		
+		\textbf{Fall 1:} Für den Fall, dass zwei oder mehr Knoten aus $C_3$ in $V(G) \cap V(H)$ enthalten sind, ergibt sich ein Widerspruch, da somit für mindestens eine Kante aus $C_3$ gelten würde, dass sie sowohl in $G$ als auch in $H$ enthalten wäre. 
+		
+		\textbf{Fall 2: }Weiterhin betrachten wir den Fall, dass genau ein Knoten in $C_3$ auch in $V(G) \cap V(H)$ enthalten ist. O.B.d.A. sei $v$ dieser Knoten. Laut Konstruktion von $H$ müsste es somit zwei weitere Knoten $x,y \in V(G)$ mit $x,y \not \in C_3$ geben, sodass $\{v,x\},\{v,y\} \in E(G)$. Außerdem müsste es somit Pfade $P_{v,x}, P_{v,y}$ in $H$ geben sodass  $u \in P_{v,x}$ und $w \in P_{v,y}$. Somit kann es aber unmöglich die Kante $\{u,w\}$ in $H$ geben, da $u$ und $w$ auf unterschiedlichen \glqq Kantenpfaden\grqq{} liegen. Also kann es in diesem Fall auch das Dreieck $C_3$ nicht in $H$ geben. 
+		
+		\textbf{Fall 3:} Zuletzt betrachten wir den Fall, dass keiner der drei Knoten aus $C_3$ in $V(G) \cap V(H)$ enthalten ist. O.B.d.A. gilt somit für die Kante $\{u,v\}$, dass ein Pfad $P_{x,y}$ in $H$ existiert mit $x,y \in V(G)$ und $x,y \not \in C_3$ mit $\{u,v\} \in P_{x,y}$. Somit könnte aber höchstens die Kante $\{u,w\}$ oder die Kante $\{v,w\}$ existieren, da $P_{x,y}$ sonst kein Pfad wäre. Somit kann auch in diesem Fall das Dreieck $C_3$ nicht in $H$ existieren. 
+		
+		Da alle möglichen Fälle zu einem Widerspruch führen, kann das Dreieck $C_3$ nicht in $H$ existieren.
+	\end{enumerate}
+\end{aufgabe}
+\end{document}

@@ -1,0 +1,211 @@
+\documentclass[10pt,a4paper]{scrartcl}
+
+%%% Eine Erklärung der meisten eingebundenen Pakete finden sie in der LaTeX-Vorlage für die freiwilligen Hausaufgaben.
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black!20!blue,
+	citecolor=black!20!blue,
+	urlcolor=black!20!blue
+}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ebproof}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{forloop}
+\usepackage{MnSymbol}
+\usepackage[noend]{algpseudocode}
+
+\usetikzlibrary{calc,through,arrows,automata,decorations.pathmorphing,decorations.pathreplacing,shapes,backgrounds,fit,positioning,shapes.geometric,patterns}
+
+\usepackage{xstring}
+\usepackage{xspace}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=(\roman*)}
+
+
+%%% Zusätzliche Befehle %%%
+\newcommand{\N}{\ensuremath{\mathds{N}}}
+\newcommand{\Z}{\ensuremath{\mathds{Z}}}
+\newcommand{\Q}{\ensuremath{\mathds{Q}}}
+\newcommand{\R}{\ensuremath{\mathds{R}}}
+\newcommand{\AL}{\ensuremath{\mathrm{AL}}\xspace}
+\newcommand{\AVAR}{\textsc{AVar}}
+\newcommand{\VAR}{\textsc{Var}}
+\newcommand{\EF}{Ehrenfeucht-Fra\"{i}ss\'{e}\xspace}
+\newcommand*{\FO}[1]{\ifx\relax #1\relax
+	\ensuremath{\mathrm{FO}}\xspace
+	\else
+	\ensuremath{\mathrm{FO}[#1]}\xspace
+	\fi}
+\newcommand*{\Eval}[2]{\ensuremath{\left\llbracket #1 \right\rrbracket}^{#2}}
+\newcommand{\sequent}{\Rightarrow}
+\newcommand*{\axiom}[2]{\overline{#1 \overset{\phantom{.}}{\sequent} #2}}
+% Makros für Induktionsbeweise
+\newenvironment{induktion}
+{
+	\newif\ifIA
+	\newif\ifIV
+	\newif\ifIS
+	\IAfalse
+	\IVfalse
+	\ISfalse
+}
+{
+	\ifIA
+	\else
+	\errmessage{Der Induktionsanfang fehlt}
+	\fi
+	\ifIV
+	\else
+	\errmessage{Die Induktionsvoraussetzung fehlt}
+	\fi
+	\ifIS
+	\else
+	\errmessage{Der Induktionsschritt fehlt}
+	\fi
+}
+\newcommand{\InduktionsAnfang}[1][]{\IAtrue \noindent\textbf{IA:} #1\\}
+\newcommand{\InduktionsVoraussetzung}[1][]{\IVtrue \noindent\textbf{IV:} #1\\}
+\newcommand{\InduktionsSchritt}[1][]{\IStrue \noindent\textbf{IS:}
+	\ifx\relax #1\relax
+	\else
+	zu zeigen: #1
+	\fi\\}
+% Kiste für die Punkte der Teilaufgaben
+	\newcounter{Iterator}
+	\newcounter{Aux}
+\newcommand{\PunkteKiste}[1]{%
+	\newcommand{\CellHeight}{1}
+	\newcommand{\CellWidth}{1.15}
+	\begin{tikzpicture}
+		\setcounter{Aux}{#1}
+		\stepcounter{Aux}
+		\forloop{Iterator}{1}{\value{Iterator} < \value{Aux}}{
+			\node (v) at (\CellWidth * \value{Iterator}, \CellHeight+0.3) {({\roman{Iterator}})};%
+			\draw[line width=0.5pt] (\CellWidth * \value{Iterator}+0.5, \CellHeight) -- (\CellWidth * \value{Iterator}+0.5,0);
+			}
+		\node (f) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {Form};
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\stepcounter{Aux}
+		\node (s) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {$\sum$};
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (0.5 * \CellWidth, \CellHeight);
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, \CellHeight) -- (\CellWidth*\value{Aux}+0.5,\CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (\CellWidth*\value{Aux}+0.5,0);
+	\end{tikzpicture}
+	}
+% Aufgabe Umgebung
+\newcounter{aufgabeNum}
+\newenvironment{aufgabe}[1]
+{
+
+	\noindent\textbf{\underline{Aufgabe \refstepcounter{aufgabeNum}\arabic{aufgabeNum}}}\hfill\PunkteKiste{#1}
+
+}
+{}
+
+
+%%% ANFANG DECKBLATT %%%
+
+\begin{document}
+\noindent
+\noindent \large WiSe 21/22 \hfill
+Logik
+
+\begin{center}
+\textbf{Hausarbeit 1 Aufgabe 3}\\
+\vspace*{0.5cm}
+\textbf{Gruppe:} 402355, 392210, 413316, 457146  % Tragen Sie hier die Matrikelnummern der Mitglieder ihrer Gruppe ein.
+\end{center}
+
+\newpage
+
+%%% ENDE DECKBLATT %%%
+
+\section*{Lösungen}
+\setcounter{aufgabeNum}{1}
+\setcounter{aufgabeNum}{2}
+\begin{aufgabe}{3}
+    \begin{enumerate}
+    	\item
+        Sei $c$ eine k-Nachbarschaftsfärbung von $G$. Für den endlichen Teilgraphen $H$ beschränken wir $c$ lediglich auf die Knoten $V(H)$ von $H$ und wir erhalten eine k-Nachbarschaftsfärbung von $H$, da $E(H) \subseteq E(G)$.
+        
+    	\item
+    	Wir definieren die Formel $\varphi_{H, k}$ wie folgt:
+    	
+        \[
+        \varphi_{H,\leq k}:=\bigwedge_{\substack{\{u,v\} \in E(H)}}( \bigwedge_{\substack{x \in (N_H(u) \cap N_H(v)) }}(\bigvee_{\substack{i = 1}}^k (C_{x,i} \land (\bigwedge_{\substack{y \in (N_H(u) \cap N_H(v)) \\ y \neq x \\ }}\neg C_{y,i})) \land \bigwedge_{\substack{1 \leq j \leq k \\ i \neq j}}(\neg C_{x, j})))
+        \]
+        
+        \[
+        \varphi_{H,= k}:=\bigvee_{\substack{\{u,v\} \in E(H)}}( \bigwedge_{\substack{i=1}}^k(
+        \bigvee_{\substack{x \in (N_H(u) \cap N_H(v))}}(C_{x,i} \land (\bigwedge_{\substack{y \in (N_H(u) \cap N_H(v)) \\ y \neq x \\ }}\neg C_{y,i}))\land \bigwedge_{\substack{1 \leq j \leq k \\ i \neq j}}(\neg C_{x, j})))
+        \]
+        
+        \[
+        \varphi_{H, k}:= \varphi_{H, \leq k} \land \varphi_{H, =k}
+        \]
+    	$C_{x,i}$ wird mit 1 belegt, wenn $x \in (N_H(u) \cap N_H(v))$ mit $i$ gefärbt wird.\\
+    	
+        $\varphi_{H, \leq k}$ prüft für jede Kante $\{u, v\} \in E(H)$, ob dessen Nachbarschaft $\leq k$-nachbarschaftsfärbbar ist, mit mindestens k $=$ 1. 
+        Die erste große Verundung iteriert über alle Kanten $\{u, v\}\in E(H)$. Die zweite große Verundung iteriert über die Nachbarschaft der betrachteten Kante und die große Veroderung iteriert über unser $i$. Dann prüfen wir, ob es ein $1 \leq i \leq k$ gibt, sodass ein Knoten $x$ aus der Nachbarschaft mit $i$ gefärbt ist, wenn gilt, dass kein weiterer Knoten $y$ aus der Nachbarschaft mit $i$ gefärbt ist, und $x$ nur eine Farbe besitzt.
+        
+        $\varphi_{H. = k}$ prüft, ob es mindestens eine Nachbarschaft gibt, die genau $k$-nachbarschaftsfärbbar ist. Dazu iterieren wir diesmal mit einer großen Veroderung über alle Kanten $\{u, v\}\in E(H)$. Danach  iterieren wir von 1 bis $k$ und iterieren über alle Knoten $x$ aus der Nachbarschaft und prüfen für jedes $k$, ob es einen Knoten $x$ aus der Nachbarschaft gibt, der mit dem betrachteten $i$ gefärbt ist und kein weiterer Knoten $y$ aus der Nachbarschaft mit $i$ gefärbt ist, und $x$ nur eine Farbe besitzt.
+        
+        In $\varphi_{H, k}$ verunden wir $\varphi_{H, \leq k}$ und $\varphi_{H, =k}$. Somit prüft $\varphi_{H, k}$ für jede Kante, ob deren Nachbarschaft $\leq k$-nachbarschaftsfärbbar ist, und es mindestens eine Kante gibt, deren Nachbarschaft genau $k$-nachbarschaftsfärbbar ist. Somit wird $\varphi_{H, k}$ erfüllt, wenn $H$ $k$-nachbarschaftsfärbbar ist.
+    	
+    	Sei $\beta$ eine Belegung, die $\varphi_{H, k}$ erfüllt. Dann definieren wir folgende $k$-Nachbarschaftsfärbung $c$:
+    
+    	Wir setzen $c(x) := i$, wenn $\varphi_{H, k}$ erfüllt wird und wenn in $\varphi_{H, \leq k}$ im Schritt für $x$ in der zweiten großen Verundung die große Veroderung für $i$ mit 1 ausgewertet wird.\\
+    	
+    	Sei $c$ eine $k$- Nachbarschaftsfärbung auf $H$. Wir definieren eine erfüllende Belegung $\beta$ für $\varphi_{H, k}$ wie folgt
+    	
+    	$\beta(\bigvee_{\substack{i = 1}}^k (C_{x,i} \land (\bigwedge_{\substack{y \in (N_H(u) \cap N_H(v)) \\ y \neq x \\ }}\neg C_{y,i})) \land \bigwedge_{\substack{1 \leq j \leq k \\ i \neq j}}(\neg C_{x, j})) = 1$ aus $\varphi_{H, \leq k}$, \\
+    	wenn $c(x) = i$, sonst $0$, für alle $\{u,v\} \in E(H)$ und $x\in (N_H(u) \cap N_H(v))$\\
+    	
+    	und\\
+    	
+    	$\beta(\bigwedge_{\substack{i=1}}^k(
+        \bigvee_{\substack{x \in (N_H(u) \cap N_H(v))}}(C_{x,i} \land (\bigwedge_{\substack{y \in (N_H(u) \cap N_H(v)) \\ y \neq x \\ }}\neg C_{y,i}))\land \bigwedge_{\substack{1 \leq j \leq k \\ i \neq j}}(\neg C_{x, j}))) = 1$ aus $\varphi_{H, = k}$,\\
+        wenn $|N_G(u) \cap N_G(v)| = |\{c(w) | w \in N_G(u) \cap N_G(v)\}| = k$, sonst $0$,\\
+        für alle $\{u,v\} \in E(H)$ und $x\in (N_H(u) \cap N_H(v))$\\
+        Wenn das für mindestens eine Nachbarschaft gilt, so wird $\varphi_{H, =k}$ erfüllt.\\
+        
+        Somit erfüllt eine $k$-Nachbarschaftsfärbung $c$ auf $H$
+        $\varphi_{H, k}$.
+    	
+    	\item
+    	Zu zeigen: \\
+    	Wenn jeder endliche Teilgraph $G'$ von $G$ eine $k$-Nachbarschaftsfärbung besitzt (B),\\
+    	dann ist $G$ $k$-nachbarschaftsfärbbar (A).\\
+    	
+    	(B) $=>$ (A):\\
+    	Sei $\Phi := \{\varphi_{G',k} | G' \subseteq G, \text{wobei $G'$ endlich ist} \}$.\\
+        Außerdem sei $\Phi' \subseteq \Phi$ eine endliche Teilmenge von $\Phi$.\\
+        Sei $U:= \bigcup\limits_{\varphi_{G', k} \in \Phi'} V(G) $ \\ 
+        
+        Da $U$ endlich ist, können wir hiermit den endlichen Graphen \\
+        $L := G[U] = (U,\{\{v,w\} | u,v \in U \text{ und } v,w \in E(G)\})$ definieren.\\
+        
+        Laut (B) besitzt $L$ eine $k$-Nachbarschaftsfärbung c$_L$. \\
+        Diese können wir in eine Belegung $\beta'$ übersetzten, die $\varphi_{L, k}$ erfüllt.\\
+        Da jedes $G'$ mit $\varphi_{G'} \in \Phi'$ auch ein Teilgraph von $L$ ist, folgt daraus, dass $\beta' \models \Phi'$. Also ist $\Phi'$ erfüllbar.
+        Laut dem KHS ist also $\Phi$ erfüllbar.
+        
+ 
+        
+    \end{enumerate}
+\end{aufgabe}
+
+
+
+\end{document}

@@ -1,0 +1,280 @@
+\documentclass[10pt,a4paper,ngerman]{scrartcl}
+
+%%% Eine Erklärung der meisten eingebundenen Pakete finden sie in der LaTeX-Vorlage für die freiwilligen Hausaufgaben.
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black!20!blue,
+	citecolor=black!20!blue,
+	urlcolor=black!20!blue
+}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ebproof}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{forloop}
+\usepackage{MnSymbol}
+\usepackage[noend]{algpseudocode}
+\usepackage[noabbrev]{cleveref}
+
+\usetikzlibrary{calc,through,arrows,automata,decorations.pathmorphing,decorations.pathreplacing,shapes,backgrounds,fit,positioning,shapes.geometric,patterns}
+\tikzset{inner sep = 2pt,
+	vertex/.style={
+		radius=8pt,
+		circle,
+		minimum size=6pt,
+		fill=black,
+		draw=black
+		},
+	triangle/.style={
+		regular polygon,
+		regular polygon sides=3,
+		inner sep=2pt,
+		fill=red,
+		draw=red
+		},
+	square/.style={
+		regular polygon,
+		regular polygon sides=4,
+		inner sep=2pt,
+		fill=red,
+		draw=red
+		},
+	->/.style={-latex,
+		line width = 1,
+		shorten >= 2pt, shorten <= 0pt
+		},
+	<-/.style={latex-,
+		line width = 1,
+		shorten >= 0pt, shorten <= 2pt
+		},
+	-/.style={
+		line width=0.8
+		}
+}
+
+\usepackage{xstring}
+\usepackage{xspace}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=(\roman*)}
+
+
+%%% Zusätzliche Befehle %%%
+\DeclareMathOperator{\fvs}{fvn}
+\DeclareMathOperator{\dege}{degeneracy}
+\DeclareMathOperator{\mc}{mc}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\ggT}{ggT}
+\newcommand{\N}{\ensuremath{\mathds{N}}}
+\newcommand{\Z}{\ensuremath{\mathds{Z}}}
+\newcommand{\Q}{\ensuremath{\mathds{Q}}}
+\newcommand{\R}{\ensuremath{\mathds{R}}}
+\newcommand{\Mod}{\operatorname{mod}}
+% Makros für Induktionsbeweise
+\newenvironment{induktion}
+{
+	\newif\ifIA
+	\newif\ifIV
+	\newif\ifIS
+	\IAfalse
+	\IVfalse
+	\ISfalse
+}
+{
+	\ifIA
+	\else
+	\errmessage{Der Induktionsanfang fehlt}
+	\fi
+	\ifIV
+	\else
+	\errmessage{Die Induktionsvoraussetzung fehlt}
+	\fi
+	\ifIS
+	\else
+	\errmessage{Der Induktionsschritt fehlt}
+	\fi
+}
+\newcommand{\InduktionsAnfang}[1][]{\IAtrue \noindent\textbf{IA:} #1\\}
+\newcommand{\InduktionsVoraussetzung}[1][]{\IVtrue \noindent\textbf{IV:} #1\\}
+\newcommand{\InduktionsSchritt}[1][]{\IStrue \noindent\textbf{IS:}
+	\ifx\relax #1\relax
+	\else
+	zu zeigen: #1
+	\fi\\}
+% Kiste für die Punkte der Teilaufgaben
+	\newcounter{Iterator}
+	\newcounter{Aux}
+\newcommand{\PunkteKiste}[1]{%
+	\newcommand{\CellHeight}{1}
+	\newcommand{\CellWidth}{1.15}
+	\begin{tikzpicture}
+		\setcounter{Aux}{#1}
+		\stepcounter{Aux}
+		\forloop{Iterator}{1}{\value{Iterator} < \value{Aux}}{
+			\node (v) at (\CellWidth * \value{Iterator}-0.07, \CellHeight+0.3) {({\roman{Iterator}})};%
+			\draw[line width=0.5pt] (\CellWidth * \value{Iterator}+0.5, \CellHeight) -- (\CellWidth * \value{Iterator}+0.5,0);
+			}
+		\node (f) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {Form};
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\stepcounter{Aux}
+		\node (s) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {$\sum$};
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (0.5 * \CellWidth, \CellHeight);
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, \CellHeight) -- (\CellWidth*\value{Aux}+0.5,\CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (\CellWidth*\value{Aux}+0.5,0);
+	\end{tikzpicture}
+	}
+% Aufgabe Umgebung
+\newcounter{aufgabeNum}
+\newenvironment{aufgabe}[1]
+{
+
+	\noindent\textbf{\underline{Aufgabe 3}}\hfill\PunkteKiste{#1}
+
+}
+{}
+
+
+%%% ANFANG DECKBLATT %%%
+
+\begin{document}
+\noindent
+\noindent \large SoSe 2022 \hfill
+Diskrete Strukturen
+
+\begin{center}
+\textbf{Hausaufgabe 1 Aufgabe 3}\\
+\vspace*{0.5cm}
+\textbf{Gruppe:} 457818, 410265, 456732, 392210 % Tragen Sie hier die Matrikelnummern der Mitglieder Ihrer Gruppe ein.
+
+\end{center}
+
+\newpage
+
+%%% ENDE DECKBLATT %%%
+
+% Lösung zur Aufgabe 3
+\begin{aufgabe}{4}
+	\begin{enumerate}
+		\item Wir wollen die Aussage widerlegen und geben ein Gegenbeispiel an.
+		
+		Betrachten wir folgenden Graphen:
+		\begin{center}
+		    \begin{tikzpicture}
+		    	\node[circle, draw] (a) at (0,4.4) {};
+		        \node[circle, draw] (b) at (-1.666,3) {} edge(a);
+		        \node[circle, draw] (c) at (-1,1) {} edge(b) edge(a);
+		        \node[circle, draw] (d) at (1,1) {} edge(c) edge(b) edge(a);
+		        \node[circle, draw] (e) at (1.666,3) {} edge(d) edge(a) edge(c) edge(b);
+		        
+		        \node[circle, draw] (a1) at (-4,4.4) {};
+		        \node[circle, draw] (b1) at (-5.666,3) {} edge(a1);
+		        \node[circle, draw] (c1) at (-5,1) {} edge(b1) edge(a1);
+		        \node[circle, draw] (d1) at (-3,1) {} edge(c1) edge(b1) edge(a1);
+		        \node[circle, draw] (e1) at (-2.334,3) {} edge(d1) edge(a1) edge(c1) edge(b1);
+		        
+		        \node[circle, draw] (a) at (4,4.4) {};
+		        \node[circle, draw] (b) at (2.334,3) {} edge(a);
+		        \node[circle, draw] (c) at (3,1) {} edge(b) edge(a);
+		        \node[circle, draw] (d) at (5,1) {} edge(c) edge(b) edge(a);
+		        \node[circle, draw] (e) at (5.666,3) {} edge(d) edge(a) edge(c) edge(b);
+		        
+		        \node[circle, draw] (a) at (0,0.4) {};
+		        \node[circle, draw] (b) at (-1.666,-1) {} edge(a);
+		        \node[circle, draw] (c) at (-1,-3) {} edge(b) edge(a);
+		        \node[circle, draw] (d) at (1,-3) {} edge(c) edge(b) edge(a);
+		        \node[circle, draw] (e) at (1.666,-1) {} edge(d) edge(a) edge(c) edge(b);
+		        
+		        \node[circle, draw] (a) at (-4,0.4) {};
+		        \node[circle, draw] (b) at (-5.666,-1) {} edge(a);
+		        \node[circle, draw] (c) at (-5,-3) {} edge(b) edge(a);
+		        \node[circle, draw] (d) at (-3,-3) {} edge(c) edge(b) edge(a);
+		        \node[circle, draw] (e) at (-2.334,-1) {} edge(d) edge(a) edge(c) edge(b);
+		        
+		        \node[circle, draw] (a) at (4,0.4) {};
+		        \node[circle, draw] (b) at (2.334,-1) {} edge(a);
+		        \node[circle, draw] (c) at (3,-3) {} edge(b) edge(a);
+		        \node[circle, draw] (d) at (5,-3) {} edge(c) edge(b) edge(a);
+		        \node[circle, draw] (e) at (5.666,-1) {} edge(d) edge(a) edge(c) edge(b);
+		        
+		        \node[] at (-7,0.5) {$G:$};
+		    \end{tikzpicture} \\
+		\end{center}
+		Der Graph $G$ besteht aus sechs Zusammenhangskomponenten (ZK) und jede ZK entspricht dem Graphen $K_5$.
+		Für den kompletten Graph $K_5$ beträgt $\text{fvn}(K_5)=3$ und $\text{mc}(K_5)=5$. Da in unserem Graphen $G$ jede ZK dem $K_5$ entspricht, bleibt der größte komplette Teilgraph von $G$ eine der sechs ZKen (den $K_5$) und somit gilt $\text{mc}(G)=5$.
+		
+		Anders wiederum ist es bei $\text{fvn}(G)$. Damit aus $G$ ein Wald wird, muss jede der ZKen aus $G$ ein Baum sein. Damit aus einem $K_5$ ein Baum wird, müssen wir $3$ Knoten aus dem $K_5$ entfernen, weshalb $\text{fvn}(K_5)=3$ gilt. Da $G$ sechs ZKen enthält, die alle $K_5$ entsprechen, muss man nun $\text{fvn}(G) = 6 \cdot \text{fvn}(K_5) = 6 \cdot 3 = 18$. Es gilt also $\text{fvn}(G) = 18 \geq 15 = 3 \cdot \text{mc}(G)$.
+		
+		Somit ist die Aussage falsch.
+		
+		\item Wir zeigen, dass die Formel gilt.
+		
+		Sei $G$ ein beliebiger Graph.
+		
+		\glqq$\Rightarrow$\grqq{}: Nehmen wir an, dass $mc(G) = n$ ist. Daraus folgt, dass es in dem Graphen $G$ einen Subgraph gibt, der $K_n$ entspricht. Da wir einen Subgraph erhalten haben, der einem vollständigen Graphen entspricht, so gilt für jeden Knoten $v$ dieses Subgraphen, dass $deg_G(v) = deg_{K_n}(v) = n-1$. 
+		
+		Da unser gefundenes $K_n$ ein Teilgraph von $G$ ist und es in diesem keinen Knoten mit kleinerem Grad als $n-1$ gibt, kann $degeneracy(G)$ per Definition nicht kleiner als $n-1$ sein. Es folgt daraus: $degeneracy(G) \geq n-1$. Somit gilt $mc(G) = n = n - 1 + 1 \leq degeneracy(G) + 1$ und  die Gleichung ist erfüllt.
+		\\
+		\glqq$\Leftarrow$\grqq{}:
+        Nehmen wir an, dass $degeneracy(G) = n$ gilt. Aus der Definition von $degeneracy()$ folgt dann, dass es keine zwei Knoten $u,v$ geben darf, die inzident zueinander sind und den Grad $deg_G(v) = deg_G(u) = n+1$ besitzen, da $degeneracy(G)$ sonst zu $n+1$ auswerten würde. 
+        
+        Nach der Definition würden wir somit jeden vollständigen Subgraph verbieten, der größer als $K_{n+1}$ sein würde. Der Graph $K_{n+1}$ würde dafür sorgen, dass $mc(G) = n+1$ gilt, wodurch die Gleichung weiterhin erfüllt sein würde. Da es also nicht möglich ist, einen höheren $mc()$ Wert und damit einen größeren kompletten Subgraph zu bilden, ist die Gleichung erfüllt.
+        
+		Somit ist bewiesen, dass die Gleichung stimmt.
+		
+		\item 
+        Betrachten wir den folgenden ungerichteten Graphen $G = (V,E)$: 
+		\begin{center}
+		    \begin{tikzpicture}
+		    	\node[circle, draw] (a) at (0,2) {1};
+		        \node[circle, draw] (b) at (2,2) {2} edge(a);
+		        \node[circle, draw] (c) at (4,2) {3} edge(b);
+		        \node[circle, draw] (d) at (0,0) {4} edge(c) edge(a);
+		        \node[circle, draw] (e) at (2,0) {5} edge(d) edge(b);
+		        \node[circle, draw] (f) at (4,0) {6} edge(a) edge(c) edge(e);
+		        
+		        \node[] at (-1,1) {$G:$};
+		    \end{tikzpicture}
+		\end{center}
+		\begin{align*}
+		    &V = \{1,2,3,4,5,6\} \\
+            &E = \{\{1,2\}, \{1,4\}, \{1,6\}, \{2,3\}, \{2,5\}, \{3,4\}, \{3,6\}, \{4,5\},\{5,6\}\}
+		\end{align*}
+		Für jeden Knoten $v \in V$ gilt $\text{deg}_G(v) = 3$. In dem durch alle Knoten aus G induzierten Teilgraphen, gibt es somit keinen Knoten $v_*$ mit $deg(v_*) \leq 3$.  Demnach ist die \textit{degeneracy} von $G$ gleich 3 , also gilt $\text{degeneracy}(G)=3$. 
+		
+		Nehmen wir uns drei beliebige Knoten $u,v,w \in V$ mit $\{u,v\} \in E$ und $\{u,w\} \in E$, so ist $\{v,w\} \not\in E$. Es gibt also kein Teilgraph $D$ von $G$ der isomorph zu $K_3$ ist, weshalb es auch keine Clique der Größe $3$ geben kann. Nach der graphischen Darstellung bilden die Knoten $1,2 \in V$ aber eine Clique der Größe $2$, also gilt $\text{mc}(G)=2$.
+		
+		Es folgt $\text{degeneracy}(G)=3 \geq 2=\text{mc}(G)$. Somit ist die Aussage falsch.
+        
+		\item Sei $G = (V,E)$ ein Graph mit $degeneracy(G) = n$. \\
+		Laut der Definition von $degeneracy()$ gibt es  in jedem Teilgraph von $G$ ein Knoten $v \in V$ mit dem Grad  $deg(v) \leq n$. Außerdem muss es mindestens einen Teilgraphen $T = (V_T,E_T)$ von G geben, in dem für jeden Knoten $w \in V_T$ gilt: $deg(w) < deg(v) = n$. Würde es in jedem Teilgraph mindestens eine n Knoten mit Grad kleiner als n geben, würde per Definition nicht $degeneracy(G) = n$ gelten. Es gilt damit auch $degeneracy(T) = degeneracy(G)$.  \\
+        \\
+        Zeigen wir zunächst, dass die Aussage für $degeneracy(G) = 1$ gilt. \\ Wenn dies gilt, dann gibt es für T zwei Fälle: \\
+        1.Fall: T ist kreisfrei. Dann müssen wir keinen Knoten löschen, damit T ein Wald wird. Das heißt $fvn(T) = 0$. Es gilt $degeneracy(T) = degeneracy(G) = 1 = 0 + 1 \leq fvn(T) + 1 $ \\
+        2.Fall: In T gibt es mindestens einen Kreis. Das bedeutet $fvn(T) \leq 1 $, woraus sich schlussfolgern lässt: $ degeneracy(T) = degeneracy(G) = 1 \leq fvn(T) + 1$. \\
+        \\
+		Für $degeneracy(G) \geq 2$ muss $T$  mindestens einen Kreis enthalten, da es in $T$ keinen Knoten $w$ mit Grad $deg(w) \leq 2$ gibt und T somit keine Blätter besitzt. Aus der Definition von $fvn(G)$ wissen wir, dass nach dem Löschen von $k$ Knoten mit $fvn(G)= k$ der Teilgraph $T$ kreisfrei sein muss.\\
+		\\
+		Nehmen wir an es gilt $fvn(T) < degeneracy(T)-1 = degeneracy(G) -1$. \\
+		Wir wissen, dass jeder Knoten $w \in V_T$ den Grad $deg(w) \geq degeneracy(G)$ besitzt und das für mindestens ein Knoten $w* \in T_V$  $deg(w*) = degeneracy(G)$ gelten muss. Wenn wir einen beliebigen Knoten $l \in V_T$ löschen, dann verringert sich der Grad eines jeden Nachbarns um $1$, da für jeden zu $l$ adjazenten Knoten die Kante zu $l$ entfernt wird. \\
+		Laut Annahme können wir maximal $fvn(G) = degeneracy - 2$ viele Knoten löschen. \\
+		Wenn wir nun nur Knoten löschen, die adjazent zu $w*$ sind, dann hat dieser nach Löschung $deg(w*) = degeneracy(G) - (degeneracy(G) - 2) = 2$. \\
+		Nach Definition von $T$ gilt aber für alle anderen Knoten $w$: \\
+		$deg(w) \geq deg(w*) = 2$ nach Löschung. \\
+		Demnach muss es in T nach der Löschung immernoch einen Kreis geben, da alle verbliebenen Knoten einen Grad größer als 2 haben. Dies ist ein Widerspruch aus der Definition von $fvn()$. Damit muss gelten: \\
+        $degerneracy(T) - 1 = degeneracy(G) - 1 \leq fvn(T) \Leftrightarrow degeneracy(G) \leq fvn(T) + 1$ \\
+        \\
+        G kann außerdem noch andere Teilgraphen verschieden von T besitzen. Die Definition von $degeneracy(G)$ verlangt nur die Existenz eines Teilgraphen von T und das es keinen Teilgraphen von G gibt, in dem alle Knoten einen höheren Grad als $n$ haben. Das bedeutet, dass diese Teilgraphen Kreise enthalten können, die nicht in T enthalten sind oder auch keine weiteren Kreise. Aus der Definition von $fvn$ folgt somit: $fvn(T) \leq fvn(G)$. \\
+        Damit gilt: \\
+		$ degeneracy(G)  \leq   fvn(T) + 1 \leq  fvn(G) + 1 $
+	\end{enumerate}
+\end{aufgabe}
+\end{document}

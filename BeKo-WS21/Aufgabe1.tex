@@ -1,0 +1,146 @@
+\documentclass[a4paper,onecolumn,oneside,12pt,ngerman]{article}
+
+\usepackage[ngerman]{babel} % language
+\usepackage[utf8]{inputenc} % encoding
+\usepackage{amsmath,amsfonts,amssymb,amsthm} % mathematical expression, symbols, fonts, and the whole theorem environment engine
+\usepackage{xcolor,graphicx} % graphics and colorings
+\usepackage{tabularx,booktabs,multirow} % all about tables: booktabs gives the standard formatting, multirow allows cells to span over multiple rows.
+\usepackage{scrextend} % super powerful tool that helps a bit with everything
+\usepackage[margin=0pt]{subcaption} % specific form for captions
+\usepackage[autostyle]{csquotes} % helper for quoting
+
+\usepackage{rotating} % if you want to rotate any object
+
+%=========== graphics, in particular tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,decorations.pathreplacing,backgrounds,positioning,fit,matrix}
+\usetikzlibrary{shapes,calc}
+
+
+%=========== Pseudocode
+\usepackage[linesnumbered,german]{algorithm2e}
+
+%=========== \cref is a powerfull command that automatically states the current environment (e.g. Theorem, Lemma, etc.)
+\usepackage[sort&compress,nameinlink,noabbrev,capitalize]{cleveref}
+
+
+%===========theorem environment
+\theoremstyle{plain} % typical theorem-style (bold header, italic font)
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Korollar}
+\newtheorem{observation}[theorem]{Beobachtung}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{rrule}{Reduktionsregel}[section]
+
+\crefname{rrule}{Reduktionsregel}{Reduktionsregeln} % how cleverref (\cref) has to handle these environments
+\Crefname{rrule}{RR}{RRs} % with \Cref us can use what you defined here---somtimes useful if you want to abbreviate environment when citing (e.g. in tables or figures)
+
+\theoremstyle{definition} % typical definition-style (bold header, normal font)
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark} % typical theorem-style (italic header, normal font)
+\newtheorem{example}{Example}
+\newtheorem*{remark}{Remark}
+\newtheorem{reduction}{Reduction}
+\theoremstyle{plain}
+
+%===========problem definition evironment: gets three arguments (1) problem name #1 (2) input specification #2 (3) question specification #3
+\newcommand{\problemdef}[3]{
+  \begin{center}
+    \begin{minipage}{0.95\textwidth}
+      \noindent
+      \textsc{#1}
+      
+      \vspace{2pt}
+      \setlength{\tabcolsep}{3pt}
+      \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \textbf{Eingabe:} 		& #2 \\
+        \textbf{Frage:} 	& #3
+      \end{tabularx}
+    \end{minipage}
+  \end{center}
+}
+
+
+
+%=========== Nützliche Abkürzungen
+\newcommand{\NN}{\mathbb{N}} % natürliche Zahlen
+\newcommand{\RR}{\mathbb{R}} % reelle Zahlen
+\newcommand{\QQ}{\mathbb{Q}} % rationale Zahlen
+\newcommand{\ZZ}{\mathbb{Z}} % ganze Zahlen
+
+\title{Hausarbeit im Modul \glqq Berechenbarkeit und Komplexität\grqq\\
+\Large{Aufgabe 1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ab hier können Sie das Dokument verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hier können noch weitere \usepackage{}-Befehle eingebunden werden.
+
+\author{Giulia Benta | Jannik Novak | Tobias Phillip Rimkus} % Hier bitte Ihren Namen eintragen
+
+\begin{document}
+
+\selectlanguage{ngerman}
+
+\maketitle
+
+\section*{Eigenschaften berechenbarer Funktionen}\
+\begin{itemize}   
+    \item[a)]
+    Sei $f(n)$ eine beliebige totale Funktion:
+    \begin{align*}
+        f : \NN &\to \NN \\
+        n &\mapsto f(n)
+    \end{align*}
+    Es existieren unendlich viele konstante Funktionen:
+    \begin{align*}
+        g_{i} : \NN &\to \NN \\
+        n &\mapsto f(n_{i}) + 1, {n_i} \in \NN, beliebig fest
+    \end{align*}
+
+    die größer als $f(n)$ an jeder beliebigen Stelle $n_i$ sind.
+    
+    $g_{i}(n)$ ist konstant\\$\implies$ $g_{i}(n)$ ist berechenbar\\$\implies$Es existiert keine totale Funktion die größer als alle berechenbaren totalen Funktionen ist.
+    
+    \item[b)]
+Wir betrachten die Busy Beaver Funktion. 
+    Für alle Werte $n \geq 4 = n_0$ nimmt die Busy Beaver Funktion so hohe Werte an, dass sie  nicht mehr berechenbar ist. \footnote{Quelle: https://formal.kastel.kit.edu/\~{}beckert/teaching/TheoretischeInformatik-SS07/110707.pdf  Seite 8}
+    
+    Außerdem ist die BB Funktion streng monoton, d.h. für alle $n \in \NN$ und somit auch für alle $n \geq n_0$ gilt:
+    \begin{align*}
+        BB(n+1) > BB(n)
+    \end{align*}
+    Somit ist die BB Funktion ab dem Wert $n_0$ größer als alle berechenbaren totalen Funktionen, da sie streng monoton steigt und ab $n_0$ nicht mehr berechenbar ist.\\$\implies$Es existiert eine totale Funktion die fast größer als alle berechenbaren totalen Funktionen ist.
+    \item[c)]
+    Sei $f(n)$ eine beliebige totale und berechenbare Funktion:
+    \begin{align*}
+        f : \NN &\to \NN \\
+        n &\mapsto f(n)
+    \end{align*}
+    und $g(n)$ eine beliebige totale und unberechenbare Funktion:
+    \begin{align*}
+        g : \NN &\to \NN \\
+        n &\mapsto g(n)
+    \end{align*}
+    
+    Wenn $f(n)$ und $g(n)$ fast gleich sind, dann existiert $n_0$, sodass $f(n) = g(n)$ für alle $n > n_0$ .\\$\implies$ Für $n > n_0$ ist $g(n)$ auch berechenbar, weil $g(n) = f(n)$ für alle $n > n_0$ und f(n) ist berechenbar. 
+     
+     Für $0 \leq n \leq n_0$ nimmt die Funktion $g(n)$ endlich viele Werte an.\\ $g(n)$ heißt unberechenbar falls unendlich viele $n$ existieren, sodass $g(n)$ nicht berechenbar.\\$\implies$ Widerpruch und somit existieren nicht $f$ und $g$, sodass $f$ und $g$ fast gleich sind.
+    \item[d)]
+    Wir betrachten das spezielle Halteproblem:
+    \begin{align*}
+	K = \{w\, | \,M_w\, haelt\, auf\, w\}
+    \end{align*}
+    
+    Es existieren unendlich viele Turingmaschinen $M_w$, die halten.\\$\implies$ Die unberechenbare charakteristische Funktion des speziellen Halteproblems, welche zu 1 auswertet wenn ein Wort in K ist und zu 0 auswertet wenn ein Wort nicht in K ist, hat unendlich oft den Funktionswert 1.
+    
+    Dazu, sei die konstante Funktion $g(n)$:
+    \begin{align*}
+        g: \NN &\to \NN \\
+        n &\mapsto 1
+    \end{align*}
+    eine totale berechenbare Funktion die immer zu 1 auswertet.\\ $\implies$ die Funktionen sind unendlich oft gleich.\\$\implies$ Es existiert eine totale berechenbare und eine totale unberechenbare Funktion die oft gleich sind.
+\end{itemize}
+\end{document}

@@ -1,0 +1,198 @@
+\documentclass[10pt,a4paper]{scrartcl}
+
+%%% Eine Erklärung der meisten eingebundenen Pakete finden sie in der LaTeX-Vorlage für die freiwilligen Hausaufgaben.
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black!20!blue,
+	citecolor=black!20!blue,
+	urlcolor=black!20!blue
+}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ebproof}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{forloop}
+\usepackage{MnSymbol}
+\usepackage[noend]{algpseudocode}
+
+\usetikzlibrary{calc,through,arrows,automata,decorations.pathmorphing,decorations.pathreplacing,shapes,backgrounds,fit,positioning,shapes.geometric,patterns}
+
+\usepackage{xstring}
+\usepackage{xspace}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=(\roman*)}
+
+
+%%% Zusätzliche Befehle %%%
+\newcommand{\N}{\ensuremath{\mathds{N}}}
+\newcommand{\Z}{\ensuremath{\mathds{Z}}}
+\newcommand{\Q}{\ensuremath{\mathds{Q}}}
+\newcommand{\R}{\ensuremath{\mathds{R}}}
+\newcommand{\AL}{\ensuremath{\mathrm{AL}}\xspace}
+\newcommand{\AVAR}{\textsc{AVar}}
+\newcommand{\VAR}{\textsc{Var}}
+\newcommand{\EF}{Ehrenfeucht-Fra\"{i}ss\'{e}\xspace}
+\newcommand*{\FO}[1]{\ifx\relax #1\relax
+	\ensuremath{\mathrm{FO}}\xspace
+	\else
+	\ensuremath{\mathrm{FO}[#1]}\xspace
+	\fi}
+\newcommand*{\Eval}[2]{\ensuremath{\left\llbracket #1 \right\rrbracket}^{#2}}
+\newcommand{\sequent}{\Rightarrow}
+\newcommand*{\axiom}[2]{\overline{#1 \overset{\phantom{.}}{\sequent} #2}}
+% Makros für Induktionsbeweise
+\newenvironment{induktion}
+{
+	\newif\ifIA
+	\newif\ifIV
+	\newif\ifIS
+	\IAfalse
+	\IVfalse
+	\ISfalse
+}
+{
+	\ifIA
+	\else
+	\errmessage{Der Induktionsanfang fehlt}
+	\fi
+	\ifIV
+	\else
+	\errmessage{Die Induktionsvoraussetzung fehlt}
+	\fi
+	\ifIS
+	\else
+	\errmessage{Der Induktionsschritt fehlt}
+	\fi
+}
+\newcommand{\InduktionsAnfang}[1][]{\IAtrue \noindent\textbf{IA:} #1\\}
+\newcommand{\InduktionsVoraussetzung}[1][]{\IVtrue \noindent\textbf{IV:} #1\\}
+\newcommand{\InduktionsSchritt}[1][]{\IStrue \noindent\textbf{IS:}
+	\ifx\relax #1\relax
+	\else
+	zu zeigen: #1
+	\fi\\}
+% Kiste für die Punkte der Teilaufgaben
+	\newcounter{Iterator}
+	\newcounter{Aux}
+\newcommand{\PunkteKiste}[1]{%
+	\newcommand{\CellHeight}{1}
+	\newcommand{\CellWidth}{1.15}
+	\begin{tikzpicture}
+		\setcounter{Aux}{#1}
+		\stepcounter{Aux}
+		\forloop{Iterator}{1}{\value{Iterator} < \value{Aux}}{
+			\node (v) at (\CellWidth * \value{Iterator}, \CellHeight+0.3) {({\roman{Iterator}})};%
+			\draw[line width=0.5pt] (\CellWidth * \value{Iterator}+0.5, \CellHeight) -- (\CellWidth * \value{Iterator}+0.5,0);
+			}
+		\node (f) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {Form};
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\stepcounter{Aux}
+		\node (s) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {$\sum$};
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (0.5 * \CellWidth, \CellHeight);
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, \CellHeight) -- (\CellWidth*\value{Aux}+0.5,\CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (\CellWidth*\value{Aux}+0.5,0);
+	\end{tikzpicture}
+	}
+% Aufgabe Umgebung
+\newcounter{aufgabeNum}
+\newenvironment{aufgabe}[1]
+{
+
+	\noindent\textbf{\underline{Aufgabe \refstepcounter{aufgabeNum}\arabic{aufgabeNum}}}\hfill\PunkteKiste{#1}
+
+}
+{}
+
+
+%%% ANFANG DECKBLATT %%%
+
+\begin{document}
+\noindent
+\noindent \large WiSe 21/22 \hfill
+Logik
+
+\begin{center}
+\textbf{Hausarbeit 2 Aufgabe 2}\\
+\vspace*{0.5cm}
+\textbf{Gruppe:} 402355, 392210, 413316, 457146  % Tragen Sie hier die Matrikelnummern der Mitglieder ihrer Gruppe ein.
+\end{center}
+
+\newpage
+
+%%% ENDE DECKBLATT %%%
+
+\section*{Lösungen}
+\setcounter{aufgabeNum}{1}
+\begin{aufgabe}{2}
+    \begin{enumerate}
+    	\item
+    	$\varphi_1$ fordert, dass es für jedes Element $a$ ein Element $b$ gibt, sodass $E(b,a)$ und $\neg E(a,a)$ gilt.\\
+    	$\varphi_2$ fordert, dass jedes Element $a$, das in Relation $E(a,b)$ steht, nur mit genau einem weiteren Element $b$ in Relation $E(a,b)$ steht.\\
+    	$\varphi_3$ fordert, dass die Relation $E(a,b)$ symmetrisch ist.\\
+    	$\varphi_4$ fordert, dass $F(a)$ gilt, genau dann wenn ein Element $a$ mit keinem Element $b$ in Relation $E(a,b)$ steht und dass ein Element $a$ mit keinem Element $b$ in Relation $E(a,b)$ steht, genau dann wenn $F(a)$ gilt.\\
+    	$\varphi_5$ fordert, dass gilt $E(a,b)$ und $E(c,d)$ mit $c \neq a$ und $c \neq b$, sodass für alle weiteren Elemente $e$, die nicht in $\{a, b, c, d\}$ enthalten sind, $F(e)$ gilt.\\
+    	
+    	endliches Modell: Wir interpretieren $E$ als eine symmetrische Kantenrelation, bei der die Kante in beide Richtungen gerichtet ist. Sei $\mathcal{A}$ eine $\sigma$-Struktur mit Universum 
+    	$A := \{1, 2, 3, 4\}$\\ 
+    	mit $E^\mathcal{A} = \{(1,2), (3,4)\}$ und $F^\mathcal{A} = \{\}$\\
+    	
+    	$\varphi_1$ wird erfüllt, da für jedes Element $a$ in unserem Universum gilt, es steht mit einem anderen Element $b$ in unserem Universum in einer nicht reflexiven Relation $E(a,b)$. Da wir $E$ als eine Kantenrelation interpretieren, bei der die Kante in beide Richtungen zeigt, gilt auch $E(b,a)$. Somit steht jedes Element $a$ mit einem anderen Element $b$ in Relation $E(a,b)$.\\
+    	$\varphi_2$ wird erfüllt, da jedes Element $a$ in unserem Universum nur mit genau einem weiteren Element $b$ in der symmetrischen Relation $E(a,b)$ steht.\\
+    	$\varphi_3$ wird erfüllt, da wir $E$ als symmetrische Kantenrelation interpretieren. Somit gilt für alle Elemente $a, b$ in unserem Universum, die in Relation $E(a,b)$ stehen, auch $E(b,a)$.\\
+    	$\varphi_4$ wird erfüllt, da $F^\mathcal{A}$ leer ist und somit wird $F(a)$ zu 0 ausgewertet für alle Elemente $a$ in unserem Universum gilt und da jedes $a$ in unserem Universum in einer Relation $E(a,b)$ mit einem weiteren Element $b$ steht. Somit werden beide Seiten der Biimplikation zu 0 ausgewertet und $\varphi_4$ wird erfüllt.\\
+    	$\varphi_5$ wird erfüllt, da wir vier untereinander unterschiedliche Elemente haben, die in Relation $E(1,2)$ und $E(3,4)$ stehen. Somit gibt es ein $a$ und ein $b$, sodass $E(a,b)$ und es gibt ein $c$ und ein $d$, sodass $E(c,d)$ mit $c \neq a$ und $c \neq b$. Da $F^\mathcal{A}$ leer ist, wird die rechte Seite der Implikation zu 0 ausgewertet und da wir kein fünftes Element $e$ im Universum haben, das nicht in der Menge $\{1, 2, 3, 4\}$ enthalten ist, wird die große Verorderung immer zu 1 ausgewertet und dann durch die Negation zu 0. Somit werden beide seiten der Implikation zu 0 ausgewertet und die Implikation dann zu 1 und $\varphi_5$ wird erfüllt.\\ 
+    	Die endliche $\sigma$-Struktur $\mathcal{A}$ erfüllt $\Phi$.\newpage
+    	
+    	Die Formelmenge $\Phi$ wird von keiner $\sigma$-Struktur mit weniger oder mehr als 4 Elementen erfüllt.\\
+    	$\varphi_5$ fordert, dass gilt $E(a,b)$ und $E(c,d)$ mit $c \neq a$ und $c \neq b$.\\
+    	Demnach haben wir 4 Elemente $\{a, b, c, d\}$, die in Relation $E(a,b)$ und $E(c,d)$ stehen.\\
+        
+        Aus den Interpretationen von $\varphi_1$, $\varphi_2$ und $\varphi_3$ folgt, dass jedes Element $a$, in genau einer symmetrischen, nicht reflexiven Relation $E(a,b)$ mit genau einem weiteren Element $b$ steht. Demnach müssen unsere 4 Elemente $a, b, c, d$ in $\varphi_5$ untereinander verschieden sein, da sie in den Relationen $E(a,b)$ und $E(c,d)$ stehen. Demnach benötigt unsere $\sigma$-Struktur mindestens 4 Elemente.\\
+    	Da jedes Element $a$ in einer symmetrischen, nicht reflexiven Relation $E(a,b)$ mit genau einem weiteren Element $b$ steht, folgt daraus, dass die linke Seite der Biimplikation in $\varphi_4$ immer zu 0 ausgewertet wird. Daraus folgt, dass $F(a)$  für jedes Element $a$ zu 0 ausgewertet werden muss, damit $\varphi_4$ erfüllt wird.\\
+    	Für $\varphi_5$ bedeutet das, dass die rechte Seite der Implikation immer zu 0 ausgewertet wird. Damit $\varphi_5$ erfüllt wird, muss die linke Seite der Implikation ebenfalls zu 0 ausgewertet werden. Dazu darf die große Veroderung nicht zu 0 ausgewertet werden, da sie sonst durch die Negation zu 1 ausgewertet wird. Das bedeutet, dass es kein Element $e$ geben darf, dass nicht in $\{a, b, c, d\}$ enthalten ist. Daraus folgt, dass wir nicht mehr als 4 Elemente im Universum haben dürfen.\\
+    	
+    	Daraus folgt, $\Phi$ kann nur mit einer $\sigma$-Struktur mit genau 4 Elementen erfüllt werden. Demnach besitzt $\Phi$ kein unendliches Modell.
+    	
+    	\item
+    	Angenommen es existiert eine Formel $\varphi \in$ FO$[\sigma]$ fuer die gilt: $\varphi(\mathcal{Q}) = \N$.\\
+    	Die Formel $\varphi$ waere wie folgt aufgebaut:\\
+    	
+    	Terme $\tau$:\\
+    	\bullet $x,y \in$ $\Q$\\
+    	\bullet $\odot_{\mathcal{Q}}(a,b)$, $a,b \in \tau$\\
+    	
+    	Formeln FO$[\sigma]$:\\
+    	\bullet $t $= $ t'$, $t,t' \in \tau$\\
+    	\bullet $\lnot \varphi$, $\varphi \in$ FO$[\sigma]$\\
+    	\bullet $\varphi * \psi$, $\varphi, \psi \in$ FO$[\sigma]$, $* \in \{\land, \lor, \rightarrow, \leftrightarrow\}$\\
+    	\bullet $\exists x \varphi(x), \forall y \varphi(y)$, $x,y \in$ $\Q$, $\varphi \in$ FO$[\sigma]$\\
+    	
+    	Wir betrachten im folgenden eine Fallunterscheidung fuer die atomaren Formeln $t = t'$.\\
+    	
+    	Fall 1: $t = x$, $t' = y$\\
+    	$t = t'$ ist erfuellt wenn $x = y$ gilt und erfuellbar fuer $x,y \in \Q$\\
+    	
+    	Fall 2: $t = x$, $t' = \odot_{\mathcal{Q}}(y,z)$\\
+    	$t = t'$ ist erfuellt wenn $x = y + z$ gilt und erfuellbar fuer $x,y,z \in \Q$\\
+    	
+    	Fall 3: $t = \odot_{\mathcal{Q}}(a,b)$, $t' = \odot_{\mathcal{Q}}(c,d)$\\
+    	$t = t'$ ist erfuellt wenn $a + b = c + d$ gilt und erfuellbar fuer $a,b,c,d \in \Q$\\
+        
+        Jede Formel $\varphi \in$ FO$[\sigma]$ wird aufbauend auf den atomaren Formeln konstruiert und es gelten somit die selben Erfuellbarkeiten.
+        Dies ist ein Widerspruch zu unserer Annahme, da wir somit keine Formel konstruieren koennen welche fuer alle $x \in \N$ jedoch fuer kein $y \in \Q \setminus \N$ erfuellbar ist.
+ 
+        
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}

@@ -1,0 +1,231 @@
+\documentclass[10pt,a4paper,ngerman]{scrartcl}
+
+%%% Eine Erklärung der meisten eingebundenen Pakete finden sie in der LaTeX-Vorlage für die freiwilligen Hausaufgaben.
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black!20!blue,
+	citecolor=black!20!blue,
+	urlcolor=black!20!blue
+}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ebproof}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{forloop}
+\usepackage{MnSymbol}
+\usepackage[noend]{algpseudocode}
+\usepackage[noabbrev]{cleveref}
+
+\usetikzlibrary{calc,through,arrows,automata,decorations.pathmorphing,decorations.pathreplacing,shapes,backgrounds,fit,positioning,shapes.geometric,patterns}
+\tikzset{inner sep = 2pt,
+	vertex/.style={
+		radius=8pt,
+		circle,
+		minimum size=6pt,
+		fill=black,
+		draw=black
+		},
+	triangle/.style={
+		regular polygon,
+		regular polygon sides=3,
+		inner sep=2pt,
+		fill=red,
+		draw=red
+		},
+	square/.style={
+		regular polygon,
+		regular polygon sides=4,
+		inner sep=2pt,
+		fill=red,
+		draw=red
+		},
+	->/.style={-latex,
+		line width = 1,
+		shorten >= 2pt, shorten <= 0pt
+		},
+	<-/.style={latex-,
+		line width = 1,
+		shorten >= 0pt, shorten <= 2pt
+		},
+	-/.style={
+		line width=0.8
+		}
+}
+
+\usepackage{xstring}
+\usepackage{xspace}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=(\roman*)}
+
+
+%%% Zusätzliche Befehle %%%
+\DeclareMathOperator{\fvs}{fvn}
+\DeclareMathOperator{\dege}{degeneracy}
+\DeclareMathOperator{\mc}{mc}
+\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\ggT}{ggT}
+\newcommand{\N}{\ensuremath{\mathds{N}}}
+\newcommand{\Z}{\ensuremath{\mathds{Z}}}
+\newcommand{\Q}{\ensuremath{\mathds{Q}}}
+\newcommand{\R}{\ensuremath{\mathds{R}}}
+\newcommand{\Mod}{\operatorname{mod}}
+% Makros für Induktionsbeweise
+\newenvironment{induktion}
+{
+	\newif\ifIA
+	\newif\ifIV
+	\newif\ifIS
+	\IAfalse
+	\IVfalse
+	\ISfalse
+}
+{
+	\ifIA
+	\else
+	\errmessage{Der Induktionsanfang fehlt}
+	\fi
+	\ifIV
+	\else
+	\errmessage{Die Induktionsvoraussetzung fehlt}
+	\fi
+	\ifIS
+	\else
+	\errmessage{Der Induktionsschritt fehlt}
+	\fi
+}
+\newcommand{\InduktionsAnfang}[1][]{\IAtrue \noindent\textbf{IA:} #1\\}
+\newcommand{\InduktionsVoraussetzung}[1][]{\IVtrue \noindent\textbf{IV:} #1\\}
+\newcommand{\InduktionsSchritt}[1][]{\IStrue \noindent\textbf{IS:}
+	\ifx\relax #1\relax
+	\else
+	zu zeigen: #1
+	\fi\\}
+% Kiste für die Punkte der Teilaufgaben
+	\newcounter{Iterator}
+	\newcounter{Aux}
+\newcommand{\PunkteKiste}[1]{%
+	\newcommand{\CellHeight}{1}
+	\newcommand{\CellWidth}{1.15}
+	\begin{tikzpicture}
+		\setcounter{Aux}{#1}
+		\stepcounter{Aux}
+		\forloop{Iterator}{1}{\value{Iterator} < \value{Aux}}{
+			\node (v) at (\CellWidth * \value{Iterator}-0.07, \CellHeight+0.3) {({\roman{Iterator}})};%
+			\draw[line width=0.5pt] (\CellWidth * \value{Iterator}+0.5, \CellHeight) -- (\CellWidth * \value{Iterator}+0.5,0);
+			}
+		\node (f) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {Form};
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\stepcounter{Aux}
+		\node (s) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {$\sum$};
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (0.5 * \CellWidth, \CellHeight);
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, \CellHeight) -- (\CellWidth*\value{Aux}+0.5,\CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (\CellWidth*\value{Aux}+0.5,0);
+	\end{tikzpicture}
+	}
+% Aufgabe Umgebung
+\newcounter{aufgabeNum}
+\newenvironment{aufgabe}[1]
+{
+
+	\noindent\textbf{\underline{Aufgabe \refstepcounter{aufgabeNum}\arabic{aufgabeNum}}}\hfill\PunkteKiste{#1}
+
+}
+{}
+
+
+%%% ANFANG DECKBLATT %%%
+
+\begin{document}
+\noindent
+\noindent \large SoSe 2022 \hfill
+Diskrete Strukturen
+
+\begin{center}
+\textbf{Hausaufgabe 1 Aufgabe 1}\\
+\vspace*{0.5cm}
+\textbf{Gruppe:} 457818, 410265, 456732, 392210 % Tragen Sie hier die Matrikelnummern der Mitglieder Ihrer Gruppe ein.
+
+\end{center}
+
+\newpage
+
+%%% ENDE DECKBLATT %%%
+
+% Lösung zur Aufgabe 1
+\begin{aufgabe}{4}
+	\begin{enumerate}
+		\item Es gilt
+		\begin{align*}
+		    & (x^2-4) \cdot (x^3-x) \cdot (7x^{13}-11x^{12}-7x+11) \\
+		    = \text{ } & (x^5-x^3-4x^3+4x) \cdot (7x^{13}-11x^{12}-7x+11) \\
+		    = \text{ } & (x^5-5x^3+4x) \cdot (7x^{13}-11x^{12}-7x+11) \\
+		    = \text{ } & 7x^{18} - 11x^{17} - 7x^6 + 11x^5 - 35x^{16} + 55x^{15} + 35x^4 - 55x^3 + 28x^{14} - 44x^{13} - 28x^2 + 44x \\
+		    = \text{ } & 7x^{18} - 11x^{17} - 35x^{16} + 55x^{15} + 28x^{14} - 44x^{13} - 7x^6 + 11x^5 + 35x^4 - 55x^3 - 28x^2 + 44x \\
+		    = \text{ } & p(x).
+		\end{align*}
+		\item \glqq$\Rightarrow$\grqq{}: Sei $p(x) \equiv 0$ (mod 390). \vspace*{3mm}\\
+		 Nach dem Satz aus VL 06 // S. 131 existiert ein $k \in \mathds{Z}$, sodass $p(x) = k \cdot 390$ gilt.\\ 
+		Mit der Definition aus VL 06 // S. 113 gilt $390~|~p(x)$. \vspace*{2mm} \\
+		Es gilt
+		\begin{align*}
+		    390 = 2 \cdot 195,~~390 = 3 \cdot 130,~~390 = 5 \cdot 78 \text{ }\text{ und }\text{ } 390 = 13 \cdot 30,
+		\end{align*}
+		womit nach der Definition aus VL 06 // S. 113 auch
+		\begin{align*}
+		    2~|~390,~~3~|~390,~~5~|~390 \text{ }\text{ und }\text{ } 13~|~390
+		\end{align*}
+		gilt. Mit dem Satz aus VL 06 // S. 114 Nr. 3 folgt
+		\begin{align*}
+		    2~|~p(x),~~3~|~p(x),~~5~|~p(x) \text{ }\text{ und }\text{ } 13~|~p(x).
+		\end{align*}
+		
+		\glqq$\Leftarrow$\grqq{}: Es gelte $2$ $|$ $p(x)$,~ $3$ $|$ $p(x)$,~ $5$ $|$ $p(x)$ und $13$ $|$ $p(x)$. \vspace*{3mm}\\
+		Da nach dem Fundamentalsatz der Arithmetik (VL 06 // S. 116) jede natürliche Zahl $n \geq 2$ eindeutig als Produkt von Primzahlen dargestellt werden kann und die (ganzen) Zahlen $2,~3,~5,~13$ paarweise relativ prim zueinander sind, gilt
+		\begin{enumerate}
+		    \item Aus $2~|~p(x),~3~|~p(x)$ und ggT$(2,3)=1$ folgt $6~|~p(x)$.
+		    \item Aus $5~|~p(x),~6~|~p(x)$ und ggT$(5,6)=1$ folgt $30~|~p(x)$.
+		    \item Aus $13~|~p(x),~30~|~p(x)$ und ggT$(13,30)=1$ folgt $390~|~p(x)$.
+		\end{enumerate}
+		Nach der Definition aus VL 06 // S. 130 gilt $p(x) \equiv 0 ~(\text{mod }390)$.
+		\item Wir zerlegen $p(x)$ noch stärker in einzelne Faktoren, also
+		\begin{align*}
+		    p(x) &= (x^2-4) \cdot (x^3-x) \cdot (7x^{13}-11x^{12}-7x+11) \\
+		    &= (x^2-4) \cdot x\cdot(x^2-1) \cdot (7x^{13}-11x^{12}-7x+11) \\
+		    &= (x-2)\cdot(x+2) \cdot x\cdot(x^2-1) \cdot (7x^{13}-11x^{12}-7x+11) \\
+		    &= (x-2)\cdot(x+2)\cdot x\cdot(x-1)\cdot(x+1) \cdot (7x^{13}-11x^{12}-7x+11).
+		\end{align*}
+		Da sowohl $x$ als auch $(x+1)$ als Faktoren  enthalten sind, gibt es immer zwei hintereinanderfolgende Zahlen im Produkt von $p(x)$. Eine der beiden Zahlen muss durch 2 teilbar sein und somit gilt $2$ $|$ $p(x)$ .
+		
+		Da $(x-1)$, $x$ und $(x+1)$ Faktoren von $p(x)$ sind und diese 3 hintereinanderfolgende Zahlen darstellen, bedeutet das, dass es immer einen ganzzahlig durch 3 teilbaren Faktor geben muss und somit $3$ $|$ $p(x)$ gilt.
+		
+		Da $(x-2)$, $(x-1)$, $x$, $(x+1)$ und $(x+2)$ Faktoren von $p(x)$ sind und diese 5 hintereinanderfolgende Zahlen darstellen, folgt daraus, dass eine der fünf Zahlen durch 5 teilbar ist und somit $5$ $|$ $p(x)$ gilt.
+		\item Wir zerlegen die Darstellung $p(x)$ aus Aufgabenteil (i) erneut in etwas anderer Form: 
+		\begin{align*}
+		    p(x) &= (x^2-4) \cdot (x^3-x) \cdot (7x^{13}-11x^{12}-7x+11) \\
+		    &= (x^2-4) \cdot (x^3-x) \cdot ((7x-11)\cdot x^{12}-7x+11) \\
+		    &= (x^2-4) \cdot (x^3-x) \cdot ((7x-11)\cdot x^{12}-1\cdot(7x-11)) \\
+		    &= (x^2-4) \cdot (x^3-x) \cdot (7x-11)\cdot(x^{12}-1).
+		\end{align*}
+		Unter genauerer Betrachtung fällt auf, dass mit $(x^{12}-1)$ der Grundbaustein für den kleinen Satz von Fermat in umgestellter Form für $p = 13$ vorliegt, für den Fall, dass $13 \nmid x$ gilt.
+        Somit lässt sich folgende Fallunterscheidung durchführen:
+        
+		\textbf{Fall 1:} Falls $13 \mid x$ gilt, folgt mit der Darstellung von $p(x)$ in Aufgabenteil (iii), dass $13 \mid p(x)$ gilt. (Wähle $c:= (x-2) (x+2) (x-1) (x+1) (7x^{13}-11x^{12}-7x+11) \in \mathds{Z}$.)
+		
+		\textbf{Fall 2:} Falls $13 \nmid x$ gilt, folgt mit $13$ prim und $x \in \mathds{Z}$, dass $x^{12} \equiv 1 ~(\text{mod } 13)$ (Kleiner Satz von Fermat, VL 07 // S. 155). Es folgt $x^{12} - 1 \equiv 0 ~(\text{mod } 13)$. Mit dem Satz aus VL 06 // S. 131 existiert ein $k \in \mathds{Z}$, sodass $x^{12} - 1 = k \cdot 13$ ist. Nach der Definition aus VL 06 // S. 113 gilt $13 \mid x^{12} - 1$.
+		
+		Wir wählen $c:=(x^2-4) (x^3-x) (7x-11) \in \mathds{Z}$. Mit unserer Betrachtung gilt $p(x)=(x^{12} - 1)\cdot c$ und nach der Definition aus VL 06 // S. 113 auch $x^{12} - 1 \mid p(x)$. Mit dem Satz aus VL 06 // S. 114 Nr. 3 folgt $13 \mid p(x)$.
+		
+		Also ist $p(x)$ durch $13$ teilbar.
+	\end{enumerate}
+\end{aufgabe}
+\end{document}

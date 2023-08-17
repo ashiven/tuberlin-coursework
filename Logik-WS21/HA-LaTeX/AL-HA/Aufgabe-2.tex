@@ -1,0 +1,203 @@
+\documentclass[10pt,a4paper]{scrartcl}
+
+%%% Eine Erklärung der meisten eingebundenen Pakete finden sie in der LaTeX-Vorlage für die freiwilligen Hausaufgaben.
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black!20!blue,
+	citecolor=black!20!blue,
+	urlcolor=black!20!blue
+}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ebproof}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{forloop}
+\usepackage{MnSymbol}
+\usepackage[noend]{algpseudocode}
+
+\usetikzlibrary{calc,through,arrows,automata,decorations.pathmorphing,decorations.pathreplacing,shapes,backgrounds,fit,positioning,shapes.geometric,patterns}
+
+\usepackage{xstring}
+\usepackage{xspace}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=(\roman*)}
+
+
+%%% Zusätzliche Befehle %%%
+\newcommand{\N}{\ensuremath{\mathds{N}}}
+\newcommand{\Z}{\ensuremath{\mathds{Z}}}
+\newcommand{\Q}{\ensuremath{\mathds{Q}}}
+\newcommand{\R}{\ensuremath{\mathds{R}}}
+\newcommand{\AL}{\ensuremath{\mathrm{AL}}\xspace}
+\newcommand{\AVAR}{\textsc{AVar}}
+\newcommand{\VAR}{\textsc{Var}}
+\newcommand{\EF}{Ehrenfeucht-Fra\"{i}ss\'{e}\xspace}
+\newcommand*{\FO}[1]{\ifx\relax #1\relax
+	\ensuremath{\mathrm{FO}}\xspace
+	\else
+	\ensuremath{\mathrm{FO}[#1]}\xspace
+	\fi}
+\newcommand*{\Eval}[2]{\ensuremath{\left\llbracket #1 \right\rrbracket}^{#2}}
+\newcommand{\sequent}{\Rightarrow}
+\newcommand*{\axiom}[2]{\overline{#1 \overset{\phantom{.}}{\sequent} #2}}
+% Makros für Induktionsbeweise
+\newenvironment{induktion}
+{
+	\newif\ifIA
+	\newif\ifIV
+	\newif\ifIS
+	\IAfalse
+	\IVfalse
+	\ISfalse
+}
+{
+	\ifIA
+	\else
+	\errmessage{Der Induktionsanfang fehlt}
+	\fi
+	\ifIV
+	\else
+	\errmessage{Die Induktionsvoraussetzung fehlt}
+	\fi
+	\ifIS
+	\else
+	\errmessage{Der Induktionsschritt fehlt}
+	\fi
+}
+\newcommand{\InduktionsAnfang}[1][]{\IAtrue \noindent\textbf{IA:} #1\\}
+\newcommand{\InduktionsVoraussetzung}[1][]{\IVtrue \noindent\textbf{IV:} #1\\}
+\newcommand{\InduktionsSchritt}[1][]{\IStrue \noindent\textbf{IS:}
+	\ifx\relax #1\relax
+	\else
+	zu zeigen: #1
+	\fi\\}
+% Kiste für die Punkte der Teilaufgaben
+	\newcounter{Iterator}
+	\newcounter{Aux}
+\newcommand{\PunkteKiste}[1]{%
+	\newcommand{\CellHeight}{1}
+	\newcommand{\CellWidth}{1.15}
+	\begin{tikzpicture}
+		\setcounter{Aux}{#1}
+		\stepcounter{Aux}
+		\forloop{Iterator}{1}{\value{Iterator} < \value{Aux}}{
+			\node (v) at (\CellWidth * \value{Iterator}, \CellHeight+0.3) {({\roman{Iterator}})};%
+			\draw[line width=0.5pt] (\CellWidth * \value{Iterator}+0.5, \CellHeight) -- (\CellWidth * \value{Iterator}+0.5,0);
+			}
+		\node (f) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {Form};
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\stepcounter{Aux}
+		\node (s) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {$\sum$};
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (0.5 * \CellWidth, \CellHeight);
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, \CellHeight) -- (\CellWidth*\value{Aux}+0.5,\CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (\CellWidth*\value{Aux}+0.5,0);
+	\end{tikzpicture}
+	}
+% Aufgabe Umgebung
+\newcounter{aufgabeNum}
+\newenvironment{aufgabe}[1]
+{
+
+	\noindent\textbf{\underline{Aufgabe \refstepcounter{aufgabeNum}\arabic{aufgabeNum}}}\hfill\PunkteKiste{#1}
+
+}
+{}
+
+
+%%% ANFANG DECKBLATT %%%
+
+\begin{document}
+\noindent
+\noindent \large WiSe 21/22 \hfill
+Logik
+
+\begin{center}
+\textbf{Hausarbeit 1 Aufgabe 2}\\
+\vspace*{0.5cm}
+\textbf{Gruppe:} 402355, 392210, 413316, 457146  % Tragen Sie hier die Matrikelnummern der Mitglieder ihrer Gruppe ein.
+\end{center}
+
+\newpage
+
+%%% ENDE DECKBLATT %%%
+
+\section*{Lösungen}
+\setcounter{aufgabeNum}{1}
+\begin{aufgabe}{2}
+    \begin{enumerate}
+    	\item
+    	$\varphi_{\top} := \neg (\neg X \land X \land \neg X)$, mit $\varphi_{\top} \in$ AL$_1$ und $X \in$ AL$_1$ für alle $X \in \AVAR$
+    	
+    	\item
+    	 Wir zeigen per Induktion, dass für alle $\varphi \in$ AL eine äquivalente Formel $\varphi' \in$ AL$_1$ existiert. 
+        
+        \begin{induktion}
+        \InduktionsAnfang
+        Es gilt $X \in$ AL$_1$ für alle $X \in$ \AVAR. \\
+        
+        Für $\top$ benutzen wir die in Aufgabenteil (i) definierte Formel $\varphi_{\top}\in$ AL$_1$.\\
+        Für diese gilt:\\
+        $\varphi_{\top} := \neg (\neg X \land X \land \neg X)$ \\
+        $\equiv X \lor \neg X \lor X$ \\
+        $\equiv X \lor \neg X$ \\
+        $\equiv \top$ \\
+        
+        Für $\bot$ definieren wir die Formel $\varphi_{\bot} \in$ AL$_1$ durch 
+        $\varphi_{\bot} := \neg X \land X \land X$. \\
+        Für diese gilt:\\
+        $\varphi_{\bot} := \neg X \land X \land X$ \\
+        $\equiv \neg X \land X$ \\
+        $\equiv \bot$ \\
+        
+        \InduktionsVoraussetzung
+        Seien $\psi_1$, $\psi_2 \in$ AL, und seien $\psi_1'$, $\psi_2' \in$ AL$_1$ äquivalente Formeln für diese, sodass gilt:\\
+        \begin{center}
+            $\psi_1 \equiv \psi_1'$ und  $\psi_2 \equiv \psi_2'$
+        \end{center}
+        
+        \newpage
+        
+        \InduktionsSchritt
+        %%% Oder %%%
+        Für $\varphi := \psi_1 \lor \psi_2$, $\varphi \in$ AL\\
+        definieren wir $\varphi' := \neg (\neg \psi_1' \land \neg \psi_2') \land \varphi_{\top}$, $\varphi' \in$ AL$_1$\\
+        
+        Daraus folgt:\\
+        $\varphi' := \neg (\neg \psi_1' \land \neg \psi_2') \land \varphi_{\top}$
+        $\equiv  \neg (\neg \psi_1' \land \neg \psi_2')$ 
+        $\equiv  \psi_1' \lor \psi_2'$
+        
+        
+        Durch (IV) folgt: $\varphi \equiv \varphi'$\\
+        
+        %%% Negation %%%
+        Für $\varphi := \neg \psi_1$, $\varphi \in$ AL\\
+        definieren wir $\varphi' := \neg (\psi_1' \land \psi_1' \land \psi_1') $, $\varphi' \in$ AL$_1$\\
+        
+        Daraus folgt:\\
+        $\varphi' := \neg (\psi_1' \land \psi_1' \land \psi_1')$
+        $\equiv \neg (\psi_1' \land \psi_1')$
+        $\equiv \neg \psi_1'$
+
+        Durch (IV) folgt: $\varphi \equiv \varphi'$\\
+        
+        Nach Korollar 2.41 im Vorlesungsskript (oder auch auf Seite 3/14 der Folien 3.5 der Woche 2) ist jede aussagenlogische Formel äquivalent zu einer Formel, die lediglich Variablen, $\top$, $\bot$, $\neg$ und $\lor$ beinhaltet.\\
+        Wie bereits bewiesen, existiert so eine Formel in AL$_1$.\\
+        
+        Also existiert zu jeder Formel $\varphi \in$ AL eine äquivalente Formel $\varphi' \in$ AL$_1$. Somit ist AL$_1$ eine Normalform.
+        
+        \end{induktion}
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}

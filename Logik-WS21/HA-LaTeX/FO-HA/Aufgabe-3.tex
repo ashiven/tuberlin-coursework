@@ -1,0 +1,314 @@
+\documentclass[10pt,a4paper]{scrartcl}
+
+%%% Eine Erklärung der meisten eingebundenen Pakete finden sie in der LaTeX-Vorlage für die freiwilligen Hausaufgaben.
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black!20!blue,
+	citecolor=black!20!blue,
+	urlcolor=black!20!blue
+}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{ebproof}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{forloop}
+\usepackage{MnSymbol}
+\usepackage[noend]{algpseudocode}
+
+\usetikzlibrary{calc,through,arrows,automata,decorations.pathmorphing,decorations.pathreplacing,shapes,backgrounds,fit,positioning,shapes.geometric,patterns}
+
+\usepackage{xstring}
+\usepackage{xspace}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=(\roman*)}
+
+
+%%% Zusätzliche Befehle %%%
+\newcommand{\N}{\ensuremath{\mathds{N}}}
+\newcommand{\Z}{\ensuremath{\mathds{Z}}}
+\newcommand{\Q}{\ensuremath{\mathds{Q}}}
+\newcommand{\R}{\ensuremath{\mathds{R}}}
+\newcommand{\AL}{\ensuremath{\mathrm{AL}}\xspace}
+\newcommand{\AVAR}{\textsc{AVar}}
+\newcommand{\VAR}{\textsc{Var}}
+\newcommand{\EF}{Ehrenfeucht-Fra\"{i}ss\'{e}\xspace}
+\newcommand*{\FO}[1]{\ifx\relax #1\relax
+	\ensuremath{\mathrm{FO}}\xspace
+	\else
+	\ensuremath{\mathrm{FO}[#1]}\xspace
+	\fi}
+\newcommand*{\Eval}[2]{\ensuremath{\left\llbracket #1 \right\rrbracket}^{#2}}
+\newcommand{\sequent}{\Rightarrow}
+\newcommand*{\axiom}[2]{\overline{#1 \overset{\phantom{.}}{\sequent} #2}}
+% Makros für Induktionsbeweise
+\newenvironment{induktion}
+{
+	\newif\ifIA
+	\newif\ifIV
+	\newif\ifIS
+	\IAfalse
+	\IVfalse
+	\ISfalse
+}
+{
+	\ifIA
+	\else
+	\errmessage{Der Induktionsanfang fehlt}
+	\fi
+	\ifIV
+	\else
+	\errmessage{Die Induktionsvoraussetzung fehlt}
+	\fi
+	\ifIS
+	\else
+	\errmessage{Der Induktionsschritt fehlt}
+	\fi
+}
+\newcommand{\InduktionsAnfang}[1][]{\IAtrue \noindent\textbf{IA:} #1\\}
+\newcommand{\InduktionsVoraussetzung}[1][]{\IVtrue \noindent\textbf{IV:} #1\\}
+\newcommand{\InduktionsSchritt}[1][]{\IStrue \noindent\textbf{IS:}
+	\ifx\relax #1\relax
+	\else
+	zu zeigen: #1
+	\fi\\}
+% Kiste für die Punkte der Teilaufgaben
+	\newcounter{Iterator}
+	\newcounter{Aux}
+\newcommand{\PunkteKiste}[1]{%
+	\newcommand{\CellHeight}{1}
+	\newcommand{\CellWidth}{1.15}
+	\begin{tikzpicture}
+		\setcounter{Aux}{#1}
+		\stepcounter{Aux}
+		\forloop{Iterator}{1}{\value{Iterator} < \value{Aux}}{
+			\node (v) at (\CellWidth * \value{Iterator}, \CellHeight+0.3) {({\roman{Iterator}})};%
+			\draw[line width=0.5pt] (\CellWidth * \value{Iterator}+0.5, \CellHeight) -- (\CellWidth * \value{Iterator}+0.5,0);
+			}
+		\node (f) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {Form};
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\stepcounter{Aux}
+		\node (s) at (\CellWidth * \value{Aux}, \CellHeight+0.3) {$\sum$};
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (0.5 * \CellWidth, \CellHeight);
+		\draw[line width=0.5pt] (\CellWidth * \value{Aux} + 0.5, 0) -- (\CellWidth * \value{Aux} + 0.5, \CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, \CellHeight) -- (\CellWidth*\value{Aux}+0.5,\CellHeight);
+		\draw[line width=0.5pt] (0.5 * \CellWidth, 0) -- (\CellWidth*\value{Aux}+0.5,0);
+	\end{tikzpicture}
+	}
+% Aufgabe Umgebung
+\newcounter{aufgabeNum}
+\newenvironment{aufgabe}[1]
+{
+
+	\noindent\textbf{\underline{Aufgabe \refstepcounter{aufgabeNum}\arabic{aufgabeNum}}}\hfill\PunkteKiste{#1}
+
+}
+{}
+
+
+%%% ANFANG DECKBLATT %%%
+
+\begin{document}
+\noindent
+\noindent \large WiSe 21/22 \hfill
+Logik
+
+\begin{center}
+\textbf{Hausarbeit 2 Aufgabe 3}\\
+\vspace*{0.5cm}
+\textbf{Gruppe:} 402355, 392210, 413316, 457146  % Tragen Sie hier die Matrikelnummern der Mitglieder ihrer Gruppe ein.
+\end{center}
+
+\newpage
+
+%%% ENDE DECKBLATT %%%
+
+\section*{Lösungen}
+\setcounter{aufgabeNum}{1}
+\setcounter{aufgabeNum}{2}
+\begin{aufgabe}{6}
+    \begin{enumerate}
+    	\item
+    	Angenommen der Herausforderer gewinnt $\mathfrak{E}_{m}((\mathcal{H},u) ,(\mathcal{H},v))$, dann ist die Abbildung:
+    	\[
+    	h: u \mapsto v, v_{1} \mapsto v_{1}', ..., v_{m} \mapsto v_{m}'
+    	\]
+    	mit $v_{i}$ und $v_{i}'$, $i \in \{1,...,m\}$ als den Elementen, welche in Runde $i$ jeweils von dem Herausforderer $H$ und der Duplikatorin $D$ gewaehlt wurden.\\ Die selbe Schreibweise verwenden wir auch fuer alle folgenden Abbildungen.\\
+    	Es gilt laut Annahme, $h$ ist kein partieller Isomorphismus von $\mathcal{H}$ nach $\mathcal{H}$.\\ 
+    	
+    	Es sind $\mathcal{H}_{u}$ und $\mathcal{H}_{v}$, $\tau$-Expansionen von $\mathcal{H}$ die sich nur durch das zusaetzliche einstellige Relationssymbol $R$, von $\mathcal{H}$ unterscheiden. Es gilt jeweils $R^{\mathcal{H}_{u}}=\{u\}$ fuer $\mathcal{H}_{u}$ und $R^{\mathcal{H}_{v}}=\{v\}$ fuer $\mathcal{H}_{v}$.\\
+    	
+    	Nun besitzt $H$ die folgende Gewinnstrategie fuer $\mathfrak{E}_{m+1} (\mathcal{H}_{u},\mathcal{H}_{u})$.\\
+    	$H$ waehlt in der ersten Runde entweder $u$ aus $\mathcal{H}_{u}$ oder $v$ aus $\mathcal{H}_{v}$ und $D$ antwortet indem sie das jeweils andere Element aus der anderen Struktur waehlt. Sie muss auf diese Weise antworten, da $u$ und $v$ in $\mathcal{H}_{u}$ und $\mathcal{H}_{v}$ jeweils die einzigen Elemente sind fuer die gilt $u \in R^{\mathcal{H}_{u}}$ und $v \in R^{\mathcal{H}_{v}}$.\\
+    	
+    	Anschliessend wiederholt der Herausforderer die selben Zuege, welche er im $m$-Runden Spiel getaetigt hat fuer die uebrigen $m$ Runden und nach Spielende erhalten wir die Abbildung:
+    	\[
+    	h_{2}: u \mapsto v, v_{2} \mapsto v_{2}', ..., v_{m+1} \mapsto v_{m+1}'
+    	\]
+    	Es gilt $h_{2} = h$, da wir in den insgesamt $m$ Runden: $2$ bis $m+1$, die selben Zuege aus den Runden: $1$ bis $m$ des $m$-Runden Spiels wiederholt haben, und wir zusaetzlich in der ersten Runde $u$ auf $v$ abgebildet haben. Ausserdem gilt, die Universen von $\mathcal{H}_{u}$ und $\mathcal{H}_{v}$ sind gleich dem Universum von $\mathcal{H}$. Es folgt, $h_{2}$ ist kein partieller Isomorphismus von $\mathcal{H}_{u}$ nach $\mathcal{H}_{v}$.\\ 
+    	
+    	Somit gewinnt der Herausforderer auch $\mathfrak{E}_{m+1} (\mathcal{H}_{u},\mathcal{H}_{v})$.\\\\
+    	
+    	Angenommen der Herausforderer gewinnt $\mathfrak{E}_{m+1} (\mathcal{H}_{u},\mathcal{H}_{v})$.\\
+    	Da $\mathcal{H}_{u}$ und $\mathcal{H}_{v}$ $\tau$-Expansionen von $\mathcal{H}$ sind und sich einzig und allein voneinander unterscheiden, indem fuer $\mathcal{H}_{u}$: $R^{\mathcal{H}_{u}}=\{u\}$ und fuer $\mathcal{H}_{v}$: $R^{\mathcal{H}_{v}}=\{v\}$, sind $\mathcal{H}_{u}$ und $\mathcal{H}_{v}$ nur verschieden wenn $u \neq v$ gilt, und nur in diesem Fall kann der Herausforderer $H$ eine Gewinnstrategie besitzen. $H$ muss daher in mindestens einer Runde entweder $u$ aus $\mathcal{H}_{u}$ oder $v$ aus $\mathcal{H}_{v}$ waehlen, worauf die Duplikatorin $D$ mit dem jeweils anderen Element antwortet.\\ 
+    	
+    	Wir erhalten nach Beendigung des Spiels die Abbildung:
+    	\[
+    	h_{3}: v_{1} \mapsto v_{1}', ..., v_{m+1} \mapsto v_{m+1}'
+    	\]
+    	Wir koennen $h_{3}$ auch schreiben als:
+    	\[
+    	h_{3}: u \mapsto v, v_{1}'' \mapsto v_{1}''', ..., v_{m}'' \mapsto v_{m}'''
+    	\]
+    	$H$ spielt in mindestens einer der $m+1$ Runden $u$ oder $v$, worauf $D$ mit dem jeweiligen anderen Element antwortet.\\ Somit muss eine der Abbildungen aus $v_{1} \mapsto v_{1}', ..., v_{m+1} \mapsto v_{m+1}'$ die Abbildung $u \mapsto v$ sein.\\
+    	Weiterhin seien $v_{1}'' \mapsto v_{1}''', ..., v_{m}'' \mapsto v_{m}'''$ die selben Abbildungen aus $v_{1} \mapsto v_{1}', ..., v_{m+1} \mapsto v_{m+1}'$ mit Ausnahme der Abbildung $u \mapsto v$.\\Wir schreiben $u \mapsto v$ seperat in die Abbildungsvorschrift.\\
+    	
+    	Die Abbildung $h_{3}$ ist laut Annahme kein partieller Isomorphismus von $\mathcal{H}_{u}$ nach $\mathcal{H}_{v}$ und somit auch kein partieller Isomorphismus von $\mathcal{H}$ nach $\mathcal{H}$. Ausserdem gilt somit der Herausforderer gewinnt $\mathfrak{E}_{m}((\mathcal{H},u) ,(\mathcal{H},v))$.\\
+    	
+    	Es gilt also, der Herausforderer gewinnt $\mathfrak{E}_{m}((\mathcal{H},u) ,(\mathcal{H},v))$ genau dann wenn er $\mathfrak{E}_{m+1} (\mathcal{H}_{u},\mathcal{H}_{v})$ gewinnt.
+    	
+    	\item
+    	Zur Vereinfachung der Schreibweise in den folgenden Teilaufgaben (ii) und (iii) benennen wir Tupel $(i,j) \in G$ wie folgt: $(i,j):=g$, $(i_{k}, j_{k}):=g_{k}$, $i,j,k \in \N$\\
+    	
+    	Wir definieren die Formel $\varphi_{k}(g)$ wie folgt:
+    	\[
+    	\varphi_{0}(g) := \forall g_{1} \forall g_{2} \forall g_{3}( \bigwedge_{i=0}^{3} E(g,g_{i}) \rightarrow \bigvee_{1 \leq i < j \leq 3} g_{i} = g_{j})
+    	\]
+    	\[
+    	\varphi_{k \geq 1}(g) := \bigvee_{0 \leq i \leq k - 1} \varphi_{i}(g) \lor \exists g_{k - 1} \varphi_{k - 1}(g_{k - 1}) \land E(g_{k - 1},g)
+    	\]
+    	\[
+    	\varphi_{k}(g) := \varphi_{0}(g) \lor \varphi_{k \geq 1}(g)
+    	\]
+    	Mit der Formel $\varphi_{0}$ definieren wir den Rekursionsanker der Formel $\varphi_{k}$. Nur das Tupel $(0,0)$ hat einen Knotengrad von maximal $2$, waehrend alle anderen Tupel einen Knotengrad von 3 oder hoeher besitzen. Ausserdem erfuellt das Tupel $(0,0)$ die Anforderung fuer $\varphi_{0}$, da $0+0 =0 \leq 0$.\\
+    	
+    	Weiterhin pruefen wir in $\varphi_{k \geq 1}$, ob das Tupel $g$ entweder von einer der rekursiv definierten Formeln $\varphi_{0}$ bis $\varphi_{k-1}$ erfuellt wird, oder ob es ein Tupel $g_{k-1}$ gibt, sodass $\varphi_{k-1}(g_{k-1})$ und $E(g_{k-1},g)$ erfuellt.\\
+    	
+    	Jedes $g$, welches die Bedingung $i + j \leq r$, $r \in \{0,..,k-1\}$ erfuellt, erfuellt auch die Bedingung $i + j \leq k$.\\
+    	Es existiert weiterhin fuer $k \geq 1$ auch immer ein Element $g_{k-1}$, sodass $E(g_{k-1},g)$ gilt und $g_{k-1}$ erfuellt die Anforderung: $i_{k-1} + j_{k-1} = k-1 \leq k-1$.\\
+    	Somit ist laut Vorschrift von $E$, $\varphi_{k}$ auch fuer $g$ mit  $i + j = k \leq k$ erfuellt.\\
+    	In beiden Faellen erfuellt die Formel die Anforderung.
+    	\item
+    	Wir definieren die Formel $\psi_{k}(g)$ wie folgt:
+    	\[
+    	\psi_{0,0}(g) := \forall g_{1} \forall g_{2} \forall g_{3}( \bigwedge_{i=0}^{3} E(g,g_{i}) \rightarrow \bigvee_{1 \leq i < j \leq 3} g_{i} = g_{j})
+    	\]
+    	\[
+    	\psi_{k \geq 1,k \geq 1}(g) := \exists g_{0} \exists g_{1} (\psi_{k - 1,k - 1}(g_{0}) \land E(g_{0}, g_{1}) \land E(g_{1}, g) \land \lnot E(g_{0}, g) \land i = j)
+    	\]
+    	\[
+    	\psi_{k,k}(g) := \psi_{0,0}(g) \lor \psi_{k \geq 1, k \geq 1 }(g)
+    	\]
+    	\[
+    	\psi_{0}(g) := \psi_{0,0}(g) \lor \exists g_{0} (\psi_{0,0}(g_{0}) \land (i_{0} = i \lor j_{0} = j))
+    	\]
+    	\[
+    	\psi_{k \geq 1}(g) := \bigwedge_{0 \leq r \leq k - 1} \lnot \psi_{r}(g) \land (\psi_{k,k}(g) \lor \exists g_{0} (\psi_{k,k}(g_{0}) \land (i_{0} = i \lor j_{0} = j)))
+    	\]
+    	\[
+    	\psi_{k}(g) := \psi_{0}(g) \lor \psi_{k \geq 1}(g)
+    	\]
+    	Wie auch in der vorigen Formel definieren wir mit $\psi_{0}$ den Rekursionsanker der Formel $\psi_{k}$ und schauen mithilfe der vorher definierten Formel $\psi_{k,k}$, welche fuer Tupel $(k,k), k \in \N$ zu wahr auswertet, ob entweder $g = (0,0)$ gilt, oder ob es ein Tupel $g_{0}$ gibt, sodass $g_{0} = (0,0)$.\\ Im Vergleich von $g$ mit $g_{0}$ erfahren wir ob $g$ von der Form: $g = (0,j)$ oder $g =(i,0)$, $i,j \in \N$ ist.\\
+    	Somit ist fuer die Formel $\psi_{0}$, die Anforderung: min$(i,j) =0$ erfuellt.\\
+    	
+    	Fuer $k \geq 1$ pruefen wir mithilfe der Formel $\psi_{k \geq 1}(g)$ den selben Zusammenhang, jedoch schliessen wir vorher aus, dass fuer $g$ eine der Formeln von $\psi_{0}$ bis $\psi_{k-1}$ erfuellt ist. Somit ist $g$ von der Form: $g = (k,k)$ oder $g=(i,k)$, $i>k$ oder $g=(k,j)$, $j>k$.\\ Analog zu $\psi_{0}$ erfuellt die Formel somit die Anforderung.
+    	\item
+    	Wir betrachten eine Fallunterscheidung wie folgt:\\
+    	
+    	Fall 1: es gibt genau ein weiteres Element $g_1$\\
+    	
+    	Fall 1.1: $g = g_1$\\
+    	\[
+    	(\mathcal{G},g) \equiv (\mathcal{G},g_1), \text{da } g = g_1
+    	\]
+    	
+    	Fall 1.2: $g \neq g_1$\\
+    	
+    	Fall 2: es gibt genau zwei weitere Elemente $g_1$ und $g_2$\\
+    	
+    	Fall 2.1: $g=g_1$ und $g \neq g2$\\
+    	\[
+    	(\mathcal{G},g) \equiv (\mathcal{G},g_1), \text{da } g = g_1
+    	\]
+    	Fall 2.2: $g \neq g1$ und $g \neq g2$\\
+    	
+    	%$(0,0)$ hat als einziges Element in unserer Struktur den Grad 2, es steht also mit nur zwei weiteren Elementen in Relation, %nämlich $(1,0)$ und $(0,1)$ da gilt 
+    	%$|0 - 1| + |0 - 0| = 1$ und $|0 - 0| + |0 - 1| = 1$. Es existiert kein weiteres Element $(x,y)$, sodass gilt $|0 - x| + |0 - y| = %1$.
+    	%Somit wählen wir für $(0,0)$ $g_1 = (0,0)$ und $g_2 = (0,0)$.\\
+    	
+    	%Jedes Element, das die $0$ beinhaltet, sei es $(a, 0)$ oder $(0,a)$, mit $a \neq 0$ hat den Grad 3, da für solche nur Elemente %nur folgende Nachbarn in Frage kommen\\
+    	
+    	%Fall 1: $(0,a)$\\
+    	%$(1,a)$, mit $|0-1| + |a-a| = 1$, \\
+    	%$(0,(a+1))$, mit $|0-0| + |a-(a+1)| = 1$, \\
+    	%und $(0,(a-1))$, mit  $|0-0| + |a-(a-1)| = 1$\\
+    	
+    	%Fall 2: $(a, 0)$\\
+    	%$(a,1)$, mit $|a-a| + |0-1| = 1$,\\
+    	%$((a+1),0)$, mit $|a-(a+1)| + |0-0| = 1$, \\
+    	%und $((a-1),0)$, mit $|a-(a-1)| + |0-0| = 1$\\
+    	
+    	%Demnach wählen wir für diese Elemente $g_1 = (a,0)$ und $g_2 = (0,a)$.\\
+    	
+    	%Für alle weiteren Elemente $(a,b)$, die die $0$ nicht beinhalten, haben den Grad 4, da folgende Nachbarn für diese in Frage %kommen\\
+        
+        %$(a-1, b)$, mit $|a-(a-1)| + |b-b| = 1$,\\
+        %$(a, b-1)$, mit $|a-a| + |b-(b-1)| = 1$,\\
+        %$(a+1, b)$, mit $|a-(a+1)| + |b-b| = 1$,\\
+        %$(a, b+1)$, mit $|a-a| + |b-(b+1)| = 1$\\
+
+    	\item
+    	     	
+     	Wir geben eine Gewinnstrategie für die Duplikatorin für ein $m$-Runden Spiel mit $m \in \N$ an:\\
+     	
+     	Für jedes Element $a_{i}'$ das der Herausforderer $H$ in Runde $i$, $i \in \{1,...,m\}$ in $\mathcal{A}$ wählt, wählt die Duplikatorin
+     	$D$ $\pi(a_{i}')$ in $\mathcal{B}$.\\
+     	
+        Für jedes Element $\pi(a_{i}')$ das $H$ in Runde $i$, $i \in \{1,...,m\}$ in $\mathcal{B}$ wählt, wählt
+     	$D$ $a_{i}'$ in $\mathcal{A}$.\\
+
+     	Da $\pi$ ein Isomorphismus von $\mathcal{A}$ nach $\mathcal{B}$ ist, wird dieser in Runde $i$ auf 
+     	lediglich die $i$ gewählten Knoten von $H$ und $D$ beschränkt, und, da $D$ immer gleich zu dem von $H$ gewählten Knoten aus der jeweilig anderen Struktur wählt, bleibt der Isomorphismus auch auf jeder Teilmenge erhalten.\\
+     	Somit gewinnt $D$.\\
+     	
+     	Weiterhin werden die Elemente $a_{1}$ bis $a_{k}$ auf die Elemente $\pi(a_{1})$ bis $\pi(a_{k})$ abgebildet. Somit erhalten wir nach Ende von $\mathfrak{E}_{m}((\mathcal{A},(a_{1},...,a_{k})) ,(\mathcal{B},(\pi(a_{1}),...,\pi(a_{k})))$:
+     	\[
+     	h: a_{1} \mapsto \pi(a_{1}),..., a_{k} \mapsto \pi(a_{k}),a_{1}' \mapsto \pi(a_{1}'),..., a_{m}' \mapsto \pi(a_{m}')
+     	\]
+     	
+     	Die Abbildung $h$ ist ein partieller Isomorphismus von $\mathcal{A}$ nach $\mathcal{B}$, da laut Definition, $\pi$ ein Isomorphismus von $\mathcal{A}$ nach $\mathcal{B}$ ist und fuer alle $a \in$ def($h$) gilt $a \mapsto \pi(a)$.\\
+     	Die Duplikatorin gewinnt also $\mathfrak{E}_{m}((\mathcal{A},(a_{1},...,a_{k})) ,(\mathcal{B},(\pi(a_{1}),...,\pi(a_{k})))$ und nach dem Satz von Ehrenfeucht gilt somit:
+     	\[
+     	(\mathcal{A}, (a_1, a_2, ... , a_k)) \equiv_m (\mathcal{B}, (\pi(a_1), \pi(a_2), ... , \pi(a_k)))
+     	\]
+        weiterhin gilt somit:
+        \[
+        (\mathcal{A}, (a_1, a_2, ... , a_k)) \equiv (\mathcal{B}, (\pi(a_1), \pi(a_2), ... , \pi(a_k)))
+        \]
+        , da wir zu Beginn der Aufgabe gezeigt haben, dass die Duplikatorin für alle $m \in \N$ eine Gewinnstrategie besitzt.
+     	
+    	\item
+        Wir haben bereits in Teilaufgabe (v) gezeigt:
+        \[
+        (\mathcal{A}, (a_1, a_2,...,a_k)) \equiv (\mathcal{B}, (\pi(a_1), \pi(a_2),...,\pi(a_k)))
+        \]
+        
+        Es gilt also für $\mathcal{A}$ und $\mathcal{B}$ und alle $\varphi \in$ FO$[\sigma]$ mit frei($\varphi$)$=(x_1,...,x_k)$\\
+        $\mathcal{A} \models \varphi[a_1,...,a_k]$, genau dann wenn $\mathcal{B} \models \varphi[\pi(a_1),...,\pi(a_k)]$\\
+        
+        $\varphi(\mathcal{A})$ ist die Menge aller Elemente $\bar{a}$ aus $A^{k}$, die $\varphi$ erfüllen. Somit gilt für jedes Element $\bar{b}$ aus $B^{k}$, wenn 
+        $\bar{b} \in \varphi(\mathcal{B})$ und $\bar{a} \in A^{k}$ mit $\bar{b}=(\pi(a_1),...,\pi(a_k))$, dann 
+        $\bar{a} \in \varphi(\mathcal{A})$. Somit gilt $\varphi(\mathcal{B}) = \pi(\varphi(\mathcal{A}))$.
+        
+    \end{enumerate}
+\end{aufgabe}
+
+\end{document}

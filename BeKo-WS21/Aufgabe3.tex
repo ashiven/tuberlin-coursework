@@ -1,0 +1,157 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Hier sollten Sie nichts verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,onecolumn,oneside,12pt,ngerman]{article}
+
+\usepackage[ngerman]{babel} % language
+\usepackage[utf8]{inputenc} % encoding
+\usepackage{amsmath,amsfonts,amssymb,amsthm} % mathematical expression, symbols, fonts, and the whole theorem environment engine
+\usepackage{xcolor,graphicx} % graphics and colorings
+\usepackage{tabularx,booktabs,multirow} % all about tables: booktabs gives the standard formatting, multirow allows cells to span over multiple rows.
+\usepackage{scrextend} % super powerful tool that helps a bit with everything
+\usepackage[margin=0pt]{subcaption} % specific form for captions
+\usepackage[autostyle]{csquotes} % helper for quoting
+
+\usepackage{rotating} % if you want to rotate any object
+
+%=========== graphics, in particular tikz
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,decorations.pathreplacing,backgrounds,positioning,fit,matrix}
+\usetikzlibrary{shapes,calc}
+
+
+%=========== Pseudocode
+\usepackage[linesnumbered,german]{algorithm2e}
+
+%=========== \cref is a powerfull command that automatically states the current environment (e.g. Theorem, Lemma, etc.)
+\usepackage[sort&compress,nameinlink,noabbrev,capitalize]{cleveref}
+
+
+%===========theorem environment
+\theoremstyle{plain} % typical theorem-style (bold header, italic font)
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Korollar}
+\newtheorem{observation}[theorem]{Beobachtung}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{rrule}{Reduktionsregel}[section]
+
+\crefname{rrule}{Reduktionsregel}{Reduktionsregeln} % how cleverref (\cref) has to handle these environments
+\Crefname{rrule}{RR}{RRs} % with \Cref us can use what you defined here---somtimes useful if you want to abbreviate environment when citing (e.g. in tables or figures)
+
+\theoremstyle{definition} % typical definition-style (bold header, normal font)
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark} % typical theorem-style (italic header, normal font)
+\newtheorem{example}{Example}
+\newtheorem*{remark}{Remark}
+\newtheorem{reduction}{Reduction}
+\theoremstyle{plain}
+
+%===========problem definition evironment: gets three arguments (1) problem name #1 (2) input specification #2 (3) question specification #3
+\newcommand{\problemdef}[3]{
+  \begin{center}
+    \begin{minipage}{0.95\textwidth}
+      \noindent
+      \textsc{#1}
+      
+      \vspace{2pt}
+      \setlength{\tabcolsep}{3pt}
+      \begin{tabularx}{\textwidth}{@{}lX@{}}
+        \textbf{Eingabe:} 		& #2 \\
+        \textbf{Frage:} 	& #3
+      \end{tabularx}
+    \end{minipage}
+  \end{center}
+}
+
+
+
+%=========== Nützliche Abkürzungen
+\newcommand{\NN}{\mathbb{N}} % natürliche Zahlen
+\newcommand{\RR}{\mathbb{R}} % reelle Zahlen
+\newcommand{\QQ}{\mathbb{Q}} % rationale Zahlen
+\newcommand{\ZZ}{\mathbb{Z}} % ganze Zahlen
+
+\title{Hausarbeit im Modul \glqq Berechenbarkeit und Komplexität\grqq\\
+\Large{Aufgabe 3}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Ab hier können Sie das Dokument verändern %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hier können noch weitere \usepackage{}-Befehle eingebunden werden.
+
+\author{Jannik Novak, Giulia Benta, Tobias Phillip Rimkus} % Hier bitte Ihren Namen eintragen
+
+\begin{document}
+
+\selectlanguage{ngerman}
+
+\maketitle
+
+% Hier beginnt der Hauptteil des Dokuments, in dem Sie Ihre Lösungen zu der Aufgabe formulieren können.
+
+\section*{Turing-Maechtigkeit von MinWHILE}
+Beweis durch strukturelle Induktion.\\
+\begin{enumerate}
+	\item \textbf{Induktionsanfang}\\\\
+		Fuer ${i,j,k}\in \{0,1,...,N_Q\}$  $i \neq j$, $i \neq k$, $k \neq j$\\wobei $N_Q + 1$ die Anzahl der benutzten Variablen in einem WHILE- beziehungsweise MinWHILE-Programm Q bezeichnet.\\\\
+		Jedes WHILE-Programm der Form:\\ 
+\begin{itemize}
+	\item[(1)]\begin{algorithm}[H]
+ 	   $x_i = x_j \pm c$
+	\end{algorithm}
+\end{itemize}
+		kann durch das folgende MinWHILE-Programm simuliert werden:\\
+\begin{itemize}
+	\item[(2)]\begin{algorithm}[H]
+    \While{$x_j \neq 0$}{
+        $x_i = x_i + 1$;\\
+	$x_k = x_k + 1$;\\	
+	$x_j = x_j - 1$
+     }
+    $x_i = x_i \pm c$;\\
+	\While{$x_k \neq 0$}{
+        $x_j = x_j + 1$;\\
+	$x_k = x_k - 1$
+     }
+\end{algorithm}
+\end{itemize}
+		Zu zeigen ist nun, dass das Programm (2) das Programm (1)  simuliert. Programm (1) weist der Variable $x_i$ den Wert der Variable $x_j$  addiert/subtrahiert mit der Konstante $c$ zu. Programm (2) durchlaeuft eine WHILE-Schleife mit Abbruchbedingung 	$x_j = 0$ und inkrementiert die Variablen $x_i$ und $x_k$ mit jedem Schleifendurchlauf um 1/ dekrementiert die Variable $x_j$ mit jedem Schleifendurchlauf um 1. Somit uebertraegt sich der Wert aus $x_j$ in $x_i$ und $x_k$. Anschliessend wird $x_i$ mit der  Konstante c addiert/subtrahiert 	und  $x_i$ zugewiesen. Somit ergibt sich: $x_i = x_j \pm c$ . Zuletzt wird der Variable $x_j$ wieder ihr urspruenglicher Wert zugewiesen indem in einer weiteren WHILE-Schleife der Wert der Variablen $x_k$ auf die Variable $x_j$ uebertragen wird.
+	\item \textbf{Induktionsvoraussetzung}\\\\
+	Sei P ein WHILE-Programm, so existiert ein MinWHILE-Programm P' welches P simuliert.
+	\item \textbf{Induktionsschritt}
+	\begin{enumerate}
+	\item Seien P1 und P2 zwei WHILE-Programme. Dann ist auch P1;P2 ein WHILE-Programm. Wenn P1' und P2' MinWHILE-Programme sind die P1 und P2 simulieren, so simuliert das MinWHILE-Programm P1';P2' das WHILE-Programm P1;P2 .
+	\item Wenn P ein MinWHILE-Programm ist, dann ist auch:\\
+\begin{algorithm}[H]
+    \While{$x_i \neq 0$}{
+	P
+     }
+\end{algorithm}
+	ein MinWHILE-Programm, welches P ausfuehrt und nach Ausfuehrung von P die Schleifenbedingung $x_i \neq 0$ prueft.
+	\item Wenn P ein WHILE-Programm ist, dann ist auch:\\
+	\begin{align*}
+		LOOP\quad x_i\quad DO\quad P\quad END
+	\end{align*} 
+	ein WHILE-Programm, welches P $x_i$ mal ausfuehrt.
+	\item Sei P ein WHILE-Programm und P' ein MinWHILE-Programm welches P simuliert. Betrachten wir nun das WHILE-Programm aus (c):
+	\begin{itemize}
+	\item[(1)] \begin{align*}
+			LOOP\quad x_i\quad DO\quad P\quad END
+		\end{align*} 
+	\end{itemize}
+	Dann koennen wir dieses WHILE-Programm mithilfe des MinWHILE-Konstrukts aus (b) wie folgt simulieren:\\
+	\begin{itemize}
+	\item[(2)]	\begin{algorithm}[H]
+    			\While{$x_i \neq 0$}{
+				P';\\
+				$x_i = x_i - 1$
+    			 }
+		\end{algorithm}
+	\end{itemize}
+	Zu zeigen ist nun, dass das Programm (2) das Programm (1) simuliert. Programm (1) fuehrt das Programm P $x_i$ mal aus. Programm (2) prueft vor jeder Ausfuehrung ob $x_i \neq 0$ und bricht ab sobald $x_i = 0$. In jedem Schleifendurchlauf wird die Variable $x_i$ um 1 dekrementiert, solange bis die Abbruchbedingung $x_i = 0$ erreicht ist. Somit wird das Programm P' $x_i$ mal ausgefuehrt. Da P' das Programm P simuliert, gilt die obige Aussage.
+	\end{enumerate}
+\end{enumerate}
+
+
+
+\end{document}
