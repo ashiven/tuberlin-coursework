@@ -1,0 +1,268 @@
+\documentclass[twoside,10pt,fleqn,headinclude=false]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{csquotes}
+\usepackage{xifthen}
+\usepackage{textcomp, xspace, url, amsmath, booktabs, amsfonts, amssymb, version, ntheorem, lastpage, scrtime, pifont, wasysym, tabularx, semantic}
+\usepackage{pgf}
+\usepackage{tikz}
+	\usetikzlibrary{trees, decorations, arrows, automata, shadows, positioning, plotmarks, calc, matrix}
+\usepackage[arrow, matrix, curve]{xy}
+%\usepackage{scrpage2}
+\usepackage[xspace]{ellipsis}
+\usepackage{palatino}
+\usepackage{ragged2e}
+\usepackage[tracking=true]{microtype}
+\usepackage{multirow}
+\usepackage{paralist}
+\usepackage{parskip}
+\usepackage[footskip=1cm,bindingoffset=2cm,hmargin={0cm, 0cm}, inner=1cm, outer=3cm, top=2cm, bottom=2cm]{geometry}
+	\setlength{\marginparwidth}{2cm}
+	\renewcommand{\arraystretch}{1.2}
+	\setlength{\arrayrulewidth}{1pt}
+
+\usepackage{ForSA.Macros}
+
+%%%%%%%%%%%%%%%
+%  meta data  %
+%%%%%%%%%%%%%%%
+
+\author{Edgar Arndt}
+\def\xdate{SoSe 2022}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  counter declarations  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{firstTask}
+\newcounter{lastTask}
+\newcount\member
+
+
+% Nummer der ersten Aufgabe in dieser HA-Abgabe
+\setcounter{firstTask}{01}
+% Nummer der letzten Aufgabe in dieser HA-Abgabe
+\setcounter{lastTask}{04}
+% durch Kommata getrennte Liste aller Punktzahlen mit einem Komma am Ende
+\def\xpoints{19,14,17,10,}
+
+\begin{document}
+\pagestyle{empty}
+
+%%%%%%%%%%%%
+%  header  %
+%%%%%%%%%%%%
+
+\centering\normalfont\Large{\textsc{Formale Sprachen und Automaten}}\\
+\raggedright\normalsize{\textsl{MTV: Modelle und Theorie Verteilter Systeme}\hfill\textsl{\xdate}}\\
+\centering\Large{Hausaufgabe}\\
+\vspace{0.5\baselineskip}\centering\large{Name: Jannik Leander Hyun Ho Novak}\\
+\vspace{0.5\baselineskip}\centering\large{Matrikelnummer: 392210}\\
+\vspace{0.5\baselineskip}\centering\large{(optional) Name: Pete Schimkat}\\
+\vspace{0.5\baselineskip}\centering\large{(optional) Matrikelnummer: 403246}
+
+
+\newlength{\MaxLength}
+	\settowidth{\MaxLength}{\textsc{Korrektur}}
+\newcount\taskscount
+	\taskscount=\value{lastTask}
+	\advance\taskscount by -\value{firstTask}
+	\advance\taskscount by 1
+\newcount\columncount
+	\columncount=\taskscount
+	\advance\columncount by 2
+\newlength{\itemwidth}
+	\settowidth{\itemwidth}{1000}
+
+\def\tabletasks{}{
+	\member=\value{firstTask}
+	\advance\member by -1
+	\loop
+		\ifnum\member < \value{lastTask}
+		\advance\member by 1
+		\appto\tabletasks{& \centering}
+		\xappto\tabletasks{\the\member}
+	\repeat
+}
+
+\newcounter{pointsum}
+\setcounter{pointsum}{0}
+\def\tablepoints#1,#2\END{
+	& \centering \ #1
+	\addtocounter{pointsum}{#1}
+	\ifx\relax#2\relax\else
+	   \tablepoints #2\END
+	\fi
+}
+
+\def\tablecells{}{
+	\member=\value{firstTask}
+	\advance\member by -1
+	\loop
+		\ifnum\member < \value{lastTask}
+		\advance\member by 1
+		\xappto\tablecells{&}
+	\repeat
+}
+
+
+$ $
+\vspace{\fill}
+
+\flushleft
+Je 3 erreichte Hausaufgabenpunkte entsprechen einem Portfoliopunkt. Es wird mathematisch auf halbe Portfoliopunkte gerundet. 
+\vspace{2em}\\
+\textbf{Korrektur:} \vspace{0.5em}\\
+\begin{tabular}{|>{\scshape}p{\MaxLength}|*{\taskscount}{p{\itemwidth}|}|p{\itemwidth}|}
+	\hline
+	\textsc{Aufgabe} \tabletasks & {\centering \ $ \sum $}\\
+	\hline
+	\textsc{Punkte}
+	\expandafter\tablepoints \xpoints\END & {\centering \ \arabic{pointsum}}\\
+	\hline
+	\textsc{Erreicht} \tablecells &\\
+	\hline
+	\textsc{Korrektur} \tablecells &\\
+	\hline
+	\multicolumn{\columncount}{|l|}{Portfoliopunkte:}\\
+	\hline
+\end{tabular}
+\vspace{\fill}
+\newpage
+
+%%%%%%%
+% Eidesstattliche Erklärung
+%%%%%%%
+\section*{Erklärung über Arbeitsteilung}
+
+Hiermit versichern wir, dass wir alle Aufgaben zu je gleichen Teilen bearbeitet und die vorliegenden Lösungen zu je gleichen Teilen erstellt haben.
+
+\begin{align*}
+	& \underline{\hspace{5cm}} && \underline{\hspace{5cm}}\\
+	& \text{ Novak, Jannik Leander Hyun Ho} && \text{Ort, Datum}
+\end{align*}
+
+\begin{align*}
+	& \underline{\hspace{5cm}} && \underline{\hspace{5cm}}\\
+	& \text{Schimkat, Pete} && \text{Ort, Datum}
+\end{align*}
+
+\newpage
+%%%%%%%
+% Lösungen zur Aufgabe 4
+%%%%%%%
+
+\textbf{Aufgabe 4: Pumping Lemma regulärer Sprachen} \hfill \textbf{19 Punkte}
+\begin{compactenum}
+	\item[4a)] Sei $n \in \N$ (beliebig aber fest). Wir waehlen das Wort $w = 1^{n}001^{n}$, denn mit $x=1^{n-1}$ ist $w = 1^{n}001^{n}$ und $w \in A_1$. Es gilt weiterhin $\vert w\vert = 2n + 2 \geq n$. Sei $w=xyz$ eine beliebige Zerlegung mit $y\neq \varepsilon$ und $\vert xy\vert \leq n$. Dann ist $x=1^i$, $y=1^j$ und $z=1^{n-i-j}001^n$ fuer ein $j \neq 0$ und $i+j\leq n$. Wir waehlen $k = 0$. Dann ist $xy^{0}z = 1^{i} \varepsilon1^{n-i-j}001^n=1^{n-j}001^n \not \in A_1$, da $j \neq 0$. Da $\neg$\textbf{PUMPING-REG}$(A_1)$, ist $A_1$ nach dem Pumping-Lemma nicht regulaer.
+	\item[] \hfill \textbf{9 Punkte}
+	\item[4b)] Sei $n \in \N$ (beliebig aber fest). Wir waehlen das Wort $w = 0^{n}11(01)^{2n+1}$, denn $1 \in \N^{+}$ und $2n+1 > 2n$ und somit $w \in A_2$. Es gilt weiterhin $\vert w\vert = n +2 + 2(2n+1)=5n+4 \geq n$. Sei $w=xyz$ eine beliebige Zerlegung mit $y\neq \varepsilon$ und $\vert xy\vert \leq n$. Dann ist $x=0^i$, $y=0^j$ und $z=0^{n-i-j}11(01)^{2n+1}$ fuer ein $j \neq 0$ und $i+j\leq n$. Wir waehlen $k = 2$. Dann ist $xy^{2}z = 0^{i}0^{2j}0^{n-i-j}11(01)^{2n+1}=0^{n+j}11(01)^{2n+1} \not \in A_2$, denn  $2(n+j) = 2n+2j > 2n+1$ fuer $j \neq 0$. Da $\neg$\textbf{PUMPING-REG}$(A_2)$, ist $A_2$ nach dem Pumping-Lemma nicht regulaer.
+	\item[] \hfill \textbf{10 Punkte}
+
+\end{compactenum}
+
+\newpage
+%%%%%%%%
+% Lösungen zur Aufgabe 5
+%%%%%%%%
+
+\textbf{Aufgabe 5: Myhill-Nerode für reguläre Sprachen} \hfill \textbf{14 Punkte}
+\begin{compactenum}
+	\item[5a)] $[a]_{\equiv A} = \{ (bb)^na(bb)^m \vert n,m \in \N \}$ \\$[b]_{\equiv A} = \{ b(bb)^n \vert n \in \N \}$ \\$[ab]_{\equiv A} =\{(bb)^nab(bb)^m \vert n,m \in \N \}$ \\$[bb]_{\equiv A} =\{(bb)^n \vert n \in \N \}$ \\$[ba]_{\equiv A} =\{b(bb)^nay \vert y \in \Sigma^{*} \wedge n \in \N \} \cup \{w \vert w \in \Sigma^{*} \wedge \vert w \vert_a > 1\}$
+	\item[] \hfill \textbf{7 Punkte}
+	\item[5b)] $M_A=(\{[a],[b],[ab],[bb],[ba]\},\Sigma,\delta_A,[bb],\{[ab],[bb]\})$, \\ $\delta_A=\{([a],a,[ba]),([a],b,[ab]),([b],a,[ba]),([b],b,[bb]),([ab],a,[ba]),([ab],b,[a]),$\\$([bb],a,[a]),([bb],b,[b]),([ba],a,[ba]),([ba],b,[ba])\}$
+	\item[] \hfill \textbf{7 Punkte}
+
+\end{compactenum}
+
+\newpage
+
+%%%%%%%%
+% Lösungen zur Aufgabe 6
+%%%%%%%%
+
+\textbf{Aufgabe 6: Myhill-Nerode für nicht-reguläre Sprachen} \hfill \textbf{17 Punkte}
+\begin{compactenum}
+	\item[] $[a^m]_{\equiv B} = \{a^m\}$ fuer $m \in \N^{+}$ \\
+	$[a^{l}b]_{\equiv B} = \{ a^la^nbwb^n \vert n \in \N \wedge w \in \{a,ab\}^{*} \wedge \neg P_{b}(w)\}$ fuer $l \in \N^{+}$\\
+	$[b]_{\equiv B} = \{b\} \cup \{a^nbwb^n \vert n \in \N^{+} \wedge w \in \{a,ab\}^{*} \wedge P_{b}(w)\}$ \\
+	$[bb]_{\equiv B} = B \cup \{bw \vert w \in \Sigma^{+}\}$ \\ 
+	$[\varepsilon]_{\equiv B}=\{\varepsilon\}$ \\
+	
+\end{compactenum}
+
+\newpage
+%%%%%%%%
+% Lösungen zur Aufgabe 7
+%%%%%%%%
+
+\textbf{Aufgabe 7: Beschreiben und erzeugen von regulären Sprachen} \hfill \textbf{10 Punkte}
+\begin{compactenum}
+	\item[7a)] (A1) A ist nicht regulär. \\
+	(Z1) B ist nicht regulär. \\
+	Beweis über Widerspruchsannahme: \\
+	(A2) B ist regulär. \\
+	Wir vereinigen die Mengen A und B zu $AB=A\cup B \triangleq \{a^{2n}b^{m}c^{k}\vert m,n,k \in \N \land (n+m \leq k \lor n+m > k)\}$ \\
+	$\JustImp{Tautologie} \ \ \ \ \ \ AB \triangleq \{a^{2n}b^{m}c^{k}\vert m,n,k \in \N\}$ \\
+	Wir zeigen, dass AB regulär ist, indem wir einen endlichen Automaten konstruieren, der die Sprache akzeptiert: \\
+	\begin{center}
+    \begin{tikzpicture}[scale=0.2]
+    \tikzstyle{every node}+=[inner sep=0pt]
+    \draw [black] (19,-28.1) circle (3);
+    \draw (19,-28.1) node {$q0$};
+    \draw [black] (19,-28.1) circle (2.4);
+    \draw [black] (57.1,-28.1) circle (3);
+    \draw (57.1,-28.1) node {$q3$};
+    \draw [black] (57.1,-28.1) circle (2.4);
+    \draw [black] (38.6,-28.1) circle (3);
+    \draw (38.6,-28.1) node {$q2$};
+    \draw [black] (38.6,-28.1) circle (2.4);
+    \draw [black] (19,-14.5) circle (3);
+    \draw (19,-14.5) node {$q1$};
+    \draw [black] (22,-28.1) -- (35.6,-28.1);
+    \fill [black] (35.6,-28.1) -- (34.8,-27.6) -- (34.8,-28.6);
+    \draw (28.8,-27.6) node [above] {$b$};
+    \draw [black] (41.6,-28.1) -- (54.1,-28.1);
+    \fill [black] (54.1,-28.1) -- (53.3,-27.6) -- (53.3,-28.6);
+    \draw (47.85,-27.6) node [above] {$c$};
+    \draw [black] (37.277,-25.42) arc (234:-54:2.25);
+    \draw (38.6,-20.85) node [above] {$b$};
+    \fill [black] (39.92,-25.42) -- (40.8,-25.07) -- (39.99,-24.48);
+    \draw [black] (55.777,-25.42) arc (234:-54:2.25);
+    \draw (57.1,-20.85) node [above] {$c$};
+    \fill [black] (58.42,-25.42) -- (59.3,-25.07) -- (58.49,-24.48);
+    \draw [black] (54.867,-30.101) arc (-51.33989:-128.66011:26.919);
+    \fill [black] (54.87,-30.1) -- (53.93,-30.21) -- (54.55,-30.99);
+    \draw (38.05,-36.5) node [below] {$c$};
+    \draw [black] (17.563,-25.476) arc (-158.74175:-201.25825:11.519);
+    \fill [black] (17.56,-17.12) -- (16.81,-17.69) -- (17.74,-18.05);
+    \draw (16.28,-21.3) node [left] {$a$};
+    \draw [black] (20.699,-16.959) arc (25.97233:-25.97233:9.913);
+    \fill [black] (20.7,-25.64) -- (21.5,-25.14) -- (20.6,-24.7);
+    \draw (22.2,-21.3) node [right] {$a$};
+    \draw [black] (7.7,-28.1) -- (16,-28.1);
+    \fill [black] (16,-28.1) -- (15.2,-27.6) -- (15.2,-28.6);
+    \end{tikzpicture}
+    \end{center}
+    Es gilt, dass AB und B (Annahme A2) regulär sind. Nach Theorem 2.4.4. gilt außerdem, dass auch $AB\setminus B$ regulär ist. Da $AB = A \cup B$ gilt, ist per Definition  $AB\setminus B = A$. Somit würde daraus folgen, dass auch A regulär ist. \\
+    Dies widerspricht unserer Annahme A1, Somit muss unsere Widerspruchsannahme falsch sein. \\
+    Es gilt, dass B nicht regulär ist. 
+	\item[] \hfill \textbf{4 Punkte}
+	\item[7b)] Es gelten das Alphabet $\Sigma = \{a,b,c\}$ und die Grammatik $G_B = (\{S,T\},\Sigma,P,S$) mit: \\
+	$G_B : S -> aA_1 | bBc | bc | C | \epsilon$ \\
+	$A_1 -> aA_2c |ac $\\
+	$A_2 -> aA_1 | bBc | bc | C$ \\
+	$B -> bBc | bc | C$ \\
+	$C -> cC | c$ \\
+	Die Grammatik ist vom Typ 2. 
+	\item[] \hfill \textbf{6 Punkte}
+
+\end{compactenum}
+
+
+
+\end{document}
+
+
