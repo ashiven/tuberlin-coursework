@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/webserver.c
+stdlib.h
+-
+stdio.h
+-
+stdint.h
+-
+stdbool.h
+-
+unistd.h
+-
+errno.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netdb.h
+-
+arpa/inet.h
+-
+netinet/in.h
+-
+string.h
+-
+sys/wait.h
+-
+signal.h
+-
+

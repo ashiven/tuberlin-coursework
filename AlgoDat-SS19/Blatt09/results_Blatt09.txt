@@ -1,0 +1,52 @@
+ashiven,  03.07.2019, 02:09:26
+Korrektur Blatt 9
+
+Aufgabe 2.1
+	Test output of numberOfEdgeDisjointPaths() on medium-sized graphs: 0/10
+	  java.lang.Error: Unresolved compilation problem: 
+	This method must return a result of type int
+
+	Test output of numberOfEdgeDisjointPaths() on small graphs: 0/10
+	  java.lang.Error: Unresolved compilation problem: 
+	This method must return a result of type int
+
+Total points for Aufgabe 2.1: 0/20
+
+Aufgabe 2.2
+	Test output of edgeDisjointPaths() on medium-sized graphs: 0/10
+	  java.lang.Error: Unresolved compilation problem: 
+	This method must return a result of type Bag<LinkedList<Integer>>
+
+	Test output of edgeDisjointPaths() on small graphs: 0/10
+	  java.lang.Error: Unresolved compilation problem: 
+	This method must return a result of type Bag<LinkedList<Integer>>
+
+Total points for Aufgabe 2.2: 0/20
+
+Aufgabe 3.1
+	Test output of isUnique() on medium-sized flowgraphs: 0/20
+	  java.lang.Error: Unresolved compilation problem: 
+	This method must return a result of type boolean
+
+	Test output of isUnique() on small flowgraphs: 0/18
+	  java.lang.Error: Unresolved compilation problem: 
+	This method must return a result of type boolean
+
+	Test output of isUnique() on a small flowgraph which is not unique due to a second source: 0/2
+	  java.lang.Error: Unresolved compilation problem: 
+	This method must return a result of type boolean
+
+Total points for Aufgabe 3.1: 0/40
+
+Aufgabe 3.2
+	Test output of findBottlenecks() on medium-sized flowgraphs: 0/10
+	  java.lang.Error: Unresolved compilation problem: 
+	This method must return a result of type LinkedList<Integer>
+
+	Test output of findBottlenecks() on small flowgraphs: 0/10
+	  java.lang.Error: Unresolved compilation problem: 
+	This method must return a result of type LinkedList<Integer>
+
+Total points for Aufgabe 3.2: 0/20
+
+Total points: 0/100

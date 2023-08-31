@@ -1,0 +1,43 @@
+{
+    "task_pool": [
+        {
+            "name": "A",
+            "color": "WHITE",
+            "total_length": 5,
+            "arrival_tick": 0
+        },
+        {
+            "name": "B",
+            "color": "RED",
+            "total_length": 1,
+            "arrival_tick": 1
+        },
+        {
+            "name": "C",
+            "color": "GREEN",
+            "total_length": 10,
+            "arrival_tick": 4
+        },
+        {
+            "name": "D",
+            "color": "BLUE",
+            "total_length": 3,
+            "arrival_tick": 6
+        },
+        {
+            "name": "E",
+            "color": "MAGENTA",
+            "total_length": 7,
+            "arrival_tick": 8
+        },
+        {
+            "name": "F",
+            "color": "CYAN",
+            "total_length": 4,
+            "arrival_tick": 9
+        }
+    ],
+
+    "RR_MAX_QUANTUM": 2,
+    "MLF_NUM_QUEUES": 4        
+}

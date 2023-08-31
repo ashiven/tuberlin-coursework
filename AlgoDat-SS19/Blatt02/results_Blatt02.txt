@@ -1,0 +1,37 @@
+ashiven,  08.05.2019, 02:12:51
+Korrektur Blatt 2
+
+Aufgabe 1.1
+	Checks Implementation of compare: 5/5
+	Checks Implementation of equals: 5/5
+	Checks Implementation of getOwner: 3/3
+	Checks Implementation of setOwner: 3/3
+	Checks Implementation of toString: 4/4
+Total points for Aufgabe 1.1: 20/20
+
+Aufgabe 1.2
+	Checks Implementation of KitcheItem with shared owner: 5/5
+	Checks Implementation of KitcheItem with specified owner: 5/5
+	Checks Implementation of Copy Costructor.: 10/10
+Total points for Aufgabe 1.2: 20/20
+
+Aufgabe 1.3
+	Checks Implementation of findSpares: 0/15
+	  java.lang.AssertionError: expected:<true> but was:<false>
+Total points for Aufgabe 1.3: 0/15
+
+Aufgabe 1.4
+	Checks Implementation of putAway: 10/10
+Total points for Aufgabe 1.4: 10/10
+
+Aufgabe 1.5
+	Checks Implementation of putAwaySmart: 20/20
+Total points for Aufgabe 1.5: 20/20
+
+Aufgabe 1.6
+	Checks Implementation of replaceable: 6/6
+	Checks Implementation of replace: 0/9
+	   java.lang.NullPointerException in ManagetheChaos.replace(ManagetheChaos.java:83)
+Total points for Aufgabe 1.6: 6/15
+
+Total points: 76/100

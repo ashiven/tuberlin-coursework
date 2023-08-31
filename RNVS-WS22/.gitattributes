@@ -1,0 +1,7 @@
+*.py linguist-detectable=true
+*.c linguist-detectable=true
+*.cpp linguist-detectable=false
+*.make linguist-detectable=false
+*.cmake linguist-detectable=false
+*.lua linguist-detectable=false
+*.sh linguist-detectable=false

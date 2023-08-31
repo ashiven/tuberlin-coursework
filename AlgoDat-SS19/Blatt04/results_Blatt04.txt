@@ -1,0 +1,44 @@
+ashiven,  29.05.2019, 02:08:39
+Korrektur Blatt 4
+
+Aufgabe 1.1
+	Setzt Board Constructor board.n für n = 1, ..., 10 korrekt?: 2/2
+	Liefert nach doMove() und undoMove() die Methode getField() das Erwartete?: 8/8
+	Liefert getField() für alle Positionen den von setField() gesetzten Wert?: 5/5
+	Lösen ungültige Positionen bei getField() eine Exception aus?: 2/2
+	Gibt isGameWon() in unterschiedlichen Spielsituationen das erwartete Ergebnis?: 8/8
+	Gibt Methode nFreeFields() für unterschiedliche Brettgrößen die richtige Antwort?: 4/4
+	Lösen ungültige Token-Werte bei setField() eine Exception aus?: 1/1
+	Lösen ungültige Positionen bei setField() eine Exception aus?: 2/2
+	Liefert validMoves() in unterschiedlichen Spielsituationen das erwartete Ergebnis?: 8/8
+Total points for Aufgabe 1.1: 40/40
+
+Aufgabe 1.2
+	Liefert alphaBeta() in direkten Verluststellungen die erwartete Bewertung?: 10/10
+	Liefert alphaBeta() in direkten Gewinnstellungen die erwartete Bewertung?: 10/10
+	Liefert alphaBeta() in komplexen Stellungen die erwartete Bewertung?: 0/30
+	  java.lang.AssertionError: Bei der Spielsituation
+x..
+...
+...
+wird Bewertung 4 erwartet. expected:<4> but was:<0>
+Total points for Aufgabe 1.2: 20/50
+
+Aufgabe 1.3
+	Gibt evaluatePossibleMoves() in unterschiedlichen Spielsituationen das erwartete Ausgabe?: 0/10
+	  java.lang.AssertionError: Auf die Eingabe
+.o.
+...
+..x
+wird folgende Ausgabe erwartet:
+Evaluation for player 'x':
+  0  o  3
+aber es kam:
+Evaluation for player 'x':
+ 6  o  6 
+ 4  6  6 
+ 6  6  x 
+ expected:<true> but was:<false>
+Total points for Aufgabe 1.3: 0/10
+
+Total points: 60/100

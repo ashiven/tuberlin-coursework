@@ -1,0 +1,8 @@
+ashiven,  16.04.2019, 02:09:33
+Korrektur Blatt 0
+
+Aufgabe 3.6
+	Test, ob Abgaben.txt ist vorhanden: 10/10
+Total points for Aufgabe 3.6: 10/10
+
+Total points: 10/10

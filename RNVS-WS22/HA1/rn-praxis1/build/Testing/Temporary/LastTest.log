@@ -1,0 +1,148 @@
+Start testing: Nov 23 16:47 CET
+----------------------------------------------------------
+1/8 Testing: Execute
+1/8 Test: Execute
+Command: "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/execute.py" "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/webserver"
+Directory: /mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build
+"Execute" start time: Nov 23 16:47 CET
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"Execute" end time: Nov 23 16:47 CET
+"Execute" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/8 Testing: Listen
+2/8 Test: Listen
+Command: "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/listen.py" "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/webserver"
+Directory: /mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build
+"Listen" start time: Nov 23 16:47 CET
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"Listen" end time: Nov 23 16:47 CET
+"Listen" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/8 Testing: Reply
+3/8 Test: Reply
+Command: "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/reply.py" "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/webserver"
+Directory: /mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build
+"Reply" start time: Nov 23 16:47 CET
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.07 sec
+----------------------------------------------------------
+Test Passed.
+"Reply" end time: Nov 23 16:47 CET
+"Reply" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/8 Testing: Packets
+4/8 Test: Packets
+Command: "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/packets.py" "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/webserver"
+Directory: /mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build
+"Packets" start time: Nov 23 16:47 CET
+Output:
+----------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/packets.py", line 51, in <module>
+    sys.exit(main())
+  File "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/packets.py", line 43, in main
+    conn.send('\r\n'.encode())
+BrokenPipeError: [Errno 32] Broken pipe
+<end of output>
+Test time =   1.15 sec
+----------------------------------------------------------
+Test Failed.
+"Packets" end time: Nov 23 16:47 CET
+"Packets" time elapsed: 00:00:01
+----------------------------------------------------------
+
+5/8 Testing: HTTPReply
+5/8 Test: HTTPReply
+Command: "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/httpreply.py" "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/webserver"
+Directory: /mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build
+"HTTPReply" start time: Nov 23 16:47 CET
+Output:
+----------------------------------------------------------
+b'HTTP/1.1 400 Bad Request\r\n\r\n'
+<end of output>
+Test time =   0.57 sec
+----------------------------------------------------------
+Test Passed.
+"HTTPReply" end time: Nov 23 16:47 CET
+"HTTPReply" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/8 Testing: HTTPReplies
+6/8 Test: HTTPReplies
+Command: "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/httpreplies.py" "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/webserver"
+Directory: /mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build
+"HTTPReplies" start time: Nov 23 16:47 CET
+Output:
+----------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/httpreplies.py", line 57, in <module>
+    sys.exit(main())
+  File "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/httpreplies.py", line 48, in main
+    reply = conn.getresponse()
+  File "/usr/lib/python3.8/http/client.py", line 1322, in getresponse
+    response.begin()
+  File "/usr/lib/python3.8/http/client.py", line 303, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.8/http/client.py", line 272, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+http.client.RemoteDisconnected: Remote end closed connection without response
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Failed.
+"HTTPReplies" end time: Nov 23 16:47 CET
+"HTTPReplies" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/8 Testing: StaticContent
+7/8 Test: StaticContent
+Command: "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/static_content.py" "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/webserver"
+Directory: /mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build
+"StaticContent" start time: Nov 23 16:47 CET
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Passed.
+"StaticContent" end time: Nov 23 16:47 CET
+"StaticContent" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/8 Testing: DynamicContent
+8/8 Test: DynamicContent
+Command: "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/dynamic_content.py" "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/webserver"
+Directory: /mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build
+"DynamicContent" start time: Nov 23 16:47 CET
+Output:
+----------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/dynamic_content.py", line 83, in <module>
+    sys.exit(main())
+  File "/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/test/dynamic_content.py", line 40, in main
+    path = f'/dynamic/{random.randbytes(8).hex()}'
+AttributeError: module 'random' has no attribute 'randbytes'
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Failed.
+"DynamicContent" end time: Nov 23 16:47 CET
+"DynamicContent" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 23 16:47 CET

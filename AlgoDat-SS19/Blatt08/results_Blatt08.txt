@@ -1,0 +1,23 @@
+ashiven,  26.06.2019, 02:09:08
+Korrektur Blatt 8
+
+Aufgabe 3.2
+	Does the method contrast() of MatrixImage work correctly?: 5/5
+	Does the method removeVPath() of MatrixImage work correctly?: 15/15
+Total points for Aufgabe 3.2: 20/20
+
+Aufgabe 3.3
+	Does the method pathTo() of ShortestPathsTopological return an optimal path for large DAGs?: 10/10
+	Does the method pathTo() of ShortestPathsTopological return a valid path for large DAGs?: 10/10
+	Does the method pathTo() of ShortestPathsTopological return an optimal path for medium-sized DAGs?: 10/10
+	Does the method pathTo() of ShortestPathsTopological return a valid path for medium-sized DAGs?: 10/10
+	Does the method pathTo() of ShortestPathsTopological return an optimal path for small DAGs?: 5/5
+	Does the method pathTo() of ShortestPathsTopological return a valid path for small DAGs?: 5/5
+Total points for Aufgabe 3.3: 50/50
+
+Aufgabe 3.4
+	Does the method leastContrastImageVPath() of ContentAwareImageResizing return an optimal path?: 20/20
+	Does the method leastContrastImageVPath() of ContentAwareImageResizing return a valid path?: 10/10
+Total points for Aufgabe 3.4: 30/30
+
+Total points: 100/100

@@ -1,0 +1,28 @@
+ashiven,  01.05.2019, 02:12:19
+Korrektur Blatt 1
+
+Aufgabe 3.1
+	Checks Implementation of Constructor of CorticalNeuron: 4/4
+	Checks Implementation of Constructor of Interneuron: 4/4
+	Checks Implementation of Constructor of Photoreceptor: 7/7
+Total points for Aufgabe 3.1: 15/15
+
+Aufgabe 3.2
+	Checks implementation of addSynapse of Photoreceptor: 4/4
+	Checks implementation of addSynapse in Network: 3/3
+	Checks implementation of the get methods.: 3/3
+Total points for Aufgabe 3.2: 10/10
+
+Aufgabe 3.3
+	Checks implementation of constructor in Network: 25/25
+Total points for Aufgabe 3.3: 25/25
+
+Aufgabe 3.4
+	Checks implementation of intergrateSignal in Interneuron: 15/15
+Total points for Aufgabe 3.4: 15/15
+
+Aufgabe 3.5
+	Checks implementation of signalprocessing in Network: 35/35
+Total points for Aufgabe 3.5: 35/35
+
+Total points: 100/100

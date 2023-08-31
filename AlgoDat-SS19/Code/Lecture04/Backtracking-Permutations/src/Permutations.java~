@@ -1,0 +1,55 @@
+import java.util.LinkedList;
+
+public class PermutationsReduced
+{
+  private int N;
+  private int[] a;
+
+  public PermutationsReduced(int N)
+  {
+    this.N = N;
+    a = new int[N];
+    enumerate(0);
+  }
+
+  public void enumerate(int k)
+  {
+    if (k == N)
+      printSolution();
+    else {
+      Iterable<Integer> candidates = candidateList(k);
+      for (Integer c : candidates) {
+        a[k] = c;
+        enumerate(k+1);
+      }
+    }
+  }
+
+  public Iterable<Integer> candidateList(int k)
+  {
+    LinkedList<Integer> c = new LinkedList<>();
+    boolean[] used = new boolean[N];
+
+    for (int i = 0; i < k; i++)
+      used[a[i]] = true;
+
+    for (int i = 0; i < N; i++)
+      if (!used[i])
+        c.add(i);
+
+    return c;
+  }
+
+  public void printSolution()
+  {
+    for (int i : a)
+      System.out.print(i + " ");
+    System.out.println();
+  }
+
+  public static void main(String[] args)
+  {
+    int N = 5;
+    Permutations permutations = new Permutations(N);
+  }
+}

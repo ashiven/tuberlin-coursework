@@ -1,0 +1,7 @@
+/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/CMakeFiles/test.dir
+/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/CMakeFiles/package_source.dir
+/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/CMakeFiles/rebuild_cache.dir
+/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/CMakeFiles/package.dir
+/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/CMakeFiles/print.dir
+/mnt/c/Users/janni/OneDrive/Desktop/Uni/WS22/RN/HA1/rn-praxis1/build/CMakeFiles/webserver.dir

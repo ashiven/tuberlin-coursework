@@ -1,0 +1,56 @@
+Internal cmake changing into directory: /root/build
+======== CMake output     ======
+The C compiler identification is GNU 11.3.0
+The CXX compiler identification is GNU 11.3.0
+Detecting C compiler ABI info
+Detecting C compiler ABI info - done
+Check for working C compiler: /usr/bin/cc - skipped
+Detecting C compile features
+Detecting C compile features - done
+Detecting CXX compiler ABI info
+Detecting CXX compiler ABI info - done
+Check for working CXX compiler: /usr/bin/c++ - skipped
+Detecting CXX compile features
+Detecting CXX compile features - done
+Configuring done
+Generating done
+Build files have been written to: /root/build
+======== End CMake output ======
+Change Dir: /root/build
+
+Run Clean Command:/usr/bin/gmake -f Makefile clean
+
+Run Build Command(s):/usr/bin/gmake -f Makefile && [ 50%] Building C object CMakeFiles/webserver.dir/webserver.c.o
+[100%] Linking C executable webserver
+[100%] Built target webserver
+
+Running test command: "/usr/bin/ctest" "--output-on-failure"
+Test command failed: /usr/bin/ctest
+Test project /root/build
+    Start 1: Execute
+1/8 Test #1: Execute ..........................   Passed    0.03 sec
+    Start 2: Listen
+2/8 Test #2: Listen ...........................   Passed    0.15 sec
+    Start 3: Reply
+3/8 Test #3: Reply ............................   Passed    0.17 sec
+    Start 4: Packets
+4/8 Test #4: Packets ..........................   Passed    1.71 sec
+    Start 5: HTTPReply
+5/8 Test #5: HTTPReply ........................   Passed    0.65 sec
+    Start 6: HTTPReplies
+6/8 Test #6: HTTPReplies ......................   Passed    0.19 sec
+    Start 7: StaticContent
+7/8 Test #7: StaticContent ....................   Passed    0.19 sec
+    Start 8: DynamicContent
+8/8 Test #8: DynamicContent ...................***Failed    0.19 sec
+'/dynamic/9e9a90612d475fb3' should be missing
+
+
+88% tests passed, 1 tests failed out of 8
+
+Total Test time (real) =   3.29 sec
+
+The following tests FAILED:
+	  8 - DynamicContent (Failed)
+Errors while running CTest
+
