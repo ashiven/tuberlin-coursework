@@ -1,4 +1,1 @@
-*.tex linguist-detectable=false
-*.c linguist-detectable=false
-*.java linguist-detectable=false
-*.hs linguist-detectable=false
+/* linguist-vendored
