@@ -72,7 +72,13 @@ function callback(changed: utils.KeyValuePair<Settings>) {
             break
       }
    } else if (changed.key == "scale") {
-      helper.scale(mesh, 1, 1, 1)
+      helper.scale(mesh, changed.value, changed.value, changed.value)
+   } else if (changed.key == "disco") {
+      if (changed.value) {
+         mesh.material = new THREE.MeshPhongMaterial({ color: 0xffffff })
+      } else {
+         mesh.material = new THREE.MeshPhongMaterial({ color: 0x887766 })
+      }
    }
 }
 
