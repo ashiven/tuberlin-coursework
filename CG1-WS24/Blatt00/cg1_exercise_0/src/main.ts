@@ -103,7 +103,11 @@ function main() {
 
    root.addEventListener("keydown", (e) => {
       if (e.key == " ") {
-         alert("You pressed space!")
+         scene.background = new THREE.Color(
+            Math.random(),
+            Math.random(),
+            Math.random()
+         )
       }
    })
 
