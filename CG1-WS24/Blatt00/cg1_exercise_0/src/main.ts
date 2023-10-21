@@ -84,13 +84,19 @@ function callback(changed: utils.KeyValuePair<Settings>) {
 function main() {
    var root = Application("Basic")
    root.setLayout([
-      ["area1", "area1", "area2"],
-      ["area3", "renderer", "renderer"],
-      ["area3", "renderer", "renderer"],
+      ["renderer", "renderer", "renderer"],
+      ["renderer", "renderer", "renderer"],
+      ["renderer", "renderer", "renderer"],
    ])
    root.setLayoutColumns(["1fr", "1fr", "1fr"])
    root.setLayoutRows(["20%", "10%", "70%"])
+   root.addEventListener("keydown", (e) => {
+      if (e.key == " ") {
+         alert("You pressed space!")
+      }
+   })
 
+   // Settings is an extension of utils.Callbackable
    var settings = new Settings()
    var gui = createGUI(settings)
    gui.open()
@@ -116,9 +122,6 @@ function main() {
    var controls = new OrbitControls(camera, rendererDiv)
    helper.setupControls(controls)
 
-   // Fill the Window (renderDiv). In RenderWidget happens all the magic.
-   // It handles resizes, adds the fps widget and most important: defines the main animate loop.
-   // You dont need to touch this, but if feel free to overwrite RenderWidget.animate
    var wid = new RenderWidget(rendererDiv, renderer, camera, scene, controls)
    wid.animate()
 }
