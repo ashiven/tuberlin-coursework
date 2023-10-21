@@ -75,7 +75,7 @@ function callback(changed: utils.KeyValuePair<Settings>) {
       helper.scale(mesh, changed.value, changed.value, changed.value)
    } else if (changed.key == "disco") {
       if (changed.value) {
-         mesh.material = new THREE.MeshPhongMaterial({ color: 0xffffff })
+         mesh.material = new THREE.MeshPhongMaterial({ color: 0x7f7f7f })
       } else {
          mesh.material = new THREE.MeshPhongMaterial({ color: 0x887766 })
       }
