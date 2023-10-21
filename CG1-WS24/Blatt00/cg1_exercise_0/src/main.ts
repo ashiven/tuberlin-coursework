@@ -82,6 +82,7 @@ function callback(changed: utils.KeyValuePair<Settings>) {
  ******************************************************************************/
 
 function main() {
+   // Settings up an html document with a grid layout.
    var root = Application("Basic")
    root.setLayout([
       ["renderer", "renderer", "renderer"],
@@ -90,6 +91,10 @@ function main() {
    ])
    root.setLayoutColumns(["1fr", "1fr", "1fr"])
    root.setLayoutRows(["20%", "10%", "70%"])
+
+   var rendererDiv = createWindow("renderer")
+   root.appendChild(rendererDiv)
+
    root.addEventListener("keydown", (e) => {
       if (e.key == " ") {
          alert("You pressed space!")
@@ -98,14 +103,11 @@ function main() {
 
    // Settings is an extension of utils.Callbackable
    var settings = new Settings()
+   settings.addCallback(callback)
    var gui = createGUI(settings)
    gui.open()
 
-   settings.addCallback(callback)
-
-   var rendererDiv = createWindow("renderer")
-   root.appendChild(rendererDiv)
-
+   // Setup renderer, scene and camera.
    var renderer = new THREE.WebGLRenderer({
       antialias: true,
    })
