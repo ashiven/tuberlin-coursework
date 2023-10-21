@@ -88,7 +88,7 @@ function callback(changed: utils.KeyValuePair<Settings>) {
  ******************************************************************************/
 
 function main() {
-   // Settings up an html document with a grid layout.
+   // Setup an html document with a grid layout.
    var root = Application("Basic")
    root.setLayout([
       ["renderer", "renderer", "renderer"],
