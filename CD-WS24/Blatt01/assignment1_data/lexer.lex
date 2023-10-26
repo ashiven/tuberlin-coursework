@@ -127,11 +127,11 @@ enum {
 
 IDENT [a-zA-Z][a-zA-Z0-9]*
 
-BRACKETS \[|\]|\{|\}|\(|\)
+BRACKETS [\[\]\{\}\(\)]
 
-MATH_OP \+|\-|\*|\/
+MATH_OP [+-/*]
 
-COMPARISON \<|\>
+COMPARISON [<>]
 
 SPACES [ \t\n]+
 
