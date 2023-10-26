@@ -126,15 +126,68 @@ enum {
 
  /* TODO Helper definitions here  */
 
+IDENT [a-zA-Z][a-zA-Z0-9]*
+
+BRACKETS \[|\]|\{|\}|\(|\)
+
+MATH_OP \+|\-|\*|\/
+
+COMPARISON \<|\>
+
+SPACES [ \t\n]+
+
+FLOAT [0-9]+\.[0-9]+
+
  /* ================ SECTION 2 - RULES ================ */
 %%
 
-
- /* TODO Implement the rest... */
+{SPACES}                { /* ignore */ }
 
 class                   return CLASS;
 
-.                       { yylval.str = strdup(yytext); return ERROR; }
+public                  return PUBLIC;
+
+rt_Primitive            return RT_PRIMITIVE;
+
+rt_RayOrigin            { yylval.str = "rt_RayOrigin"; return STATE;}
+
+rt_RayDirection         { yylval.str = "rt_RayDirection"; return STATE;}
+
+rt_Epsilon              { yylval.str = "rt_Epsilon"; return STATE;}
+
+rt_GeometricNormal      { yylval.str = "rt_GeometricNormal"; return STATE;}
+
+rt_HitPoint             { yylval.str = "rt_HitPoint"; return STATE;}
+
+rt_BoundMin             { yylval.str = "rt_BoundMin"; return STATE;}
+
+rt_BoundMax             { yylval.str = "rt_BoundMax"; return STATE;}
+
+vec3                    { yylval.str = "vec3"; return TYPE; }
+
+void                    { yylval.str = "void"; return TYPE; }
+
+float                   { yylval.str = "float"; return TYPE; }
+
+{IDENT}                 { yylval.str = strdup(yytext); return IDENTIFIER; }
+
+{BRACKETS}              { return yytext[0]; }
+
+{MATH_OP}               { return yytext[0]; }
+
+{COMPARISON}            { return yytext[0]; }
+
+{FLOAT}                 { yylval.fval = atof(yytext); return FLOAT; }
+
+"="                     { return '='; }
+
+";"                     { return ';'; }
+
+","                     { return ','; }
+
+"."                     { return '.'; }
+
+":"                     { return ':'; }
 
 %%
 /* ================ SECTION 3 - USER CODE ================ */
