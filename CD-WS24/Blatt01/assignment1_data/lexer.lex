@@ -8,6 +8,9 @@
 #include <string.h>
 #include <math.h>
 
+
+/* ================ SECTION 1 - DECLARATIONS ================ */
+
 // Global variable for the line number
 int line_number = 1;
 
@@ -123,7 +126,9 @@ enum {
 
  /* TODO Helper definitions here  */
 
+ /* ================ SECTION 2 - RULES ================ */
 %%
+
 
  /* TODO Implement the rest... */
 
@@ -132,6 +137,7 @@ class                   return CLASS;
 .                       { yylval.str = strdup(yytext); return ERROR; }
 
 %%
+/* ================ SECTION 3 - USER CODE ================ */
 
 // Generate main code only for standalone compilation,
 // but not if we're using bison (2nd assignment)
