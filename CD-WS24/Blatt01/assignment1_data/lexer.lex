@@ -147,6 +147,10 @@ class                   return CLASS;
 
 public                  return PUBLIC;
 
+if                      return IF;
+
+else                    return ELSE;
+
 rt_Primitive            return RT_PRIMITIVE;
 
 rt_RayOrigin            { yylval.str = "rt_RayOrigin"; return STATE;}
