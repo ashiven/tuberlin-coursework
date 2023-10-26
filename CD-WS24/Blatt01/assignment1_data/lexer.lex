@@ -124,7 +124,6 @@ enum {
 
 %}
 
- /* TODO Helper definitions here  */
 
 IDENT [a-zA-Z][a-zA-Z0-9]*
 
