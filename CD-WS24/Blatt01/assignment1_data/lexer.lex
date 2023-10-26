@@ -137,10 +137,14 @@ SPACES [ \t\n]+
 
 FLOAT [0-9]+\.[0-9]+
 
+COMMENT [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
+
  /* ================ SECTION 2 - RULES ================ */
 %%
 
 {SPACES}                { /* ignore */ }
+
+{COMMENT}               { /* ignore */ }
 
 class                   return CLASS;
 
