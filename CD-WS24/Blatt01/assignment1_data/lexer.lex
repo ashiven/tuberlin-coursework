@@ -2,14 +2,13 @@
 %x IN_COMMENT
 
 %{
+/* ================ SECTION 1 - DECLARATIONS ================ */
 
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
 
-
-/* ================ SECTION 1 - DECLARATIONS ================ */
 
 // Global variable for the line number
 int line_number = 1;
@@ -133,7 +132,7 @@ MATH_OP [+-/*]
 
 COMPARISON [<>]
 
-SPACES [ \t\n]+
+SPACES [ \t]+
 
 FLOAT [0-9]+\.[0-9]+
 
@@ -142,9 +141,20 @@ COMMENT [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
  /* ================ SECTION 2 - RULES ================ */
 %%
 
+\n                      { line_number++; }
+
 {SPACES}                { /* ignore */ }
 
-{COMMENT}               { /* ignore */ }
+{COMMENT}               {   
+                            char* comment_string = yytext;
+                            int newlines = 0;
+                            char *newline_pointer = strchr(comment_string, '\n');
+                            while (newline_pointer != NULL) {
+                                newlines++;
+                                newline_pointer = strchr(newline_pointer + 1, '\n');
+                            }
+                            line_number += newlines;
+                        }
 
 class                   return CLASS;
 
