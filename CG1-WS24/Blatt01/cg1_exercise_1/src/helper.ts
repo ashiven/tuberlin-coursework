@@ -1,46 +1,48 @@
-import * as THREE from 'three';
+import * as THREE from "three"
 
-import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import type { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 
+// add two point lights and a basic ambient light
+// https://threejs.org/docs/#api/lights/PointLight
+//https://threejs.org/docs/#api/en/lights/AmbientLight
+export function setupLight(scene: THREE.Scene) {
+   var light = new THREE.PointLight(0xffffcc, 10000, 100)
+   light.position.set(10, 30, 15)
+   light.matrixAutoUpdate = true
+   scene.add(light)
 
-export function setupLight(scene: THREE.Scene){
-  // add two point lights and a basic ambient light
-  // https://threejs.org/docs/#api/lights/PointLight
-  var light = new THREE.PointLight(0xffffcc, 10000, 100);
-  light.position.set( 10, 30, 15 );
-  light.matrixAutoUpdate = true;
-  scene.add(light);
+   var light2 = new THREE.PointLight(0xffffcc, 10000, 100)
+   light2.position.set(10, -30, -15)
+   light2.matrixAutoUpdate = true
+   scene.add(light2)
 
-  var light2 = new THREE.PointLight(0xffffcc, 10000, 100);
-  light2.position.set( 10, -30, -15 );
-  light2.matrixAutoUpdate = true;
-  scene.add(light2);
-
-  //https://threejs.org/docs/#api/en/lights/AmbientLight
-  scene.add(new THREE.AmbientLight(0xFFFFFF));
-  return scene;
-};
+   scene.add(new THREE.AmbientLight(0xffffff))
+   return scene
+}
 
 // define camera that looks into scene
-export function setupCamera(camera: THREE.PerspectiveCamera, scene: THREE.Scene){
-  // https://threejs.org/docs/#api/cameras/PerspectiveCamera
-  camera.near = 0.01;
-  camera.far = 10;
-  camera.fov = 70;
-  camera.position.z = 1;
-  camera.lookAt(scene.position);
-  camera.updateProjectionMatrix();
-  camera.matrixAutoUpdate = true;
-  return camera
+// https://threejs.org/docs/#api/cameras/PerspectiveCamera
+export function setupCamera(
+   camera: THREE.PerspectiveCamera,
+   scene: THREE.Scene
+) {
+   camera.near = 0.01
+   camera.far = 10
+   camera.fov = 70
+   camera.position.z = 1
+   camera.lookAt(scene.position)
+   camera.updateProjectionMatrix()
+   camera.matrixAutoUpdate = true
+   return camera
 }
 
 // define controls (mouse interaction with the renderer)
-export function setupControls(controls: OrbitControls){
-  // https://threejs.org/docs/#examples/en/controls/OrbitControls
-  controls.rotateSpeed = 1.0;
-  controls.zoomSpeed = 1.2;
-  controls.enableZoom = true;
-  controls.minDistance = 0.1;
-  controls.maxDistance = 5;
-  return controls;
-};
+// https://threejs.org/docs/#examples/en/controls/OrbitControls
+export function setupControls(controls: OrbitControls) {
+   controls.rotateSpeed = 1.0
+   controls.zoomSpeed = 1.2
+   controls.enableZoom = true
+   controls.minDistance = 0.1
+   controls.maxDistance = 5
+   return controls
+}
