@@ -124,15 +124,11 @@ enum {
 %}
 
 
-IDENT [a-zA-Z][a-zA-Z0-9]*
-
-BRACKETS [\[\]\{\}\(\)]
-
-MATH_OP [+-/*]
-
-COMPARISON [<>]
+IDENT [a-zA-Z][a-zA-Z0-9_]*
 
 SPACES [ \t]+
+
+SYMBOLS [\(\)\[\]\{\}\.,;+-~!\*\/%<>&\^|?:]
 
 FLOAT [0-9]+\.[0-9]+
 
@@ -156,55 +152,212 @@ COMMENT [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
                             line_number += newlines;
                         }
 
-class                   return CLASS;
 
-public                  return PUBLIC;
+
+void                    { yylval.str = "void"; return TYPE; }
+
+bool                    { yylval.str = "bool"; return TYPE; }
+
+int                     { yylval.str = "int"; return TYPE; }
+
+uint                    { yylval.str = "uint"; return TYPE; }
+
+float                   { yylval.str = "float"; return TYPE; }
+
+double                  { yylval.str = "double"; return TYPE; }
+
+
+
+vec[2-4]                { yylval.str = strdup(yytext); return TYPE; }
+
+dvec[2-4]               { yylval.str = strdup(yytext); return TYPE; }
+
+bvec[2-4]               { yylval.str = strdup(yytext); return TYPE; }
+
+ivec[2-4]               { yylval.str = strdup(yytext); return TYPE; }
+
+
+
+mat[2-4]                { yylval.str = strdup(yytext); return TYPE; }
+
+mat[2-4]x[2-4]          { yylval.str = strdup(yytext); return TYPE; }
+
+dmat[2-4]               { yylval.str = strdup(yytext); return TYPE; }
+
+dmat[2-4]x[2-4]         { yylval.str = strdup(yytext); return TYPE; }
+
+
+
+color                   { yylval.str = "color"; return TYPE; }
+
+
+
+break                   return BREAK;
+
+continue                return CONTINUE;
+
+do                      return DO;
+
+for                     return FOR;
+
+while                   return WHILE;
+
+switch                  return SWITCH;
+
+case                    return CASE;
+
+default                 return DEFAULT;
 
 if                      return IF;
 
 else                    return ELSE;
 
+return                  return RETURN;
+
+struct                  return STRUCT;
+
+
+
+attribute               return ATTRIBUTE;
+
+const                   return CONST;
+
+uniform                 return UNIFORM;
+
+varying                 return VARYING;
+
+buffer                  return BUFFER;
+
+shared                  return SHARED;
+
+coherent                return COHERENT;
+
+volatile                return VOLATILE;
+
+restrict                return RESTRICT;
+
+readonly                return READONLY;
+
+writeonly               return WRITEONLY;
+
+layout                  return LAYOUT;
+
+centroid                return CENTROID;
+
+flat                    return FLAT;
+
+smooth                  return SMOOTH;
+
+noperspective           return NOPERSPECTIVE;
+
+patch                   return PATCH;
+
+sample                  return SAMPLE;
+
+subroutine              return SUBROUTINE;
+
+in                      return IN;
+
+out                     return OUT;
+
+inout                   return INOUT;
+
+invariant               return INVARIANT;
+
+precise                 return PRECISE;
+
+discard                 return DISCARD;
+
+lowp                    return LOWP;
+
+mediump                 return MEDIUMP;
+
+highp                   return HIGHP;
+
+precision               return PRECISION;
+
+
+
+class                   return CLASS;
+
+illuminance             return ILLUMINANCE;
+
+ambient                 return AMBIENT;
+
+public                  return PUBLIC;
+
+private                 return PRIVATE;
+
+scratch                 return SCRATCH;
+
+
+
 rt_Primitive            return RT_PRIMITIVE;
 
-rt_RayOrigin            { yylval.str = "rt_RayOrigin"; return STATE;}
+rt_Camera               return RT_CAMERA;
 
-rt_RayDirection         { yylval.str = "rt_RayDirection"; return STATE;}
+rt_Material             return RT_MATERIAL;
 
-rt_Epsilon              { yylval.str = "rt_Epsilon"; return STATE;}
+rt_Texture              return RT_TEXTURE;
 
-rt_GeometricNormal      { yylval.str = "rt_GeometricNormal"; return STATE;}
+rt_Light                return RT_LIGHT;
 
-rt_HitPoint             { yylval.str = "rt_HitPoint"; return STATE;}
 
-rt_BoundMin             { yylval.str = "rt_BoundMin"; return STATE;}
 
-rt_BoundMax             { yylval.str = "rt_BoundMax"; return STATE;}
+rt_[a-zA-Z]+            { yylval.str = strdup(yytext); return STATE;}
 
-vec3                    { yylval.str = "vec3"; return TYPE; }
 
-void                    { yylval.str = "void"; return TYPE; }
 
-float                   { yylval.str = "float"; return TYPE; }
+"<<"                    return LEFT_OP;
 
-{IDENT}                 { yylval.str = strdup(yytext); return IDENTIFIER; }
+">>"                    return RIGHT_OP;
 
-{BRACKETS}              { return yytext[0]; }
+"++"                    return INC_OP;
 
-{MATH_OP}               { return yytext[0]; }
+"--"                    return DEC_OP;
 
-{COMPARISON}            { return yytext[0]; }
+"<="                    return LE_OP;
+
+">="                    return GE_OP;
+
+"=="                    return EQ_OP;
+
+"!="                    return NE_OP;
+
+"&&"                    return AND_OP;
+
+"||"                    return OR_OP;
+
+"^"                     return XOR_OP;
+
+"*="                    return MUL_ASSIGN;
+
+"/="                    return DIV_ASSIGN;
+
+"+="                    return ADD_ASSIGN;
+
+"%="                    return MOD_ASSIGN;
+
+"<<="                   return LEFT_ASSIGN;
+
+">>="                   return RIGHT_ASSIGN;
+
+"&="                    return AND_ASSIGN;
+
+"^="                    return XOR_ASSIGN;
+
+"|="                    return OR_ASSIGN;
+
+"-="                    return SUB_ASSIGN;
+
+
+
+{SYMBOLS}              { return yytext[0]; }
 
 {FLOAT}                 { yylval.fval = atof(yytext); return FLOAT; }
 
-"="                     { return '='; }
+{IDENT}                 { yylval.str = strdup(yytext); return IDENTIFIER; }
 
-";"                     { return ';'; }
-
-","                     { return ','; }
-
-"."                     { return '.'; }
-
-":"                     { return ':'; }
 
 %%
 /* ================ SECTION 3 - USER CODE ================ */
