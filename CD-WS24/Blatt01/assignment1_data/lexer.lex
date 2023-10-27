@@ -126,7 +126,7 @@ enum {
 
 IDENT [a-zA-Z][a-zA-Z0-9_]*
 
-SPACES [ \t]+
+SPACES [ \t\v\r\f]+
 
 SYMBOLS [\(\)\[\]\{\}\.,;+-~!\*\/%<>&\^|?:]
 
