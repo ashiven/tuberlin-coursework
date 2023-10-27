@@ -130,7 +130,11 @@ SPACES [ \t\v\r\f]+
 
 SYMBOLS [\(\)\[\]\{\}\.,;+-~!\*\/%<>&\^|?:]
 
-FLOAT [0-9]+\.[0-9]+
+BOOL true|false
+
+INT [0-9]+|0[xX][0-9a-fA-F]+|0[0-7]+
+
+FLOAT [0-9]+\.[0-9]+|[0-9]+\.|[0-9]+[eE][+-]?[0-9]+|[0-9]+\.[0-9]+[eE][+-]?[0-9]+
 
 COMMENT [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 
@@ -352,11 +356,19 @@ rt_[a-zA-Z]+            { yylval.str = strdup(yytext); return STATE;}
 
 
 
-{SYMBOLS}              { return yytext[0]; }
+{SYMBOLS}               { return yytext[0]; }
+
+{BOOL}                  { yylval.bval = (strcmp(yytext, "true") == 0); return BOOL; }
+
+{INT}                   { yylval.ival = atoi(yytext); return INT; }
 
 {FLOAT}                 { yylval.fval = atof(yytext); return FLOAT; }
 
 {IDENT}                 { yylval.str = strdup(yytext); return IDENTIFIER; }
+
+
+
+.                       { yylval.str = strdup(yytext); return ERROR; }
 
 
 %%
