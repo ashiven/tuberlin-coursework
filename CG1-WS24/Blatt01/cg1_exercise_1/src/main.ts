@@ -48,15 +48,13 @@ function main() {
    const cube = new THREE.Mesh(geometry, material)
    scene.add(cube)
 
-   const geometryLeftArm = new THREE.TubeGeometry()
+   const geometryLeftArm = new THREE.BoxGeometry(1, 1, 1)
    const materialLeftArm = new THREE.MeshBasicMaterial({ color: 0xff0000 })
    const cubeLeftArm = new THREE.Mesh(geometryLeftArm, materialLeftArm)
    cubeLeftArm.position.x = -2
    cubeLeftArm.position.y = 1
    cubeLeftArm.position.z = 1
-   cube.add(cubeLeftArm)
-
-   console.log(cube.children)
+   scene.add(cubeLeftArm)
 
    // start the animation loop (async)
    var wid = new RenderWidget(rendererDiv, renderer, camera, scene, controls)
