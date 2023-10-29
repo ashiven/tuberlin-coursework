@@ -42,6 +42,22 @@ function main() {
    controls = new OrbitControls(camera, rendererDiv)
    helper.setupControls(controls)
 
+   // create scene content
+   const geometry = new THREE.BoxGeometry(1, 1, 1)
+   const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+   const cube = new THREE.Mesh(geometry, material)
+   scene.add(cube)
+
+   const geometryLeftArm = new THREE.TubeGeometry()
+   const materialLeftArm = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+   const cubeLeftArm = new THREE.Mesh(geometryLeftArm, materialLeftArm)
+   cubeLeftArm.position.x = -2
+   cubeLeftArm.position.y = 1
+   cubeLeftArm.position.z = 1
+   cube.add(cubeLeftArm)
+
+   console.log(cube.children)
+
    // start the animation loop (async)
    var wid = new RenderWidget(rendererDiv, renderer, camera, scene, controls)
    wid.animate()
