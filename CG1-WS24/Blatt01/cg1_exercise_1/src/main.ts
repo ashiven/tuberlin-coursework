@@ -42,42 +42,69 @@ function main() {
    controls = new OrbitControls(camera, rendererDiv)
    helper.setupControls(controls)
 
-   // Create the body (corpus)
+   // ========================== BODY ==========================
    const bodyGeometry = new THREE.BoxGeometry(1, 2, 0.5) // Adjust the size for the body
    const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const body = new THREE.Mesh(bodyGeometry, bodyMaterial)
 
-   // Create the head
-   const headGeometry = new THREE.BoxGeometry(1, 1, 1)
+   // ========================== HEAD ==========================
+   const headGeometry = new THREE.SphereGeometry(0.5, 32, 32) // Adjust the size for the head
    const headMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const head = new THREE.Mesh(headGeometry, headMaterial)
-   head.position.set(0, 2, 0) // Position the head above the corpus
 
-   // Create the arms
+   // position head
+   head.matrix.makeTranslation(0, 2, 0)
+
+   // update matrix world
+   head.updateMatrixWorld(true)
+
+   // ========================== ARMS ==========================
    const armGeometry = new THREE.BoxGeometry(0.2, 1, 0.2) // Smaller rectangle for arms
    const armMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }) // Red color
    const leftArm = new THREE.Mesh(armGeometry, armMaterial)
    const rightArm = new THREE.Mesh(armGeometry, armMaterial)
-   leftArm.position.set(-1, 1.5, 0)
-   rightArm.position.set(1, 1.5, 0)
 
-   // Create the legs
+   // position arms
+   leftArm.matrix.makeTranslation(-1, 1.5, 0)
+   rightArm.matrix.makeTranslation(1, 1.5, 0)
+
+   // rotate arms
+   const rotationMatrix = new THREE.Matrix4().makeRotationX(Math.PI / 2) // 90 degrees in radians
+   leftArm.matrix.multiplyMatrices(rotationMatrix, leftArm.matrix)
+
+   // update matrix world
+   leftArm.updateMatrixWorld(true)
+   rightArm.updateMatrixWorld(true)
+
+   // ========================== LEGS ==========================
    const legGeometry = new THREE.BoxGeometry(0.2, 1, 0.2) // Smaller rectangle for legs
    const legMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 }) // Yellow color
    const leftLeg = new THREE.Mesh(legGeometry, legMaterial)
    const rightLeg = new THREE.Mesh(legGeometry, legMaterial)
-   leftLeg.position.set(-0.5, -0.5, 0)
-   rightLeg.position.set(0.5, -0.5, 0)
 
-   // Create the feet
+   // position legs
+   leftLeg.matrix.makeTranslation(-0.5, -2, 0)
+   rightLeg.matrix.makeTranslation(0.5, -2, 0)
+
+   // update matrix world
+   leftLeg.updateMatrixWorld(true)
+   rightLeg.updateMatrixWorld(true)
+
+   // ========================== FEET ==========================
    const footGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5) // Smaller rectangle for feet
    const footMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 }) // Green color
    const leftFoot = new THREE.Mesh(footGeometry, footMaterial)
    const rightFoot = new THREE.Mesh(footGeometry, footMaterial)
-   leftFoot.position.set(-0.5, -1.2, 0.2)
-   rightFoot.position.set(0.5, -1.2, 0.2)
 
-   // Add all objects to the scene
+   // position feet
+   leftFoot.matrix.makeTranslation(-0.5, -3, 0)
+   rightFoot.matrix.makeTranslation(0.5, -3, 0)
+
+   // update matrix world
+   leftFoot.updateMatrixWorld(true)
+   rightFoot.updateMatrixWorld(true)
+
+   // ========================== HIERARCHY ==========================
    scene.add(body)
    body.add(head)
    body.add(leftArm)
