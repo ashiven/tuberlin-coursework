@@ -29,7 +29,8 @@ export function setupCamera(
    camera.near = 0.01
    camera.far = 10
    camera.fov = 70
-   camera.position.z = 1
+   // TODO: - might have to revert this value to 1 because it was 1 in the original code
+   camera.position.z = 10
    camera.lookAt(scene.position)
    camera.updateProjectionMatrix()
    camera.matrixAutoUpdate = true

@@ -47,20 +47,21 @@ function main() {
    head.updateMatrixWorld(true)
 
    // ========================== ARMS ==========================
-   const armGeometry = new THREE.BoxGeometry(0.2, 1, 0.2) // Smaller rectangle for arms
-   const armMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }) // Red color
-   const leftArm = new THREE.Mesh(armGeometry, armMaterial)
-   const rightArm = new THREE.Mesh(armGeometry, armMaterial)
+   const armGeometry = new THREE.BoxGeometry(1, 0.2, 0.2) // Smaller rectangle for arms
+   const leftArmMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }) // Red color
+   const rightArmMaterial = new THREE.MeshBasicMaterial({ color: 0xfff000 }) // Yellow color
+   const leftArm = new THREE.Mesh(armGeometry, leftArmMaterial)
+   const rightArm = new THREE.Mesh(armGeometry, rightArmMaterial)
 
    // position arms
-   leftArm.matrix.makeTranslation(-1, 1.5, 0)
-   rightArm.matrix.makeTranslation(1, 1.5, 0)
+   leftArm.matrix.makeTranslation(-1.5, 0.5, 0)
+   rightArm.matrix.makeTranslation(1.5, 0.5, 0)
 
    // rotate arms
-   const rotationMatrix = new THREE.Matrix4().makeRotationX(Math.PI / 2) // 90 degrees in radians
-   const rotationMatrix2 = new THREE.Matrix4().makeRotationY(-Math.PI / 2) // -90 degrees in radians
-   leftArm.matrix.multiplyMatrices(rotationMatrix, leftArm.matrix)
-   leftArm.matrix.multiplyMatrices(rotationMatrix2, leftArm.matrix)
+   //const rotationMatrix = new THREE.Matrix4().makeRotationX(-Math.PI / 2) // 90 degrees in radians
+   //const rotationMatrix2 = new THREE.Matrix4().makeRotationY(Math.PI / 2) // 90 degrees in radians
+   //leftArm.matrix.multiplyMatrices(rotationMatrix, leftArm.matrix)
+   //leftArm.matrix.multiplyMatrices(rotationMatrix2, leftArm.matrix)
 
    // update matrix world
    leftArm.updateMatrixWorld(true)
@@ -104,6 +105,22 @@ function main() {
    leftLeg.add(leftFoot)
    rightLeg.add(rightFoot)
 
+   // ========================== SHOW COORDINATES ==========================
+   // x axis is red, y axis is green, z axis is blue
+   var axesHelper = new THREE.AxesHelper(5)
+
+   // add an event listener that toggles between showing the axeshelper and not showing it when pressing C
+   document.addEventListener("keydown", (event) => {
+      if (event.key === "c") {
+         if (scene.children.includes(axesHelper)) {
+            scene.remove(axesHelper)
+         } else {
+            scene.add(axesHelper)
+         }
+      }
+   })
+
+   // ========================== RENDERER ==========================
    // start the animation loop (async)
    var wid = new RenderWidget(rendererDiv, renderer, camera, scene, controls)
    wid.animate()
