@@ -15,30 +15,18 @@ function main() {
    root.setLayout([["renderer"]])
    root.setLayoutColumns(["100%"])
    root.setLayoutRows(["100%"])
-
    rendererDiv = createWindow("renderer")
    root.appendChild(rendererDiv)
 
-   // create renderer
    var renderer = new THREE.WebGLRenderer({
-      antialias: true, // to enable anti-alias and get smoother output
+      antialias: true,
    })
-
-   // important exercise specific limitation, do not remove this line
    THREE.Object3D.DEFAULT_MATRIX_AUTO_UPDATE = false
-
-   // create scene
    var scene = new THREE.Scene()
-   // manually set matrixWorld
    scene.matrixWorld.copy(scene.matrix)
-
    helper.setupLight(scene)
-
-   // create camera
    camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera, scene)
-
-   // create controls
    controls = new OrbitControls(camera, rendererDiv)
    helper.setupControls(controls)
 
@@ -70,7 +58,9 @@ function main() {
 
    // rotate arms
    const rotationMatrix = new THREE.Matrix4().makeRotationX(Math.PI / 2) // 90 degrees in radians
+   const rotationMatrix2 = new THREE.Matrix4().makeRotationY(-Math.PI / 2) // -90 degrees in radians
    leftArm.matrix.multiplyMatrices(rotationMatrix, leftArm.matrix)
+   leftArm.matrix.multiplyMatrices(rotationMatrix2, leftArm.matrix)
 
    // update matrix world
    leftArm.updateMatrixWorld(true)
