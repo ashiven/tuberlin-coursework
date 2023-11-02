@@ -121,49 +121,49 @@ function main() {
    })
 
    // ========================== NAVIGATING THE OBJECTS ==========================
-   let selectedObject: any = body
+   let g_selectedObject: any = body
 
-   // add an event listener that selects the object that is clicked on
    document.addEventListener("keydown", (event) => {
       if (event.key === "s") {
-         if (selectedObject && selectedObject.children.length > 0) {
-            selectedObject = selectedObject.children[0]
+         if (g_selectedObject && g_selectedObject.children.length > 0) {
+            g_selectedObject = g_selectedObject.children[0]
             hightLightObject()
          }
       } else if (event.key === "a") {
-         if (selectedObject && selectedObject.parent) {
-            const siblings = selectedObject.parent.children
-            const index = siblings.indexOf(selectedObject)
+         if (g_selectedObject && g_selectedObject.parent) {
+            const siblings = g_selectedObject.parent.children
+            const index = siblings.indexOf(g_selectedObject)
             if (index > 0) {
-               selectedObject = siblings[index - 1]
+               g_selectedObject = siblings[index - 1]
             }
             hightLightObject()
          }
       } else if (event.key === "d") {
-         if (selectedObject && selectedObject.parent) {
-            const siblings = selectedObject.parent.children
-            const index = siblings.indexOf(selectedObject)
+         if (g_selectedObject && g_selectedObject.parent) {
+            const siblings = g_selectedObject.parent.children
+            const index = siblings.indexOf(g_selectedObject)
             if (index < siblings.length - 1) {
-               selectedObject = siblings[index + 1]
+               g_selectedObject = siblings[index + 1]
             }
             hightLightObject()
          }
       } else if (event.key === "w") {
-         if (selectedObject && selectedObject.parent) {
-            selectedObject = selectedObject.parent
+         if (g_selectedObject && g_selectedObject.parent) {
+            g_selectedObject = g_selectedObject.parent
             hightLightObject()
          }
       }
    })
 
    function hightLightObject() {
+      console.log("Selected object: ", g_selectedObject.name)
       scene.traverse((thing) => {
          if (thing instanceof THREE.Mesh) {
             thing.material.color.set(0x0000ff)
          }
       })
-      if (selectedObject instanceof THREE.Mesh) {
-         selectedObject.material.color.set(0xff0000)
+      if (g_selectedObject instanceof THREE.Mesh) {
+         g_selectedObject.material.color.set(0xff0000)
       }
    }
 
