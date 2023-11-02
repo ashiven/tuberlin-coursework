@@ -31,14 +31,15 @@ function main() {
    helper.setupControls(controls)
 
    // ========================== BODY ==========================
-   const bodyGeometry = new THREE.BoxGeometry(1, 2, 0.5) // Adjust the size for the body
+   const bodyGeometry = new THREE.BoxGeometry(1, 2, 0.5)
    const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const body = new THREE.Mesh(bodyGeometry, bodyMaterial)
    body.name = "body"
 
    // ========================== HEAD ==========================
-   const headGeometry = new THREE.SphereGeometry(0.5, 32, 32) // Adjust the size for the head
-   const head = new THREE.Mesh(headGeometry, bodyMaterial)
+   const headGeometry = new THREE.SphereGeometry(0.5, 32, 32)
+   const headMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const head = new THREE.Mesh(headGeometry, headMaterial)
    head.name = "head"
 
    // position head
@@ -49,8 +50,10 @@ function main() {
 
    // ========================== ARMS ==========================
    const armGeometry = new THREE.BoxGeometry(1, 0.2, 0.2) // Smaller rectangle for arms
-   const leftArm = new THREE.Mesh(armGeometry, bodyMaterial)
-   const rightArm = new THREE.Mesh(armGeometry, bodyMaterial)
+   const leftArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const rightArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const leftArm = new THREE.Mesh(armGeometry, leftArmMaterial)
+   const rightArm = new THREE.Mesh(armGeometry, rightArmMaterial)
    leftArm.name = "leftArm"
    rightArm.name = "rightArm"
 
@@ -70,8 +73,10 @@ function main() {
 
    // ========================== LEGS ==========================
    const legGeometry = new THREE.BoxGeometry(0.2, 1, 0.2) // Smaller rectangle for legs
-   const leftLeg = new THREE.Mesh(legGeometry, bodyMaterial)
-   const rightLeg = new THREE.Mesh(legGeometry, bodyMaterial)
+   const leftLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const rightLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const leftLeg = new THREE.Mesh(legGeometry, leftLegMaterial)
+   const rightLeg = new THREE.Mesh(legGeometry, rightLegMaterial)
    leftLeg.name = "leftLeg"
    rightLeg.name = "rightLeg"
 
@@ -85,8 +90,10 @@ function main() {
 
    // ========================== FEET ==========================
    const footGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5) // Smaller rectangle for feet
-   const leftFoot = new THREE.Mesh(footGeometry, bodyMaterial)
-   const rightFoot = new THREE.Mesh(footGeometry, bodyMaterial)
+   const leftFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const rightFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const leftFoot = new THREE.Mesh(footGeometry, leftFootMaterial)
+   const rightFoot = new THREE.Mesh(footGeometry, rightFootMaterial)
    leftFoot.name = "leftFoot"
    rightFoot.name = "rightFoot"
 
@@ -107,6 +114,11 @@ function main() {
    body.add(rightLeg)
    leftLeg.add(leftFoot)
    rightLeg.add(rightFoot)
+
+   // log the names of the child nodes of the body
+   body.children.forEach((child) => {
+      console.log(child.name)
+   })
 
    // ========================== SHOW COORDINATES ==========================
    // x axis is red, y axis is green, z axis is blue
@@ -135,6 +147,7 @@ function main() {
       } else if (event.key === "a") {
          if (g_selectedObject && g_selectedObject.parent) {
             const siblings = g_selectedObject.parent.children
+            printNames(siblings)
             const index = siblings.indexOf(g_selectedObject)
             if (index > 0) {
                g_selectedObject = siblings[index - 1]
@@ -144,6 +157,7 @@ function main() {
       } else if (event.key === "d") {
          if (g_selectedObject && g_selectedObject.parent) {
             const siblings = g_selectedObject.parent.children
+            printNames(siblings)
             const index = siblings.indexOf(g_selectedObject)
             if (index < siblings.length - 1) {
                g_selectedObject = siblings[index + 1]
@@ -160,14 +174,20 @@ function main() {
 
    function hightLightObject() {
       console.log("Selected object: ", g_selectedObject.name)
-      scene.traverse((thing) => {
-         if (thing instanceof THREE.Mesh) {
-            thing.material.color.set(0x0000ff)
+      scene.traverse((object) => {
+         if (object instanceof THREE.Mesh) {
+            object.material.color.set(0x0000ff)
          }
       })
       if (g_selectedObject instanceof THREE.Mesh) {
          g_selectedObject.material.color.set(0xff0000)
       }
+   }
+
+   function printNames(list: any) {
+      list.forEach((element: any) => {
+         console.log(element.name)
+      })
    }
 
    // ========================== RENDERER ==========================
