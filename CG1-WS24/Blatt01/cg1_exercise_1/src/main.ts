@@ -34,11 +34,12 @@ function main() {
    const bodyGeometry = new THREE.BoxGeometry(1, 2, 0.5) // Adjust the size for the body
    const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const body = new THREE.Mesh(bodyGeometry, bodyMaterial)
+   body.name = "body"
 
    // ========================== HEAD ==========================
    const headGeometry = new THREE.SphereGeometry(0.5, 32, 32) // Adjust the size for the head
-   const headMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const head = new THREE.Mesh(headGeometry, headMaterial)
+   const head = new THREE.Mesh(headGeometry, bodyMaterial)
+   head.name = "head"
 
    // position head
    head.matrix.makeTranslation(0, 2, 0)
@@ -48,10 +49,10 @@ function main() {
 
    // ========================== ARMS ==========================
    const armGeometry = new THREE.BoxGeometry(1, 0.2, 0.2) // Smaller rectangle for arms
-   const leftArmMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 }) // Red color
-   const rightArmMaterial = new THREE.MeshBasicMaterial({ color: 0xfff000 }) // Yellow color
-   const leftArm = new THREE.Mesh(armGeometry, leftArmMaterial)
-   const rightArm = new THREE.Mesh(armGeometry, rightArmMaterial)
+   const leftArm = new THREE.Mesh(armGeometry, bodyMaterial)
+   const rightArm = new THREE.Mesh(armGeometry, bodyMaterial)
+   leftArm.name = "leftArm"
+   rightArm.name = "rightArm"
 
    // position arms
    leftArm.matrix.makeTranslation(-1.5, 0.5, 0)
@@ -69,9 +70,10 @@ function main() {
 
    // ========================== LEGS ==========================
    const legGeometry = new THREE.BoxGeometry(0.2, 1, 0.2) // Smaller rectangle for legs
-   const legMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 }) // Yellow color
-   const leftLeg = new THREE.Mesh(legGeometry, legMaterial)
-   const rightLeg = new THREE.Mesh(legGeometry, legMaterial)
+   const leftLeg = new THREE.Mesh(legGeometry, bodyMaterial)
+   const rightLeg = new THREE.Mesh(legGeometry, bodyMaterial)
+   leftLeg.name = "leftLeg"
+   rightLeg.name = "rightLeg"
 
    // position legs
    leftLeg.matrix.makeTranslation(-0.5, -2, 0)
@@ -83,9 +85,10 @@ function main() {
 
    // ========================== FEET ==========================
    const footGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5) // Smaller rectangle for feet
-   const footMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 }) // Green color
-   const leftFoot = new THREE.Mesh(footGeometry, footMaterial)
-   const rightFoot = new THREE.Mesh(footGeometry, footMaterial)
+   const leftFoot = new THREE.Mesh(footGeometry, bodyMaterial)
+   const rightFoot = new THREE.Mesh(footGeometry, bodyMaterial)
+   leftFoot.name = "leftFoot"
+   rightFoot.name = "rightFoot"
 
    // position feet
    leftFoot.matrix.makeTranslation(-0.5, -3, 0)
