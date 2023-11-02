@@ -119,10 +119,16 @@ function main() {
    leftLeg.add(leftFoot)
    rightLeg.add(rightFoot)
 
-   // log the names of the child nodes of the body
-   //body.children.forEach((child) => {
-   //   console.log(child.name)
-   //})
+   const g_bodyParts = [
+      "body",
+      "head",
+      "leftArm",
+      "rightArm",
+      "leftLeg",
+      "rightLeg",
+      "leftFoot",
+      "rightFoot",
+   ]
 
    // ========================== SHOW COORDINATES ==========================
    // x axis is red, y axis is green, z axis is blue
@@ -147,19 +153,7 @@ function main() {
          if (g_selectedObject && g_selectedObject.children.length > 0) {
             let firstChild: any = null
             g_selectedObject.children.forEach((child: any) => {
-               if (
-                  !firstChild &&
-                  [
-                     "body",
-                     "head",
-                     "leftArm",
-                     "rightArm",
-                     "leftLeg",
-                     "rightLeg",
-                     "leftFoot",
-                     "rightFoot",
-                  ].includes(child.name)
-               ) {
+               if (!firstChild && g_bodyParts.includes(child.name)) {
                   firstChild = child
                }
             })
@@ -167,9 +161,11 @@ function main() {
             hightLightObject()
          }
       } else if (event.key === "a") {
-         if (g_selectedObject && g_selectedObject.parent !== scene) {
-            const siblings = g_selectedObject.parent.children
-            printNames(siblings)
+         if (g_selectedObject && g_selectedObject.parent) {
+            const siblings =
+               g_selectedObject.name === "body"
+                  ? [g_selectedObject]
+                  : g_selectedObject.parent.children
             const index = siblings.indexOf(g_selectedObject)
             if (index > 0) {
                g_selectedObject = siblings[index - 1]
@@ -177,9 +173,11 @@ function main() {
             hightLightObject()
          }
       } else if (event.key === "d") {
-         if (g_selectedObject && g_selectedObject.parent !== scene) {
-            const siblings = g_selectedObject.parent.children
-            printNames(siblings)
+         if (g_selectedObject && g_selectedObject.parent) {
+            const siblings =
+               g_selectedObject.name === "body"
+                  ? [g_selectedObject]
+                  : g_selectedObject.parent.children
             const index = siblings.indexOf(g_selectedObject)
             if (index < siblings.length - 1) {
                g_selectedObject = siblings[index + 1]
@@ -187,7 +185,7 @@ function main() {
             hightLightObject()
          }
       } else if (event.key === "w") {
-         if (g_selectedObject && g_selectedObject.parent !== scene) {
+         if (g_selectedObject && g_selectedObject.parent) {
             g_selectedObject = g_selectedObject.parent
             hightLightObject()
          }
@@ -204,12 +202,6 @@ function main() {
       if (g_selectedObject instanceof THREE.Mesh) {
          g_selectedObject.material.color.set(0xff0000)
       }
-   }
-
-   function printNames(list: any) {
-      list.forEach((element: any) => {
-         console.log(element.name)
-      })
    }
 
    // ========================== RENDERER ==========================
