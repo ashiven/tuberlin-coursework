@@ -27,6 +27,7 @@ function main() {
 
    // ========================== SCENE ==========================
    var scene = new THREE.Scene()
+   scene.name = "scene"
    scene.matrixWorld.copy(scene.matrix)
    helper.setupLight(scene)
    camera = new THREE.PerspectiveCamera()
@@ -130,23 +131,9 @@ function main() {
       "rightFoot",
    ]
 
-   // ========================== SHOW COORDINATES ==========================
-   // x axis is red, y axis is green, z axis is blue
-   var axesHelper = new THREE.AxesHelper(5)
-
-   // add an event listener that toggles between showing the axeshelper and not showing it when pressing C
-   document.addEventListener("keydown", (event) => {
-      if (event.key === "c") {
-         if (scene.children.includes(axesHelper)) {
-            scene.remove(axesHelper)
-         } else {
-            scene.add(axesHelper)
-         }
-      }
-   })
-
    // ========================== NAVIGATING THE OBJECTS ==========================
    let g_selectedObject: any = scene
+   let g_axesHelper = new THREE.AxesHelper(5)
 
    document.addEventListener("keydown", (event) => {
       if (event.key === "s") {
@@ -190,6 +177,15 @@ function main() {
             hightLightObject()
          }
       }
+      // ========================== SHOW COORDINATES ==========================
+      // x axis is red, y axis is green, z axis is blue
+      else if (event.key === "c") {
+         if (g_selectedObject.children.includes(g_axesHelper)) {
+            g_selectedObject.remove(g_axesHelper)
+         } else {
+            g_selectedObject.add(g_axesHelper)
+         }
+      }
    })
 
    function hightLightObject() {
@@ -203,6 +199,8 @@ function main() {
          g_selectedObject.material.color.set(0xff0000)
       }
    }
+
+   // ========================== ROTATING THE OBJECTS ==========================
 
    // ========================== RENDERER ==========================
    // start the animation loop (async)
