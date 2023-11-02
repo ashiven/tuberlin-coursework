@@ -11,6 +11,7 @@ var controls: OrbitControls
 var rendererDiv: Window
 
 function main() {
+   // ========================== HTML ==========================
    var root = Application("Robot")
    root.setLayout([["renderer"]])
    root.setLayoutColumns(["100%"])
@@ -18,10 +19,13 @@ function main() {
    rendererDiv = createWindow("renderer")
    root.appendChild(rendererDiv)
 
+   // ========================== RENDERER ==========================
    var renderer = new THREE.WebGLRenderer({
       antialias: true,
    })
    THREE.Object3D.DEFAULT_MATRIX_AUTO_UPDATE = false
+
+   // ========================== SCENE ==========================
    var scene = new THREE.Scene()
    scene.matrixWorld.copy(scene.matrix)
    helper.setupLight(scene)
@@ -136,40 +140,54 @@ function main() {
    })
 
    // ========================== NAVIGATING THE OBJECTS ==========================
-   let g_selectedObject: any = body
+   let g_selectedObject: any = scene
 
    document.addEventListener("keydown", (event) => {
       if (event.key === "s") {
          if (g_selectedObject && g_selectedObject.children.length > 0) {
-            g_selectedObject = g_selectedObject.children[0]
-            console.log("changed on s")
+            let firstChild: any = null
+            g_selectedObject.children.forEach((child: any) => {
+               if (
+                  !firstChild &&
+                  [
+                     "body",
+                     "head",
+                     "leftArm",
+                     "rightArm",
+                     "leftLeg",
+                     "rightLeg",
+                     "leftFoot",
+                     "rightFoot",
+                  ].includes(child.name)
+               ) {
+                  firstChild = child
+               }
+            })
+            g_selectedObject = firstChild
             hightLightObject()
          }
       } else if (event.key === "a") {
-         if (g_selectedObject && g_selectedObject.parent) {
+         if (g_selectedObject && g_selectedObject.parent !== scene) {
             const siblings = g_selectedObject.parent.children
             printNames(siblings)
             const index = siblings.indexOf(g_selectedObject)
             if (index > 0) {
-               console.log("changed on a")
                g_selectedObject = siblings[index - 1]
             }
             hightLightObject()
          }
       } else if (event.key === "d") {
-         if (g_selectedObject && g_selectedObject.parent) {
+         if (g_selectedObject && g_selectedObject.parent !== scene) {
             const siblings = g_selectedObject.parent.children
             printNames(siblings)
             const index = siblings.indexOf(g_selectedObject)
             if (index < siblings.length - 1) {
-               console.log("changed on d")
                g_selectedObject = siblings[index + 1]
             }
             hightLightObject()
          }
       } else if (event.key === "w") {
-         if (g_selectedObject && g_selectedObject.parent) {
-            console.log("changed on w")
+         if (g_selectedObject && g_selectedObject.parent !== scene) {
             g_selectedObject = g_selectedObject.parent
             hightLightObject()
          }
