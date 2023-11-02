@@ -116,9 +116,9 @@ function main() {
    rightLeg.add(rightFoot)
 
    // log the names of the child nodes of the body
-   body.children.forEach((child) => {
-      console.log(child.name)
-   })
+   //body.children.forEach((child) => {
+   //   console.log(child.name)
+   //})
 
    // ========================== SHOW COORDINATES ==========================
    // x axis is red, y axis is green, z axis is blue
@@ -142,6 +142,7 @@ function main() {
       if (event.key === "s") {
          if (g_selectedObject && g_selectedObject.children.length > 0) {
             g_selectedObject = g_selectedObject.children[0]
+            console.log("changed on s")
             hightLightObject()
          }
       } else if (event.key === "a") {
@@ -150,6 +151,7 @@ function main() {
             printNames(siblings)
             const index = siblings.indexOf(g_selectedObject)
             if (index > 0) {
+               console.log("changed on a")
                g_selectedObject = siblings[index - 1]
             }
             hightLightObject()
@@ -160,12 +162,14 @@ function main() {
             printNames(siblings)
             const index = siblings.indexOf(g_selectedObject)
             if (index < siblings.length - 1) {
+               console.log("changed on d")
                g_selectedObject = siblings[index + 1]
             }
             hightLightObject()
          }
       } else if (event.key === "w") {
          if (g_selectedObject && g_selectedObject.parent) {
+            console.log("changed on w")
             g_selectedObject = g_selectedObject.parent
             hightLightObject()
          }
