@@ -120,6 +120,53 @@ function main() {
       }
    })
 
+   // ========================== NAVIGATING THE OBJECTS ==========================
+   let selectedObject: any = body
+
+   // add an event listener that selects the object that is clicked on
+   document.addEventListener("keydown", (event) => {
+      if (event.key === "s") {
+         if (selectedObject && selectedObject.children.length > 0) {
+            selectedObject = selectedObject.children[0]
+            hightLightObject()
+         }
+      } else if (event.key === "a") {
+         if (selectedObject && selectedObject.parent) {
+            const siblings = selectedObject.parent.children
+            const index = siblings.indexOf(selectedObject)
+            if (index > 0) {
+               selectedObject = siblings[index - 1]
+            }
+            hightLightObject()
+         }
+      } else if (event.key === "d") {
+         if (selectedObject && selectedObject.parent) {
+            const siblings = selectedObject.parent.children
+            const index = siblings.indexOf(selectedObject)
+            if (index < siblings.length - 1) {
+               selectedObject = siblings[index + 1]
+            }
+            hightLightObject()
+         }
+      } else if (event.key === "w") {
+         if (selectedObject && selectedObject.parent) {
+            selectedObject = selectedObject.parent
+            hightLightObject()
+         }
+      }
+   })
+
+   function hightLightObject() {
+      scene.traverse((thing) => {
+         if (thing instanceof THREE.Mesh) {
+            thing.material.color.set(0x0000ff)
+         }
+      })
+      if (selectedObject instanceof THREE.Mesh) {
+         selectedObject.material.color.set(0xff0000)
+      }
+   }
+
    // ========================== RENDERER ==========================
    // start the animation loop (async)
    var wid = new RenderWidget(rendererDiv, renderer, camera, scene, controls)
