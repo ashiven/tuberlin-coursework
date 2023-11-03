@@ -50,14 +50,6 @@ function main() {
    const head = new THREE.Mesh(headGeometry, headMaterial)
    head.name = "head"
 
-   // position head
-   head.matrix.makeTranslation(0, 2, 0)
-
-   head.updateMatrixWorld(true)
-
-   //initial transform
-   const headInit = head.matrix.clone()
-
    // ========================== ARMS ==========================
    const armGeometry = new THREE.BoxGeometry(1, 0.2, 0.2) // Smaller rectangle for arms
    const leftArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
@@ -66,23 +58,6 @@ function main() {
    const rightArm = new THREE.Mesh(armGeometry, rightArmMaterial)
    leftArm.name = "leftArm"
    rightArm.name = "rightArm"
-
-   // position arms
-   leftArm.matrix.makeTranslation(-1.5, 0.5, 0)
-   rightArm.matrix.makeTranslation(1.5, 0.5, 0)
-
-   leftArm.updateMatrixWorld(true)
-   rightArm.updateMatrixWorld(true)
-
-   // rotate arms
-   //const rotationMatrix = new THREE.Matrix4().makeRotationX(-Math.PI / 2) // 90 degrees in radians
-   //const rotationMatrix2 = new THREE.Matrix4().makeRotationY(Math.PI / 2) // 90 degrees in radians
-   //leftArm.matrix.multiplyMatrices(rotationMatrix, leftArm.matrix)
-   //leftArm.matrix.multiplyMatrices(rotationMatrix2, leftArm.matrix)
-
-   //initial transform
-   const leftArmInit = leftArm.matrix.clone()
-   const rightArmInit = rightArm.matrix.clone()
 
    // ========================== LEGS ==========================
    const legGeometry = new THREE.BoxGeometry(0.2, 1, 0.2) // Smaller rectangle for legs
@@ -93,17 +68,6 @@ function main() {
    leftLeg.name = "leftLeg"
    rightLeg.name = "rightLeg"
 
-   // position legs
-   leftLeg.matrix.makeTranslation(-0.5, -2, 0)
-   rightLeg.matrix.makeTranslation(0.5, -2, 0)
-
-   leftLeg.updateMatrixWorld(true)
-   rightLeg.updateMatrixWorld(true)
-
-   //initial transform
-   const leftLegInit = leftLeg.matrix.clone()
-   const rightLegInit = rightLeg.matrix.clone()
-
    // ========================== FEET ==========================
    const footGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5) // Smaller rectangle for feet
    const leftFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
@@ -113,25 +77,14 @@ function main() {
    leftFoot.name = "leftFoot"
    rightFoot.name = "rightFoot"
 
-   // position feet
-   leftFoot.matrix.makeTranslation(-0.5, -3, 0)
-   rightFoot.matrix.makeTranslation(0.5, -3, 0)
-
-   leftFoot.updateMatrixWorld(true)
-   rightFoot.updateMatrixWorld(true)
-
-   //initial transform
-   const leftFootInit = leftFoot.matrix.clone()
-   const rightFootInit = rightFoot.matrix.clone()
-
    // ========================== HIERARCHY ==========================
 
    scene.add(body)
    body.add(head)
-   body.add(leftArm)
    body.add(rightArm)
-   body.add(leftLeg)
    body.add(rightLeg)
+   body.add(leftLeg)
+   body.add(leftArm)
    leftLeg.add(leftFoot)
    rightLeg.add(rightFoot)
 
@@ -145,6 +98,54 @@ function main() {
       "leftFoot",
       "rightFoot",
    ]
+
+   // ========================== POSITIONING THE OBJECTS ==========================
+   // position head
+   head.matrix.makeTranslation(0, 1.7, 0)
+
+   head.updateMatrixWorld(true)
+
+   //initial transform
+   const headInit = head.matrix.clone()
+
+   // position arms
+   leftArm.matrix.makeTranslation(-1.2, 0.5, 0)
+   rightArm.matrix.makeTranslation(1.2, 0.5, 0)
+
+   // rotate arms
+   //const rotationMatrix = new THREE.Matrix4().makeRotationX(-Math.PI / 2) // 90 degrees in radians
+   //const rotationMatrix2 = new THREE.Matrix4().makeRotationY(Math.PI / 2) // 90 degrees in radians
+   //leftArm.matrix.multiplyMatrices(rotationMatrix, leftArm.matrix)
+   //leftArm.matrix.multiplyMatrices(rotationMatrix2, leftArm.matrix)
+
+   leftArm.updateMatrixWorld(true)
+   rightArm.updateMatrixWorld(true)
+
+   //initial transform
+   const leftArmInit = leftArm.matrix.clone()
+   const rightArmInit = rightArm.matrix.clone()
+
+   // position legs
+   leftLeg.matrix.makeTranslation(-0.5, -1.7, 0)
+   rightLeg.matrix.makeTranslation(0.5, -1.7, 0)
+
+   leftLeg.updateMatrixWorld(true)
+   rightLeg.updateMatrixWorld(true)
+
+   //initial transform
+   const leftLegInit = leftLeg.matrix.clone()
+   const rightLegInit = rightLeg.matrix.clone()
+
+   // position feet
+   leftFoot.matrix.makeTranslation(0, -0.7, 0.2)
+   rightFoot.matrix.makeTranslation(0, -0.7, 0.2)
+
+   leftFoot.updateMatrixWorld(true)
+   rightFoot.updateMatrixWorld(true)
+
+   //initial transform
+   const leftFootInit = leftFoot.matrix.clone()
+   const rightFootInit = rightFoot.matrix.clone()
 
    // ========================== NAVIGATING THE OBJECTS ==========================
    let g_selectedObject: any = scene
