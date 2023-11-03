@@ -80,11 +80,11 @@ function main() {
    // ========================== HIERARCHY ==========================
 
    scene.add(body)
-   body.add(head)
-   body.add(rightArm)
-   body.add(rightLeg)
    body.add(leftLeg)
+   body.add(rightLeg)
    body.add(leftArm)
+   body.add(rightArm)
+   body.add(head)
    leftLeg.add(leftFoot)
    rightLeg.add(rightFoot)
 
