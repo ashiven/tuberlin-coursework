@@ -4,6 +4,17 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import RenderWidget from "./lib/rendererWidget"
 import { Application, createWindow, Window } from "./lib/window"
 
+import {
+   body,
+   head,
+   leftArm,
+   leftFoot,
+   leftLeg,
+   resetPositions,
+   rightArm,
+   rightFoot,
+   rightLeg,
+} from "./functions"
 import * as helper from "./helper"
 
 var camera: THREE.PerspectiveCamera
@@ -34,81 +45,6 @@ function main() {
    helper.setupCamera(camera, scene)
    controls = new OrbitControls(camera, rendererDiv)
    helper.setupControls(controls)
-
-   // ========================== BODY ==========================
-   const bodyGeometry = new THREE.BoxGeometry(1, 2, 0.5)
-   const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const body = new THREE.Mesh(bodyGeometry, bodyMaterial)
-   body.name = "body"
-
-   // ========================== HEAD ==========================
-   const headGeometry = new THREE.SphereGeometry(0.5, 32, 32)
-   const headMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const head = new THREE.Mesh(headGeometry, headMaterial)
-   head.name = "head"
-
-   // position head
-   head.matrix.makeTranslation(0, 2, 0)
-
-   // update matrix world
-   head.updateMatrixWorld(true)
-
-   // ========================== ARMS ==========================
-   const armGeometry = new THREE.BoxGeometry(1, 0.2, 0.2) // Smaller rectangle for arms
-   const leftArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const rightArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const leftArm = new THREE.Mesh(armGeometry, leftArmMaterial)
-   const rightArm = new THREE.Mesh(armGeometry, rightArmMaterial)
-   leftArm.name = "leftArm"
-   rightArm.name = "rightArm"
-
-   // position arms
-   leftArm.matrix.makeTranslation(-1.5, 0.5, 0)
-   rightArm.matrix.makeTranslation(1.5, 0.5, 0)
-
-   // rotate arms
-   //const rotationMatrix = new THREE.Matrix4().makeRotationX(-Math.PI / 2) // 90 degrees in radians
-   //const rotationMatrix2 = new THREE.Matrix4().makeRotationY(Math.PI / 2) // 90 degrees in radians
-   //leftArm.matrix.multiplyMatrices(rotationMatrix, leftArm.matrix)
-   //leftArm.matrix.multiplyMatrices(rotationMatrix2, leftArm.matrix)
-
-   // update matrix world
-   leftArm.updateMatrixWorld(true)
-   rightArm.updateMatrixWorld(true)
-
-   // ========================== LEGS ==========================
-   const legGeometry = new THREE.BoxGeometry(0.2, 1, 0.2) // Smaller rectangle for legs
-   const leftLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const rightLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const leftLeg = new THREE.Mesh(legGeometry, leftLegMaterial)
-   const rightLeg = new THREE.Mesh(legGeometry, rightLegMaterial)
-   leftLeg.name = "leftLeg"
-   rightLeg.name = "rightLeg"
-
-   // position legs
-   leftLeg.matrix.makeTranslation(-0.5, -2, 0)
-   rightLeg.matrix.makeTranslation(0.5, -2, 0)
-
-   // update matrix world
-   leftLeg.updateMatrixWorld(true)
-   rightLeg.updateMatrixWorld(true)
-
-   // ========================== FEET ==========================
-   const footGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5) // Smaller rectangle for feet
-   const leftFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const rightFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const leftFoot = new THREE.Mesh(footGeometry, leftFootMaterial)
-   const rightFoot = new THREE.Mesh(footGeometry, rightFootMaterial)
-   leftFoot.name = "leftFoot"
-   rightFoot.name = "rightFoot"
-
-   // position feet
-   leftFoot.matrix.makeTranslation(-0.5, -3, 0)
-   rightFoot.matrix.makeTranslation(0.5, -3, 0)
-
-   // update matrix world
-   leftFoot.updateMatrixWorld(true)
-   rightFoot.updateMatrixWorld(true)
 
    // ========================== HIERARCHY ==========================
    scene.add(body)
@@ -186,6 +122,56 @@ function main() {
             g_selectedObject.add(g_axesHelper)
          }
       }
+      // ========================== ROTATING THE OBJECTS ==========================
+      else if (event.key === "ArrowDown") {
+         if (g_selectedObject) {
+            const rotationMatrix = new THREE.Matrix4().makeRotationX(
+               -Math.PI / 16
+            )
+            g_selectedObject.matrix.multiplyMatrices(
+               rotationMatrix,
+               g_selectedObject.matrix
+            )
+            g_selectedObject.updateMatrixWorld(true)
+         }
+      } else if (event.key === "ArrowLeft") {
+         if (g_selectedObject) {
+            const rotationMatrix = new THREE.Matrix4().makeRotationY(
+               -Math.PI / 16
+            )
+            g_selectedObject.matrix.multiplyMatrices(
+               rotationMatrix,
+               g_selectedObject.matrix
+            )
+            g_selectedObject.updateMatrixWorld(true)
+         }
+      } else if (event.key === "ArrowRight") {
+         if (g_selectedObject) {
+            const rotationMatrix = new THREE.Matrix4().makeRotationY(
+               Math.PI / 16
+            )
+            g_selectedObject.matrix.multiplyMatrices(
+               rotationMatrix,
+               g_selectedObject.matrix
+            )
+            g_selectedObject.updateMatrixWorld(true)
+         }
+      } else if (event.key === "ArrowUp") {
+         if (g_selectedObject) {
+            const rotationMatrix = new THREE.Matrix4().makeRotationX(
+               Math.PI / 16
+            )
+            g_selectedObject.matrix.multiplyMatrices(
+               rotationMatrix,
+               g_selectedObject.matrix
+            )
+            g_selectedObject.updateMatrixWorld(true)
+         }
+      }
+      // ========================== RESET POSITIONS ==========================
+      else if (event.key === "r") {
+         resetPositions(scene)
+      }
    })
 
    function hightLightObject() {
@@ -199,8 +185,6 @@ function main() {
          g_selectedObject.material.color.set(0xff0000)
       }
    }
-
-   // ========================== ROTATING THE OBJECTS ==========================
 
    // ========================== RENDERER ==========================
    // start the animation loop (async)
