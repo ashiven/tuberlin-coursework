@@ -134,7 +134,8 @@ function main() {
 
    // ========================== NAVIGATING THE OBJECTS ==========================
    let g_selectedObject: any = scene
-   let g_axesHelper = new THREE.AxesHelper(5)
+   let g_axesHelper = new THREE.AxesHelper(1)
+   let g_displayAxes = false
 
    document.addEventListener("keydown", (event) => {
       if (event.key === "s") {
@@ -147,45 +148,46 @@ function main() {
             })
             g_selectedObject = firstChild
             hightLightObject()
+            if (g_displayAxes) {
+               displayAxes()
+            }
          }
       } else if (event.key === "a") {
          if (g_selectedObject && g_selectedObject.parent) {
-            const siblings =
-               g_selectedObject.name === "body"
-                  ? [g_selectedObject]
-                  : g_selectedObject.parent.children
-            const index = siblings.indexOf(g_selectedObject)
+            const [siblings, index] = getSiblingsIndex()
             if (index > 0) {
                g_selectedObject = siblings[index - 1]
             }
             hightLightObject()
+            if (g_displayAxes) {
+               displayAxes()
+            }
          }
       } else if (event.key === "d") {
          if (g_selectedObject && g_selectedObject.parent) {
-            const siblings =
-               g_selectedObject.name === "body"
-                  ? [g_selectedObject]
-                  : g_selectedObject.parent.children
-            const index = siblings.indexOf(g_selectedObject)
+            const [siblings, index] = getSiblingsIndex()
             if (index < siblings.length - 1) {
                g_selectedObject = siblings[index + 1]
             }
             hightLightObject()
+            if (g_displayAxes) {
+               displayAxes()
+            }
          }
       } else if (event.key === "w") {
          if (g_selectedObject && g_selectedObject.parent) {
             g_selectedObject = g_selectedObject.parent
             hightLightObject()
+            if (g_displayAxes) {
+               displayAxes()
+            }
          }
       }
       // ========================== SHOW COORDINATES ==========================
       // x axis is red, y axis is green, z axis is blue
       else if (event.key === "c") {
-         if (g_selectedObject.children.includes(g_axesHelper)) {
-            g_selectedObject.remove(g_axesHelper)
-         } else {
-            g_selectedObject.add(g_axesHelper)
-         }
+         g_displayAxes = !g_displayAxes
+         displayAxes()
       }
       // ========================== ROTATING THE OBJECTS ==========================
       else if (event.key === "ArrowDown") {
@@ -239,6 +241,16 @@ function main() {
       }
    })
 
+   function getSiblingsIndex() {
+      const siblings =
+         g_selectedObject.name === "body"
+            ? [g_selectedObject]
+            : g_selectedObject.parent.children
+      const index = siblings.indexOf(g_selectedObject)
+
+      return [siblings, index]
+   }
+
    function hightLightObject() {
       console.log("Selected object: ", g_selectedObject.name)
       scene.traverse((object) => {
@@ -249,6 +261,13 @@ function main() {
       if (g_selectedObject instanceof THREE.Mesh) {
          g_selectedObject.material.color.set(0xff0000)
       }
+   }
+
+   function displayAxes() {
+      g_axesHelper.matrix.copy(g_selectedObject.parent.matrix)
+      g_selectedObject.add(g_axesHelper)
+
+      customUpdateMatrixWorld(scene, null)
    }
 
    function resetPositions(scene: any) {
