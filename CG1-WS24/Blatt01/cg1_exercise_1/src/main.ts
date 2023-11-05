@@ -140,12 +140,7 @@ function main() {
    document.addEventListener("keydown", (event) => {
       if (event.key === "s") {
          if (g_selectedObject && g_selectedObject.children.length > 0) {
-            let firstChild: any = null
-            g_selectedObject.children.forEach((child: any) => {
-               if (!firstChild && g_bodyParts.includes(child.name)) {
-                  firstChild = child
-               }
-            })
+            const firstChild = getFirstChild()
             g_selectedObject = firstChild
             hightLightObject()
             if (g_displayAxes) {
@@ -240,6 +235,16 @@ function main() {
          resetPositions(scene)
       }
    })
+
+   function getFirstChild() {
+      let firstChild: any = null
+      g_selectedObject.children.forEach((child: any) => {
+         if (!firstChild && g_bodyParts.includes(child.name)) {
+            firstChild = child
+         }
+      })
+      return firstChild
+   }
 
    function getSiblingsIndex() {
       const siblings =
