@@ -140,8 +140,7 @@ function main() {
    document.addEventListener("keydown", (event) => {
       if (event.key === "s") {
          if (g_selectedObject && g_selectedObject.children.length > 0) {
-            const firstChild = getFirstChild()
-            g_selectedObject = firstChild
+            g_selectedObject = getFirstChild()
             hightLightObject()
             if (g_displayAxes) {
                displayAxes()
@@ -182,7 +181,15 @@ function main() {
       // x axis is red, y axis is green, z axis is blue
       else if (event.key === "c") {
          g_displayAxes = !g_displayAxes
-         displayAxes()
+         if (!g_displayAxes) {
+            scene.traverse((object) => {
+               if (object.children.includes(g_axesHelper)) {
+                  object.remove(g_axesHelper)
+               }
+            })
+         } else {
+            displayAxes()
+         }
       }
       // ========================== ROTATING THE OBJECTS ==========================
       else if (event.key === "ArrowDown") {
