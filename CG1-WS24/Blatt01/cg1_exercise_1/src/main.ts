@@ -36,41 +36,56 @@ function main() {
    helper.setupControls(controls)
 
    // ========================== BODY ==========================
-   const bodyGeometry = new THREE.BoxGeometry(1, 2, 0.5)
+   const bodyGeometry = new THREE.BoxGeometry(1, 1.75, 0.5)
    const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const body = new THREE.Mesh(bodyGeometry, bodyMaterial)
    body.name = "body"
 
    // ========================== HEAD ==========================
-   const headGeometry = new THREE.SphereGeometry(0.5, 32, 32)
+   const headGeometry = new THREE.SphereGeometry(0.4, 25, 32)
+   // TODO: - convenience method ?
+   headGeometry.translate(0, 0.4, 0)
    const headMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const head = new THREE.Mesh(headGeometry, headMaterial)
    head.name = "head"
 
    // ========================== ARMS ==========================
-   const armGeometry = new THREE.BoxGeometry(1, 0.2, 0.2) // Smaller rectangle for arms
+   const leftArmGeometry = new THREE.BoxGeometry(1, 0.2, 0.2)
+   const rightArmGeometry = new THREE.BoxGeometry(1, 0.2, 0.2)
+   // TODO: - convenience method ?
+   leftArmGeometry.translate(-0.5, 0, 0)
+   rightArmGeometry.translate(0.5, 0, 0)
    const leftArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const rightArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const leftArm = new THREE.Mesh(armGeometry, leftArmMaterial)
-   const rightArm = new THREE.Mesh(armGeometry, rightArmMaterial)
+   const leftArm = new THREE.Mesh(leftArmGeometry, leftArmMaterial)
+   const rightArm = new THREE.Mesh(rightArmGeometry, rightArmMaterial)
    leftArm.name = "leftArm"
    rightArm.name = "rightArm"
 
    // ========================== LEGS ==========================
-   const legGeometry = new THREE.BoxGeometry(0.2, 1, 0.2) // Smaller rectangle for legs
+   const leftLegGeometry = new THREE.BoxGeometry(0.2, 1, 0.2)
+   const rightLegGeometry = new THREE.BoxGeometry(0.2, 1, 0.2)
+   // TODO: - convenience method ?
+   leftLegGeometry.translate(0, -0.5, 0)
+   rightLegGeometry.translate(0, -0.5, 0)
+
    const leftLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const rightLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const leftLeg = new THREE.Mesh(legGeometry, leftLegMaterial)
-   const rightLeg = new THREE.Mesh(legGeometry, rightLegMaterial)
+   const leftLeg = new THREE.Mesh(leftLegGeometry, leftLegMaterial)
+   const rightLeg = new THREE.Mesh(rightLegGeometry, rightLegMaterial)
    leftLeg.name = "leftLeg"
    rightLeg.name = "rightLeg"
 
    // ========================== FEET ==========================
-   const footGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5) // Smaller rectangle for feet
+   const leftFootGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5)
+   const rightFootGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5)
+   leftFootGeometry.translate(0, -0.1, 0.25)
+   rightFootGeometry.translate(0, -0.1, 0.25)
+
    const leftFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const rightFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const leftFoot = new THREE.Mesh(footGeometry, leftFootMaterial)
-   const rightFoot = new THREE.Mesh(footGeometry, rightFootMaterial)
+   const leftFoot = new THREE.Mesh(leftFootGeometry, leftFootMaterial)
+   const rightFoot = new THREE.Mesh(rightFootGeometry, rightFootMaterial)
    leftFoot.name = "leftFoot"
    rightFoot.name = "rightFoot"
 
@@ -99,7 +114,7 @@ function main() {
    // ========================== POSITIONING THE OBJECTS ==========================
    // TODO: - convenience method ?
    // position head
-   head.matrix.makeTranslation(0, 1.7, 0)
+   head.matrix.makeTranslation(0, 1, 0)
 
    //initial transform
    const headInit = head.matrix.clone()
@@ -109,8 +124,8 @@ function main() {
 
    // TODO: - convenience method ?
    // position arms
-   leftArm.matrix.makeTranslation(-1.2, 0.5, 0)
-   rightArm.matrix.makeTranslation(1.2, 0.5, 0)
+   leftArm.matrix.makeTranslation(-0.6, 0.7, 0)
+   rightArm.matrix.makeTranslation(0.6, 0.7, 0)
 
    //initial transform
    const leftArmInit = leftArm.matrix.clone()
@@ -118,8 +133,8 @@ function main() {
 
    // TODO: - convenience method ?
    // position legs
-   leftLeg.matrix.makeTranslation(-0.5, -1.7, 0)
-   rightLeg.matrix.makeTranslation(0.5, -1.7, 0)
+   leftLeg.matrix.makeTranslation(-0.4, -1.1, 0)
+   rightLeg.matrix.makeTranslation(0.4, -1.1, 0)
 
    //initial transform
    const leftLegInit = leftLeg.matrix.clone()
@@ -127,8 +142,8 @@ function main() {
 
    // TODO: - convenience method ?
    // position feet
-   leftFoot.matrix.makeTranslation(0, -0.7, 0.2)
-   rightFoot.matrix.makeTranslation(0, -0.7, 0.2)
+   leftFoot.matrix.makeTranslation(0, -1.1, -0.1)
+   rightFoot.matrix.makeTranslation(0, -1.1, -0.1)
 
    //initial transform
    const leftFootInit = leftFoot.matrix.clone()
@@ -215,9 +230,12 @@ function main() {
       // ========================== ROTATING THE OBJECTS ==========================
       else if (event.key === "ArrowDown") {
          if (g_selectedObject) {
-            const rotationMatrix = new THREE.Matrix4().makeRotationX(
-               -Math.PI / 16
+            // TODO: - convenience method ?
+            const rotationMatrix = ["leftArm", "rightArm"].includes(
+               g_selectedObject.name
             )
+               ? new THREE.Matrix4().makeRotationZ(-Math.PI / 16)
+               : new THREE.Matrix4().makeRotationX(-Math.PI / 16)
             // TODO: - convenience method ?
             g_selectedObject.matrix.multiplyMatrices(
                rotationMatrix,
@@ -227,6 +245,7 @@ function main() {
          }
       } else if (event.key === "ArrowLeft") {
          if (g_selectedObject) {
+            // TODO: - convenience method ?
             const rotationMatrix = new THREE.Matrix4().makeRotationY(
                -Math.PI / 16
             )
@@ -239,6 +258,7 @@ function main() {
          }
       } else if (event.key === "ArrowRight") {
          if (g_selectedObject) {
+            // TODO: - convenience method ?
             const rotationMatrix = new THREE.Matrix4().makeRotationY(
                Math.PI / 16
             )
@@ -251,9 +271,12 @@ function main() {
          }
       } else if (event.key === "ArrowUp") {
          if (g_selectedObject) {
-            const rotationMatrix = new THREE.Matrix4().makeRotationX(
-               Math.PI / 16
+            // TODO: - convenience method ?
+            const rotationMatrix = ["leftArm", "rightArm"].includes(
+               g_selectedObject.name
             )
+               ? new THREE.Matrix4().makeRotationZ(Math.PI / 16)
+               : new THREE.Matrix4().makeRotationX(Math.PI / 16)
             // TODO: - convenience method ?
             g_selectedObject.matrix.multiplyMatrices(
                rotationMatrix,
