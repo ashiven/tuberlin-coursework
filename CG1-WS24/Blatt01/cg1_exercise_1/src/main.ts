@@ -140,7 +140,13 @@ function main() {
 
    document.addEventListener("keydown", (event) => {
       if (event.key === "s") {
-         if (g_selectedObject && g_selectedObject.children.length > 0) {
+         if (
+            g_selectedObject &&
+            g_selectedObject.children.length >
+               g_selectedObject.children.includes(g_axesHelper)
+               ? 1
+               : 0
+         ) {
             g_selectedObject = getFirstChild()
             hightLightObject()
             if (g_displayAxes) {
