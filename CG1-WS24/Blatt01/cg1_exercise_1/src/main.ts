@@ -145,6 +145,7 @@ function main() {
             if (g_displayAxes) {
                displayAxes()
             }
+            objectInfo()
          }
       } else if (event.key === "a") {
          if (g_selectedObject && g_selectedObject.parent) {
@@ -156,6 +157,7 @@ function main() {
             if (g_displayAxes) {
                displayAxes()
             }
+            objectInfo()
          }
       } else if (event.key === "d") {
          if (g_selectedObject && g_selectedObject.parent) {
@@ -167,6 +169,7 @@ function main() {
             if (g_displayAxes) {
                displayAxes()
             }
+            objectInfo()
          }
       } else if (event.key === "w") {
          if (g_selectedObject && g_selectedObject.parent) {
@@ -175,6 +178,7 @@ function main() {
             if (g_displayAxes) {
                displayAxes()
             }
+            objectInfo()
          }
       }
       // ========================== SHOW COORDINATES ==========================
@@ -264,7 +268,6 @@ function main() {
    }
 
    function hightLightObject() {
-      console.log("Selected object: ", g_selectedObject.name)
       scene.traverse((object) => {
          if (object instanceof THREE.Mesh) {
             object.material.color.set(0x0000ff)
@@ -275,10 +278,20 @@ function main() {
       }
    }
 
-   function displayAxes() {
-      g_axesHelper.matrix.copy(g_selectedObject.parent.matrix)
-      g_selectedObject.add(g_axesHelper)
+   function objectInfo() {
+      console.log("Selected object: ", g_selectedObject.name)
+      let childrenNames: any = []
+      g_selectedObject.children.forEach((child: any) => {
+         childrenNames.push(child.name)
+      })
+      console.log("Children: ", childrenNames)
+   }
 
+   function displayAxes() {
+      if (g_bodyParts.includes(g_selectedObject.name)) {
+         g_axesHelper.matrix.copy(g_selectedObject.parent.matrix)
+         g_selectedObject.add(g_axesHelper)
+      }
       customUpdateMatrixWorld(scene, null)
    }
 
@@ -288,45 +301,37 @@ function main() {
             switch (object.name) {
                case "scene":
                   object.matrix.copy(bodyInit)
-                  customUpdateMatrixWorld(scene, null)
                   break
                case "body":
                   object.matrix.copy(bodyInit)
-                  customUpdateMatrixWorld(scene, null)
                   break
                case "head":
                   object.matrix.copy(headInit)
-                  customUpdateMatrixWorld(scene, null)
                   break
                case "leftArm":
                   object.matrix.copy(leftArmInit)
-                  customUpdateMatrixWorld(scene, null)
                   break
                case "rightArm":
                   object.matrix.copy(rightArmInit)
-                  customUpdateMatrixWorld(scene, null)
                   break
                case "leftLeg":
                   object.matrix.copy(leftLegInit)
-                  customUpdateMatrixWorld(scene, null)
                   break
                case "rightLeg":
                   object.matrix.copy(rightLegInit)
-                  customUpdateMatrixWorld(scene, null)
                   break
                case "leftFoot":
                   object.matrix.copy(leftFootInit)
-                  customUpdateMatrixWorld(scene, null)
                   break
                case "rightFoot":
                   object.matrix.copy(rightFootInit)
-                  customUpdateMatrixWorld(scene, null)
                   break
                default:
                   break
             }
          }
       })
+      customUpdateMatrixWorld(scene, null)
    }
 
    function customUpdateMatrixWorld(object: any, parentMatrix: any) {
