@@ -135,6 +135,7 @@ function main() {
    // ========================== NAVIGATING THE OBJECTS ==========================
    let g_selectedObject: any = scene
    let g_axesHelper = new THREE.AxesHelper(1)
+   g_axesHelper.name = "axesHelper"
    let g_displayAxes = false
 
    document.addEventListener("keydown", (event) => {
@@ -177,6 +178,12 @@ function main() {
             hightLightObject()
             if (g_displayAxes) {
                displayAxes()
+            }
+            if (
+               g_selectedObject.name === "scene" &&
+               body.children.includes(g_axesHelper)
+            ) {
+               body.remove(g_axesHelper)
             }
             objectInfo()
          }
