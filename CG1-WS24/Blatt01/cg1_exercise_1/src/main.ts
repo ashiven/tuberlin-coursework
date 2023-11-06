@@ -41,9 +41,6 @@ function main() {
    const body = new THREE.Mesh(bodyGeometry, bodyMaterial)
    body.name = "body"
 
-   // initial transform
-   const bodyInit = body.matrix.clone()
-
    // ========================== HEAD ==========================
    const headGeometry = new THREE.SphereGeometry(0.5, 32, 32)
    const headMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
@@ -100,12 +97,17 @@ function main() {
    ]
 
    // ========================== POSITIONING THE OBJECTS ==========================
+   // TODO: - convenience method ?
    // position head
    head.matrix.makeTranslation(0, 1.7, 0)
 
    //initial transform
    const headInit = head.matrix.clone()
 
+   // initial transform
+   const bodyInit = body.matrix.clone()
+
+   // TODO: - convenience method ?
    // position arms
    leftArm.matrix.makeTranslation(-1.2, 0.5, 0)
    rightArm.matrix.makeTranslation(1.2, 0.5, 0)
@@ -114,6 +116,7 @@ function main() {
    const leftArmInit = leftArm.matrix.clone()
    const rightArmInit = rightArm.matrix.clone()
 
+   // TODO: - convenience method ?
    // position legs
    leftLeg.matrix.makeTranslation(-0.5, -1.7, 0)
    rightLeg.matrix.makeTranslation(0.5, -1.7, 0)
@@ -122,6 +125,7 @@ function main() {
    const leftLegInit = leftLeg.matrix.clone()
    const rightLegInit = rightLeg.matrix.clone()
 
+   // TODO: - convenience method ?
    // position feet
    leftFoot.matrix.makeTranslation(0, -0.7, 0.2)
    rightFoot.matrix.makeTranslation(0, -0.7, 0.2)
@@ -214,6 +218,7 @@ function main() {
             const rotationMatrix = new THREE.Matrix4().makeRotationX(
                -Math.PI / 16
             )
+            // TODO: - convenience method ?
             g_selectedObject.matrix.multiplyMatrices(
                rotationMatrix,
                g_selectedObject.matrix
@@ -225,6 +230,7 @@ function main() {
             const rotationMatrix = new THREE.Matrix4().makeRotationY(
                -Math.PI / 16
             )
+            // TODO: - convenience method ?
             g_selectedObject.matrix.multiplyMatrices(
                rotationMatrix,
                g_selectedObject.matrix
@@ -236,6 +242,7 @@ function main() {
             const rotationMatrix = new THREE.Matrix4().makeRotationY(
                Math.PI / 16
             )
+            // TODO: - convenience method ?
             g_selectedObject.matrix.multiplyMatrices(
                rotationMatrix,
                g_selectedObject.matrix
@@ -247,6 +254,7 @@ function main() {
             const rotationMatrix = new THREE.Matrix4().makeRotationX(
                Math.PI / 16
             )
+            // TODO: - convenience method ?
             g_selectedObject.matrix.multiplyMatrices(
                rotationMatrix,
                g_selectedObject.matrix
@@ -362,6 +370,7 @@ function main() {
 
    function customUpdateMatrixWorld(object: any, parentMatrix: any) {
       if (parentMatrix) {
+         // TODO: - convenience method ?
          object.matrixWorld.multiplyMatrices(parentMatrix, object.matrix)
       } else {
          object.matrixWorld.copy(object.matrix)
