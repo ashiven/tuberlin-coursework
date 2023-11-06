@@ -297,12 +297,25 @@ function main() {
       g_selectedObject.children.forEach((child: any) => {
          childrenNames.push(child.name)
       })
+      console.log("Parent: ", g_selectedObject.parent.name)
       console.log("Children: ", childrenNames)
    }
 
    function displayAxes() {
       if (g_bodyParts.includes(g_selectedObject.name)) {
-         g_axesHelper.matrix.copy(g_selectedObject.parent.matrix)
+         // we get the selected object's world matrix and copy the position entries to the axes helper world matrix
+         const selectedObjectMatrix = g_selectedObject.matrixWorld
+         const axesHelperMatrix = new THREE.Matrix4()
+         axesHelperMatrix.identity()
+
+         axesHelperMatrix.elements[12] = selectedObjectMatrix.elements[12]
+         axesHelperMatrix.elements[13] = selectedObjectMatrix.elements[13]
+         axesHelperMatrix.elements[14] = selectedObjectMatrix.elements[14]
+
+         g_axesHelper.matrixWorld.copy(axesHelperMatrix)
+
+         // this is basically what the above code does:
+         // g_axesHelper.position.copy(g_selectedObject.position)
          g_selectedObject.add(g_axesHelper)
       }
       customUpdateMatrixWorld(scene, null)
