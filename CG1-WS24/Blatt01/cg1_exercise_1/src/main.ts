@@ -68,7 +68,6 @@ function main() {
    // TODO: - convenience method ?
    leftLegGeometry.translate(0, -0.5, 0)
    rightLegGeometry.translate(0, -0.5, 0)
-
    const leftLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const rightLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const leftLeg = new THREE.Mesh(leftLegGeometry, leftLegMaterial)
@@ -79,6 +78,7 @@ function main() {
    // ========================== FEET ==========================
    const leftFootGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5)
    const rightFootGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5)
+   // TODO: - convenience method ?
    leftFootGeometry.translate(0, -0.1, 0.25)
    rightFootGeometry.translate(0, -0.1, 0.25)
 

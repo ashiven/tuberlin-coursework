@@ -158,17 +158,17 @@ COMMENT [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 
 
 
-void                    { yylval.str = strdup(yytext); return TYPE; }
+void                    { yylval.str = "void"; return TYPE; }
 
-bool                    { yylval.str = strdup(yytext); return TYPE; }
+bool                    { yylval.str = "bool"; return TYPE; }
 
-int                     { yylval.str = strdup(yytext); return TYPE; }
+int                     { yylval.str = "int"; return TYPE; }
 
-uint                    { yylval.str = strdup(yytext); return TYPE; }
+uint                    { yylval.str = "uint"; return TYPE; }
 
-float                   { yylval.str = strdup(yytext); return TYPE; }
+float                   { yylval.str = "float"; return TYPE; }
 
-double                  { yylval.str = strdup(yytext); return TYPE; }
+double                  { yylval.str = "double"; return TYPE; }
 
 
 
@@ -192,7 +192,7 @@ dmat[2-4]x[2-4]         { yylval.str = strdup(yytext); return TYPE; }
 
 
 
-color                   { yylval.str = strdup(yytext); return TYPE; }
+color                   { yylval.str = "color"; return TYPE; }
 
 
 
