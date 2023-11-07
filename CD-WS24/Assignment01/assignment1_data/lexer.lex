@@ -138,12 +138,16 @@ FLOAT [0-9]+\.[0-9]+|[0-9]+\.|[0-9]+[eE][+-]?[0-9]+|[0-9]+\.[0-9]+[eE][+-]?[0-9]
 
 COMMENT [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
 
+COMMENT_LINE [/][/].*
+
  /* ================ SECTION 2 - RULES ================ */
 %%
 
 \n                      { line_number++; }
 
 {SPACES}                { /* ignore */ }
+
+{COMMENT_LINE}          { /* ignore */ }
 
 {COMMENT}               {   
                             char* comment_string = yytext;
