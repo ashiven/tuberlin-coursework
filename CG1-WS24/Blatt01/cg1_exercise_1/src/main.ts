@@ -108,8 +108,11 @@ function main() {
    ]
 
    // ========================== POSITIONING THE OBJECTS ==========================
+   // TODO: - find out different way to set positions
+
    // position head
    customTranslateMatrix(head, 0, 1, 0)
+   head.position.set(0, 1, 0)
 
    //initial transform
    const headInit = head.matrix.clone()
@@ -120,6 +123,8 @@ function main() {
    // position arms
    customTranslateMatrix(leftArm, -0.6, 0.7, 0)
    customTranslateMatrix(rightArm, 0.6, 0.7, 0)
+   leftArm.position.set(-0.6, 0.7, 0)
+   rightArm.position.set(0.6, 0.7, 0)
 
    //initial transform
    const leftArmInit = leftArm.matrix.clone()
@@ -128,6 +133,8 @@ function main() {
    // position legs
    customTranslateMatrix(leftLeg, -0.4, -1.1, 0)
    customTranslateMatrix(rightLeg, 0.4, -1.1, 0)
+   leftLeg.position.set(-0.4, -1.1, 0)
+   rightLeg.position.set(0.4, -1.1, 0)
 
    //initial transform
    const leftLegInit = leftLeg.matrix.clone()
@@ -136,6 +143,8 @@ function main() {
    // position feet
    customTranslateMatrix(leftFoot, 0, -1.1, -0.1)
    customTranslateMatrix(rightFoot, 0, -1.1, -0.1)
+   leftFoot.position.set(0, -1.1, -0.1)
+   rightFoot.position.set(0, -1.1, -0.1)
 
    //initial transform
    const leftFootInit = leftFoot.matrix.clone()
@@ -231,46 +240,61 @@ function main() {
             //    rotationMatrix,
             //    g_selectedObject.matrix
             // )
-            g_selectedObject.rotateOnAxis(new THREE.Vector3(1, 0, 0), -0.1)
+            // TODO: - translate convenience methods
+            if (["leftArm", "rightArm"].includes(g_selectedObject.name)) {
+               g_selectedObject.rotateOnAxis(new THREE.Vector3(0, 0, 1), -0.1)
+            } else {
+               g_selectedObject.rotateOnAxis(new THREE.Vector3(1, 0, 0), -0.1)
+            }
+            g_selectedObject.updateMatrix()
             customUpdateMatrixWorld(scene, null)
          }
       } else if (event.key === "ArrowLeft") {
          if (g_selectedObject) {
-            const rotationMatrix = customMakeRotation(
-               new THREE.Matrix4(),
-               -Math.PI / 16,
-               "y"
-            )
-            g_selectedObject.matrix.multiplyMatrices(
-               rotationMatrix,
-               g_selectedObject.matrix
-            )
+            // const rotationMatrix = customMakeRotation(
+            //    new THREE.Matrix4(),
+            //    -Math.PI / 16,
+            //    "y"
+            // )
+            // g_selectedObject.matrix.multiplyMatrices(
+            //    rotationMatrix,
+            //    g_selectedObject.matrix
+            // )
+            // TODO: - translate convenience methods
+            g_selectedObject.rotateOnAxis(new THREE.Vector3(0, 1, 0), -0.1)
+            g_selectedObject.updateMatrix()
             customUpdateMatrixWorld(scene, null)
          }
       } else if (event.key === "ArrowRight") {
          if (g_selectedObject) {
-            const rotationMatrix = customMakeRotation(
-               new THREE.Matrix4(),
-               Math.PI / 16,
-               "y"
-            )
-            g_selectedObject.matrix.multiplyMatrices(
-               rotationMatrix,
-               g_selectedObject.matrix
-            )
+            // const rotationMatrix = customMakeRotation(
+            //    new THREE.Matrix4(),
+            //    Math.PI / 16,
+            //    "y"
+            // )
+            // g_selectedObject.matrix.multiplyMatrices(
+            //    rotationMatrix,
+            //    g_selectedObject.matrix
+            // )
+            // TODO: - translate convenience methods
+            g_selectedObject.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.1)
+            g_selectedObject.updateMatrix()
             customUpdateMatrixWorld(scene, null)
          }
       } else if (event.key === "ArrowUp") {
          if (g_selectedObject) {
-            const rotationMatrix = ["leftArm", "rightArm"].includes(
-               g_selectedObject.name
-            )
-               ? customMakeRotation(new THREE.Matrix4(), Math.PI / 16, "z")
-               : customMakeRotation(new THREE.Matrix4(), Math.PI / 16, "x")
-            g_selectedObject.matrix.multiplyMatrices(
-               rotationMatrix,
-               g_selectedObject.matrix
-            )
+            //const rotationMatrix = ["leftArm", "rightArm"].includes(
+            //   g_selectedObject.name
+            //)
+            //   ? customMakeRotation(new THREE.Matrix4(), Math.PI / 16, "z")
+            //   : customMakeRotation(new THREE.Matrix4(), Math.PI / 16, "x")
+            //g_selectedObject.matrix.multiplyMatrices(
+            //   rotationMatrix,
+            //   g_selectedObject.matrix
+            //)
+            // TODO: - translate convenience methods
+            g_selectedObject.rotateOnAxis(new THREE.Vector3(1, 0, 0), 0.1)
+            g_selectedObject.updateMatrix()
             customUpdateMatrixWorld(scene, null)
          }
       }
@@ -430,19 +454,19 @@ function main() {
       // this means that the position buffer has changed and needs to be updated
    }
 
-   function customMakeRotation(matrix: any, angle: number, axis: any) {
-      const c = Math.cos(angle)
-      const s = Math.sin(angle)
+   // function customMakeRotation(matrix: any, angle: number, axis: any) {
+   //    const c = Math.cos(angle)
+   //    const s = Math.sin(angle)
 
-      if (axis === "x") {
-         matrix.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
-      } else if (axis === "y") {
-         matrix.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
-      } else if (axis === "z") {
-         matrix.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-      }
-      return matrix
-   }
+   //    if (axis === "x") {
+   //       matrix.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
+   //    } else if (axis === "y") {
+   //       matrix.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
+   //    } else if (axis === "z") {
+   //       matrix.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+   //    }
+   //    return matrix
+   // }
 
    // ========================== RENDERER ==========================
    // start the animation loop (async)
