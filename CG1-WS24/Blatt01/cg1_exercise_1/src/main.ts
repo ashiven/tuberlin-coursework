@@ -37,14 +37,14 @@ function main() {
 
    // ========================== BODY ==========================
    const bodyGeometry = new THREE.BoxGeometry(1, 1.75, 0.5)
-   const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff })
    const body = new THREE.Mesh(bodyGeometry, bodyMaterial)
    body.name = "body"
 
    // ========================== HEAD ==========================
    const headGeometry = new THREE.SphereGeometry(0.4, 25, 32)
    customTranslateGeometry(headGeometry, 0, 0.4, 0)
-   const headMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const headMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff })
    const head = new THREE.Mesh(headGeometry, headMaterial)
    head.name = "head"
 
@@ -53,8 +53,8 @@ function main() {
    const rightArmGeometry = new THREE.BoxGeometry(1, 0.2, 0.2)
    customTranslateGeometry(leftArmGeometry, -0.5, 0, 0)
    customTranslateGeometry(rightArmGeometry, 0.5, 0, 0)
-   const leftArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const rightArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const leftArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff })
+   const rightArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff })
    const leftArm = new THREE.Mesh(leftArmGeometry, leftArmMaterial)
    const rightArm = new THREE.Mesh(rightArmGeometry, rightArmMaterial)
    leftArm.name = "leftArm"
@@ -65,8 +65,8 @@ function main() {
    const rightLegGeometry = new THREE.BoxGeometry(0.2, 1, 0.2)
    customTranslateGeometry(leftLegGeometry, 0, -0.5, 0)
    customTranslateGeometry(rightLegGeometry, 0, -0.5, 0)
-   const leftLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const rightLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const leftLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff })
+   const rightLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff })
    const leftLeg = new THREE.Mesh(leftLegGeometry, leftLegMaterial)
    const rightLeg = new THREE.Mesh(rightLegGeometry, rightLegMaterial)
    leftLeg.name = "leftLeg"
@@ -78,8 +78,8 @@ function main() {
    customTranslateGeometry(leftFootGeometry, 0, -0.1, 0.25)
    customTranslateGeometry(rightFootGeometry, 0, -0.1, 0.25)
 
-   const leftFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
-   const rightFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
+   const leftFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff })
+   const rightFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff })
    const leftFoot = new THREE.Mesh(leftFootGeometry, leftFootMaterial)
    const rightFoot = new THREE.Mesh(rightFootGeometry, rightFootMaterial)
    leftFoot.name = "leftFoot"
