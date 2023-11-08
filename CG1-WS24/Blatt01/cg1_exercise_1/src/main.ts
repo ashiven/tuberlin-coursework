@@ -410,33 +410,23 @@ function main() {
 
       matrix.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1)
 
-      // this calls geometry.attributes.position.applyMatrix4(matrix)
       geometry.applyMatrix4(matrix)
+      // This calls geometry.attributes.position.applyMatrix4(matrix)
+      // geometry.attributes.position is an instance of THREE.BufferAttribute extended as Float32BufferAttribute
+      //
+      // 	applyMatrix4( m ) {
+      //		   for ( let i = 0, l = this.count; i < l; i ++ ) {
+      //          _vector.fromBufferAttribute( this, i );
+      //          _vector.applyMatrix4( m );
+      //          this.setXYZ( i, _vector.x, _vector.y, _vector.z );
+      //       }
+      //       return this;
+      //    }
 
-      console.log(geometry.attributes.position)
-
-      //geometry.matrix.premultiply(matrix)
-      //geometry.matrix.decompose(
-      //   geometry.position,
-      //   geometry.quaternion,
-      //   geometry.scale
-      //)
-
-      // applyMatrix4() on Object3D does the following:
-      //   - multiply the object's matrix with the given matrix
-      //   - decompose the object's matrix into the object's position, quaternion and scale
-
-      // Multiplying the Object3D Matrix with the given Matrix (Given Matrix is multiplied from the left):
-      //   - Matrix * Object3D.Matrix
-
-      // Decomposing the Object3D Matrix into the object's position, quaternion and scale:
-      //   - Object3D.position.x = Object3D.elements[12]
-      //   - Object3D.position.y = Object3D.elements[13]
-      //   - Object3D.position.z = Object3D.elements[14]
-      //   - Object3D.quaternion.setFromRotationMatrix(Object3D.matrix)
-      //   - Object3D.scale.x = THREE.Vector3().set(Object3D.matrix.elements[0], Object3D.matrix.elements[1], Object3D.matrix.elements[2]).length()
-      //   - Object3D.scale.y = THREE.Vector3().set(Object3D.matrix.elements[4], Object3D.matrix.elements[5], Object3D.matrix.elements[6]).length()
-      //   - Object3D.scale.z = THREE.Vector3().set(Object3D.matrix.elements[8], Object3D.matrix.elements[9], Object3D.matrix.elements[10]).length()
+      // After this, it sets:
+      // position.needsUpdate = true;
+      // which causes position.version to be incremented by 1
+      // this means that the position buffer has changed and needs to be updated
    }
 
    // ========================== RENDERER ==========================
