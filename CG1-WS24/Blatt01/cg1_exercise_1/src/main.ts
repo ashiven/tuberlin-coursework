@@ -222,16 +222,16 @@ function main() {
       // ========================== ROTATING THE OBJECTS ==========================
       else if (event.key === "ArrowDown") {
          if (g_selectedObject) {
-            // TODO: - convenience method ?
-            const rotationMatrix = ["leftArm", "rightArm"].includes(
-               g_selectedObject.name
-            )
-               ? customMakeRotation(new THREE.Matrix4(), -Math.PI / 16, "z")
-               : customMakeRotation(new THREE.Matrix4(), -Math.PI / 16, "x")
-            g_selectedObject.matrix.multiplyMatrices(
-               rotationMatrix,
-               g_selectedObject.matrix
-            )
+            // const rotationMatrix = ["leftArm", "rightArm"].includes(
+            //    g_selectedObject.name
+            // )
+            //    ? customMakeRotation(new THREE.Matrix4(), -Math.PI / 16, "z")
+            //    : customMakeRotation(new THREE.Matrix4(), -Math.PI / 16, "x")
+            // g_selectedObject.matrix.multiplyMatrices(
+            //    rotationMatrix,
+            //    g_selectedObject.matrix
+            // )
+            g_selectedObject.rotateOnAxis(new THREE.Vector3(1, 0, 0), -0.1)
             customUpdateMatrixWorld(scene, null)
          }
       } else if (event.key === "ArrowLeft") {
