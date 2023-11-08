@@ -240,13 +240,8 @@ function main() {
             //    rotationMatrix,
             //    g_selectedObject.matrix
             // )
-            // TODO: - translate convenience methods
-            if (["leftArm", "rightArm"].includes(g_selectedObject.name)) {
-               g_selectedObject.rotateOnAxis(new THREE.Vector3(0, 0, 1), -0.1)
-            } else {
-               g_selectedObject.rotateOnAxis(new THREE.Vector3(1, 0, 0), -0.1)
-            }
-            g_selectedObject.updateMatrix()
+
+            customRotateAxis(g_selectedObject, 0.1, "x")
             customUpdateMatrixWorld(scene, null)
          }
       } else if (event.key === "ArrowLeft") {
@@ -260,9 +255,7 @@ function main() {
             //    rotationMatrix,
             //    g_selectedObject.matrix
             // )
-            // TODO: - translate convenience methods
-            g_selectedObject.rotateOnAxis(new THREE.Vector3(0, 1, 0), -0.1)
-            g_selectedObject.updateMatrix()
+            customRotateAxis(g_selectedObject, -0.1, "y")
             customUpdateMatrixWorld(scene, null)
          }
       } else if (event.key === "ArrowRight") {
@@ -276,9 +269,7 @@ function main() {
             //    rotationMatrix,
             //    g_selectedObject.matrix
             // )
-            // TODO: - translate convenience methods
-            g_selectedObject.rotateOnAxis(new THREE.Vector3(0, 1, 0), 0.1)
-            g_selectedObject.updateMatrix()
+            customRotateAxis(g_selectedObject, 0.1, "y")
             customUpdateMatrixWorld(scene, null)
          }
       } else if (event.key === "ArrowUp") {
@@ -292,9 +283,7 @@ function main() {
             //   rotationMatrix,
             //   g_selectedObject.matrix
             //)
-            // TODO: - translate convenience methods
-            g_selectedObject.rotateOnAxis(new THREE.Vector3(1, 0, 0), 0.1)
-            g_selectedObject.updateMatrix()
+            customRotateAxis(g_selectedObject, -0.1, "x")
             customUpdateMatrixWorld(scene, null)
          }
       }
@@ -467,6 +456,31 @@ function main() {
    //    }
    //    return matrix
    // }
+
+   function customRotateAxis(object: any, angle: number, axisIdent: string) {
+      let quaternion = new THREE.Quaternion()
+      let axis =
+         axisIdent === "x"
+            ? new THREE.Vector3(1, 0, 0)
+            : axisIdent === "y"
+            ? new THREE.Vector3(0, 1, 0)
+            : new THREE.Vector3(0, 0, 1)
+
+      const halfAngle = angle / 2
+      quaternion.x = axis.x * Math.sin(halfAngle)
+      quaternion.y = axis.y * Math.sin(halfAngle)
+      quaternion.z = axis.z * Math.sin(halfAngle)
+      quaternion.w = Math.cos(halfAngle)
+
+      object.quaternion.multiply(quaternion)
+
+      // object.updateMatrix()
+      const objPos: any = new THREE.Vector3()
+      objPos[0] = object.matrix.elements[3]
+      objPos[1] = object.matrix.elements[7]
+      objPos[2] = object.matrix.elements[11]
+      object.matrix.compose(objPos, object.quaternion, object.scale)
+   }
 
    // ========================== RENDERER ==========================
    // start the animation loop (async)
