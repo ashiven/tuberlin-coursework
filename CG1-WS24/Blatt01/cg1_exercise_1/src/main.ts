@@ -108,9 +108,8 @@ function main() {
    ]
 
    // ========================== POSITIONING THE OBJECTS ==========================
-   // TODO: - convenience method ?
    // position head
-   head.matrix.makeTranslation(0, 1, 0)
+   customTranslateMatrix(head, 0, 1, 0)
 
    //initial transform
    const headInit = head.matrix.clone()
@@ -118,28 +117,25 @@ function main() {
    // initial transform
    const bodyInit = body.matrix.clone()
 
-   // TODO: - convenience method ?
    // position arms
-   leftArm.matrix.makeTranslation(-0.6, 0.7, 0)
-   rightArm.matrix.makeTranslation(0.6, 0.7, 0)
+   customTranslateMatrix(leftArm, -0.6, 0.7, 0)
+   customTranslateMatrix(rightArm, 0.6, 0.7, 0)
 
    //initial transform
    const leftArmInit = leftArm.matrix.clone()
    const rightArmInit = rightArm.matrix.clone()
 
-   // TODO: - convenience method ?
    // position legs
-   leftLeg.matrix.makeTranslation(-0.4, -1.1, 0)
-   rightLeg.matrix.makeTranslation(0.4, -1.1, 0)
+   customTranslateMatrix(leftLeg, -0.4, -1.1, 0)
+   customTranslateMatrix(rightLeg, 0.4, -1.1, 0)
 
    //initial transform
    const leftLegInit = leftLeg.matrix.clone()
    const rightLegInit = rightLeg.matrix.clone()
 
-   // TODO: - convenience method ?
    // position feet
-   leftFoot.matrix.makeTranslation(0, -1.1, -0.1)
-   rightFoot.matrix.makeTranslation(0, -1.1, -0.1)
+   customTranslateMatrix(leftFoot, 0, -1.1, -0.1)
+   customTranslateMatrix(rightFoot, 0, -1.1, -0.1)
 
    //initial transform
    const leftFootInit = leftFoot.matrix.clone()
@@ -230,9 +226,8 @@ function main() {
             const rotationMatrix = ["leftArm", "rightArm"].includes(
                g_selectedObject.name
             )
-               ? new THREE.Matrix4().makeRotationZ(-Math.PI / 16)
-               : new THREE.Matrix4().makeRotationX(-Math.PI / 16)
-            // TODO: - convenience method ?
+               ? customMakeRotation(new THREE.Matrix4(), -Math.PI / 16, "z")
+               : customMakeRotation(new THREE.Matrix4(), -Math.PI / 16, "x")
             g_selectedObject.matrix.multiplyMatrices(
                rotationMatrix,
                g_selectedObject.matrix
@@ -241,11 +236,11 @@ function main() {
          }
       } else if (event.key === "ArrowLeft") {
          if (g_selectedObject) {
-            // TODO: - convenience method ?
-            const rotationMatrix = new THREE.Matrix4().makeRotationY(
-               -Math.PI / 16
+            const rotationMatrix = customMakeRotation(
+               new THREE.Matrix4(),
+               -Math.PI / 16,
+               "y"
             )
-            // TODO: - convenience method ?
             g_selectedObject.matrix.multiplyMatrices(
                rotationMatrix,
                g_selectedObject.matrix
@@ -254,11 +249,11 @@ function main() {
          }
       } else if (event.key === "ArrowRight") {
          if (g_selectedObject) {
-            // TODO: - convenience method ?
-            const rotationMatrix = new THREE.Matrix4().makeRotationY(
-               Math.PI / 16
+            const rotationMatrix = customMakeRotation(
+               new THREE.Matrix4(),
+               Math.PI / 16,
+               "y"
             )
-            // TODO: - convenience method ?
             g_selectedObject.matrix.multiplyMatrices(
                rotationMatrix,
                g_selectedObject.matrix
@@ -267,13 +262,11 @@ function main() {
          }
       } else if (event.key === "ArrowUp") {
          if (g_selectedObject) {
-            // TODO: - convenience method ?
             const rotationMatrix = ["leftArm", "rightArm"].includes(
                g_selectedObject.name
             )
-               ? new THREE.Matrix4().makeRotationZ(Math.PI / 16)
-               : new THREE.Matrix4().makeRotationX(Math.PI / 16)
-            // TODO: - convenience method ?
+               ? customMakeRotation(new THREE.Matrix4(), Math.PI / 16, "z")
+               : customMakeRotation(new THREE.Matrix4(), Math.PI / 16, "x")
             g_selectedObject.matrix.multiplyMatrices(
                rotationMatrix,
                g_selectedObject.matrix
@@ -400,6 +393,15 @@ function main() {
       }
    }
 
+   function customTranslateMatrix(
+      object: any,
+      x: number,
+      y: number,
+      z: number
+   ) {
+      object.matrix.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1)
+   }
+
    function customTranslateGeometry(
       geometry: any,
       x: number,
@@ -427,6 +429,20 @@ function main() {
       // position.needsUpdate = true;
       // which causes position.version to be incremented by 1
       // this means that the position buffer has changed and needs to be updated
+   }
+
+   function customMakeRotation(matrix: any, angle: number, axis: any) {
+      const c = Math.cos(angle)
+      const s = Math.sin(angle)
+
+      if (axis === "x") {
+         matrix.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
+      } else if (axis === "y") {
+         matrix.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
+      } else if (axis === "z") {
+         matrix.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+      }
+      return matrix
    }
 
    // ========================== RENDERER ==========================
