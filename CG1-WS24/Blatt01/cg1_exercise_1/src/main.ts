@@ -108,45 +108,24 @@ function main() {
    ]
 
    // ========================== POSITIONING THE OBJECTS ==========================
-   // TODO: - find out different way to set positions
 
-   // position head
    customTranslateMatrix(head, 0, 1, 0)
-   head.position.set(0, 1, 0)
-
-   //initial transform
    const headInit = head.matrix.clone()
 
-   // initial transform
    const bodyInit = body.matrix.clone()
 
-   // position arms
    customTranslateMatrix(leftArm, -0.6, 0.7, 0)
    customTranslateMatrix(rightArm, 0.6, 0.7, 0)
-   leftArm.position.set(-0.6, 0.7, 0)
-   rightArm.position.set(0.6, 0.7, 0)
-
-   //initial transform
    const leftArmInit = leftArm.matrix.clone()
    const rightArmInit = rightArm.matrix.clone()
 
-   // position legs
    customTranslateMatrix(leftLeg, -0.4, -1.1, 0)
    customTranslateMatrix(rightLeg, 0.4, -1.1, 0)
-   leftLeg.position.set(-0.4, -1.1, 0)
-   rightLeg.position.set(0.4, -1.1, 0)
-
-   //initial transform
    const leftLegInit = leftLeg.matrix.clone()
    const rightLegInit = rightLeg.matrix.clone()
 
-   // position feet
    customTranslateMatrix(leftFoot, 0, -1.1, -0.1)
    customTranslateMatrix(rightFoot, 0, -1.1, -0.1)
-   leftFoot.position.set(0, -1.1, -0.1)
-   rightFoot.position.set(0, -1.1, -0.1)
-
-   //initial transform
    const leftFootInit = leftFoot.matrix.clone()
    const rightFootInit = rightFoot.matrix.clone()
 
@@ -332,6 +311,7 @@ function main() {
       })
       console.log("Parent: ", g_selectedObject.parent.name)
       console.log("Children: ", childrenNames)
+      console.log("Matrix: ", g_selectedObject.matrix.elements)
    }
 
    function displayAxes() {
@@ -474,12 +454,60 @@ function main() {
 
       object.quaternion.multiply(quaternion)
 
-      // object.updateMatrix()
+      //object.updateMatrix()
       const objPos: any = new THREE.Vector3()
-      objPos[0] = object.matrix.elements[3]
-      objPos[1] = object.matrix.elements[7]
-      objPos[2] = object.matrix.elements[11]
-      object.matrix.compose(objPos, object.quaternion, object.scale)
+      objPos.x =
+         object.name === "head"
+            ? headInit.elements[12]
+            : object.name === "leftArm"
+            ? leftArmInit.elements[12]
+            : object.name === "rightArm"
+            ? rightArmInit.elements[12]
+            : object.name === "leftLeg"
+            ? leftLegInit.elements[12]
+            : object.name === "rightLeg"
+            ? rightLegInit.elements[12]
+            : object.name === "leftFoot"
+            ? leftFootInit.elements[12]
+            : object.name === "rightFoot"
+            ? rightFootInit.elements[12]
+            : bodyInit.elements[12]
+      objPos.y =
+         object.name === "head"
+            ? headInit.elements[13]
+            : object.name === "leftArm"
+            ? leftArmInit.elements[13]
+            : object.name === "rightArm"
+            ? rightArmInit.elements[13]
+            : object.name === "leftLeg"
+            ? leftLegInit.elements[13]
+            : object.name === "rightLeg"
+            ? rightLegInit.elements[13]
+            : object.name === "leftFoot"
+            ? leftFootInit.elements[13]
+            : object.name === "rightFoot"
+            ? rightFootInit.elements[13]
+            : bodyInit.elements[13]
+      objPos.z =
+         object.name === "head"
+            ? headInit.elements[14]
+            : object.name === "leftArm"
+            ? leftArmInit.elements[14]
+            : object.name === "rightArm"
+            ? rightArmInit.elements[14]
+            : object.name === "leftLeg"
+            ? leftLegInit.elements[14]
+            : object.name === "rightLeg"
+            ? rightLegInit.elements[14]
+            : object.name === "leftFoot"
+            ? leftFootInit.elements[14]
+            : object.name === "rightFoot"
+            ? rightFootInit.elements[14]
+            : bodyInit.elements[14]
+
+      let scale = new THREE.Vector3(1, 1, 1)
+
+      object.matrix.compose(objPos, object.quaternion, scale)
    }
 
    // ========================== RENDERER ==========================
