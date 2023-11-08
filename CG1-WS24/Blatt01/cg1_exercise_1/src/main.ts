@@ -210,58 +210,21 @@ function main() {
       // ========================== ROTATING THE OBJECTS ==========================
       else if (event.key === "ArrowDown") {
          if (g_selectedObject) {
-            // const rotationMatrix = ["leftArm", "rightArm"].includes(
-            //    g_selectedObject.name
-            // )
-            //    ? customMakeRotation(new THREE.Matrix4(), -Math.PI / 16, "z")
-            //    : customMakeRotation(new THREE.Matrix4(), -Math.PI / 16, "x")
-            // g_selectedObject.matrix.multiplyMatrices(
-            //    rotationMatrix,
-            //    g_selectedObject.matrix
-            // )
-
             customRotateAxis(g_selectedObject, 0.1, "x")
             customUpdateMatrixWorld(scene, null)
          }
       } else if (event.key === "ArrowLeft") {
          if (g_selectedObject) {
-            // const rotationMatrix = customMakeRotation(
-            //    new THREE.Matrix4(),
-            //    -Math.PI / 16,
-            //    "y"
-            // )
-            // g_selectedObject.matrix.multiplyMatrices(
-            //    rotationMatrix,
-            //    g_selectedObject.matrix
-            // )
             customRotateAxis(g_selectedObject, -0.1, "y")
             customUpdateMatrixWorld(scene, null)
          }
       } else if (event.key === "ArrowRight") {
          if (g_selectedObject) {
-            // const rotationMatrix = customMakeRotation(
-            //    new THREE.Matrix4(),
-            //    Math.PI / 16,
-            //    "y"
-            // )
-            // g_selectedObject.matrix.multiplyMatrices(
-            //    rotationMatrix,
-            //    g_selectedObject.matrix
-            // )
             customRotateAxis(g_selectedObject, 0.1, "y")
             customUpdateMatrixWorld(scene, null)
          }
       } else if (event.key === "ArrowUp") {
          if (g_selectedObject) {
-            //const rotationMatrix = ["leftArm", "rightArm"].includes(
-            //   g_selectedObject.name
-            //)
-            //   ? customMakeRotation(new THREE.Matrix4(), Math.PI / 16, "z")
-            //   : customMakeRotation(new THREE.Matrix4(), Math.PI / 16, "x")
-            //g_selectedObject.matrix.multiplyMatrices(
-            //   rotationMatrix,
-            //   g_selectedObject.matrix
-            //)
             customRotateAxis(g_selectedObject, -0.1, "x")
             customUpdateMatrixWorld(scene, null)
          }
@@ -271,6 +234,8 @@ function main() {
          resetPositions(scene)
       }
    })
+
+   // ========================== FUNCTIONS ==========================
 
    function getFirstChild() {
       let firstChild: any = null
@@ -316,7 +281,6 @@ function main() {
 
    function displayAxes() {
       if (g_bodyParts.includes(g_selectedObject.name)) {
-         // we get the selected object's world matrix and copy the position entries to the axes helper world matrix
          const selectedObjectMatrix = g_selectedObject.matrixWorld
          const axesHelperMatrix = new THREE.Matrix4()
          axesHelperMatrix.identity()
@@ -327,8 +291,6 @@ function main() {
 
          g_axesHelper.matrixWorld.copy(axesHelperMatrix)
 
-         // this is basically what the above code does:
-         // g_axesHelper.position.copy(g_selectedObject.position)
          g_selectedObject.add(g_axesHelper)
       }
       customUpdateMatrixWorld(scene, null)
@@ -404,41 +366,10 @@ function main() {
       z: number
    ) {
       let matrix = new THREE.Matrix4()
-
       matrix.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1)
 
       geometry.applyMatrix4(matrix)
-      // This calls geometry.attributes.position.applyMatrix4(matrix)
-      // geometry.attributes.position is an instance of THREE.BufferAttribute extended as Float32BufferAttribute
-      //
-      // 	applyMatrix4( m ) {
-      //		   for ( let i = 0, l = this.count; i < l; i ++ ) {
-      //          _vector.fromBufferAttribute( this, i );
-      //          _vector.applyMatrix4( m );
-      //          this.setXYZ( i, _vector.x, _vector.y, _vector.z );
-      //       }
-      //       return this;
-      //    }
-
-      // After this, it sets:
-      // position.needsUpdate = true;
-      // which causes position.version to be incremented by 1
-      // this means that the position buffer has changed and needs to be updated
    }
-
-   // function customMakeRotation(matrix: any, angle: number, axis: any) {
-   //    const c = Math.cos(angle)
-   //    const s = Math.sin(angle)
-
-   //    if (axis === "x") {
-   //       matrix.set(1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1)
-   //    } else if (axis === "y") {
-   //       matrix.set(c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1)
-   //    } else if (axis === "z") {
-   //       matrix.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-   //    }
-   //    return matrix
-   // }
 
    function customRotateAxis(object: any, angle: number, axisIdent: string) {
       let quaternion = new THREE.Quaternion()
@@ -457,7 +388,6 @@ function main() {
 
       object.quaternion.multiply(quaternion)
 
-      //object.updateMatrix()
       const objPos: any = new THREE.Vector3()
       objPos.x =
          object.name === "head"
