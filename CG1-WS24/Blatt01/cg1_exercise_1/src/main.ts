@@ -382,7 +382,6 @@ function main() {
 
    function customUpdateMatrixWorld(object: any, parentMatrix: any) {
       if (parentMatrix) {
-         // TODO: - convenience method ?
          object.matrixWorld.multiplyMatrices(parentMatrix, object.matrix)
       } else {
          object.matrixWorld.copy(object.matrix)
