@@ -43,8 +43,7 @@ function main() {
 
    // ========================== HEAD ==========================
    const headGeometry = new THREE.SphereGeometry(0.4, 25, 32)
-   // TODO: - convenience method ?
-   headGeometry.translate(0, 0.4, 0)
+   customTranslateGeometry(headGeometry, 0, 0.4, 0)
    const headMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const head = new THREE.Mesh(headGeometry, headMaterial)
    head.name = "head"
@@ -52,9 +51,8 @@ function main() {
    // ========================== ARMS ==========================
    const leftArmGeometry = new THREE.BoxGeometry(1, 0.2, 0.2)
    const rightArmGeometry = new THREE.BoxGeometry(1, 0.2, 0.2)
-   // TODO: - convenience method ?
-   leftArmGeometry.translate(-0.5, 0, 0)
-   rightArmGeometry.translate(0.5, 0, 0)
+   customTranslateGeometry(leftArmGeometry, -0.5, 0, 0)
+   customTranslateGeometry(rightArmGeometry, 0.5, 0, 0)
    const leftArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const rightArmMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const leftArm = new THREE.Mesh(leftArmGeometry, leftArmMaterial)
@@ -65,9 +63,8 @@ function main() {
    // ========================== LEGS ==========================
    const leftLegGeometry = new THREE.BoxGeometry(0.2, 1, 0.2)
    const rightLegGeometry = new THREE.BoxGeometry(0.2, 1, 0.2)
-   // TODO: - convenience method ?
-   leftLegGeometry.translate(0, -0.5, 0)
-   rightLegGeometry.translate(0, -0.5, 0)
+   customTranslateGeometry(leftLegGeometry, 0, -0.5, 0)
+   customTranslateGeometry(rightLegGeometry, 0, -0.5, 0)
    const leftLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const rightLegMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const leftLeg = new THREE.Mesh(leftLegGeometry, leftLegMaterial)
@@ -78,9 +75,8 @@ function main() {
    // ========================== FEET ==========================
    const leftFootGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5)
    const rightFootGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5)
-   // TODO: - convenience method ?
-   leftFootGeometry.translate(0, -0.1, 0.25)
-   rightFootGeometry.translate(0, -0.1, 0.25)
+   customTranslateGeometry(leftFootGeometry, 0, -0.1, 0.25)
+   customTranslateGeometry(rightFootGeometry, 0, -0.1, 0.25)
 
    const leftFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
    const rightFootMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff }) // Blue color
@@ -402,6 +398,45 @@ function main() {
       for (const child of object.children) {
          customUpdateMatrixWorld(child, object.matrixWorld)
       }
+   }
+
+   function customTranslateGeometry(
+      geometry: any,
+      x: number,
+      y: number,
+      z: number
+   ) {
+      let matrix = new THREE.Matrix4()
+
+      matrix.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1)
+
+      // this calls geometry.attributes.position.applyMatrix4(matrix)
+      geometry.applyMatrix4(matrix)
+
+      console.log(geometry.attributes.position)
+
+      //geometry.matrix.premultiply(matrix)
+      //geometry.matrix.decompose(
+      //   geometry.position,
+      //   geometry.quaternion,
+      //   geometry.scale
+      //)
+
+      // applyMatrix4() on Object3D does the following:
+      //   - multiply the object's matrix with the given matrix
+      //   - decompose the object's matrix into the object's position, quaternion and scale
+
+      // Multiplying the Object3D Matrix with the given Matrix (Given Matrix is multiplied from the left):
+      //   - Matrix * Object3D.Matrix
+
+      // Decomposing the Object3D Matrix into the object's position, quaternion and scale:
+      //   - Object3D.position.x = Object3D.elements[12]
+      //   - Object3D.position.y = Object3D.elements[13]
+      //   - Object3D.position.z = Object3D.elements[14]
+      //   - Object3D.quaternion.setFromRotationMatrix(Object3D.matrix)
+      //   - Object3D.scale.x = THREE.Vector3().set(Object3D.matrix.elements[0], Object3D.matrix.elements[1], Object3D.matrix.elements[2]).length()
+      //   - Object3D.scale.y = THREE.Vector3().set(Object3D.matrix.elements[4], Object3D.matrix.elements[5], Object3D.matrix.elements[6]).length()
+      //   - Object3D.scale.z = THREE.Vector3().set(Object3D.matrix.elements[8], Object3D.matrix.elements[9], Object3D.matrix.elements[10]).length()
    }
 
    // ========================== RENDERER ==========================
