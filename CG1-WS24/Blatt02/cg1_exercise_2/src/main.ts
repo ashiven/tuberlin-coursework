@@ -135,6 +135,28 @@ function main() {
       worldCamera.updateProjectionMatrix()
    })
    */
+
+   // ========================== CANONICAL SPACE  ==========================
+   let canonicalCamera = helper.createCanonicalCamera()
+   let canonicalControls = new OrbitControls(canonicalCamera, canonicalDiv)
+   helper.setupControls(canonicalControls)
+
+   let canonicalScene = new THREE.Scene()
+   canonicalScene.background = new THREE.Color(0xffffff)
+   helper.setupCube(canonicalScene)
+
+   let teddy_copy = teddy.clone()
+   canonicalScene.add(teddy_copy)
+
+   let canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
+   var wid3 = new RenderWidget(
+      canonicalDiv,
+      canonicalRenderer,
+      canonicalCamera,
+      canonicalScene,
+      canonicalControls
+   )
+   wid3.animate()
 }
 
 // call main entrypoint
