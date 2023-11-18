@@ -57,17 +57,21 @@ function main() {
    helper.createGUI(settings)
    settings.addCallback(callback)
 
-   // ========================== SCREEN SPACE RENDERER ==========================
-   let screenScene = new THREE.Scene()
-   let screenCamera = new THREE.PerspectiveCamera()
-   helper.setupCamera(screenCamera, screenScene, 0.01, 10, 70)
-   screenScene.background = new THREE.Color(0xffffff)
-   // TODO: - may have to modify the parameters of screenControls
-   let screenControls = new OrbitControls(screenCamera, screenDiv)
+   // ========================== SCENE ==========================
+   let scene = new THREE.Scene()
+   scene.background = new THREE.Color(0xffffff)
 
    // add teddy bear to the scene
    teddy = helper.createTeddyBear()
-   screenScene.add(teddy)
+   scene.add(teddy)
+
+   let worldScene = scene.clone()
+
+   // ========================== SCREEN SPACE RENDERER ==========================
+   let screenCamera = new THREE.PerspectiveCamera()
+   helper.setupCamera(screenCamera, scene, 0.01, 10, 70)
+   // TODO: - may have to modify the parameters of screenControls
+   let screenControls = new OrbitControls(screenCamera, screenDiv)
 
    // render the scene
    let renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -75,10 +79,30 @@ function main() {
       screenDiv,
       renderer,
       screenCamera,
-      screenScene,
+      scene,
       screenControls
    )
    wid.animate()
+
+   // ========================== WORLD SPACE RENDERER ==========================
+   let worldCamera = new THREE.PerspectiveCamera()
+   helper.setupCamera(worldCamera, scene, 0.01, 10, 70)
+   let worldControls = new OrbitControls(worldCamera, worldDiv)
+
+   // add CameraHelper to the scene to visualize the camera
+   let cameraHelper = new THREE.CameraHelper(worldCamera)
+   worldScene.add(cameraHelper)
+
+   // render the scene
+   let worldRenderer = new THREE.WebGLRenderer({ antialias: true })
+   var wid2 = new RenderWidget(
+      worldDiv,
+      worldRenderer,
+      worldCamera,
+      worldScene,
+      worldControls
+   )
+   wid2.animate()
 }
 
 // call main entrypoint
