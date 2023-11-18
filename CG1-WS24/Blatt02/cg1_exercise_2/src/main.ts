@@ -15,6 +15,9 @@ var teddy: THREE.Object3D
 // declare screen camera so it can be used in the callback function
 var screenCamera: THREE.PerspectiveCamera
 
+// declare the world camera so it can be used in the callback function
+var worldCamera: THREE.PerspectiveCamera
+
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key === "rotateX") {
       teddy.rotation.x = changed.value
@@ -31,12 +34,18 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
    } else if (changed.key === "near") {
       screenCamera.near = changed.value
       screenCamera.updateProjectionMatrix()
+      worldCamera.near = changed.value
+      worldCamera.updateProjectionMatrix()
    } else if (changed.key === "far") {
       screenCamera.far = changed.value
       screenCamera.updateProjectionMatrix()
+      worldCamera.far = changed.value
+      worldCamera.updateProjectionMatrix()
    } else if (changed.key === "fov") {
       screenCamera.fov = changed.value
       screenCamera.updateProjectionMatrix()
+      worldCamera.fov = changed.value
+      worldCamera.updateProjectionMatrix()
    }
 }
 
@@ -77,13 +86,15 @@ function main() {
    teddy = helper.createTeddyBear()
    scene.add(teddy)
 
-   //let worldScene = scene.clone()
-
    // ========================== SCREEN SPACE RENDERER ==========================
    screenCamera = new THREE.PerspectiveCamera()
    helper.setupCamera(screenCamera, scene, 1, 10, 100)
    let screenControls = new OrbitControls(screenCamera, screenDiv)
    helper.setupControls(screenControls)
+
+   // add CameraHelper to the scene to visualize the screen camera
+   let cameraHelper = new THREE.CameraHelper(screenCamera)
+   scene.add(cameraHelper)
 
    let renderer = new THREE.WebGLRenderer({ antialias: true })
    var wid = new RenderWidget(
@@ -96,14 +107,10 @@ function main() {
    wid.animate()
 
    // ========================== WORLD SPACE RENDERER ==========================
-   let worldCamera = new THREE.PerspectiveCamera()
+   worldCamera = new THREE.PerspectiveCamera()
    helper.setupCamera(worldCamera, scene, 1, 10, 100)
    let worldControls = new OrbitControls(worldCamera, worldDiv)
    helper.setupControls(worldControls)
-
-   // add CameraHelper to the scene to visualize the camera
-   let cameraHelper = new THREE.CameraHelper(screenCamera)
-   scene.add(cameraHelper)
 
    let worldRenderer = new THREE.WebGLRenderer({ antialias: true })
    var wid2 = new RenderWidget(
@@ -114,6 +121,14 @@ function main() {
       worldControls
    )
    wid2.animate()
+
+   // not sure why we need the following, the world camera seems to be updated automatically
+   /*
+   // add an eventlistener that triggers whenever the screen camera changes
+   screenControls.addEventListener("change", () => {
+      console.log("screen camera changed")
+   })
+   */
 }
 
 // call main entrypoint
