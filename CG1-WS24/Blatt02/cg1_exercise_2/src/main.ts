@@ -18,6 +18,9 @@ var screenCamera: THREE.PerspectiveCamera
 // declare the world camera so it can be used in the callback function
 var worldCamera: THREE.PerspectiveCamera
 
+// declare the camera helper so it can be used in the callback function
+var cameraHelper: THREE.CameraHelper
+
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key === "rotateX") {
       teddy.rotation.x = changed.value
@@ -34,18 +37,15 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
    } else if (changed.key === "near") {
       screenCamera.near = changed.value
       screenCamera.updateProjectionMatrix()
-      worldCamera.near = changed.value
-      worldCamera.updateProjectionMatrix()
+      cameraHelper.update()
    } else if (changed.key === "far") {
       screenCamera.far = changed.value
       screenCamera.updateProjectionMatrix()
-      worldCamera.far = changed.value
-      worldCamera.updateProjectionMatrix()
+      cameraHelper.update()
    } else if (changed.key === "fov") {
       screenCamera.fov = changed.value
       screenCamera.updateProjectionMatrix()
-      worldCamera.fov = changed.value
-      worldCamera.updateProjectionMatrix()
+      cameraHelper.update()
    }
 }
 
@@ -86,14 +86,14 @@ function main() {
    teddy = helper.createTeddyBear()
    scene.add(teddy)
 
-   // ========================== SCREEN SPACE RENDERER ==========================
+   // ========================== SCREEN SPACE  ==========================
    screenCamera = new THREE.PerspectiveCamera()
-   helper.setupCamera(screenCamera, scene, 1, 10, 100)
+   helper.setupCamera(screenCamera, scene, 1, 5, 80)
    let screenControls = new OrbitControls(screenCamera, screenDiv)
    helper.setupControls(screenControls)
 
    // add CameraHelper to the scene to visualize the screen camera
-   let cameraHelper = new THREE.CameraHelper(screenCamera)
+   cameraHelper = new THREE.CameraHelper(screenCamera)
    scene.add(cameraHelper)
 
    let renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -106,9 +106,9 @@ function main() {
    )
    wid.animate()
 
-   // ========================== WORLD SPACE RENDERER ==========================
+   // ========================== WORLD SPACE  ==========================
    worldCamera = new THREE.PerspectiveCamera()
-   helper.setupCamera(worldCamera, scene, 1, 10, 100)
+   helper.setupCamera(worldCamera, scene, 1, 5, 150)
    let worldControls = new OrbitControls(worldCamera, worldDiv)
    helper.setupControls(worldControls)
 
@@ -122,11 +122,16 @@ function main() {
    )
    wid2.animate()
 
-   // not sure why we need the following, the world camera seems to be updated automatically
    /*
-   // add an eventlistener that triggers whenever the screen camera changes
+   // add an event listener that triggers whenever the screenControls change
+   // these changes should then trigger the world camera to change equivalently
    screenControls.addEventListener("change", () => {
-      console.log("screen camera changed")
+      console.log("screenControls changed")
+      worldControls.target = screenControls.target
+      worldControls.update()
+      worldCamera.position.copy(screenCamera.position)
+      worldCamera.lookAt(screenControls.target)
+      worldCamera.updateProjectionMatrix()
    })
    */
 }
