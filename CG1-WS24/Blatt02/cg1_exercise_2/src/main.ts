@@ -77,11 +77,11 @@ function main() {
    teddy = helper.createTeddyBear()
    scene.add(teddy)
 
-   let worldScene = scene.clone()
+   //let worldScene = scene.clone()
 
    // ========================== SCREEN SPACE RENDERER ==========================
    screenCamera = new THREE.PerspectiveCamera()
-   helper.setupCamera(screenCamera, scene, 0.01, 10, 70)
+   helper.setupCamera(screenCamera, scene, 1, 10, 100)
    let screenControls = new OrbitControls(screenCamera, screenDiv)
    helper.setupControls(screenControls)
 
@@ -97,20 +97,20 @@ function main() {
 
    // ========================== WORLD SPACE RENDERER ==========================
    let worldCamera = new THREE.PerspectiveCamera()
-   helper.setupCamera(worldCamera, scene, 0.01, 10, 70)
+   helper.setupCamera(worldCamera, scene, 1, 10, 100)
    let worldControls = new OrbitControls(worldCamera, worldDiv)
    helper.setupControls(worldControls)
 
    // add CameraHelper to the scene to visualize the camera
-   let cameraHelper = new THREE.CameraHelper(worldCamera)
-   worldScene.add(cameraHelper)
+   let cameraHelper = new THREE.CameraHelper(screenCamera)
+   scene.add(cameraHelper)
 
    let worldRenderer = new THREE.WebGLRenderer({ antialias: true })
    var wid2 = new RenderWidget(
       worldDiv,
       worldRenderer,
       worldCamera,
-      worldScene,
+      scene,
       worldControls
    )
    wid2.animate()
