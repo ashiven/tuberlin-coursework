@@ -108,7 +108,7 @@ function main() {
 
    // ========================== WORLD SPACE  ==========================
    worldCamera = new THREE.PerspectiveCamera()
-   helper.setupCamera(worldCamera, scene, 1, 5, 150)
+   helper.setupCamera(worldCamera, scene, 0.01, 10, 150)
    let worldControls = new OrbitControls(worldCamera, worldDiv)
    helper.setupControls(worldControls)
 
