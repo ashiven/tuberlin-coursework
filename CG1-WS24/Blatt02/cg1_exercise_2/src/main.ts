@@ -12,6 +12,9 @@ import * as helper from "./helper"
 // declare teddy bear so it can be used in the callback function
 var teddy: THREE.Object3D
 
+// declare screen camera so it can be used in the callback function
+var screenCamera: THREE.PerspectiveCamera
+
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key === "rotateX") {
       teddy.rotation.x = changed.value
@@ -25,6 +28,15 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       teddy.position.y = changed.value
    } else if (changed.key === "translateZ") {
       teddy.position.z = changed.value
+   } else if (changed.key === "near") {
+      screenCamera.near = changed.value
+      screenCamera.updateProjectionMatrix()
+   } else if (changed.key === "far") {
+      screenCamera.far = changed.value
+      screenCamera.updateProjectionMatrix()
+   } else if (changed.key === "fov") {
+      screenCamera.fov = changed.value
+      screenCamera.updateProjectionMatrix()
    }
 }
 
@@ -68,12 +80,11 @@ function main() {
    let worldScene = scene.clone()
 
    // ========================== SCREEN SPACE RENDERER ==========================
-   let screenCamera = new THREE.PerspectiveCamera()
+   screenCamera = new THREE.PerspectiveCamera()
    helper.setupCamera(screenCamera, scene, 0.01, 10, 70)
-   // TODO: - may have to modify the parameters of screenControls
    let screenControls = new OrbitControls(screenCamera, screenDiv)
+   helper.setupControls(screenControls)
 
-   // render the scene
    let renderer = new THREE.WebGLRenderer({ antialias: true })
    var wid = new RenderWidget(
       screenDiv,
@@ -88,12 +99,12 @@ function main() {
    let worldCamera = new THREE.PerspectiveCamera()
    helper.setupCamera(worldCamera, scene, 0.01, 10, 70)
    let worldControls = new OrbitControls(worldCamera, worldDiv)
+   helper.setupControls(worldControls)
 
    // add CameraHelper to the scene to visualize the camera
    let cameraHelper = new THREE.CameraHelper(worldCamera)
    worldScene.add(cameraHelper)
 
-   // render the scene
    let worldRenderer = new THREE.WebGLRenderer({ antialias: true })
    var wid2 = new RenderWidget(
       worldDiv,
