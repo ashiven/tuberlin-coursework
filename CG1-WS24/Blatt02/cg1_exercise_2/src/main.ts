@@ -145,11 +145,10 @@ function main() {
    canonicalScene.background = new THREE.Color(0xffffff)
    helper.setupCube(canonicalScene)
 
-   let teddy_copy = teddy.clone()
-   canonicalScene.add(teddy_copy)
+   let canonicalTeddy = teddy.clone()
+   canonicalScene.add(canonicalTeddy)
 
-   // TODO: - create function that transforms the teddy to canonical viewing space
-   // transform teddy to canonical viewing space
+   makeTeddyFlat()
 
    let canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
 
@@ -171,6 +170,24 @@ function main() {
       canonicalControls
    )
    wid3.animate()
+
+   // TODO: - do the following steps manually
+   function makeTeddyFlat() {
+      // Step 1: transform everything from world space to camera space using K = T ** -1 , the inverse of the camera matrix
+      let cameraMatrix = new THREE.Matrix4()
+      cameraMatrix.copy(canonicalCamera.matrixWorldInverse)
+      canonicalTeddy.applyMatrix4(cameraMatrix)
+
+      // Step 2: apply primary view projection matrix to transform from camera space to screen space
+      let projectionMatrix = new THREE.Matrix4()
+      projectionMatrix.copy(canonicalCamera.projectionMatrix)
+      canonicalTeddy.applyMatrix4(projectionMatrix)
+
+      // Step 3: camera coordinate system is left-handed, so we need to flip the z-axis
+      let flipMatrix = new THREE.Matrix4()
+      flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
+      canonicalTeddy.applyMatrix4(flipMatrix)
+   }
 }
 
 // call main entrypoint
