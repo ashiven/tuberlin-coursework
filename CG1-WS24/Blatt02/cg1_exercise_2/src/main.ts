@@ -148,7 +148,21 @@ function main() {
    let teddy_copy = teddy.clone()
    canonicalScene.add(teddy_copy)
 
+   // TODO: - create function that transforms the teddy to canonical viewing space
+   // transform teddy to canonical viewing space
+
    let canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
+
+   // add clipping planes to the renderer on every surface of the cube
+   canonicalRenderer.clippingPlanes = [
+      new THREE.Plane(new THREE.Vector3(-1, 0, 0), 1),
+      new THREE.Plane(new THREE.Vector3(1, 0, 0), 1),
+      new THREE.Plane(new THREE.Vector3(0, -1, 0), 1),
+      new THREE.Plane(new THREE.Vector3(0, 1, 0), 1),
+      new THREE.Plane(new THREE.Vector3(0, 0, -1), 1),
+      new THREE.Plane(new THREE.Vector3(0, 0, 1), 1),
+   ]
+
    var wid3 = new RenderWidget(
       canonicalDiv,
       canonicalRenderer,
