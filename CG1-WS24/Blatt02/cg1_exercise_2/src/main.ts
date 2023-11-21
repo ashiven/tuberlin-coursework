@@ -102,30 +102,35 @@ function makeTeddyFlat() {
    let flipMatrix = new THREE.Matrix4()
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
 
-   // Step 1: transform everything from world space to camera space using K = T ** -1 , the inverse of the camera matrix
-   // canonicalTeddy.applyMatrix4(cameraMatrix)
-
-   // Step 2: apply primary view projection matrix to transform from camera space to screen space
-   // canonicalTeddy.applyMatrix4(projectionMatrix)
-
-   // Step 3: camera coordinate system is left-handed, so we need to flip the z-axis
-   // canonicalTeddy.applyMatrix4(flipMatrix)
-
    teddy.traverse((child) => {
       if (child instanceof THREE.Mesh) {
          const bufferGeometry = child.geometry
-         const vertices = bufferGeometry.getAttribute("position")
+         const buffers: THREE.Float32BufferAttribute[] =
+            bufferGeometry.getAttribute("position")
 
          // Step 1: manually multiply each vertex with the camera matrix without using applyMatrix4
-         console.log(vertices)
+         for (let buffer of buffers) {
+            buffer.applyMatrix4(cameraMatrix)
+            // for (let i = 0, l = buffer.count; i < l; i++) {
+            //    let _vector = new THREE.Vector3()
 
-         // Step 1
-         vertices.applyMatrix4(cameraMatrix)
-         // Step 2
-         vertices.applyMatrix4(projectionMatrix)
-         // Step 3
-         vertices.applyMatrix4(flipMatrix)
+            //    _vector.fromBufferAttribute(buffer, i)
+
+            //    _vector.applyMatrix4(cameraMatrix)
+
+            //    buffer.setXYZ(i, _vector.x, _vector.y, _vector.z)
+            // }
+         }
       }
+
+      // Step 1: transform everything from world space to camera space using K = T ** -1 , the inverse of the camera matrix
+      // canonicalTeddy.applyMatrix4(cameraMatrix)
+
+      // Step 2: apply primary view projection matrix to transform from camera space to screen space
+      canonicalTeddy.applyMatrix4(projectionMatrix)
+
+      // Step 3: camera coordinate system is left-handed, so we need to flip the z-axis
+      canonicalTeddy.applyMatrix4(flipMatrix)
    })
 }
 
