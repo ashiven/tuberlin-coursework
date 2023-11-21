@@ -130,7 +130,6 @@ function makeTeddyFlat() {
    teddy.traverse((child) => {
       if (child instanceof THREE.Mesh) {
          child.matrix.identity()
-         child.matrixWorld.identity()
       }
    })
 
