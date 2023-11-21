@@ -30,21 +30,27 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key === "rotateX") {
       teddy.rotation.x = changed.value
       canonicalTeddy.rotation.x = changed.value
+      makeTeddyFlat()
    } else if (changed.key === "rotateY") {
       teddy.rotation.y = changed.value
       canonicalTeddy.rotation.y = changed.value
+      makeTeddyFlat()
    } else if (changed.key === "rotateZ") {
       teddy.rotation.z = changed.value
       canonicalTeddy.rotation.z = changed.value
+      makeTeddyFlat()
    } else if (changed.key === "translateX") {
       teddy.position.x = changed.value
       canonicalTeddy.position.x = changed.value
+      makeTeddyFlat()
    } else if (changed.key === "translateY") {
       teddy.position.y = changed.value
       canonicalTeddy.position.y = changed.value
+      makeTeddyFlat()
    } else if (changed.key === "translateZ") {
       teddy.position.z = changed.value
       canonicalTeddy.position.z = changed.value
+      makeTeddyFlat()
    } else if (changed.key === "near") {
       screenCamera.near = changed.value
       screenCamera.updateProjectionMatrix()
@@ -93,7 +99,7 @@ function updateClippingPlane(changed: any, changedPlane: THREE.Plane) {
 
 function makeTeddyFlat() {
    function customApplyMatrix(matrix: THREE.Matrix4) {
-      teddy.traverse((child) => {
+      canonicalTeddy.traverse((child) => {
          if (child instanceof THREE.Mesh) {
             const bufferGeometry = child.geometry
             const position = bufferGeometry.getAttribute("position")
@@ -115,6 +121,7 @@ function makeTeddyFlat() {
                position.setXYZ(i, vector.x, vector.y, vector.z)
             }
             // ---------------------------------------------
+            position.needsUpdate = true
          }
       })
    }
@@ -127,7 +134,7 @@ function makeTeddyFlat() {
    projectionMatrix.copy(canonicalCamera.projectionMatrix)
    customApplyMatrix(projectionMatrix)
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
-   teddy.traverse((child) => {
+   canonicalTeddy.traverse((child) => {
       if (child instanceof THREE.Mesh) {
          child.matrix.identity()
       }
@@ -221,7 +228,7 @@ function main() {
    canonicalScene.background = new THREE.Color(0xffffff)
    helper.setupCube(canonicalScene)
 
-   canonicalTeddy = teddy.clone()
+   canonicalTeddy = helper.createTeddyBear()
    canonicalScene.add(canonicalTeddy)
 
    makeTeddyFlat()
