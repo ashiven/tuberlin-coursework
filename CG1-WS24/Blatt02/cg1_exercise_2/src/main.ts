@@ -98,13 +98,11 @@ function makeTeddyFlat() {
             const bufferGeometry = child.geometry
             const position = bufferGeometry.getAttribute("position")
 
-            // ---- position.applyMatrix4(cameraMatrix) ----
+            // ---- position.applyMatrix4(matrix) ----
             for (let i = 0, l = position.count; i < l; i++) {
                let vector = new THREE.Vector3()
-
                vector.fromBufferAttribute(position, i)
-
-               //  ---- vector.applyMatrix4(cameraMatrix) ----
+               //  ---- vector.applyMatrix4(matrix) ----
                const x = vector.x
                const y = vector.y
                const z = vector.z
@@ -114,7 +112,6 @@ function makeTeddyFlat() {
                vector.y = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w
                vector.z = (e[2] * x + e[6] * y + e[10] * z + e[14]) * w
                // ---------------------------------------------
-
                position.setXYZ(i, vector.x, vector.y, vector.z)
             }
             // ---------------------------------------------
@@ -124,15 +121,21 @@ function makeTeddyFlat() {
 
    let cameraMatrix = new THREE.Matrix4()
    cameraMatrix.copy(canonicalCamera.matrixWorldInverse)
+   customApplyMatrix(cameraMatrix)
 
    let projectionMatrix = new THREE.Matrix4()
    projectionMatrix.copy(canonicalCamera.projectionMatrix)
+   customApplyMatrix(projectionMatrix)
+   // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
+   teddy.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+         child.matrix.identity()
+         child.matrixWorld.identity()
+      }
+   })
 
    let flipMatrix = new THREE.Matrix4()
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
-
-   customApplyMatrix(cameraMatrix)
-   customApplyMatrix(projectionMatrix)
    customApplyMatrix(flipMatrix)
 }
 
