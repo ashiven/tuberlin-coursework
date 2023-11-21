@@ -9,34 +9,33 @@ import { Application, createWindow } from "./lib/window"
 // helper lib, provides exercise dependent prewritten Code
 import * as helper from "./helper"
 
-// declare teddy bear so it can be used in the callback function
+// declare variables so they can be used in the callback function
 var teddy: THREE.Object3D
-
-// declare screen camera so it can be used in the callback function
 var screenCamera: THREE.PerspectiveCamera
-
-// declare the world camera so it can be used in the callback function
 var worldCamera: THREE.PerspectiveCamera
-
-// declare the camera helper so it can be used in the callback function
 var cameraHelper: THREE.CameraHelper
-
-// declare the canonical renderer so it can be used in the callback function
 var canonicalRenderer: THREE.WebGLRenderer
+var canonicalTeddy: THREE.Object3D
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key === "rotateX") {
       teddy.rotation.x = changed.value
+      canonicalTeddy.rotation.x = changed.value
    } else if (changed.key === "rotateY") {
       teddy.rotation.y = changed.value
+      canonicalTeddy.rotation.y = changed.value
    } else if (changed.key === "rotateZ") {
       teddy.rotation.z = changed.value
+      canonicalTeddy.rotation.z = changed.value
    } else if (changed.key === "translateX") {
       teddy.position.x = changed.value
+      canonicalTeddy.position.x = changed.value
    } else if (changed.key === "translateY") {
       teddy.position.y = changed.value
+      canonicalTeddy.position.y = changed.value
    } else if (changed.key === "translateZ") {
       teddy.position.z = changed.value
+      canonicalTeddy.position.z = changed.value
    } else if (changed.key === "near") {
       screenCamera.near = changed.value
       screenCamera.updateProjectionMatrix()
@@ -197,7 +196,7 @@ function main() {
    canonicalScene.background = new THREE.Color(0xffffff)
    helper.setupCube(canonicalScene)
 
-   let canonicalTeddy = teddy.clone()
+   canonicalTeddy = teddy.clone()
    canonicalScene.add(canonicalTeddy)
 
    makeTeddyFlat()
