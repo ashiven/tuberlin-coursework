@@ -233,15 +233,7 @@ function main() {
 
    makeTeddyFlat()
 
-   // TODO:
-   // - theoretically we should use an event listener on the controls to update the teddy whenever the camera moves
-   // - we should also call makeTeddyFlat whenever the model is changed in the GUI
-   // - however, it doesn't work and I have no idea why
-   /*
-   canonicalControls.addEventListener("change", () {
-      makeTeddyFlat()
-   })
-   */
+   // TODO: - the makeTeddyFlat() function should be called whenever the camera or the model change
 
    canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
    canonicalRenderer.clippingPlanes = [
