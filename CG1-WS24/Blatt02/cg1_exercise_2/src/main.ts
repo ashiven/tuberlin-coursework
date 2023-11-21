@@ -91,8 +91,37 @@ function updateClippingPlane(changed: any, changedPlane: THREE.Plane) {
    }
 }
 
-// TODO: - do the following steps manually
 function makeTeddyFlat() {
+   function customApplyMatrix(matrix: THREE.Matrix4) {
+      teddy.traverse((child) => {
+         if (child instanceof THREE.Mesh) {
+            const bufferGeometry = child.geometry
+            const position = bufferGeometry.getAttribute("position")
+
+            // ---- position.applyMatrix4(cameraMatrix) ----
+            for (let i = 0, l = position.count; i < l; i++) {
+               let vector = new THREE.Vector3()
+
+               vector.fromBufferAttribute(position, i)
+
+               //  ---- vector.applyMatrix4(cameraMatrix) ----
+               const x = vector.x
+               const y = vector.y
+               const z = vector.z
+               const e = matrix.elements
+               const w = 1 / (e[3] * x + e[7] * y + e[11] * z + e[15])
+               vector.x = (e[0] * x + e[4] * y + e[8] * z + e[12]) * w
+               vector.y = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w
+               vector.z = (e[2] * x + e[6] * y + e[10] * z + e[14]) * w
+               // ---------------------------------------------
+
+               position.setXYZ(i, vector.x, vector.y, vector.z)
+            }
+            // ---------------------------------------------
+         }
+      })
+   }
+
    let cameraMatrix = new THREE.Matrix4()
    cameraMatrix.copy(canonicalCamera.matrixWorldInverse)
 
@@ -102,36 +131,9 @@ function makeTeddyFlat() {
    let flipMatrix = new THREE.Matrix4()
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
 
-   teddy.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-         const bufferGeometry = child.geometry
-         const buffers: THREE.Float32BufferAttribute[] =
-            bufferGeometry.getAttribute("position")
-
-         // Step 1: manually multiply each vertex with the camera matrix without using applyMatrix4
-         for (let buffer of buffers) {
-            buffer.applyMatrix4(cameraMatrix)
-            // for (let i = 0, l = buffer.count; i < l; i++) {
-            //    let _vector = new THREE.Vector3()
-
-            //    _vector.fromBufferAttribute(buffer, i)
-
-            //    _vector.applyMatrix4(cameraMatrix)
-
-            //    buffer.setXYZ(i, _vector.x, _vector.y, _vector.z)
-            // }
-         }
-      }
-
-      // Step 1: transform everything from world space to camera space using K = T ** -1 , the inverse of the camera matrix
-      // canonicalTeddy.applyMatrix4(cameraMatrix)
-
-      // Step 2: apply primary view projection matrix to transform from camera space to screen space
-      canonicalTeddy.applyMatrix4(projectionMatrix)
-
-      // Step 3: camera coordinate system is left-handed, so we need to flip the z-axis
-      canonicalTeddy.applyMatrix4(flipMatrix)
-   })
+   customApplyMatrix(cameraMatrix)
+   customApplyMatrix(projectionMatrix)
+   customApplyMatrix(flipMatrix)
 }
 
 /*******************************************************************************
