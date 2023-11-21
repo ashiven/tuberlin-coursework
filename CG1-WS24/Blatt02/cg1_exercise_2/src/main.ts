@@ -93,20 +93,58 @@ function updateClippingPlane(changed: any, changedPlane: THREE.Plane) {
 
 // TODO: - do the following steps manually
 function makeTeddyFlat() {
-   // Step 1: transform everything from world space to camera space using K = T ** -1 , the inverse of the camera matrix
    let cameraMatrix = new THREE.Matrix4()
    cameraMatrix.copy(canonicalCamera.matrixWorldInverse)
+
+   let projectionMatrix = new THREE.Matrix4()
+   projectionMatrix.copy(canonicalCamera.projectionMatrix)
+
+   let flipMatrix = new THREE.Matrix4()
+   flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
+
+   // Step 1: transform everything from world space to camera space using K = T ** -1 , the inverse of the camera matrix
    canonicalTeddy.applyMatrix4(cameraMatrix)
 
    // Step 2: apply primary view projection matrix to transform from camera space to screen space
-   let projectionMatrix = new THREE.Matrix4()
-   projectionMatrix.copy(canonicalCamera.projectionMatrix)
    canonicalTeddy.applyMatrix4(projectionMatrix)
 
    // Step 3: camera coordinate system is left-handed, so we need to flip the z-axis
-   let flipMatrix = new THREE.Matrix4()
-   flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
    canonicalTeddy.applyMatrix4(flipMatrix)
+
+   /*
+   teddy.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+         const bufferGeometry = child.geometry
+         const vertices = bufferGeometry.getAttribute("position")
+
+         // Step 1: manually multiply each vertex with the camera matrix without using applyMatrix4
+         
+         vertices.forEach((vertex: THREE.BufferAttribute, index: any) => {
+            let vector = new THREE.Vector3()
+            vector.fromBufferAttribute(vertex, index)
+
+            vector.applyMatrix4(cameraMatrix)
+            // const x = vector.x,
+            //    y = vector.y,
+            //    z = vector.z
+            // const e = cameraMatrix.elements
+            // const w = 1 / (e[3] * x + e[7] * y + e[11] * z + e[15])
+            // vector.x = (e[0] * x + e[4] * y + e[8] * z + e[12]) * w
+            // vector.y = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w
+            // vector.z = (e[2] * x + e[6] * y + e[10] * z + e[14]) * w
+
+            // vertex.setXYZ(index, vector.x, vector.y, vector.z)
+         })
+
+         // Step 1
+         vertices.applyMatrix4(cameraMatrix)
+         // Step 2
+         vertices.applyMatrix4(projectionMatrix)
+         // Step 3
+         vertices.applyMatrix4(flipMatrix)
+      }
+   })
+   */
 }
 
 /*******************************************************************************
@@ -196,6 +234,16 @@ function main() {
    canonicalScene.add(canonicalTeddy)
 
    makeTeddyFlat()
+
+   // TODO:
+   // - theoretically we should use an event listener on the controls to update the teddy whenever the camera moves
+   // - we should also call makeTeddyFlat whenever the model is changed in the GUI
+   // - however, it doesn't work and I have no idea why
+   /*
+   canonicalControls.addEventListener("change", () {
+      makeTeddyFlat()
+   })
+   */
 
    canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
    canonicalRenderer.clippingPlanes = [
