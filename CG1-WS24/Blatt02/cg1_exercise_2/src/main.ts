@@ -21,6 +21,9 @@ var worldCamera: THREE.PerspectiveCamera
 // declare the camera helper so it can be used in the callback function
 var cameraHelper: THREE.CameraHelper
 
+// declare the canonical renderer so it can be used in the callback function
+var canonicalRenderer: THREE.WebGLRenderer
+
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key === "rotateX") {
       teddy.rotation.x = changed.value
@@ -46,6 +49,55 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       screenCamera.fov = changed.value
       screenCamera.updateProjectionMatrix()
       cameraHelper.update()
+   } else if (changed.key === "planeX0") {
+      updateClippingPlane(
+         changed,
+         new THREE.Plane(new THREE.Vector3(1, 0, 0), 1)
+      )
+   } else if (changed.key === "planeX1") {
+      updateClippingPlane(
+         changed,
+         new THREE.Plane(new THREE.Vector3(-1, 0, 0), 1)
+      )
+   } else if (changed.key === "planeY0") {
+      updateClippingPlane(
+         changed,
+         new THREE.Plane(new THREE.Vector3(0, 1, 0), 1)
+      )
+   } else if (changed.key === "planeY1") {
+      updateClippingPlane(
+         changed,
+         new THREE.Plane(new THREE.Vector3(0, -1, 0), 1)
+      )
+   } else if (changed.key === "planeZ0") {
+      updateClippingPlane(
+         changed,
+         new THREE.Plane(new THREE.Vector3(0, 0, 1), 1)
+      )
+   } else if (changed.key === "planeZ1") {
+      updateClippingPlane(
+         changed,
+         new THREE.Plane(new THREE.Vector3(0, 0, -1), 1)
+      )
+   }
+}
+
+function updateClippingPlane(changed: any, changedPlane: THREE.Plane) {
+   if (!changed.value) {
+      canonicalRenderer.clippingPlanes =
+         canonicalRenderer.clippingPlanes.filter(
+            (plane) =>
+               plane.normal.x !== changedPlane.normal.x ||
+               plane.normal.y !== changedPlane.normal.y ||
+               plane.normal.z !== changedPlane.normal.z
+         )
+   } else {
+      let clippingPlanes = []
+      for (let plane of canonicalRenderer.clippingPlanes) {
+         clippingPlanes.push(plane)
+      }
+      clippingPlanes.push(changedPlane)
+      canonicalRenderer.clippingPlanes = clippingPlanes
    }
 }
 
@@ -150,7 +202,7 @@ function main() {
 
    makeTeddyFlat()
 
-   let canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
+   canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
 
    // add clipping planes to the renderer on every surface of the cube
    canonicalRenderer.clippingPlanes = [
