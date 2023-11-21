@@ -15,7 +15,16 @@ var screenCamera: THREE.PerspectiveCamera
 var worldCamera: THREE.PerspectiveCamera
 var cameraHelper: THREE.CameraHelper
 var canonicalRenderer: THREE.WebGLRenderer
+var canonicalCamera: THREE.OrthographicCamera
 var canonicalTeddy: THREE.Object3D
+
+// create clipping planes
+var clippingPlaneX0 = new THREE.Plane(new THREE.Vector3(1, 0, 0), 1)
+var clippingPlaneX1 = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 1)
+var clippingPlaneY0 = new THREE.Plane(new THREE.Vector3(0, 1, 0), 1)
+var clippingPlaneY1 = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1)
+var clippingPlaneZ0 = new THREE.Plane(new THREE.Vector3(0, 0, 1), 1)
+var clippingPlaneZ1 = new THREE.Plane(new THREE.Vector3(0, 0, -1), 1)
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key === "rotateX") {
@@ -49,35 +58,17 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       screenCamera.updateProjectionMatrix()
       cameraHelper.update()
    } else if (changed.key === "planeX0") {
-      updateClippingPlane(
-         changed,
-         new THREE.Plane(new THREE.Vector3(1, 0, 0), 1)
-      )
+      updateClippingPlane(changed, clippingPlaneX0)
    } else if (changed.key === "planeX1") {
-      updateClippingPlane(
-         changed,
-         new THREE.Plane(new THREE.Vector3(-1, 0, 0), 1)
-      )
+      updateClippingPlane(changed, clippingPlaneX1)
    } else if (changed.key === "planeY0") {
-      updateClippingPlane(
-         changed,
-         new THREE.Plane(new THREE.Vector3(0, 1, 0), 1)
-      )
+      updateClippingPlane(changed, clippingPlaneY0)
    } else if (changed.key === "planeY1") {
-      updateClippingPlane(
-         changed,
-         new THREE.Plane(new THREE.Vector3(0, -1, 0), 1)
-      )
+      updateClippingPlane(changed, clippingPlaneY1)
    } else if (changed.key === "planeZ0") {
-      updateClippingPlane(
-         changed,
-         new THREE.Plane(new THREE.Vector3(0, 0, 1), 1)
-      )
+      updateClippingPlane(changed, clippingPlaneZ0)
    } else if (changed.key === "planeZ1") {
-      updateClippingPlane(
-         changed,
-         new THREE.Plane(new THREE.Vector3(0, 0, -1), 1)
-      )
+      updateClippingPlane(changed, clippingPlaneZ1)
    }
 }
 
@@ -98,6 +89,24 @@ function updateClippingPlane(changed: any, changedPlane: THREE.Plane) {
       clippingPlanes.push(changedPlane)
       canonicalRenderer.clippingPlanes = clippingPlanes
    }
+}
+
+// TODO: - do the following steps manually
+function makeTeddyFlat() {
+   // Step 1: transform everything from world space to camera space using K = T ** -1 , the inverse of the camera matrix
+   let cameraMatrix = new THREE.Matrix4()
+   cameraMatrix.copy(canonicalCamera.matrixWorldInverse)
+   canonicalTeddy.applyMatrix4(cameraMatrix)
+
+   // Step 2: apply primary view projection matrix to transform from camera space to screen space
+   let projectionMatrix = new THREE.Matrix4()
+   projectionMatrix.copy(canonicalCamera.projectionMatrix)
+   canonicalTeddy.applyMatrix4(projectionMatrix)
+
+   // Step 3: camera coordinate system is left-handed, so we need to flip the z-axis
+   let flipMatrix = new THREE.Matrix4()
+   flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
+   canonicalTeddy.applyMatrix4(flipMatrix)
 }
 
 /*******************************************************************************
@@ -174,21 +183,8 @@ function main() {
    )
    wid2.animate()
 
-   /*
-   // add an event listener that triggers whenever the screenControls change
-   // these changes should then trigger the world camera to change equivalently
-   screenControls.addEventListener("change", () => {
-      console.log("screenControls changed")
-      worldControls.target = screenControls.target
-      worldControls.update()
-      worldCamera.position.copy(screenCamera.position)
-      worldCamera.lookAt(screenControls.target)
-      worldCamera.updateProjectionMatrix()
-   })
-   */
-
    // ========================== CANONICAL SPACE  ==========================
-   let canonicalCamera = helper.createCanonicalCamera()
+   canonicalCamera = helper.createCanonicalCamera()
    let canonicalControls = new OrbitControls(canonicalCamera, canonicalDiv)
    helper.setupControls(canonicalControls)
 
@@ -202,15 +198,13 @@ function main() {
    makeTeddyFlat()
 
    canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
-
-   // add clipping planes to the renderer on every surface of the cube
    canonicalRenderer.clippingPlanes = [
-      new THREE.Plane(new THREE.Vector3(-1, 0, 0), 1),
-      new THREE.Plane(new THREE.Vector3(1, 0, 0), 1),
-      new THREE.Plane(new THREE.Vector3(0, -1, 0), 1),
-      new THREE.Plane(new THREE.Vector3(0, 1, 0), 1),
-      new THREE.Plane(new THREE.Vector3(0, 0, -1), 1),
-      new THREE.Plane(new THREE.Vector3(0, 0, 1), 1),
+      clippingPlaneX0,
+      clippingPlaneX1,
+      clippingPlaneY0,
+      clippingPlaneY1,
+      clippingPlaneZ0,
+      clippingPlaneZ1,
    ]
 
    var wid3 = new RenderWidget(
@@ -221,25 +215,6 @@ function main() {
       canonicalControls
    )
    wid3.animate()
-
-   // TODO: - do the following steps manually
-   function makeTeddyFlat() {
-      // Step 1: transform everything from world space to camera space using K = T ** -1 , the inverse of the camera matrix
-      let cameraMatrix = new THREE.Matrix4()
-      cameraMatrix.copy(canonicalCamera.matrixWorldInverse)
-      canonicalTeddy.applyMatrix4(cameraMatrix)
-
-      // Step 2: apply primary view projection matrix to transform from camera space to screen space
-      let projectionMatrix = new THREE.Matrix4()
-      projectionMatrix.copy(canonicalCamera.projectionMatrix)
-      canonicalTeddy.applyMatrix4(projectionMatrix)
-
-      // Step 3: camera coordinate system is left-handed, so we need to flip the z-axis
-      let flipMatrix = new THREE.Matrix4()
-      flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
-      canonicalTeddy.applyMatrix4(flipMatrix)
-   }
 }
 
-// call main entrypoint
 main()
