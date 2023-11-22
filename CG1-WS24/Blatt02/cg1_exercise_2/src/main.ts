@@ -5,6 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import RenderWidget from "./lib/rendererWidget"
 import type * as utils from "./lib/utils"
 import { Application, createWindow } from "./lib/window"
+import { makeFlatVertex } from "./stuff"
 
 // helper lib, provides exercise dependent prewritten Code
 import * as helper from "./helper"
@@ -30,27 +31,27 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key === "rotateX") {
       teddy.rotation.x = changed.value
       canonicalTeddy.rotation.x = changed.value
-      makeTeddyFlat()
+      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "rotateY") {
       teddy.rotation.y = changed.value
       canonicalTeddy.rotation.y = changed.value
-      makeTeddyFlat()
+      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "rotateZ") {
       teddy.rotation.z = changed.value
       canonicalTeddy.rotation.z = changed.value
-      makeTeddyFlat()
+      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "translateX") {
       teddy.position.x = changed.value
       canonicalTeddy.position.x = changed.value
-      makeTeddyFlat()
+      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "translateY") {
       teddy.position.y = changed.value
       canonicalTeddy.position.y = changed.value
-      makeTeddyFlat()
+      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "translateZ") {
       teddy.position.z = changed.value
       canonicalTeddy.position.z = changed.value
-      makeTeddyFlat()
+      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "near") {
       screenCamera.near = changed.value
       screenCamera.updateProjectionMatrix()
@@ -95,50 +96,6 @@ function updateClippingPlane(changed: any, changedPlane: THREE.Plane) {
       clippingPlanes.push(changedPlane)
       canonicalRenderer.clippingPlanes = clippingPlanes
    }
-}
-
-function makeTeddyFlat() {
-   function customApplyMatrix(matrix: THREE.Matrix4) {
-      canonicalTeddy.traverse((child) => {
-         if (child instanceof THREE.Mesh) {
-            const bufferGeometry = child.geometry
-            const position = bufferGeometry.getAttribute("position")
-
-            // ---- position.applyMatrix4(matrix) ----
-            for (let i = 0, l = position.count; i < l; i++) {
-               let vector = new THREE.Vector3()
-               vector.fromBufferAttribute(position, i)
-               //  ---- vector.applyMatrix4(matrix) ----
-               const x = vector.x
-               const y = vector.y
-               const z = vector.z
-               const e = matrix.elements
-               const w = 1 / (e[3] * x + e[7] * y + e[11] * z + e[15])
-               vector.x = (e[0] * x + e[4] * y + e[8] * z + e[12]) * w
-               vector.y = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w
-               vector.z = (e[2] * x + e[6] * y + e[10] * z + e[14]) * w
-               // ---------------------------------------------
-               position.setXYZ(i, vector.x, vector.y, vector.z)
-            }
-            // ---------------------------------------------
-            position.needsUpdate = true
-         }
-      })
-   }
-
-   customApplyMatrix(canonicalCamera.matrixWorldInverse)
-   customApplyMatrix(canonicalCamera.projectionMatrix)
-
-   // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
-   canonicalTeddy.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-         child.matrix.identity()
-      }
-   })
-
-   let flipMatrix = new THREE.Matrix4()
-   flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
-   customApplyMatrix(flipMatrix)
 }
 
 /*******************************************************************************
@@ -233,7 +190,7 @@ function main() {
    canonicalTeddy = helper.createTeddyBear()
    canonicalScene.add(canonicalTeddy)
 
-   makeTeddyFlat()
+   makeFlatVertex(canonicalTeddy, canonicalCamera)
 
    // TODO: - the makeTeddyFlat() function should be called whenever the camera or the model change
 
