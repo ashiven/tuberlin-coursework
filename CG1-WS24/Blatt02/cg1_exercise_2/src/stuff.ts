@@ -1,5 +1,27 @@
 import * as THREE from "three"
 
+function updateClippingPlane(
+   renderer: THREE.WebGLRenderer,
+   changedPlane: THREE.Plane,
+   changed: any
+) {
+   if (!changed.value) {
+      renderer.clippingPlanes = renderer.clippingPlanes.filter(
+         (plane) =>
+            plane.normal.x !== changedPlane.normal.x ||
+            plane.normal.y !== changedPlane.normal.y ||
+            plane.normal.z !== changedPlane.normal.z
+      )
+   } else {
+      let clippingPlanes = []
+      for (let plane of renderer.clippingPlanes) {
+         clippingPlanes.push(plane)
+      }
+      clippingPlanes.push(changedPlane)
+      renderer.clippingPlanes = clippingPlanes
+   }
+}
+
 function makeFlatMatrix(object: THREE.Object3D, camera: THREE.Camera) {
    function customMultiplyMatrices(matrixA: any, matrixB: any) {
       let productMatrix: any = new THREE.Matrix4()
@@ -139,4 +161,4 @@ function makeFlatVertex(object: THREE.Object3D, camera: THREE.Camera) {
    })
 }
 
-export { makeFlatMatrix, makeFlatVertex }
+export { makeFlatMatrix, makeFlatVertex, updateClippingPlane }

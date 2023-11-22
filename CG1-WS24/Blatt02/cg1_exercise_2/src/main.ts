@@ -5,7 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import RenderWidget from "./lib/rendererWidget"
 import type * as utils from "./lib/utils"
 import { Application, createWindow } from "./lib/window"
-import { makeFlatVertex } from "./stuff"
+import { makeFlatVertex, updateClippingPlane } from "./stuff"
 
 // helper lib, provides exercise dependent prewritten Code
 import * as helper from "./helper"
@@ -19,7 +19,7 @@ var canonicalRenderer: THREE.WebGLRenderer
 var canonicalCamera: THREE.OrthographicCamera
 var canonicalTeddy: THREE.Object3D
 
-// create clipping planes
+// create clipping planes for the canonical renderer
 var clippingPlaneX0 = new THREE.Plane(new THREE.Vector3(1, 0, 0), 1)
 var clippingPlaneX1 = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 1)
 var clippingPlaneY0 = new THREE.Plane(new THREE.Vector3(0, 1, 0), 1)
@@ -65,36 +65,17 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       screenCamera.updateProjectionMatrix()
       cameraHelper.update()
    } else if (changed.key === "planeX0") {
-      updateClippingPlane(changed, clippingPlaneX0)
+      updateClippingPlane(canonicalRenderer, clippingPlaneX0, changed)
    } else if (changed.key === "planeX1") {
-      updateClippingPlane(changed, clippingPlaneX1)
+      updateClippingPlane(canonicalRenderer, clippingPlaneX1, changed)
    } else if (changed.key === "planeY0") {
-      updateClippingPlane(changed, clippingPlaneY0)
+      updateClippingPlane(canonicalRenderer, clippingPlaneY0, changed)
    } else if (changed.key === "planeY1") {
-      updateClippingPlane(changed, clippingPlaneY1)
+      updateClippingPlane(canonicalRenderer, clippingPlaneY1, changed)
    } else if (changed.key === "planeZ0") {
-      updateClippingPlane(changed, clippingPlaneZ0)
+      updateClippingPlane(canonicalRenderer, clippingPlaneZ0, changed)
    } else if (changed.key === "planeZ1") {
-      updateClippingPlane(changed, clippingPlaneZ1)
-   }
-}
-
-function updateClippingPlane(changed: any, changedPlane: THREE.Plane) {
-   if (!changed.value) {
-      canonicalRenderer.clippingPlanes =
-         canonicalRenderer.clippingPlanes.filter(
-            (plane) =>
-               plane.normal.x !== changedPlane.normal.x ||
-               plane.normal.y !== changedPlane.normal.y ||
-               plane.normal.z !== changedPlane.normal.z
-         )
-   } else {
-      let clippingPlanes = []
-      for (let plane of canonicalRenderer.clippingPlanes) {
-         clippingPlanes.push(plane)
-      }
-      clippingPlanes.push(changedPlane)
-      canonicalRenderer.clippingPlanes = clippingPlanes
+      updateClippingPlane(canonicalRenderer, clippingPlaneZ1, changed)
    }
 }
 
@@ -190,8 +171,6 @@ function main() {
    canonicalScene.add(canonicalTeddy)
 
    makeFlatVertex(canonicalTeddy, canonicalCamera)
-
-   // TODO: - the makeTeddyFlat() function should be called whenever the camera or the model change
 
    canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
    canonicalRenderer.clippingPlanes = [
