@@ -116,8 +116,8 @@ function makeFlatVertex(object: THREE.Object3D, camera: THREE.Camera) {
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
    customApplyMatrix(flipMatrix)
 
-   // customApplyMatrix(camera.matrixWorldInverse)
-   // customApplyMatrix(camera.projectionMatrix)
+   customApplyMatrix(camera.matrixWorldInverse)
+   customApplyMatrix(camera.projectionMatrix)
 
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
    object.traverse((child) => {
