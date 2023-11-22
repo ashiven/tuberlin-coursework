@@ -5,7 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import RenderWidget from "./lib/rendererWidget"
 import type * as utils from "./lib/utils"
 import { Application, createWindow } from "./lib/window"
-import { makeFlatVertex, updateClippingPlane } from "./stuff"
+import { makeFlatMatrix, updateClippingPlane } from "./stuff"
 
 // helper lib, provides exercise dependent prewritten Code
 import * as helper from "./helper"
@@ -31,27 +31,21 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key === "rotateX") {
       teddy.rotation.x = changed.value
       canonicalTeddy.rotation.x = changed.value
-      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "rotateY") {
       teddy.rotation.y = changed.value
       canonicalTeddy.rotation.y = changed.value
-      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "rotateZ") {
       teddy.rotation.z = changed.value
       canonicalTeddy.rotation.z = changed.value
-      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "translateX") {
       teddy.position.x = changed.value
       canonicalTeddy.position.x = changed.value
-      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "translateY") {
       teddy.position.y = changed.value
       canonicalTeddy.position.y = changed.value
-      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "translateZ") {
       teddy.position.z = changed.value
       canonicalTeddy.position.z = changed.value
-      makeFlatVertex(canonicalTeddy, canonicalCamera)
    } else if (changed.key === "near") {
       screenCamera.near = changed.value
       screenCamera.updateProjectionMatrix()
@@ -131,6 +125,11 @@ function main() {
    cameraHelper = new THREE.CameraHelper(screenCamera)
    scene.add(cameraHelper)
 
+   screenControls.addEventListener("change", () => {
+      // whenever the camera is moved, the change should be displayed in the canonical space
+      console.log("transform teddy")
+   })
+
    let screenRenderer = new THREE.WebGLRenderer({ antialias: true })
    var wid = new RenderWidget(
       screenDiv,
@@ -170,7 +169,7 @@ function main() {
    canonicalTeddy = helper.createTeddyBear()
    canonicalScene.add(canonicalTeddy)
 
-   makeFlatVertex(canonicalTeddy, canonicalCamera)
+   makeFlatMatrix(canonicalTeddy, canonicalCamera)
 
    canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
    canonicalRenderer.clippingPlanes = [
