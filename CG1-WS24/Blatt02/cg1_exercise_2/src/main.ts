@@ -126,13 +126,9 @@ function makeTeddyFlat() {
       })
    }
 
-   let cameraMatrix = new THREE.Matrix4()
-   cameraMatrix.copy(canonicalCamera.matrixWorldInverse)
-   customApplyMatrix(cameraMatrix)
+   customApplyMatrix(canonicalCamera.matrixWorldInverse)
+   customApplyMatrix(canonicalCamera.projectionMatrix)
 
-   let projectionMatrix = new THREE.Matrix4()
-   projectionMatrix.copy(canonicalCamera.projectionMatrix)
-   customApplyMatrix(projectionMatrix)
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
    canonicalTeddy.traverse((child) => {
       if (child instanceof THREE.Mesh) {
@@ -184,7 +180,13 @@ function main() {
 
    // ========================== SCREEN SPACE  ==========================
    screenCamera = new THREE.PerspectiveCamera()
-   helper.setupCamera(screenCamera, scene, 1, 5, 80)
+   helper.setupCamera(
+      screenCamera,
+      scene,
+      settings.near,
+      settings.far,
+      settings.fov
+   )
    let screenControls = new OrbitControls(screenCamera, screenDiv)
    helper.setupControls(screenControls)
 
@@ -204,8 +206,8 @@ function main() {
 
    // ========================== WORLD SPACE  ==========================
    worldCamera = new THREE.PerspectiveCamera()
-   helper.setupCamera(worldCamera, scene, 0.01, 10, 150)
-   worldCamera.position.z = 4
+   helper.setupCamera(worldCamera, scene, 0.01, 10, 120)
+   worldCamera.position.z = 3.5
    let worldControls = new OrbitControls(worldCamera, worldDiv)
    helper.setupControls(worldControls)
 
