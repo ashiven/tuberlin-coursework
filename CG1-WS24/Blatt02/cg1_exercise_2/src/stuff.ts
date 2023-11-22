@@ -22,7 +22,11 @@ function updateClippingPlane(
    }
 }
 
-function makeFlatMatrix(object: THREE.Object3D, camera: THREE.Camera) {
+function makeFlatMatrix(
+   object: THREE.Object3D,
+   canonicalCamera: THREE.Camera,
+   screenCamera: THREE.Camera
+) {
    function customMultiplyMatrices(matrixA: any, matrixB: any) {
       let productMatrix: any = new THREE.Matrix4()
       let productMatrixElems = productMatrix.elements
@@ -93,9 +97,14 @@ function makeFlatMatrix(object: THREE.Object3D, camera: THREE.Camera) {
    let flipMatrix = new THREE.Matrix4()
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
 
+   // flip the object along the z axis
    customApplyMatrix(object, flipMatrix)
-   customApplyMatrix(object, camera.matrixWorldInverse)
-   customApplyMatrix(object, camera.projectionMatrix)
+
+   // convert object to screen camera space, meaning that the object will face the screen camera
+   customApplyMatrix(object, screenCamera.matrixWorldInverse)
+
+   // convert the object from 3d space to 2d space via the projection transformation, using the projection matrix of the canonical camera
+   customApplyMatrix(object, canonicalCamera.projectionMatrix)
 
    // This is what the above code does:
    /*
@@ -105,7 +114,11 @@ function makeFlatMatrix(object: THREE.Object3D, camera: THREE.Camera) {
    */
 }
 
-function makeFlatVertex(object: THREE.Object3D, camera: THREE.Camera) {
+function makeFlatVertex(
+   object: THREE.Object3D,
+   canonicalCamera: THREE.Camera,
+   screenCamera: THREE.Camera
+) {
    /*
    - BufferGeometry is a class that represents a geometry 
    - BufferGeometry has a BufferAttribute position that stores the vertex positions making up the geometry
@@ -148,10 +161,10 @@ function makeFlatVertex(object: THREE.Object3D, camera: THREE.Camera) {
 
    let flipMatrix = new THREE.Matrix4()
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
-   customApplyMatrix(flipMatrix)
+   // customApplyMatrix(flipMatrix)
 
-   customApplyMatrix(camera.matrixWorldInverse)
-   customApplyMatrix(camera.projectionMatrix)
+   customApplyMatrix(screenCamera.matrixWorldInverse)
+   customApplyMatrix(canonicalCamera.projectionMatrix)
 
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
    object.traverse((child) => {
