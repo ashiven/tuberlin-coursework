@@ -131,7 +131,6 @@ function main() {
    let scene = new THREE.Scene()
    scene.background = new THREE.Color(0xffffff)
 
-   // add teddy bear to the scene
    teddy = helper.createTeddyBear()
    scene.add(teddy)
 
@@ -151,10 +150,10 @@ function main() {
    cameraHelper = new THREE.CameraHelper(screenCamera)
    scene.add(cameraHelper)
 
-   let renderer = new THREE.WebGLRenderer({ antialias: true })
+   let screenRenderer = new THREE.WebGLRenderer({ antialias: true })
    var wid = new RenderWidget(
       screenDiv,
-      renderer,
+      screenRenderer,
       screenCamera,
       scene,
       screenControls
