@@ -84,6 +84,18 @@ function makeFlatMatrix(object: THREE.Object3D, camera: THREE.Camera) {
 }
 
 function makeFlatVertex(object: THREE.Object3D, camera: THREE.Camera) {
+   /*
+   - BufferGeometry is a class that represents a geometry 
+   - BufferGeometry has a BufferAttribute position that stores the vertex positions making up the geometry
+
+   - BufferAttribute is a class that represents a buffer that can be used for storing data such as vertex positions, colors, normals, etc.
+   - the count attribute stores the number of vertices in the buffer
+   - the setXYZ method sets the x, y and z coordinates of the vertex at the given index
+   - the fromBufferAttribute method copies the x, y and z coordinates of the vertex at the given index into the given vector
+   - the needsUpdate attribute indicates that the buffer has changed and should be uploaded to the GPU
+   - a BufferAttribute can be constructed via an array of values and an itemSize that indicates the number of values per vertex
+   */
+
    function customApplyMatrix(matrix: THREE.Matrix4) {
       object.traverse((child) => {
          if (child instanceof THREE.Mesh) {
