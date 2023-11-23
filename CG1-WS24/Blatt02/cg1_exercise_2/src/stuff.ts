@@ -73,29 +73,11 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
 }
 
 function makeFlatMatrix(object: THREE.Object3D, screenCamera: THREE.Camera) {
-   function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
-      object.updateMatrix()
-      object.matrix = object.matrix.premultiply(matrix)
-      object.matrix.decompose(object.position, object.quaternion, object.scale)
-   }
-
-   // convert object to screen camera space, meaning that the object will face the screen camera
-   customApplyMatrix(object, screenCamera.matrixWorldInverse)
-
-   // convert the object from 3d space to 2d space via the projection transformation, using the projection matrix of the canonical camera
-   customApplyMatrix(object, screenCamera.projectionMatrix)
-
-   // flip the object along the z axis
    let flipMatrix = new THREE.Matrix4()
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
-   customApplyMatrix(object, flipMatrix)
-
-   // This is what the above code does:
-   /*
-   canonicalTeddy.applyMatrix4(screenCamera.matrixWorldInverse)
-   canonicalTeddy.applyMatrix4(screenCamera.projectionMatrix)
-   canonicalTeddy.applyMatrix4(flipMatrix)
-   */
+   object.applyMatrix4(screenCamera.matrixWorldInverse)
+   object.applyMatrix4(screenCamera.projectionMatrix)
+   object.applyMatrix4(flipMatrix)
 }
 
 function makeFlatVertex(object: THREE.Object3D, screenCamera: THREE.Camera) {
