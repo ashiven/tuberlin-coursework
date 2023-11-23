@@ -128,7 +128,6 @@ function main() {
    screenControls.addEventListener("change", () => {
       // whenever the camera is moved, the change should be displayed in the canonical space
       console.log("transform teddy")
-      makeFlat(canonicalTeddy, screenCamera)
    })
 
    let screenRenderer = new THREE.WebGLRenderer({ antialias: true })
@@ -170,7 +169,7 @@ function main() {
    canonicalTeddy = helper.createTeddyBear()
    canonicalScene.add(canonicalTeddy)
 
-   makeFlat(canonicalTeddy, screenCamera)
+   makeFlat(canonicalTeddy, screenCamera, canonicalCamera.projectionMatrix)
 
    canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
    canonicalRenderer.clippingPlanes = [
