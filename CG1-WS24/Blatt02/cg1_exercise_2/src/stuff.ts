@@ -81,15 +81,10 @@ function makeFlat(
    projectionMatrix: THREE.Matrix4
 ) {
    // ----------------- 1. -----------------
-   // we have to ensure that every point of the geometry is defined in world coordinates
-   // before moving from world coordinates to camera coordinates in the next step
-   // customApplyMatrix(object, object.matrixWorld)
-
-   // ----------------- 2. -----------------
    // move every point of the geometry from world coordinates to the coordinate system of the screen camera
    customApplyMatrix(object, camera.matrixWorldInverse)
 
-   // ----------------- 3. -----------------
+   // ----------------- 2. -----------------
    // apply the projection transformation to every point of the geometry to project them onto the near plane of the screen camera
    customApplyMatrix(object, projectionMatrix)
 
@@ -100,7 +95,7 @@ function makeFlat(
       }
    })
 
-   // ----------------- 4. -----------------
+   // ----------------- 3. -----------------
    // flip the teddy along the z axis because the screen camera looks along the negative z axis
    let flipMatrix = new THREE.Matrix4()
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
