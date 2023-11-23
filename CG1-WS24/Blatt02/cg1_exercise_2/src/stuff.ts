@@ -75,15 +75,7 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
    })
 }
 
-function makeFlatMatrix(object: THREE.Object3D, screenCamera: THREE.Camera) {
-   let flipMatrix = new THREE.Matrix4()
-   flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
-   object.applyMatrix4(screenCamera.matrixWorldInverse)
-   object.applyMatrix4(screenCamera.projectionMatrix)
-   object.applyMatrix4(flipMatrix)
-}
-
-function makeFlatVertex(object: THREE.Object3D, screenCamera: THREE.Camera) {
+function makeFlat(object: THREE.Object3D, screenCamera: THREE.Camera) {
    // ----------------- 1. -----------------
    // we have to ensure that every point of the geometry is defined in world coordinates
    // before moving from world coordinates to camera coordinates in the next step
@@ -111,4 +103,4 @@ function makeFlatVertex(object: THREE.Object3D, screenCamera: THREE.Camera) {
    // customApplyMatrix(object, flipMatrix)
 }
 
-export { makeFlatMatrix, makeFlatVertex, updateClippingPlane }
+export { makeFlat, updateClippingPlane }

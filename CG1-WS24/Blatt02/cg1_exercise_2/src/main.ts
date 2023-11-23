@@ -5,7 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import RenderWidget from "./lib/rendererWidget"
 import type * as utils from "./lib/utils"
 import { Application, createWindow } from "./lib/window"
-import { makeFlatVertex, updateClippingPlane } from "./stuff"
+import { makeFlat, updateClippingPlane } from "./stuff"
 
 // helper lib, provides exercise dependent prewritten Code
 import * as helper from "./helper"
@@ -128,7 +128,7 @@ function main() {
    screenControls.addEventListener("change", () => {
       // whenever the camera is moved, the change should be displayed in the canonical space
       console.log("transform teddy")
-      makeFlatVertex(canonicalTeddy, screenCamera)
+      makeFlat(canonicalTeddy, screenCamera)
    })
 
    let screenRenderer = new THREE.WebGLRenderer({ antialias: true })
@@ -170,7 +170,7 @@ function main() {
    canonicalTeddy = helper.createTeddyBear()
    canonicalScene.add(canonicalTeddy)
 
-   makeFlatVertex(canonicalTeddy, screenCamera)
+   makeFlat(canonicalTeddy, screenCamera)
 
    canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
    canonicalRenderer.clippingPlanes = [
