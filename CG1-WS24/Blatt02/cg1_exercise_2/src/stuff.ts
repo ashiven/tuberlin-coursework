@@ -119,19 +119,18 @@ function makeFlatVertex(
    canonicalCamera: THREE.Camera,
    screenCamera: THREE.Camera
 ) {
-   /*
-   - BufferGeometry is a class that represents a geometry 
-   - BufferGeometry has a BufferAttribute position that stores the vertex positions making up the geometry
-
-   - BufferAttribute is a class that represents a buffer that can be used for storing data such as vertex positions, colors, normals, etc.
-   - the count attribute stores the number of vertices in the buffer
-   - the setXYZ method sets the x, y and z coordinates of the vertex at the given index
-   - the fromBufferAttribute method copies the x, y and z coordinates of the vertex at the given index into the given vector
-   - the needsUpdate attribute indicates that the buffer has changed and should be uploaded to the GPU
-   - a BufferAttribute can be constructed via an array of values and an itemSize that indicates the number of values per vertex
-   */
-
    function customApplyMatrix(matrix: THREE.Matrix4) {
+      /*
+      - BufferGeometry is a class that represents a geometry 
+      - BufferGeometry has a BufferAttribute position that stores the vertex positions making up the geometry
+   
+      - BufferAttribute is a class that represents a buffer that can be used for storing data such as vertex positions, colors, normals, etc.
+      - the count attribute stores the number of vertices in the buffer
+      - the setXYZ method sets the x, y and z coordinates of the vertex at the given index
+      - the fromBufferAttribute method copies the x, y and z coordinates of the vertex at the given index into the given vector
+      - the needsUpdate attribute indicates that the buffer has changed and should be uploaded to the GPU
+      - a BufferAttribute can be constructed via an array of values and an itemSize that indicates the number of values per vertex
+      */
       object.traverse((child) => {
          if (child instanceof THREE.Mesh) {
             const bufferGeometry = child.geometry
@@ -139,17 +138,26 @@ function makeFlatVertex(
 
             // ---- position.applyMatrix4(matrix) ----
             for (let i = 0, l = position.count; i < l; i++) {
-               let vector = new THREE.Vector3()
-               vector.fromBufferAttribute(position, i)
+               let vector = new THREE.Vector3().fromBufferAttribute(position, i)
                //  ---- vector.applyMatrix4(matrix) ----
                const x = vector.x
                const y = vector.y
                const z = vector.z
-               const e = matrix.elements
-               const w = 1 / (e[3] * x + e[7] * y + e[11] * z + e[15])
-               vector.x = (e[0] * x + e[4] * y + e[8] * z + e[12]) * w
-               vector.y = (e[1] * x + e[5] * y + e[9] * z + e[13]) * w
-               vector.z = (e[2] * x + e[6] * y + e[10] * z + e[14]) * w
+               const elems = matrix.elements
+
+               // p' = p * M  with p = (x, y, z, 1)
+               const wPrime =
+                  x * elems[3] + y * elems[7] + z * elems[11] + elems[15]
+
+               vector.x =
+                  (x * elems[0] + y * elems[4] + z * elems[8] + elems[12]) /
+                  wPrime
+               vector.y =
+                  (x * elems[1] + y * elems[5] + z * elems[9] + elems[13]) /
+                  wPrime
+               vector.z =
+                  (x * elems[2] + y * elems[6] + z * elems[10] + elems[14]) /
+                  wPrime
                // ---------------------------------------------
                position.setXYZ(i, vector.x, vector.y, vector.z)
             }
@@ -159,19 +167,22 @@ function makeFlatVertex(
       })
    }
 
-   let flipMatrix = new THREE.Matrix4()
-   flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
-   // customApplyMatrix(flipMatrix)
+   // ----------------- 1. -----------------
+   // we have to ensure that every point of the geometry is defined in world coordinates
+   // before moving from world coordinates to camera coordinates in the next step
+   object.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+         child.updateMatrixWorld()
+      }
+   })
 
-   // multiply the inverse world matrix of the screen camera with the object's world matrix to convert the object to screen camera space
-   let transformationMatrix = new THREE.Matrix4()
-   transformationMatrix.multiplyMatrices(
-      screenCamera.matrixWorldInverse,
-      object.matrixWorld
-   )
+   // ----------------- 2. -----------------
+   // move every point of the geometry from world coordinates to the coordinate system of the screen camera
+   customApplyMatrix(screenCamera.matrixWorldInverse)
 
-   customApplyMatrix(transformationMatrix)
-   // customApplyMatrix(canonicalCamera.projectionMatrix)
+   // ----------------- 3. -----------------
+   // apply the projection transformation to every point of the geometry to project them onto the near plane of the screen camera
+   // customApplyMatrix(screenCamera.projectionMatrix)
 
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
    // object.traverse((child) => {
@@ -179,6 +190,12 @@ function makeFlatVertex(
    //       child.matrix.identity()
    //    }
    // })
+
+   // ----------------- 4. -----------------
+   // flip the teddy along the z axis because the screen camera looks along the negative z axis
+   let flipMatrix = new THREE.Matrix4()
+   flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
+   // customApplyMatrix(flipMatrix)
 }
 
 export { makeFlatMatrix, makeFlatVertex, updateClippingPlane }
