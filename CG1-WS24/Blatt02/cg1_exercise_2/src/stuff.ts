@@ -113,11 +113,11 @@ function makeFlatVertex(object: THREE.Object3D, screenCamera: THREE.Camera) {
    customApplyMatrix(object, screenCamera.projectionMatrix)
 
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
-   // object.traverse((child) => {
-   //    if (child instanceof THREE.Mesh) {
-   //       child.matrix.identity()
-   //    }
-   // })
+   object.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+         child.matrix.identity()
+      }
+   })
 
    // ----------------- 4. -----------------
    // flip the teddy along the z axis because the screen camera looks along the negative z axis
