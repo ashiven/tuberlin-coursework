@@ -77,7 +77,7 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
 
 function makeFlat(
    object: THREE.Object3D,
-   camera: THREE.Camera,
+   camera: THREE.PerspectiveCamera,
    projectionMatrix: THREE.Matrix4
 ) {
    // ----------------- 1. -----------------

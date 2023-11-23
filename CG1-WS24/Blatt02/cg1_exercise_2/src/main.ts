@@ -144,11 +144,7 @@ function main() {
          "z: ",
          screenCamera.position.z.toPrecision(2)
       )
-      makeFlat(
-         canonicalTeddy,
-         canonicalCamera,
-         canonicalCamera.projectionMatrix
-      )
+      makeFlat(canonicalTeddy, screenCamera, canonicalCamera.projectionMatrix)
    })
 
    let screenRenderer = new THREE.WebGLRenderer({ antialias: true })
