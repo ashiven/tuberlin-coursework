@@ -49,20 +49,15 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
             const x = vector.x
             const y = vector.y
             const z = vector.z
-            const elems = matrix.elements
+            const M = matrix.elements
 
             // p' = p * M  with p = (x, y, z, 1)
-            const wPrime =
-               x * elems[3] + y * elems[7] + z * elems[11] + elems[15]
+            const wPrime = x * M[3] + y * M[7] + z * M[11] + M[15]
 
             // p' in cartesian coordinates is (x'/w', y'/w', z'/w')
-            vector.x =
-               (x * elems[0] + y * elems[4] + z * elems[8] + elems[12]) / wPrime
-            vector.y =
-               (x * elems[1] + y * elems[5] + z * elems[9] + elems[13]) / wPrime
-            vector.z =
-               (x * elems[2] + y * elems[6] + z * elems[10] + elems[14]) /
-               wPrime
+            vector.x = (x * M[0] + y * M[4] + z * M[8] + M[12]) / wPrime
+            vector.y = (x * M[1] + y * M[5] + z * M[9] + M[13]) / wPrime
+            vector.z = (x * M[2] + y * M[6] + z * M[10] + M[14]) / wPrime
             // ---------------------------------------------
             position.setXYZ(i, vector.x, vector.y, vector.z)
          }
