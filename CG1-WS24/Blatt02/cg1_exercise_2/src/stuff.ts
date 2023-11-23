@@ -75,7 +75,7 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
    })
 }
 
-function makeFlat(object: THREE.Object3D, screenCamera: THREE.Camera) {
+function makeFlat(object: THREE.Object3D, camera: THREE.Camera) {
    // ----------------- 1. -----------------
    // we have to ensure that every point of the geometry is defined in world coordinates
    // before moving from world coordinates to camera coordinates in the next step
@@ -83,11 +83,11 @@ function makeFlat(object: THREE.Object3D, screenCamera: THREE.Camera) {
 
    // ----------------- 2. -----------------
    // move every point of the geometry from world coordinates to the coordinate system of the screen camera
-   customApplyMatrix(object, screenCamera.matrixWorldInverse)
+   customApplyMatrix(object, camera.matrixWorldInverse)
 
    // ----------------- 3. -----------------
    // apply the projection transformation to every point of the geometry to project them onto the near plane of the screen camera
-   customApplyMatrix(object, screenCamera.projectionMatrix)
+   customApplyMatrix(object, camera.projectionMatrix)
 
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
    object.traverse((child) => {
