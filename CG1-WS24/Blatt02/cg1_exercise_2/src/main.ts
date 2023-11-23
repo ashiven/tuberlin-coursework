@@ -181,6 +181,8 @@ function main() {
    helper.setupCube(canonicalScene)
 
    canonicalTeddy = helper.createTeddyBear()
+   canonicalTeddy.scale.x = 0.1
+   canonicalTeddy.scale.y = 0.05
    canonicalScene.add(canonicalTeddy)
 
    makeFlat(canonicalTeddy, screenCamera, canonicalCamera.projectionMatrix)

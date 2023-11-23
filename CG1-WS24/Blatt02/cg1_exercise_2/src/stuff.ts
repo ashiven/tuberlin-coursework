@@ -86,6 +86,7 @@ function makeFlat(
 
    // ----------------- 2. -----------------
    // apply the projection transformation to every point of the geometry to project them onto the near plane of the screen camera
+   // this transformation already includes converting the points to normalized device coordinates
    customApplyMatrix(object, projectionMatrix)
 
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
