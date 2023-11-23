@@ -97,14 +97,14 @@ function makeFlatMatrix(
    let flipMatrix = new THREE.Matrix4()
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
 
-   // flip the object along the z axis
-   customApplyMatrix(object, flipMatrix)
-
    // convert object to screen camera space, meaning that the object will face the screen camera
    customApplyMatrix(object, screenCamera.matrixWorldInverse)
 
    // convert the object from 3d space to 2d space via the projection transformation, using the projection matrix of the canonical camera
    customApplyMatrix(object, canonicalCamera.projectionMatrix)
+
+   // flip the object along the z axis
+   customApplyMatrix(object, flipMatrix)
 
    // This is what the above code does:
    /*
@@ -163,15 +163,22 @@ function makeFlatVertex(
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
    // customApplyMatrix(flipMatrix)
 
-   customApplyMatrix(screenCamera.matrixWorldInverse)
-   customApplyMatrix(canonicalCamera.projectionMatrix)
+   // multiply the inverse world matrix of the screen camera with the object's world matrix to convert the object to screen camera space
+   let transformationMatrix = new THREE.Matrix4()
+   transformationMatrix.multiplyMatrices(
+      screenCamera.matrixWorldInverse,
+      object.matrixWorld
+   )
+
+   customApplyMatrix(transformationMatrix)
+   // customApplyMatrix(canonicalCamera.projectionMatrix)
 
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
-   object.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-         child.matrix.identity()
-      }
-   })
+   // object.traverse((child) => {
+   //    if (child instanceof THREE.Mesh) {
+   //       child.matrix.identity()
+   //    }
+   // })
 }
 
 export { makeFlatMatrix, makeFlatVertex, updateClippingPlane }
