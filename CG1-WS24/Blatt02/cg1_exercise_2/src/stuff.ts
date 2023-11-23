@@ -75,6 +75,35 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
    })
 }
 
+function normalizeCoordinates(
+   object: THREE.Object3D,
+   width: number,
+   height: number
+) {
+   object.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+         const geometry: THREE.BufferGeometry = child.geometry
+         const position:
+            | THREE.BufferAttribute
+            | THREE.InterleavedBufferAttribute =
+            geometry.getAttribute("position")
+
+         for (let i = 0, l = position.count; i < l; i++) {
+            let vector = new THREE.Vector3().fromBufferAttribute(position, i)
+            // normalize the vector to make them fit into normalized device coordinates
+            const x = vector.x
+            const y = vector.y
+
+            const xNormalized = (x + width / 2) / width
+            const yNormalized = (y + height / 2) / height
+
+            position.setXYZ(i, xNormalized, yNormalized, vector.z)
+         }
+         position.needsUpdate = true
+      }
+   })
+}
+
 function makeFlat(object: THREE.Object3D, camera: THREE.Camera) {
    // ----------------- 1. -----------------
    // we have to ensure that every point of the geometry is defined in world coordinates
@@ -88,6 +117,9 @@ function makeFlat(object: THREE.Object3D, camera: THREE.Camera) {
    // ----------------- 3. -----------------
    // apply the projection transformation to every point of the geometry to project them onto the near plane of the screen camera
    customApplyMatrix(object, camera.projectionMatrix)
+
+   // normalize x and y coordinates for NDC via x' = (x + width/2) / width and y' = (height + height/2) / height
+   // normalizeCoordinates(object, 2, 2)
 
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
    object.traverse((child) => {
