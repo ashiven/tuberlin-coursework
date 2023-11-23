@@ -105,7 +105,7 @@ function makeFlatVertex(object: THREE.Object3D, screenCamera: THREE.Camera) {
    // flip the teddy along the z axis because the screen camera looks along the negative z axis
    let flipMatrix = new THREE.Matrix4()
    flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
-   // customApplyMatrix(flipMatrix)
+   // customApplyMatrix(object, flipMatrix)
 }
 
 export { makeFlatMatrix, makeFlatVertex, updateClippingPlane }
