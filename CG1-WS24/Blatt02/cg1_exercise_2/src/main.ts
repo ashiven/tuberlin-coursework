@@ -125,9 +125,10 @@ function main() {
    cameraHelper = new THREE.CameraHelper(screenCamera)
    scene.add(cameraHelper)
 
+   // whenever the camera is moved, the change should be displayed in the canonical space
    screenControls.addEventListener("change", () => {
-      // whenever the camera is moved, the change should be displayed in the canonical space
       console.log("transform teddy")
+      makeFlat(canonicalTeddy, screenCamera, canonicalCamera.projectionMatrix)
    })
 
    let screenRenderer = new THREE.WebGLRenderer({ antialias: true })
