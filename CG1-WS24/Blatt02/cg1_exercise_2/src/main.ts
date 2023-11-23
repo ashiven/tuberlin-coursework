@@ -126,6 +126,9 @@ function main() {
    scene.add(cameraHelper)
 
    // TODO: - remove after testing
+   // X Axis: red
+   // Y Axis: green
+   // Z Axis: blue
    let axesHelper = new THREE.AxesHelper(5)
    scene.add(axesHelper)
 
@@ -141,7 +144,11 @@ function main() {
          "z: ",
          screenCamera.position.z.toPrecision(2)
       )
-      makeFlat(canonicalTeddy, screenCamera, canonicalCamera.projectionMatrix)
+      makeFlat(
+         canonicalTeddy,
+         canonicalCamera,
+         canonicalCamera.projectionMatrix
+      )
    })
 
    let screenRenderer = new THREE.WebGLRenderer({ antialias: true })
