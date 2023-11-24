@@ -15,6 +15,7 @@ var teddy: THREE.Object3D
 var screenCamera: THREE.PerspectiveCamera
 var worldCamera: THREE.PerspectiveCamera
 var cameraHelper: THREE.CameraHelper
+var canonicalScene: THREE.Scene
 var canonicalRenderer: THREE.WebGLRenderer
 var canonicalCamera: THREE.OrthographicCamera
 var canonicalTeddy: THREE.Object3D
@@ -27,16 +28,31 @@ var clippingPlaneY1 = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1)
 var clippingPlaneZ0 = new THREE.Plane(new THREE.Vector3(0, 0, 1), 1)
 var clippingPlaneZ1 = new THREE.Plane(new THREE.Vector3(0, 0, -1), 1)
 
+function updateCanonicalTeddy() {
+   canonicalScene.remove(canonicalTeddy)
+
+   canonicalTeddy = helper.createTeddyBear()
+   canonicalTeddy.position.copy(teddy.position)
+   canonicalTeddy.rotation.copy(teddy.rotation)
+   canonicalTeddy.scale.copy(teddy.scale)
+
+   canonicalScene.add(canonicalTeddy)
+
+   screenCamera.updateMatrixWorld(true)
+   screenCamera.updateProjectionMatrix()
+   makeFlat(canonicalTeddy, screenCamera)
+}
+
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key === "rotateX") {
       teddy.rotation.x = changed.value
-      canonicalTeddy.rotation.x = changed.value
+      updateCanonicalTeddy()
    } else if (changed.key === "rotateY") {
       teddy.rotation.y = changed.value
-      canonicalTeddy.rotation.y = changed.value
+      updateCanonicalTeddy()
    } else if (changed.key === "rotateZ") {
       teddy.rotation.z = changed.value
-      canonicalTeddy.rotation.z = changed.value
+      updateCanonicalTeddy()
    } else if (changed.key === "translateX") {
       teddy.position.x = changed.value
       canonicalTeddy.position.x = changed.value
@@ -175,7 +191,7 @@ function main() {
    let canonicalControls = new OrbitControls(canonicalCamera, canonicalDiv)
    helper.setupControls(canonicalControls)
 
-   let canonicalScene = new THREE.Scene()
+   canonicalScene = new THREE.Scene()
    canonicalScene.background = new THREE.Color(0xffffff)
    helper.setupCube(canonicalScene)
 

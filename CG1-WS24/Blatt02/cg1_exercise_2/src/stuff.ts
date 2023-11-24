@@ -25,8 +25,7 @@ function updateClippingPlane(
 function customApplyMatrix(
    object: THREE.Object3D,
    matrix: THREE.Matrix4,
-   toWorld: boolean,
-   flip: boolean = false
+   toWorld: boolean
 ) {
    /*
    - BufferGeometry is a class that represents a geometry 
@@ -74,8 +73,6 @@ function customApplyMatrix(
 
             // p' in cartesian coordinates is (x'/w', y'/w', z'/w')
             vector.set(xPrime / wPrime, yPrime / wPrime, zPrime / wPrime)
-
-            flip ? vector.set(x, y, -z) : null
 
             position.setXYZ(i, vector.x, vector.y, vector.z)
          }
