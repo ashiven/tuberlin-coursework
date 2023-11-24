@@ -133,13 +133,16 @@ function main() {
    scene.add(axesHelper)
 
    screenControls.addEventListener("change", () => {
-      // whenever the camera is moved, the change should be displayed in the canonical space
+      canonicalScene.remove(canonicalTeddy)
+
       canonicalTeddy = helper.createTeddyBear()
       canonicalTeddy.position.copy(teddy.position)
       canonicalTeddy.rotation.copy(teddy.rotation)
       canonicalTeddy.scale.copy(teddy.scale)
-      screenCamera.matrixWorldAutoUpdate = true
-      screenCamera.updateMatrixWorld()
+
+      canonicalScene.add(canonicalTeddy)
+
+      screenCamera.updateMatrixWorld(true)
       screenCamera.updateProjectionMatrix()
       makeFlat(canonicalTeddy, screenCamera)
    })
