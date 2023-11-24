@@ -22,7 +22,11 @@ function updateClippingPlane(
    }
 }
 
-function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
+function customApplyMatrix(
+   object: THREE.Object3D,
+   matrix: THREE.Matrix4,
+   toWorld: boolean
+) {
    /*
    - BufferGeometry is a class that represents a geometry 
    - BufferGeometry has a BufferAttribute named position that stores the vertex positions making up the geometry
@@ -43,10 +47,10 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
             geometry.getAttribute("position")
 
          // convert points from object coordinates to world coordinates
-         const matrixToWorld = new THREE.Matrix4().multiplyMatrices(
-            matrix,
-            child.matrixWorld
-         )
+         let matrixToWorld = new THREE.Matrix4()
+         if (toWorld) {
+            matrixToWorld.multiplyMatrices(matrix, child.matrixWorld)
+         }
 
          for (let i = 0, l = position.count; i < l; i++) {
             let vector = new THREE.Vector3().fromBufferAttribute(position, i)
@@ -55,7 +59,7 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
             const x = vector.x
             const y = vector.y
             const z = vector.z
-            const M = matrixToWorld.elements
+            const M = toWorld ? matrixToWorld.elements : matrix.elements
 
             const xPrime = x * M[0] + y * M[4] + z * M[8] + M[12]
             const yPrime = x * M[1] + y * M[5] + z * M[9] + M[13]
@@ -83,7 +87,7 @@ function makeFlat(object: THREE.Object3D, camera: THREE.PerspectiveCamera) {
    // apply the combined transformation PK to every point of the geometry
    // (customApplyMatrix already converts the points to world coordinates)
    let PK = new THREE.Matrix4().multiplyMatrices(P, K)
-   customApplyMatrix(object, PK)
+   customApplyMatrix(object, PK, true)
 
    // TODO: - this is the part that doesn't work
    // set every matrix of the teddy to the identity matrix
