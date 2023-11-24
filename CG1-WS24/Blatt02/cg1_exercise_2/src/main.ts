@@ -126,32 +126,21 @@ function main() {
    scene.add(cameraHelper)
 
    // TODO: - remove after testing
-   // teddy.applyMatrix4(teddy.matrixWorld)
-   // let cameraMatrix = new THREE.Matrix4()
-   // cameraMatrix.copy(screenCamera.matrixWorldInverse)
-   // cameraMatrix.elements[10] *= -1
-   // teddy.applyMatrix4(cameraMatrix)
-   // teddy.applyMatrix4(screenCamera.projectionMatrix)
-
-   // TODO: - remove after testing
    // X Axis: red
    // Y Axis: green
    // Z Axis: blue
    let axesHelper = new THREE.AxesHelper(5)
    scene.add(axesHelper)
 
-   // whenever the camera is moved, the change should be displayed in the canonical space
    screenControls.addEventListener("change", () => {
-      console.log("transform teddy")
-      console.log(
-         "Camera position: ",
-         "x: ",
-         screenCamera.position.x.toPrecision(2),
-         "y: ",
-         screenCamera.position.y.toPrecision(2),
-         "z: ",
-         screenCamera.position.z.toPrecision(2)
-      )
+      // whenever the camera is moved, the change should be displayed in the canonical space
+      canonicalTeddy = helper.createTeddyBear()
+      canonicalTeddy.position.copy(teddy.position)
+      canonicalTeddy.rotation.copy(teddy.rotation)
+      canonicalTeddy.scale.copy(teddy.scale)
+      screenCamera.matrixWorldAutoUpdate = true
+      screenCamera.updateMatrixWorld()
+      screenCamera.updateProjectionMatrix()
       makeFlat(canonicalTeddy, screenCamera)
    })
 

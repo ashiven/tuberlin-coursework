@@ -64,7 +64,7 @@ function customApplyMatrix(
             // p' = p * M  with p = (x, y, z, 1)
             const x = vector.x
             const y = vector.y
-            const z = flip ? -vector.z : vector.z
+            const z = toWorld ? -vector.z : vector.z
             const M = toWorld ? matrixToWorld.elements : matrixToLocal.elements
 
             const xPrime = x * M[0] + y * M[4] + z * M[8] + M[12]
@@ -74,6 +74,8 @@ function customApplyMatrix(
 
             // p' in cartesian coordinates is (x'/w', y'/w', z'/w')
             vector.set(xPrime / wPrime, yPrime / wPrime, zPrime / wPrime)
+
+            flip ? vector.set(x, y, -z) : null
 
             position.setXYZ(i, vector.x, vector.y, vector.z)
          }
@@ -85,12 +87,15 @@ function customApplyMatrix(
 function makeFlat(object: THREE.Object3D, camera: THREE.PerspectiveCamera) {
    // move every point of the geometry from world coordinates to the coordinate system of the screen camera using K
    let K = new THREE.Matrix4().copy(camera.matrixWorldInverse)
-   customApplyMatrix(object, K, true, true)
+   customApplyMatrix(object, K, true)
 
    // project every point of the geometry onto the near plane of the screen camera using P
    // this transformation already includes converting the points to normalized device coordinates
    let P = new THREE.Matrix4().copy(camera.projectionMatrix)
    customApplyMatrix(object, P, false)
+
+   // rotate the object into the correct orientation
+   object.rotation.y += Math.PI
 }
 
 export { makeFlat, updateClippingPlane }
