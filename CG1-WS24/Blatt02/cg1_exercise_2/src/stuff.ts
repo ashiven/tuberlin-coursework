@@ -42,6 +42,12 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
             | THREE.InterleavedBufferAttribute =
             geometry.getAttribute("position")
 
+         // convert points from object coordinates to world coordinates
+         const matrixToWorld = new THREE.Matrix4().multiplyMatrices(
+            matrix,
+            child.matrixWorld
+         )
+
          // ---- position.applyMatrix4(matrix) ----
 
          for (let i = 0, l = position.count; i < l; i++) {
@@ -53,7 +59,7 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
             const x = vector.x
             const y = vector.y
             const z = vector.z
-            const M = matrix.elements
+            const M = matrixToWorld.elements
 
             const xPrime = x * M[0] + y * M[4] + z * M[8] + M[12]
             const yPrime = x * M[1] + y * M[5] + z * M[9] + M[13]
@@ -80,35 +86,24 @@ function makeFlat(
    camera: THREE.PerspectiveCamera,
    projectionMatrix: THREE.Matrix4
 ) {
-   // ----------------- 0. -----------------
-   // move every point of the geometry from object coordinates to world coordinates using T
-   let T = new THREE.Matrix4()
-   T.copy(object.matrixWorld)
-
-   // ----------------- 1. -----------------
    // move every point of the geometry from world coordinates to the coordinate system of the screen camera using K
-   let K = new THREE.Matrix4()
-   K.copy(camera.matrixWorldInverse)
+   let K = new THREE.Matrix4().copy(camera.matrixWorldInverse)
 
-   // also invert the z axis because the screen camera looks along the negative z axis
-   K.elements[10] *= -1
-
-   // ----------------- 2. -----------------
    // project every point of the geometry onto the near plane of the screen camera using P
    // this transformation already includes converting the points to normalized device coordinates
-   let P = new THREE.Matrix4()
-   P.copy(projectionMatrix)
+   let P = new THREE.Matrix4().copy(projectionMatrix)
 
-   // apply all of the transformations in one step via the matrix product PKT
-   let PKT = new THREE.Matrix4()
-   PKT.multiplyMatrices(P, K)
-   PKT.multiply(T)
-   customApplyMatrix(object, PKT)
+   // apply the combined transformation PK to every point of the geometry
+   // (customApplyMatrix already converts the points to world coordinates)
+   let PK = new THREE.Matrix4().multiplyMatrices(P, K)
+   customApplyMatrix(object, PK)
 
    // TODO: - this is the part that doesn't work
    // set every matrix of the teddy to the identity matrix
-   // customApplyMatrix(object, object.matrixWorld.invert())
-   customApplyMatrix(object, object.matrixWorld.invert())
+
+   // TODO: - can be used to flip the teddy along the z axis
+   let flipMatrix = new THREE.Matrix4()
+   flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
 }
 
 export { makeFlat, updateClippingPlane }

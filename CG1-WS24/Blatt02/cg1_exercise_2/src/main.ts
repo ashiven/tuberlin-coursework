@@ -126,6 +126,7 @@ function main() {
    scene.add(cameraHelper)
 
    // TODO: - remove after testing
+   // teddy.applyMatrix4(teddy.matrixWorld)
    // let cameraMatrix = new THREE.Matrix4()
    // cameraMatrix.copy(screenCamera.matrixWorldInverse)
    // cameraMatrix.elements[10] *= -1
