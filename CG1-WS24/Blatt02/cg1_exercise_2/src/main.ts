@@ -152,7 +152,7 @@ function main() {
          "z: ",
          screenCamera.position.z.toPrecision(2)
       )
-      makeFlat(canonicalTeddy, screenCamera, canonicalCamera.projectionMatrix)
+      makeFlat(canonicalTeddy, screenCamera)
    })
 
    let screenRenderer = new THREE.WebGLRenderer({ antialias: true })
@@ -194,7 +194,7 @@ function main() {
    canonicalTeddy = helper.createTeddyBear()
    canonicalScene.add(canonicalTeddy)
 
-   makeFlat(canonicalTeddy, screenCamera, canonicalCamera.projectionMatrix)
+   makeFlat(canonicalTeddy, screenCamera)
 
    canonicalRenderer = new THREE.WebGLRenderer({ antialias: true })
    canonicalRenderer.clippingPlanes = [

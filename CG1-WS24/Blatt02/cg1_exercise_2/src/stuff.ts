@@ -72,17 +72,13 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
    })
 }
 
-function makeFlat(
-   object: THREE.Object3D,
-   camera: THREE.PerspectiveCamera,
-   projectionMatrix: THREE.Matrix4
-) {
+function makeFlat(object: THREE.Object3D, camera: THREE.PerspectiveCamera) {
    // move every point of the geometry from world coordinates to the coordinate system of the screen camera using K
    let K = new THREE.Matrix4().copy(camera.matrixWorldInverse)
 
    // project every point of the geometry onto the near plane of the screen camera using P
    // this transformation already includes converting the points to normalized device coordinates
-   let P = new THREE.Matrix4().copy(projectionMatrix)
+   let P = new THREE.Matrix4().copy(camera.projectionMatrix)
 
    // apply the combined transformation PK to every point of the geometry
    // (customApplyMatrix already converts the points to world coordinates)
