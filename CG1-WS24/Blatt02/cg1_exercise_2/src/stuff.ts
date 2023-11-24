@@ -55,10 +55,10 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
             const z = vector.z
             const M = matrix.elements
 
-            const wPrime = x * M[3] + y * M[7] + z * M[11] + M[15]
             const xPrime = x * M[0] + y * M[4] + z * M[8] + M[12]
             const yPrime = x * M[1] + y * M[5] + z * M[9] + M[13]
             const zPrime = x * M[2] + y * M[6] + z * M[10] + M[14]
+            const wPrime = x * M[3] + y * M[7] + z * M[11] + M[15]
 
             // p' in cartesian coordinates is (x'/w', y'/w', z'/w')
             vector.set(xPrime / wPrime, yPrime / wPrime, zPrime / wPrime)
@@ -102,13 +102,16 @@ function makeFlat(
    PKT.multiply(T)
    customApplyMatrix(object, PKT)
 
-   // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
-   // object.traverse((child) => {
-   //    if (child instanceof THREE.Mesh) {
-   //       child.matrix.identity()
-   //    }
-   // })
-   customApplyMatrix(object, object.matrix.identity())
+   // TODO: - this is the part that doesn't work
+   // set every matrix of the teddy to the identity matrix
+   object.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+         child.matrix.identity()
+         child.matrixWorld.identity()
+         child.updateMatrix()
+         child.updateMatrixWorld(true)
+      }
+   })
 
    // ----------------- 3. -----------------
    // flip the teddy along the z axis because the screen camera looks along the negative z axis
