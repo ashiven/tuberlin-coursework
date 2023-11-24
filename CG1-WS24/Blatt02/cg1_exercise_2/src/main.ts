@@ -48,14 +48,17 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       canonicalTeddy.position.z = changed.value
    } else if (changed.key === "near") {
       screenCamera.near = changed.value
+      screenCamera.updateMatrixWorld(true)
       screenCamera.updateProjectionMatrix()
       cameraHelper.update()
    } else if (changed.key === "far") {
       screenCamera.far = changed.value
+      screenCamera.updateMatrixWorld(true)
       screenCamera.updateProjectionMatrix()
       cameraHelper.update()
    } else if (changed.key === "fov") {
       screenCamera.fov = changed.value
+      screenCamera.updateMatrixWorld(true)
       screenCamera.updateProjectionMatrix()
       cameraHelper.update()
    } else if (changed.key === "planeX0") {
