@@ -183,6 +183,9 @@ function main() {
    canonicalScene.background = new THREE.Color(0xffffff)
    helper.setupCube(canonicalScene)
 
+   // invert the z axis of the canonical coordinate system
+   canonicalScene.scale.set(1, 1, -1)
+
    canonicalTeddy = helper.createTeddyBear()
    canonicalScene.add(canonicalTeddy)
 

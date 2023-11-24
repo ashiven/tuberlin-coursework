@@ -93,9 +93,6 @@ function makeFlat(object: THREE.Object3D, camera: THREE.PerspectiveCamera) {
    // this transformation already includes converting the points to normalized device coordinates
    let P = new THREE.Matrix4().copy(camera.projectionMatrix)
    customApplyMatrix(object, P, false)
-
-   // rotate the object into the correct orientation
-   object.rotation.y += Math.PI
 }
 
 export { makeFlat, updateClippingPlane }
