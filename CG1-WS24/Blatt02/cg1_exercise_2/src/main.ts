@@ -55,13 +55,13 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       updateCanonicalTeddy()
    } else if (changed.key === "translateX") {
       teddy.position.x = changed.value
-      canonicalTeddy.position.x = changed.value
+      updateCanonicalTeddy()
    } else if (changed.key === "translateY") {
       teddy.position.y = changed.value
-      canonicalTeddy.position.y = changed.value
+      updateCanonicalTeddy()
    } else if (changed.key === "translateZ") {
       teddy.position.z = changed.value
-      canonicalTeddy.position.z = changed.value
+      updateCanonicalTeddy()
    } else if (changed.key === "near") {
       screenCamera.near = changed.value
       screenCamera.updateMatrixWorld(true)
@@ -145,18 +145,7 @@ function main() {
    scene.add(cameraHelper)
 
    screenControls.addEventListener("change", () => {
-      canonicalScene.remove(canonicalTeddy)
-
-      canonicalTeddy = helper.createTeddyBear()
-      canonicalTeddy.position.copy(teddy.position)
-      canonicalTeddy.rotation.copy(teddy.rotation)
-      canonicalTeddy.scale.copy(teddy.scale)
-
-      canonicalScene.add(canonicalTeddy)
-
-      screenCamera.updateMatrixWorld(true)
-      screenCamera.updateProjectionMatrix()
-      makeFlat(canonicalTeddy, screenCamera)
+      updateCanonicalTeddy()
    })
 
    let screenRenderer = new THREE.WebGLRenderer({ antialias: true })
