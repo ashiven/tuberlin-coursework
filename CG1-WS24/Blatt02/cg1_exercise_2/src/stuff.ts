@@ -80,21 +80,35 @@ function makeFlat(
    camera: THREE.PerspectiveCamera,
    projectionMatrix: THREE.Matrix4
 ) {
+   // ----------------- 0. -----------------
+   // move every point of the geometry from object coordinates to world coordinates using T
+   let T = new THREE.Matrix4()
+   T.copy(object.matrixWorld)
+
    // ----------------- 1. -----------------
-   // move every point of the geometry from world coordinates to the coordinate system of the screen camera
-   customApplyMatrix(object, camera.matrixWorldInverse)
+   // move every point of the geometry from world coordinates to the coordinate system of the screen camera using K
+   let K = new THREE.Matrix4()
+   K.copy(camera.matrixWorldInverse)
 
    // ----------------- 2. -----------------
-   // apply the projection transformation to every point of the geometry to project them onto the near plane of the screen camera
+   // project every point of the geometry onto the near plane of the screen camera using P
    // this transformation already includes converting the points to normalized device coordinates
-   customApplyMatrix(object, projectionMatrix)
+   let P = new THREE.Matrix4()
+   P.copy(projectionMatrix)
+
+   // apply all of the transformations in one step via the matrix product PKT
+   let PKT = new THREE.Matrix4()
+   PKT.multiplyMatrices(P, K)
+   PKT.multiply(T)
+   customApplyMatrix(object, PKT)
 
    // set every matrix of the teddy to the identity matrix (doesn't seem to change anything)
-   object.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-         child.matrix.identity()
-      }
-   })
+   // object.traverse((child) => {
+   //    if (child instanceof THREE.Mesh) {
+   //       child.matrix.identity()
+   //    }
+   // })
+   customApplyMatrix(object, object.matrix.identity())
 
    // ----------------- 3. -----------------
    // flip the teddy along the z axis because the screen camera looks along the negative z axis
