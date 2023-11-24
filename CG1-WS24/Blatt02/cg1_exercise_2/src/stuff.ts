@@ -97,7 +97,7 @@ function makeFlat(
    // project every point of the geometry onto the near plane of the screen camera using P
    // this transformation already includes converting the points to normalized device coordinates
    let P = new THREE.Matrix4()
-   P.copy(camera.projectionMatrix)
+   P.copy(projectionMatrix)
 
    // apply all of the transformations in one step via the matrix product PKT
    let PKT = new THREE.Matrix4()
