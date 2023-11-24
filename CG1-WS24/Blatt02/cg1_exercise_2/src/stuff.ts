@@ -25,7 +25,8 @@ function updateClippingPlane(
 function customApplyMatrix(
    object: THREE.Object3D,
    matrix: THREE.Matrix4,
-   toWorld: boolean
+   toWorld: boolean,
+   flip: boolean = false
 ) {
    /*
    - BufferGeometry is a class that represents a geometry 
@@ -63,7 +64,7 @@ function customApplyMatrix(
             // p' = p * M  with p = (x, y, z, 1)
             const x = vector.x
             const y = vector.y
-            const z = vector.z
+            const z = flip ? -vector.z : vector.z
             const M = toWorld ? matrixToWorld.elements : matrixToLocal.elements
 
             const xPrime = x * M[0] + y * M[4] + z * M[8] + M[12]
@@ -84,19 +85,12 @@ function customApplyMatrix(
 function makeFlat(object: THREE.Object3D, camera: THREE.PerspectiveCamera) {
    // move every point of the geometry from world coordinates to the coordinate system of the screen camera using K
    let K = new THREE.Matrix4().copy(camera.matrixWorldInverse)
-   customApplyMatrix(object, K, true)
+   customApplyMatrix(object, K, true, true)
 
    // project every point of the geometry onto the near plane of the screen camera using P
    // this transformation already includes converting the points to normalized device coordinates
    let P = new THREE.Matrix4().copy(camera.projectionMatrix)
    customApplyMatrix(object, P, false)
-
-   // TODO: - this is the part that doesn't work
-   // set every matrix of the teddy to the identity matrix
-
-   // TODO: - can be used to flip the teddy along the z axis
-   let flipMatrix = new THREE.Matrix4()
-   flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
 }
 
 export { makeFlat, updateClippingPlane }
