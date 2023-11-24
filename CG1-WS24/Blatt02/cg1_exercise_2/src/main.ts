@@ -126,6 +126,13 @@ function main() {
    scene.add(cameraHelper)
 
    // TODO: - remove after testing
+   // let cameraMatrix = new THREE.Matrix4()
+   // cameraMatrix.copy(screenCamera.matrixWorldInverse)
+   // cameraMatrix.elements[10] *= -1
+   // teddy.applyMatrix4(cameraMatrix)
+   // teddy.applyMatrix4(screenCamera.projectionMatrix)
+
+   // TODO: - remove after testing
    // X Axis: red
    // Y Axis: green
    // Z Axis: blue

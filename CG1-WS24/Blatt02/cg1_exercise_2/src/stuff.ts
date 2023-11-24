@@ -90,11 +90,14 @@ function makeFlat(
    let K = new THREE.Matrix4()
    K.copy(camera.matrixWorldInverse)
 
+   // also invert the z axis because the screen camera looks along the negative z axis
+   K.elements[10] *= -1
+
    // ----------------- 2. -----------------
    // project every point of the geometry onto the near plane of the screen camera using P
    // this transformation already includes converting the points to normalized device coordinates
    let P = new THREE.Matrix4()
-   P.copy(projectionMatrix)
+   P.copy(camera.projectionMatrix)
 
    // apply all of the transformations in one step via the matrix product PKT
    let PKT = new THREE.Matrix4()
@@ -104,20 +107,8 @@ function makeFlat(
 
    // TODO: - this is the part that doesn't work
    // set every matrix of the teddy to the identity matrix
-   object.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-         child.matrix.identity()
-         child.matrixWorld.identity()
-         child.updateMatrix()
-         child.updateMatrixWorld(true)
-      }
-   })
-
-   // ----------------- 3. -----------------
-   // flip the teddy along the z axis because the screen camera looks along the negative z axis
-   let flipMatrix = new THREE.Matrix4()
-   flipMatrix.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
-   customApplyMatrix(object, flipMatrix)
+   // customApplyMatrix(object, object.matrixWorld.invert())
+   customApplyMatrix(object, object.matrixWorld.invert())
 }
 
 export { makeFlat, updateClippingPlane }
