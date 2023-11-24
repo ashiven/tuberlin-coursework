@@ -48,8 +48,13 @@ function customApplyMatrix(
 
          // convert points from object coordinates to world coordinates
          let matrixToWorld = new THREE.Matrix4()
+         let matrixToLocal = new THREE.Matrix4()
          if (toWorld) {
             matrixToWorld.multiplyMatrices(matrix, child.matrixWorld)
+         } else {
+            let worldToLocal = child.matrixWorld
+            worldToLocal.invert()
+            matrixToLocal.multiplyMatrices(worldToLocal, matrix)
          }
 
          for (let i = 0, l = position.count; i < l; i++) {
@@ -59,7 +64,7 @@ function customApplyMatrix(
             const x = vector.x
             const y = vector.y
             const z = vector.z
-            const M = toWorld ? matrixToWorld.elements : matrix.elements
+            const M = toWorld ? matrixToWorld.elements : matrixToLocal.elements
 
             const xPrime = x * M[0] + y * M[4] + z * M[8] + M[12]
             const yPrime = x * M[1] + y * M[5] + z * M[9] + M[13]
@@ -79,15 +84,12 @@ function customApplyMatrix(
 function makeFlat(object: THREE.Object3D, camera: THREE.PerspectiveCamera) {
    // move every point of the geometry from world coordinates to the coordinate system of the screen camera using K
    let K = new THREE.Matrix4().copy(camera.matrixWorldInverse)
+   customApplyMatrix(object, K, true)
 
    // project every point of the geometry onto the near plane of the screen camera using P
    // this transformation already includes converting the points to normalized device coordinates
    let P = new THREE.Matrix4().copy(camera.projectionMatrix)
-
-   // apply the combined transformation PK to every point of the geometry
-   // (customApplyMatrix already converts the points to world coordinates)
-   let PK = new THREE.Matrix4().multiplyMatrices(P, K)
-   customApplyMatrix(object, PK, true)
+   customApplyMatrix(object, P, false)
 
    // TODO: - this is the part that doesn't work
    // set every matrix of the teddy to the identity matrix
