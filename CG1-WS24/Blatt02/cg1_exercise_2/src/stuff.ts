@@ -48,12 +48,8 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
             child.matrixWorld
          )
 
-         // ---- position.applyMatrix4(matrix) ----
-
          for (let i = 0, l = position.count; i < l; i++) {
             let vector = new THREE.Vector3().fromBufferAttribute(position, i)
-
-            //  ---- vector.applyMatrix4(matrix) ----
 
             // p' = p * M  with p = (x, y, z, 1)
             const x = vector.x
@@ -69,13 +65,8 @@ function customApplyMatrix(object: THREE.Object3D, matrix: THREE.Matrix4) {
             // p' in cartesian coordinates is (x'/w', y'/w', z'/w')
             vector.set(xPrime / wPrime, yPrime / wPrime, zPrime / wPrime)
 
-            // ---------------------------------------------
-
             position.setXYZ(i, vector.x, vector.y, vector.z)
          }
-
-         // ---------------------------------------------
-
          position.needsUpdate = true
       }
    })
