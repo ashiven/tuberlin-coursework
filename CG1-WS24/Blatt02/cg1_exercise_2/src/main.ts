@@ -128,13 +128,6 @@ function main() {
    cameraHelper = new THREE.CameraHelper(screenCamera)
    scene.add(cameraHelper)
 
-   // TODO: - remove after testing
-   // X Axis: red
-   // Y Axis: green
-   // Z Axis: blue
-   let axesHelper = new THREE.AxesHelper(5)
-   scene.add(axesHelper)
-
    screenControls.addEventListener("change", () => {
       canonicalScene.remove(canonicalTeddy)
 
