@@ -36,6 +36,9 @@ function updateCanonicalTeddy() {
    canonicalTeddy.rotation.copy(teddy.rotation)
    canonicalTeddy.scale.copy(teddy.scale)
 
+   canonicalTeddy.updateMatrix()
+   canonicalTeddy.updateMatrixWorld(true)
+
    canonicalScene.add(canonicalTeddy)
 
    screenCamera.updateMatrixWorld(true)
@@ -64,18 +67,15 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       updateCanonicalTeddy()
    } else if (changed.key === "near") {
       screenCamera.near = changed.value
-      screenCamera.updateMatrixWorld(true)
-      screenCamera.updateProjectionMatrix()
+      updateCanonicalTeddy()
       cameraHelper.update()
    } else if (changed.key === "far") {
       screenCamera.far = changed.value
-      screenCamera.updateMatrixWorld(true)
-      screenCamera.updateProjectionMatrix()
+      updateCanonicalTeddy()
       cameraHelper.update()
    } else if (changed.key === "fov") {
       screenCamera.fov = changed.value
-      screenCamera.updateMatrixWorld(true)
-      screenCamera.updateProjectionMatrix()
+      updateCanonicalTeddy()
       cameraHelper.update()
    } else if (changed.key === "planeX0") {
       updateClippingPlane(canonicalRenderer, clippingPlaneX0, changed)
