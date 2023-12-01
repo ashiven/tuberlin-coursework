@@ -2,11 +2,13 @@
 %x IN_COMMENT
 
 %{
+/* ================ SECTION 1 - DECLARATIONS ================ */
 
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+
 
 // Global variable for the line number
 int line_number = 1;
@@ -121,17 +123,260 @@ enum {
 
 %}
 
- /* TODO Helper definitions here  */
 
+IDENT [a-zA-Z][a-zA-Z0-9_]*
+
+SPACES [ \t\v\r\f]+
+
+SYMBOLS [\(\)\[\]\{\}\.\,\;\+\-\~\!\*\/\%\<\>\&\^\|\?\:\=]
+
+BOOL true|false
+
+INT [0-9]+|0[xX][0-9a-fA-F]+|0[0-7]+
+
+FLOAT [0-9]+\.[0-9]+|[0-9]+\.|[0-9]+[eE][+-]?[0-9]+|[0-9]+\.[0-9]+[eE][+-]?[0-9]+
+
+COMMENT [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]
+
+COMMENT_LINE [/][/].*
+
+ /* ================ SECTION 2 - RULES ================ */
 %%
 
- /* TODO Implement the rest... */
+\n                      { line_number++; }
+
+{SPACES}                { /* ignore */ }
+
+{COMMENT_LINE}          { /* ignore */ }
+
+{COMMENT}               {   
+                            char* comment_string = yytext;
+                            int newlines = 0;
+                            char *newline_pointer = strchr(comment_string, '\n');
+                            while (newline_pointer != NULL) {
+                                newlines++;
+                                newline_pointer = strchr(newline_pointer + 1, '\n');
+                            }
+                            line_number += newlines;
+                        }
+
+
+
+void                    { yylval.str = strdup(yytext); return TYPE; }
+
+bool                    { yylval.str = strdup(yytext); return TYPE; }
+
+int                     { yylval.str = strdup(yytext); return TYPE; }
+
+uint                    { yylval.str = strdup(yytext); return TYPE; }
+
+float                   { yylval.str = strdup(yytext); return TYPE; }
+
+double                  { yylval.str = strdup(yytext); return TYPE; }
+
+
+
+vec[2-4]                { yylval.str = strdup(yytext); return TYPE; }
+
+dvec[2-4]               { yylval.str = strdup(yytext); return TYPE; }
+
+bvec[2-4]               { yylval.str = strdup(yytext); return TYPE; }
+
+ivec[2-4]               { yylval.str = strdup(yytext); return TYPE; }
+
+
+
+mat[2-4]                { yylval.str = strdup(yytext); return TYPE; }
+
+mat[2-4]x[2-4]          { yylval.str = strdup(yytext); return TYPE; }
+
+dmat[2-4]               { yylval.str = strdup(yytext); return TYPE; }
+
+dmat[2-4]x[2-4]         { yylval.str = strdup(yytext); return TYPE; }
+
+
+
+color                   { yylval.str = strdup(yytext); return TYPE; }
+
+
+
+break                   return BREAK;
+
+continue                return CONTINUE;
+
+do                      return DO;
+
+for                     return FOR;
+
+while                   return WHILE;
+
+switch                  return SWITCH;
+
+case                    return CASE;
+
+default                 return DEFAULT;
+
+if                      return IF;
+
+else                    return ELSE;
+
+return                  return RETURN;
+
+struct                  return STRUCT;
+
+
+
+attribute               return ATTRIBUTE;
+
+const                   return CONST;
+
+uniform                 return UNIFORM;
+
+varying                 return VARYING;
+
+buffer                  return BUFFER;
+
+shared                  return SHARED;
+
+coherent                return COHERENT;
+
+volatile                return VOLATILE;
+
+restrict                return RESTRICT;
+
+readonly                return READONLY;
+
+writeonly               return WRITEONLY;
+
+layout                  return LAYOUT;
+
+centroid                return CENTROID;
+
+flat                    return FLAT;
+
+smooth                  return SMOOTH;
+
+noperspective           return NOPERSPECTIVE;
+
+patch                   return PATCH;
+
+sample                  return SAMPLE;
+
+subroutine              return SUBROUTINE;
+
+in                      return IN;
+
+out                     return OUT;
+
+inout                   return INOUT;
+
+invariant               return INVARIANT;
+
+precise                 return PRECISE;
+
+discard                 return DISCARD;
+
+lowp                    return LOWP;
+
+mediump                 return MEDIUMP;
+
+highp                   return HIGHP;
+
+precision               return PRECISION;
+
+
 
 class                   return CLASS;
 
+illuminance             return ILLUMINANCE;
+
+ambient                 return AMBIENT;
+
+public                  return PUBLIC;
+
+private                 return PRIVATE;
+
+scratch                 return SCRATCH;
+
+
+
+rt_Primitive            return RT_PRIMITIVE;
+
+rt_Camera               return RT_CAMERA;
+
+rt_Material             return RT_MATERIAL;
+
+rt_Texture              return RT_TEXTURE;
+
+rt_Light                return RT_LIGHT;
+
+
+
+rt_[a-zA-Z]+            { yylval.str = strdup(yytext); return STATE;}
+
+
+
+"<<"                    return LEFT_OP;
+
+">>"                    return RIGHT_OP;
+
+"++"                    return INC_OP;
+
+"--"                    return DEC_OP;
+
+"<="                    return LE_OP;
+
+">="                    return GE_OP;
+
+"=="                    return EQ_OP;
+
+"!="                    return NE_OP;
+
+"&&"                    return AND_OP;
+
+"||"                    return OR_OP;
+
+"^"                     return XOR_OP;
+
+"*="                    return MUL_ASSIGN;
+
+"/="                    return DIV_ASSIGN;
+
+"+="                    return ADD_ASSIGN;
+
+"%="                    return MOD_ASSIGN;
+
+"<<="                   return LEFT_ASSIGN;
+
+">>="                   return RIGHT_ASSIGN;
+
+"&="                    return AND_ASSIGN;
+
+"^="                    return XOR_ASSIGN;
+
+"|="                    return OR_ASSIGN;
+
+"-="                    return SUB_ASSIGN;
+
+
+
+{SYMBOLS}               { return yytext[0]; }
+
+{BOOL}                  { yylval.bval = (strcmp(yytext, "true") == 0); return BOOL; }
+
+{INT}                   { yylval.ival = atoi(yytext); return INT; }
+
+{FLOAT}                 { yylval.fval = atof(yytext); return FLOAT; }
+
+{IDENT}                 { yylval.str = strdup(yytext); return IDENTIFIER; }
+
+
+
 .                       { yylval.str = strdup(yytext); return ERROR; }
 
+
 %%
+/* ================ SECTION 3 - USER CODE ================ */
 
 // Generate main code only for standalone compilation,
 // but not if we're using bison (2nd assignment)
@@ -162,7 +407,7 @@ int main(int argc, char **argv) {
     while ((token = yylex())) {
 		printf("Line%3d:    ", line_number);
         if (token < 256) {
-            printf("'%c'\n", token);
+            printf("\"%c\"\n", token);
         } else {
             const char *name = token_name(token);
             if (!name) {
@@ -173,19 +418,19 @@ int main(int argc, char **argv) {
                         printf("%s\n", name);
                         break;
                     case BOOL:
-                        printf("%s (%s)\n", name, yylval.bval ? "true" : "false");
+                        printf("%s [%s]\n", name, yylval.bval ? "true" : "false");
                         break;
                     case INT:
-                        printf("%s (%d)\n", name, yylval.ival);
+                        printf("%s [%d]\n", name, yylval.ival);
                         break;
                     case FLOAT:
-                        printf("%s (%f)\n", name, yylval.fval);
+                        printf("%s [%f]\n", name, yylval.fval);
                         break;
                     case TYPE:
                     case STATE:
                     case IDENTIFIER:
-					case ERROR:
-                        printf("%s (%s)\n", name, yylval.str);
+                    case ERROR:
+                        printf("%s [%s]\n", name, yylval.str);
                         free(yylval.str);
                         break;
                 }
@@ -196,4 +441,3 @@ int main(int argc, char **argv) {
     return 0;
 }
 #endif /* FOR_PARSER */
-

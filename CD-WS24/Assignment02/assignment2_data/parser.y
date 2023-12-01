@@ -56,8 +56,42 @@ static void yyerror(const char *s);
 
 %%
 
-/* TODO Implement RTSL grammar here */
-translation_unit: ;
+translation_unit 
+    : external_declaration
+    | translation_unit external_declaration
+    ;
+
+external_declaration
+    : declaration
+    ;
+
+declaration
+    : init_declarator_list ';'
+    ;
+
+init_declarator_list
+    : single_declaration
+    ;
+
+single_declaration
+    : fully_specified_type IDENTIFIER ':' initializer
+    ;
+
+fully_specified_type
+    : type_specifier
+    ;
+
+type_specifier
+    : TYPE
+    | CLASS
+    ;
+
+initializer
+    : RT_MATERIAL
+    | RT_TEXTURE
+    | RT_CAMERA
+    | RT_LIGHT
+    | RT_PRIMITIVE
 
 %%
  
