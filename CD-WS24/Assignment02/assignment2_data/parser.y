@@ -51,6 +51,11 @@ static void yyerror(const char *s);
  * %type<str> function_header
  */
 
+%type <str> fully_specified_type
+%type <str> type_specifier
+%type <str> initializer
+%type <str> single_declaration
+
 /* Start production. */
 %start translation_unit
 
@@ -62,7 +67,8 @@ translation_unit
     ;
 
 external_declaration
-    : declaration
+    : function_definition
+    | declaration
     ;
 
 declaration
@@ -74,7 +80,7 @@ init_declarator_list
     ;
 
 single_declaration
-    : fully_specified_type IDENTIFIER ':' initializer
+    : fully_specified_type IDENTIFIER ':' initializer { printf("%s [%s] %s\n",$1, $2, $4); }
     ;
 
 fully_specified_type
@@ -83,15 +89,16 @@ fully_specified_type
 
 type_specifier
     : TYPE
-    | CLASS
+    | CLASS { $$ = "CLASS"; }
     ;
 
 initializer
-    : RT_MATERIAL
-    | RT_TEXTURE
-    | RT_CAMERA
-    | RT_LIGHT
-    | RT_PRIMITIVE
+    : RT_MATERIAL { $$ = strdup(", Type: material"); }
+    | RT_TEXTURE { $$ = strdup(", Type: texture"); }
+    | RT_CAMERA { $$ = strdup(", Type: camera"); }
+    | RT_LIGHT { $$ = strdup(", Type: light"); }
+    | RT_PRIMITIVE { $$ = strdup(", Type: primitive"); }
+    ;
 
 %%
  

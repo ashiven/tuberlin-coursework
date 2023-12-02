@@ -1,4 +1,4 @@
-CFLAGS = -std=c99 -Wall -D_XOPEN_SOURCE=700 -DFOR_PARSER=1
+CFLAGS = -std=c99 -Wall -D_XOPEN_SOURCE=700 -DFOR_PARSER=1 -w
 
 parser: parser.c lexer.c
 	gcc -o parser $(CFLAGS) lexer.c parser.c
