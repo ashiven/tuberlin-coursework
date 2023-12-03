@@ -51,15 +51,218 @@ static void yyerror(const char *s);
  * %type<str> function_header
  */
 
-%type <str> fully_specified_type
-%type <str> type_specifier
-%type <str> initializer
-%type <str> single_declaration
+%type <str> fully_specified_type type_specifier_nonarray type_specifier initializer single_declaration
 
 /* Start production. */
 %start translation_unit
 
 %%
+
+
+/* ================= EXPRESSION RULES ================= */
+
+variable_identifier
+    : IDENTIFIER
+    ;
+
+state_identifier
+    : STATE
+    ;
+
+primary_expression
+    : variable_identifier
+    | state_identifier
+    | INT
+    | FLOAT
+    | '(' expression ')'
+    ;
+
+postfix_expression
+    : primary_expression
+    | function_call
+    ;
+
+function_call
+    : function_call_or_method
+    ;
+
+function_call_or_method
+    : function_call_generic
+    ;
+
+function_call_generic
+    : function_call_header_with_parameters ')'
+    ;
+
+function_call_header_with_parameters
+    : function_call_header assignment_expression
+    | function_call_header_with_parameters ',' assignment_expression
+    ;
+
+function_call_header
+    : function_identifier '('
+    ;
+
+function_identifier
+    : type_specifier
+    | postfix_expression
+    ;
+
+unary_expression
+    : postfix_expression
+    ;
+
+relational_expression
+    : unary_expression
+    | relational_expression '<' primary_expression
+    ;
+
+assignment_expression
+    : relational_expression
+    | unary_expression assignment_operator assignment_expression
+    ;
+
+assignment_operator
+    : '='
+    | MUL_ASSIGN
+    | DIV_ASSIGN
+    | MOD_ASSIGN
+    | ADD_ASSIGN
+    | SUB_ASSIGN
+    | LEFT_ASSIGN
+    | RIGHT_ASSIGN
+    | AND_ASSIGN
+    | XOR_ASSIGN
+    | OR_ASSIGN
+    ;
+
+expression
+    : assignment_expression
+    | primary_expression
+    ;
+
+
+/* ================= DECLARATION RULES ================= */
+
+
+declaration
+    : init_declarator_list ';'
+    | type_qualifier ';'
+    ;
+
+function_prototype
+    : function_declarator ')'
+    ;
+
+function_declarator
+    : function_header
+    | function_header_with_parameters
+    ;
+
+function_header_with_parameters
+    : function_header parameter_declaration
+    | function_header_with_parameters ',' parameter_declaration
+    ;
+
+function_header
+    : fully_specified_type IDENTIFIER '('
+    ;
+
+parameter_declarator
+    : type_specifier IDENTIFIER
+    ;
+
+parameter_declaration
+    : parameter_declarator
+    ;
+    
+init_declarator_list
+    : single_declaration
+    ;
+
+single_declaration
+    : fully_specified_type IDENTIFIER
+    | fully_specified_type IDENTIFIER ':' initializer { printf("%s [%s] %s\n",$1, $2, $4); }
+    ;
+
+
+/* ================= TYPE RULES ================= */
+
+
+fully_specified_type
+    : type_specifier
+    ;
+
+type_qualifier
+    : /* empty (yet) */
+    ;
+
+type_specifier
+    : type_specifier_nonarray
+    ;
+
+type_specifier_nonarray
+    : TYPE
+    | CLASS { $$ = "CLASS"; }
+    ;
+
+initializer
+    : RT_MATERIAL { $$ = strdup(", Type: material"); }
+    | RT_TEXTURE { $$ = strdup(", Type: texture"); }
+    | RT_CAMERA { $$ = strdup(", Type: camera"); }
+    | RT_LIGHT { $$ = strdup(", Type: light"); }
+    | RT_PRIMITIVE { $$ = strdup(", Type: primitive"); }
+    ;
+
+
+/* ================= STATEMENT RULES ================= */
+
+
+declaration_statement
+    : declaration
+    ;
+
+statement
+    : simple_statement
+    ;
+
+simple_statement
+    : declaration_statement { printf("DECLARATION_STATEMENT\n");}
+    | expression_statement { printf("EXPRESSION_STATEMENT\n");}
+    | selection_statement { printf("IF_ELSE_STATEMENT\n");}
+    | jump_statement { printf("RETURN_STATEMENT\n");}
+    ;
+
+compound_statement_no_new_scope
+    : '{' '}'
+    | '{' statement_list '}'
+    ;
+
+statement_list
+    : statement
+    | statement_list statement
+    ;
+
+expression_statement
+    : ';'
+    | expression ';'
+    ;
+
+selection_statement
+    : IF '(' expression ')' selection_rest_statement
+    ;
+
+selection_rest_statement
+    : statement ELSE statement
+    ;
+
+jump_statement
+    : RETURN expression ';'
+    ;
+
+
+/* ================= TOP LEVEL RULES ================= */
+
 
 translation_unit 
     : external_declaration
@@ -71,33 +274,8 @@ external_declaration
     | declaration
     ;
 
-declaration
-    : init_declarator_list ';'
-    ;
-
-init_declarator_list
-    : single_declaration
-    ;
-
-single_declaration
-    : fully_specified_type IDENTIFIER ':' initializer { printf("%s [%s] %s\n",$1, $2, $4); }
-    ;
-
-fully_specified_type
-    : type_specifier
-    ;
-
-type_specifier
-    : TYPE
-    | CLASS { $$ = "CLASS"; }
-    ;
-
-initializer
-    : RT_MATERIAL { $$ = strdup(", Type: material"); }
-    | RT_TEXTURE { $$ = strdup(", Type: texture"); }
-    | RT_CAMERA { $$ = strdup(", Type: camera"); }
-    | RT_LIGHT { $$ = strdup(", Type: light"); }
-    | RT_PRIMITIVE { $$ = strdup(", Type: primitive"); }
+function_definition
+    : function_prototype compound_statement_no_new_scope
     ;
 
 %%

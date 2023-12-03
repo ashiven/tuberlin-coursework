@@ -16,6 +16,10 @@
  * and the necessary semantic checks.
  */
 
+
+/* ================= EXPRESSION RULES ================= */
+
+
 variable_identifier
     : IDENTIFIER 
     ;
@@ -185,6 +189,10 @@ constant_expression
     : conditional_expression 
     ;
 
+
+/* ================= DECLARATION RULES ================= */
+
+
 declaration
     : function_prototype SEMICOLON 
     | init_declarator_list SEMICOLON 
@@ -251,6 +259,10 @@ single_declaration
     | fully_specified_type IDENTIFIER array_specifier EQUAL initializer
     | fully_specified_type IDENTIFIER EQUAL initializer 
     ;
+
+
+/* ================= TYPE RULES ================= */
+
 
 fully_specified_type
     : type_specifier 
@@ -503,6 +515,10 @@ initializer_list
     | initializer_list COMMA initializer
     ;
 
+
+/* ================= STATEMENT RULES ================= */
+
+
 declaration_statement
     : declaration 
     ;
@@ -603,6 +619,10 @@ jump_statement
     | RETURN expression SEMICOLON 
     | DISCARD SEMICOLON   // Fragment shader only.
     ;
+
+
+/* ================= TOP LEVEL RULES ================= */
+
 
 translation_unit
     : external_declaration 
