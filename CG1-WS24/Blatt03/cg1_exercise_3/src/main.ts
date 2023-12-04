@@ -12,6 +12,8 @@ import ambientFragmentShader from "./shader/ambient.f.glsl?raw"
 import ambientVertexShader from "./shader/ambient.v.glsl?raw"
 import basicFragmentShader from "./shader/basic.f.glsl?raw"
 import basicVertexShader from "./shader/basic.v.glsl?raw"
+import normalFragmentShader from "./shader/normal.f.glsl?raw"
+import normalVertexShader from "./shader/normal.v.glsl?raw"
 
 var scene: THREE.Scene
 var settings: helper.Settings
@@ -30,6 +32,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             })
             break
          case "Normal":
+            setShader(scene, normalVertexShader, normalFragmentShader)
             break
          case "Toon":
             break
