@@ -5,6 +5,7 @@ import RenderWidget from "./lib/rendererWidget"
 import type * as utils from "./lib/utils"
 import { Application, createWindow } from "./lib/window"
 
+import { normal, setShader } from "./functions"
 import * as helper from "./helper"
 
 import ambientFragmentShader from "./shader/ambient.f.glsl?raw"
@@ -16,35 +17,16 @@ var scene: THREE.Scene
 var settings: helper.Settings
 var light: THREE.Mesh
 
-function setShader(
-   newVertexShader: any,
-   newFragmentShader: any,
-   uniforms?: any
-) {
-   var newMaterial = new THREE.RawShaderMaterial({
-      vertexShader: newVertexShader,
-      fragmentShader: newFragmentShader,
-      uniforms: uniforms || {},
-   })
-   newMaterial.glslVersion = THREE.GLSL3
-
-   scene.traverse((obj) => {
-      if (obj instanceof THREE.Mesh && obj.name != "light") {
-         obj.material = newMaterial
-      }
-   })
-}
-
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key == "shader") {
       switch (changed.value) {
          case "Basic":
-            setShader(basicVertexShader, basicFragmentShader)
+            setShader(scene, basicVertexShader, basicFragmentShader)
             break
          case "Ambient":
-            setShader(ambientVertexShader, ambientFragmentShader, {
+            setShader(scene, ambientVertexShader, ambientFragmentShader, {
                ambientReflectance: { value: settings.ambient_reflectance },
-               ambientColor: { value: settings.ambient_color },
+               ambientColor: { value: normal(settings.ambient_color) },
             })
             break
          case "Normal":
@@ -64,15 +46,15 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       }
    } else if (changed.key == "ambient_reflectance") {
       console.log("ambient_reflectance", changed.value)
-      setShader(ambientVertexShader, ambientFragmentShader, {
+      setShader(scene, ambientVertexShader, ambientFragmentShader, {
          ambientReflectance: { value: changed.value },
-         ambientColor: { value: settings.ambient_color },
+         ambientColor: { value: normal(settings.ambient_color) },
       })
    } else if (changed.key == "ambient_color") {
       console.log("ambient_color", changed.value)
-      setShader(ambientVertexShader, ambientFragmentShader, {
+      setShader(scene, ambientVertexShader, ambientFragmentShader, {
          ambientReflectance: { value: settings.ambient_reflectance },
-         ambientColor: { value: changed.value },
+         ambientColor: { value: normal(changed.value) },
       })
    } else if (changed.key == "diffuse_reflectance") {
       console.log("diffuse_reflectance", changed.value)
