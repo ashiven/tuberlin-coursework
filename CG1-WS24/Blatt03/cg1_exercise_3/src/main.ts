@@ -14,6 +14,7 @@ import basicVertexShader from "./shader/basic.v.glsl?raw"
 
 var scene: THREE.Scene
 var settings: helper.Settings
+var light: THREE.Mesh
 
 function setShader(
    newVertexShader: any,
@@ -73,6 +74,36 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          ambientReflectance: settings.ambient_reflectance,
          ambientColor: changed.value,
       })
+   } else if (changed.key == "diffuse_reflectance") {
+      console.log("diffuse_reflectance", changed.value)
+   } else if (changed.key == "diffuse_color") {
+      console.log("diffuse_color", changed.value)
+   } else if (changed.key == "specular_reflectance") {
+      console.log("specular_reflectance", changed.value)
+   } else if (changed.key == "specular_color") {
+      console.log("specular_color", changed.value)
+   } else if (changed.key == "magnitude") {
+      console.log("magnitude", changed.value)
+   } else if (changed.key == "roughness") {
+      console.log("roughness", changed.value)
+   } else if (changed.key == "lightX") {
+      light.position.x = changed.value
+   } else if (changed.key == "lightY") {
+      light.position.y = changed.value
+   } else if (changed.key == "lightZ") {
+      light.position.z = changed.value
+   } else if (changed.key == "light_color") {
+      console.log("light_color", changed.value)
+      var color = new THREE.Color()
+      color.fromArray([
+         changed.value[0] / 255,
+         changed.value[1] / 255,
+         changed.value[2] / 255,
+      ])
+      var material = new THREE.MeshBasicMaterial({ color: color })
+      light.material = material
+   } else if (changed.key == "light_intensity") {
+      console.log("light_intensity", changed.value)
    }
 }
 
@@ -98,7 +129,7 @@ function main() {
 
    var lightgeo = new THREE.SphereGeometry(0.1, 32, 32)
    var lightMaterial = new THREE.MeshBasicMaterial({ color: 0xff8010 })
-   var light = new THREE.Mesh(lightgeo, lightMaterial)
+   light = new THREE.Mesh(lightgeo, lightMaterial)
    light.name = "light"
    scene.add(light)
 
