@@ -43,8 +43,8 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             break
          case "Ambient":
             setShader(ambientVertexShader, ambientFragmentShader, {
-               ambientReflectance: settings.ambient_reflectance,
-               ambientColor: settings.ambient_color,
+               ambientReflectance: { value: settings.ambient_reflectance },
+               ambientColor: { value: settings.ambient_color },
             })
             break
          case "Normal":
@@ -65,14 +65,14 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
    } else if (changed.key == "ambient_reflectance") {
       console.log("ambient_reflectance", changed.value)
       setShader(ambientVertexShader, ambientFragmentShader, {
-         ambientReflectance: changed.value,
-         ambientColor: settings.ambient_color,
+         ambientReflectance: { value: changed.value },
+         ambientColor: { value: settings.ambient_color },
       })
    } else if (changed.key == "ambient_color") {
       console.log("ambient_color", changed.value)
       setShader(ambientVertexShader, ambientFragmentShader, {
-         ambientReflectance: settings.ambient_reflectance,
-         ambientColor: changed.value,
+         ambientReflectance: { value: settings.ambient_reflectance },
+         ambientColor: { value: changed.value },
       })
    } else if (changed.key == "diffuse_reflectance") {
       console.log("diffuse_reflectance", changed.value)

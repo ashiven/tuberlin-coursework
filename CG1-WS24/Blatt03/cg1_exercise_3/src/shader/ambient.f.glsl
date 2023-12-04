@@ -6,6 +6,7 @@ uniform float ambientReflectance;
 out vec4 fragColor;
 
 void main() {
-    vec3 ambient = ambientReflectance * ambientColor;
+    vec3 ambient = ambientColor * ambientReflectance;
+
     fragColor = vec4(ambient, 1.0);
 }
