@@ -61,6 +61,18 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          case "Cook-Torrance":
             break
       }
+   } else if (changed.key == "ambient_reflectance") {
+      console.log("ambient_reflectance", changed.value)
+      setShader(ambientVertexShader, ambientFragmentShader, {
+         ambientReflectance: changed.value,
+         ambientColor: settings.ambient_color,
+      })
+   } else if (changed.key == "ambient_color") {
+      console.log("ambient_color", changed.value)
+      setShader(ambientVertexShader, ambientFragmentShader, {
+         ambientReflectance: settings.ambient_reflectance,
+         ambientColor: changed.value,
+      })
    }
 }
 

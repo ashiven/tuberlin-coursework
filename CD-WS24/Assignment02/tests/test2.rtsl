@@ -5,6 +5,12 @@
 
 class Test2 : rt_Camera;
 
+// declaration->
+// init_declarator_list ';' ->
+// single_declaration ';' ->
+// fully_specified_type IDENTIFIER ';' ->
+// type_qualifier type_specifier IDENTIFIER ';'
+
 public vec3 position;
 public vec3 direction;
 

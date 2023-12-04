@@ -51,7 +51,10 @@ static void yyerror(const char *s);
  * %type<str> function_header
  */
 
-%type <str> fully_specified_type type_specifier_nonarray type_specifier initializer single_declaration
+%type <str> initializer 
+%type <str> function_declarator function_header function_definition function_prototype function_header_with_parameters
+%type <str> declaration_statement declaration init_declarator_list single_declaration
+%type <str> fully_specified_type type_specifier type_specifier_nonarray type_qualifier
 
 /* Start production. */
 %start translation_unit
@@ -62,7 +65,7 @@ static void yyerror(const char *s);
 /* ================= EXPRESSION RULES ================= */
 
 variable_identifier
-    : IDENTIFIER
+    : IDENTIFIER 
     ;
 
 state_identifier
@@ -146,17 +149,17 @@ expression
 
 
 declaration
-    : init_declarator_list ';'
-    | type_qualifier ';'
+    : init_declarator_list ';' { $$ = $1;}
+    | type_qualifier ';' { $$ = $1;}
     ;
 
 function_prototype
-    : function_declarator ')'
+    : function_declarator ')' { $$ = $1;}
     ;
 
 function_declarator
-    : function_header
-    | function_header_with_parameters
+    : function_header { $$ = $1;}
+    | function_header_with_parameters { $$ = $1;}
     ;
 
 function_header_with_parameters
@@ -165,7 +168,7 @@ function_header_with_parameters
     ;
 
 function_header
-    : fully_specified_type IDENTIFIER '('
+    : fully_specified_type IDENTIFIER '(' { $$ = $2;}
     ;
 
 parameter_declarator
@@ -177,11 +180,19 @@ parameter_declaration
     ;
     
 init_declarator_list
-    : single_declaration
+    : single_declaration { $$ = $1; }
     ;
 
 single_declaration
-    : fully_specified_type IDENTIFIER
+    : fully_specified_type IDENTIFIER   { printf("DECLARATION [%s] , Type: %s\n", $2, $1);}
+                                        /* alternative (propagate a string upwards) :
+                                        { 
+                                        char* s = malloc(strlen($2) + strlen($1) + 11); 
+                                        sprintf(s, "[%s] , Type: %s", $2, $1); 
+                                        $$ = s;
+                                        }
+                                        */
+                                        
     | fully_specified_type IDENTIFIER ':' initializer { printf("%s [%s] %s\n",$1, $2, $4); }
     ;
 
@@ -190,19 +201,29 @@ single_declaration
 
 
 fully_specified_type
-    : type_specifier
+    : type_specifier { $$ = $1;}
+    | type_qualifier type_specifier { $$ = $2;}
+    ;
+
+visibility_qualifier
+    : PUBLIC
+    | PRIVATE
     ;
 
 type_qualifier
-    : /* empty (yet) */
+    : single_type_qualifier
+    ;
+
+single_type_qualifier
+    : visibility_qualifier
     ;
 
 type_specifier
-    : type_specifier_nonarray
+    : type_specifier_nonarray { $$ = $1; }
     ;
 
 type_specifier_nonarray
-    : TYPE
+    : TYPE { $$ = $1; }
     | CLASS { $$ = "CLASS"; }
     ;
 
@@ -219,7 +240,7 @@ initializer
 
 
 declaration_statement
-    : declaration
+    : declaration { $$ = $1;}
     ;
 
 statement
@@ -227,7 +248,7 @@ statement
     ;
 
 simple_statement
-    : declaration_statement { printf("DECLARATION_STATEMENT\n");}
+    : declaration_statement { /* printed at single_declaration */}
     | expression_statement { printf("EXPRESSION_STATEMENT\n");}
     | selection_statement { printf("IF_ELSE_STATEMENT\n");}
     | jump_statement { printf("RETURN_STATEMENT\n");}
@@ -275,7 +296,7 @@ external_declaration
     ;
 
 function_definition
-    : function_prototype compound_statement_no_new_scope
+    : function_prototype compound_statement_no_new_scope {printf("FUNCTION_DEFINITION [%s]\n", $1);}
     ;
 
 %%
