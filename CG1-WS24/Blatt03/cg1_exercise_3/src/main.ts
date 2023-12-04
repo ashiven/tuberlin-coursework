@@ -77,11 +77,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
    } else if (changed.key == "light_color") {
       console.log("light_color", changed.value)
       var color = new THREE.Color()
-      color.fromArray([
-         changed.value[0] / 255,
-         changed.value[1] / 255,
-         changed.value[2] / 255,
-      ])
+      color.fromArray(normal(changed.value))
       var material = new THREE.MeshBasicMaterial({ color: color })
       light.material = material
    } else if (changed.key == "light_intensity") {
