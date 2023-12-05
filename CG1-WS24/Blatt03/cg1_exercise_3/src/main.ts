@@ -12,6 +12,8 @@ import ambientFragmentShader from "./shader/ambient.f.glsl?raw"
 import ambientVertexShader from "./shader/ambient.v.glsl?raw"
 import basicFragmentShader from "./shader/basic.f.glsl?raw"
 import basicVertexShader from "./shader/basic.v.glsl?raw"
+import diffuseFragmentShader from "./shader/diffuse.f.glsl?raw"
+import diffuseVertexShader from "./shader/diffuse.v.glsl?raw"
 import normalFragmentShader from "./shader/normal.f.glsl?raw"
 import normalVertexShader from "./shader/normal.v.glsl?raw"
 
@@ -37,6 +39,13 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          case "Toon":
             break
          case "Lambert":
+            setShader(scene, diffuseVertexShader, diffuseFragmentShader, {
+               diffuseReflectance: { value: settings.diffuse_reflectance },
+               diffuseColor: { value: normal(settings.diffuse_color) },
+               lightPosition: { value: light.position },
+               lightColor: { value: normal(settings.light_color) },
+               lightIntensity: { value: settings.light_intensity },
+            })
             break
          case "Gouraud":
             break
