@@ -16,6 +16,8 @@ import diffuseFragmentShader from "./shader/diffuse.f.glsl?raw"
 import diffuseVertexShader from "./shader/diffuse.v.glsl?raw"
 import normalFragmentShader from "./shader/normal.f.glsl?raw"
 import normalVertexShader from "./shader/normal.v.glsl?raw"
+import toonFragmentShader from "./shader/toon.f.glsl?raw"
+import toonVertexShader from "./shader/toon.v.glsl?raw"
 
 var scene: THREE.Scene
 var settings: helper.Settings
@@ -37,6 +39,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             setShader(scene, normalVertexShader, normalFragmentShader)
             break
          case "Toon":
+            setShader(scene, toonVertexShader, toonFragmentShader)
             break
          case "Lambert":
             setShader(scene, diffuseVertexShader, diffuseFragmentShader, {
@@ -132,9 +135,12 @@ function main() {
    var { material } = helper.setupGeometry(scene)
 
    var lightgeo = new THREE.SphereGeometry(0.1, 32, 32)
-   var lightMaterial = new THREE.MeshBasicMaterial({ color: 0xff8010 })
+   var lightColor = new THREE.Color().fromArray(normal(settings.light_color))
+   lightColor.multiplyScalar(settings.light_intensity)
+   var lightMaterial = new THREE.MeshBasicMaterial({ color: lightColor })
    light = new THREE.Mesh(lightgeo, lightMaterial)
    light.name = "light"
+   light.position.set(settings.lightX, settings.lightY, settings.lightZ)
    scene.add(light)
 
    var camera = new THREE.PerspectiveCamera()
