@@ -51,7 +51,7 @@ static void yyerror(const char *s);
  * %type<str> function_header
  */
 
-%type <str> initializer 
+%type <str> class_name
 %type <str> function_declarator function_header function_definition function_prototype function_header_with_parameters
 %type <str> declaration_statement declaration init_declarator_list single_declaration
 %type <str> fully_specified_type type_specifier type_specifier_nonarray type_qualifier
@@ -77,12 +77,14 @@ primary_expression
     | state_identifier
     | INT
     | FLOAT
+    | BOOL
     | '(' expression ')'
     ;
 
 postfix_expression
     : primary_expression
     | function_call
+    | postfix_expression INC_OP
     ;
 
 function_call
@@ -113,11 +115,37 @@ function_identifier
 
 unary_expression
     : postfix_expression
+    | INC_OP unary_expression 
+    | DEC_OP unary_expression 
+    | unary_operator unary_expression 
+    ;
+
+unary_operator
+    : '+' 
+    | '-' 
+    | '!' 
+    | '~'
+    ;
+
+multiplicative_expression
+    : unary_expression
+    | multiplicative_expression '*' unary_expression
+    | multiplicative_expression '/' unary_expression
+    | multiplicative_expression '%' unary_expression
+    ;
+
+additive_expression
+    : multiplicative_expression 
+    | additive_expression '+' multiplicative_expression 
+    | additive_expression '-' multiplicative_expression 
     ;
 
 relational_expression
-    : unary_expression
-    | relational_expression '<' primary_expression
+    : additive_expression
+    | relational_expression '<' additive_expression
+    | relational_expression '>' additive_expression
+    | relational_expression LE_OP additive_expression
+    | relational_expression GE_OP additive_expression
     ;
 
 assignment_expression
@@ -149,17 +177,17 @@ expression
 
 
 declaration
-    : init_declarator_list ';' { $$ = $1;}
-    | type_qualifier ';' { $$ = $1;}
+    : init_declarator_list ';' { $$ = $1; }
+    | type_qualifier ';' { $$ = $1; }
     ;
 
 function_prototype
-    : function_declarator ')' { $$ = $1;}
+    : function_declarator ')' { $$ = $1; }
     ;
 
 function_declarator
-    : function_header { $$ = $1;}
-    | function_header_with_parameters { $$ = $1;}
+    : function_header { $$ = $1; }
+    | function_header_with_parameters { $$ = $1; }
     ;
 
 function_header_with_parameters
@@ -168,7 +196,7 @@ function_header_with_parameters
     ;
 
 function_header
-    : fully_specified_type IDENTIFIER '(' { $$ = $2;}
+    : fully_specified_type IDENTIFIER '(' { $$ = $2; }
     ;
 
 parameter_declarator
@@ -184,7 +212,7 @@ init_declarator_list
     ;
 
 single_declaration
-    : fully_specified_type IDENTIFIER   { printf("DECLARATION [%s] , Type: %s\n", $2, $1);}
+    : fully_specified_type IDENTIFIER   { printf("DECLARATION [%s] , Type: %s\n", $2, $1); }
                                         /* alternative (propagate a string upwards) :
                                         { 
                                         char* s = malloc(strlen($2) + strlen($1) + 11); 
@@ -193,7 +221,8 @@ single_declaration
                                         }
                                         */
                                         
-    | fully_specified_type IDENTIFIER ':' initializer { printf("%s [%s] %s\n",$1, $2, $4); }
+    | fully_specified_type IDENTIFIER '=' initializer { printf("DECLARATION [%s] , Type: %s , Initialized\n", $2, $1); }
+    | fully_specified_type IDENTIFIER ':' class_name { printf("%s [%s] %s\n",$1, $2, $4); }
     ;
 
 
@@ -201,8 +230,8 @@ single_declaration
 
 
 fully_specified_type
-    : type_specifier { $$ = $1;}
-    | type_qualifier type_specifier { $$ = $2;}
+    : type_specifier { $$ = $1; }
+    | type_qualifier type_specifier { $$ = $2; }
     ;
 
 visibility_qualifier
@@ -228,13 +257,16 @@ type_specifier_nonarray
     ;
 
 initializer
+    : assignment_expression 
+    ;
+
+class_name
     : RT_MATERIAL { $$ = strdup(", Type: material"); }
     | RT_TEXTURE { $$ = strdup(", Type: texture"); }
     | RT_CAMERA { $$ = strdup(", Type: camera"); }
     | RT_LIGHT { $$ = strdup(", Type: light"); }
     | RT_PRIMITIVE { $$ = strdup(", Type: primitive"); }
     ;
-
 
 /* ================= STATEMENT RULES ================= */
 
@@ -244,14 +276,26 @@ declaration_statement
     ;
 
 statement
-    : simple_statement
+    : compound_statement { printf("COMPOUND_STATEMENT\n"); }
+    | simple_statement
     ;
 
 simple_statement
-    : declaration_statement { /* printed at single_declaration */}
-    | expression_statement { printf("EXPRESSION_STATEMENT\n");}
-    | selection_statement { printf("IF_ELSE_STATEMENT\n");}
-    | jump_statement { printf("RETURN_STATEMENT\n");}
+    : declaration_statement { /* printed at single_declaration */ }
+    | expression_statement { printf("EXPRESSION_STATEMENT\n"); }
+    | selection_statement { /* printed at selection_statement */ }
+    | iteration_statement { /* printed at iteration_statement */ }
+    | jump_statement { printf("RETURN_STATEMENT\n"); }
+    ;
+
+compound_statement
+    : '{' '}'
+    | '{' statement_list '}'
+    ;
+
+statement_no_new_scope
+    : compound_statement_no_new_scope { printf("COMPOUND_STATEMENT\n"); }
+    | simple_statement
     ;
 
 compound_statement_no_new_scope
@@ -274,7 +318,33 @@ selection_statement
     ;
 
 selection_rest_statement
-    : statement ELSE statement
+    : statement { printf("IF_STATEMENT\n");}
+    | statement ELSE statement { printf("IF_ELSE_STATEMENT\n"); }
+    ;
+
+condition
+    : expression
+    | fully_specified_type IDENTIFIER '=' initializer
+    ;
+
+iteration_statement
+    : WHILE '(' condition ')' statement_no_new_scope { printf("WHILE_STATEMENT\n"); }
+    | FOR '(' for_init_statement for_rest_statement ')' statement_no_new_scope { printf("FOR_STATEMENT\n"); }
+    ;
+
+for_init_statement
+    : expression_statement
+    | declaration_statement
+    ;
+
+conditionopt
+    : condition
+    | /* empty */
+    ;
+
+for_rest_statement
+    : conditionopt ';'
+    | conditionopt ';' expression
     ;
 
 jump_statement
@@ -296,7 +366,7 @@ external_declaration
     ;
 
 function_definition
-    : function_prototype compound_statement_no_new_scope {printf("FUNCTION_DEFINITION [%s]\n", $1);}
+    : function_prototype compound_statement_no_new_scope { printf("FUNCTION_DEFINITION [%s]\n", $1); }
     ;
 
 %%

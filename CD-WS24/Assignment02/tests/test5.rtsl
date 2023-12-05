@@ -12,6 +12,17 @@ public color absorption;
 
 void constructor(float inside, float outside, color absorb) {
   eta = inside/outside;
+  
+  // assignment_expression ->
+  // IDENTIFIER '=' postfix_expression ->
+  // IDENTIFIER '=' function_call
+  // IDENTIFIER '=' function_call_header_with_parameters ')'
+  // IDENTIFIER '=' function_call_header assignment_expression ',' assignment_expression ')'
+  // IDENTIFIER '=' function_identifier '(' assignment_expression ',' assignment_expression ')'
+  // IDENTIFIER '=' IDENTIFIER '(' multiplicative_expression ',' INT ')'
+  // IDENTIFIER '=' IDENTIFIER '(' primary_expression '/' primary_expression ',' INT ')'
+  // IDENTIFIER '=' IDENTIFIER '(' '(' expression ')' '/' '(' expression ')' ',' INT ')'
+
   f0 = pow((outside-inside)/(outside+inside), 2);
   absorption = absorb;
 }

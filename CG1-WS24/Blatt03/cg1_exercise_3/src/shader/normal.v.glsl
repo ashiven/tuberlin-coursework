@@ -15,7 +15,7 @@ out vec3 fragNormal;
 void main() {
     // normalMatrix = transpose(inverse(mat3(modelViewMatrix))); 
     //              = transpose(inverse(mat3(viewMatrix * modelMatrix)));
-    fragNormal = normalMatrix * normal;
+    fragNormal = transpose(inverse(mat3(projectionMatrix * modelViewMatrix))) * normal;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }

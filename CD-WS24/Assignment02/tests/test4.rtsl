@@ -12,7 +12,22 @@ void constructor(int alpha) {
 }
 
 
-void shade() {
+void shade() 
+
+  // compound_statement_no_new_scope ->
+  // '{' statement_list '}'
+{
+
+  // statement ->
+  // simple_statement ->
+  // declaration_statement ->
+  // declaration ->
+  // init_declarator_list ';' ->
+  // single_declaration ';' ->
+  // fully_specified_type IDENTIFIER '=' initializer ';'
+  // fully_specified_type IDENTIFIER '=' assignment_expression ';'
+  // fully_specified_type IDENTIFIER '=' primary_expression ';'
+  // FLOAT IDENTIFIER '=' INT ';'
   float f = 0;
 
 
@@ -21,6 +36,13 @@ void shade() {
   else 
     f = 2; 
 
+  // selection_statement ->
+  // IF '(' expression ')' selection_rest_statement ->
+  // IF '(' expression ')' statement ELSE statement ->
+  // IF '(' expression ')' compound_statement ELSE compound_statement ->
+  // IF '(' expression ')' '{' statement_list '}' ELSE '{' statement_list '}' ->
+  // IF '(' expression ')' '{' expression_statement '}' ELSE '{' expression_statement '}' ->
+  // IF '(' expression ')' '{' assignment_expression '}' ELSE '{' assignment_expression '}' ->
   if (a < 0) {
     a = 3; 
   }

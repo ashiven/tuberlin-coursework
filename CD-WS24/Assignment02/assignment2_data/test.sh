@@ -18,7 +18,7 @@ i=0
 while [ "$i" -le "$end" ]; do
     echo -e "\nTest case $i"
     ./parser.exe "../tests/test$i.rtsl" >"../tests/test$i.my_out" 2>"../tests/test$i.my_err"
-    diff --color "../tests/test$i.out" "../tests/test$i.my_out"
-    diff --color "../tests/test$i.err" "../tests/test$i.my_err"
+    diff --color -b -c -s "../tests/test$i.my_out" "../tests/test$i.out"
+    diff --color -b -c -s "../tests/test$i.my_err" "../tests/test$i.err"
     ((i++))
 done
