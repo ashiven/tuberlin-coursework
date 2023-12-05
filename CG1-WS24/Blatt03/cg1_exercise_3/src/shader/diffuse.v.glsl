@@ -1,22 +1,18 @@
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
 uniform mat3 normalMatrix;
+uniform vec3 lightPosition;
 
 in vec3 position;
 in vec3 normal;
 
-out vec3 vNormal;
-out vec3 vViewPosition;
+out vec3 vertexNormal;
+out vec3 lightVector;
 
 void main() {
-    // normal in camera space
-    vNormal = normalize(normalMatrix * normal);
+    vertexNormal = normalize(normalMatrix * normal);
 
-    // position in camera space
-    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+    lightVector = ( modelViewMatrix * vec4(lightPosition, 1.0) ).xyz - ( modelViewMatrix * vec4(position, 1.0) ).xyz;
 
-    // negative position in camera space
-    vViewPosition = -mvPosition.xyz;
-
-    gl_Position = projectionMatrix * mvPosition;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }

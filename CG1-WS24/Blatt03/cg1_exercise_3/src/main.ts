@@ -70,8 +70,22 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       })
    } else if (changed.key == "diffuse_reflectance") {
       console.log("diffuse_reflectance", changed.value)
+      setShader(scene, diffuseVertexShader, diffuseFragmentShader, {
+         diffuseReflectance: { value: changed.value },
+         diffuseColor: { value: normal(settings.diffuse_color) },
+         lightPosition: { value: light.position },
+         lightColor: { value: normal(settings.light_color) },
+         lightIntensity: { value: settings.light_intensity },
+      })
    } else if (changed.key == "diffuse_color") {
       console.log("diffuse_color", changed.value)
+      setShader(scene, diffuseVertexShader, diffuseFragmentShader, {
+         diffuseReflectance: { value: settings.diffuse_reflectance },
+         diffuseColor: { value: normal(changed.value) },
+         lightPosition: { value: light.position },
+         lightColor: { value: normal(settings.light_color) },
+         lightIntensity: { value: settings.light_intensity },
+      })
    } else if (changed.key == "specular_reflectance") {
       console.log("specular_reflectance", changed.value)
    } else if (changed.key == "specular_color") {
