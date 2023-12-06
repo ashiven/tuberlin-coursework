@@ -16,6 +16,8 @@ import diffuseFragmentShader from "./shader/diffuse.f.glsl?raw"
 import diffuseVertexShader from "./shader/diffuse.v.glsl?raw"
 import normalFragmentShader from "./shader/normal.f.glsl?raw"
 import normalVertexShader from "./shader/normal.v.glsl?raw"
+import phongFragmentShader from "./shader/phong.f.glsl?raw"
+import phongVertexShader from "./shader/phong.v.glsl?raw"
 import toonFragmentShader from "./shader/toon.f.glsl?raw"
 import toonVertexShader from "./shader/toon.v.glsl?raw"
 
@@ -53,6 +55,17 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          case "Gouraud":
             break
          case "Phong":
+            setShader(scene, phongVertexShader, phongFragmentShader, {
+               diffuseReflectance: { value: settings.diffuse_reflectance },
+               diffuseColor: { value: normal(settings.diffuse_color) },
+               specularReflectance: { value: settings.specular_reflectance },
+               specularColor: { value: normal(settings.specular_color) },
+               lightPosition: { value: light.position },
+               lightColor: { value: normal(settings.light_color) },
+               lightIntensity: { value: settings.light_intensity },
+               magnitude: { value: settings.magnitude },
+               roughness: { value: settings.roughness },
+            })
             break
          case "Blinn-Phong":
             break
