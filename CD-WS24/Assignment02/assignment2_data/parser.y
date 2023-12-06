@@ -84,6 +84,7 @@ primary_expression
 postfix_expression
     : primary_expression
     | function_call
+    | postfix_expression '.' IDENTIFIER
     | postfix_expression INC_OP
     ;
 
