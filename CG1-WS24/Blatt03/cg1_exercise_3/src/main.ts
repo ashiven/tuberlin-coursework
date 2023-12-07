@@ -22,6 +22,7 @@ import toonFragmentShader from "./shader/toon.f.glsl?raw"
 import toonVertexShader from "./shader/toon.v.glsl?raw"
 
 var scene: THREE.Scene
+var camera: THREE.PerspectiveCamera
 var settings: helper.Settings
 var light: THREE.Mesh
 
@@ -56,6 +57,9 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             break
          case "Phong":
             setShader(scene, phongVertexShader, phongFragmentShader, {
+               cameraPosition: { value: camera.position },
+               ambientReflectance: { value: settings.ambient_reflectance },
+               ambientColor: { value: normal(settings.ambient_color) },
                diffuseReflectance: { value: settings.diffuse_reflectance },
                diffuseColor: { value: normal(settings.diffuse_color) },
                specularReflectance: { value: settings.specular_reflectance },
@@ -156,7 +160,7 @@ function main() {
    light.position.set(settings.lightX, settings.lightY, settings.lightZ)
    scene.add(light)
 
-   var camera = new THREE.PerspectiveCamera()
+   camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera, scene)
 
    var controls = new OrbitControls(camera, rendererDiv)

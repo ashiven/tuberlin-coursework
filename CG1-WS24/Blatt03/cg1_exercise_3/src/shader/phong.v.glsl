@@ -1,21 +1,20 @@
 precision highp float;
 
-uniform mat4 modelMatrix;
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
+uniform mat4 modelMatrix, viewMatrix, projectionMatrix;
 uniform mat3 normalMatrix;
+uniform vec3 cameraPosition;
 
 in vec3 position;
 in vec3 normal;
 
-out vec3 wfn;
-out vec3 vertPos;
+out vec3 fragNormal;
+out vec3 vertexPosition;
+out vec3 viewVector;
 
 void main(){
-  wfn = vec3(inverse(transpose(modelMatrix)) * vec4(normal, 0.0));
-
-  vec4 vertPos4 = modelMatrix * vec4(position, 1.0);
-  vertPos = vec3(vertPos4) / vertPos4.w;
-
   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
+
+  fragNormal = normalize(transpose(inverse(mat3(modelMatrix))) * normal);
+  vertexPosition = mat3(modelMatrix) * position.xyz;
+  viewVector = cameraPosition - vertexPosition;
 }
