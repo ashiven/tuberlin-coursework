@@ -27,5 +27,5 @@ void main() {
   float diffuseTerm = diffuseReflectance * max(dot(lightDirection, normalDirection), 0.0);
   float specularTerm = specularReflectance * pow(max(dot(reflectionDirection, viewDirection), 0.0), 1.0 / roughness);
 
-  fragColor = vec4(ambientColor + diffuseTerm * diffuseColor + specularTerm * specularColor, 1.0);
+  fragColor = vec4(ambientReflectance * ambientColor + diffuseTerm * diffuseColor + specularTerm * specularColor, 1.0);
 }

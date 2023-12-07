@@ -14,6 +14,8 @@ import basicFragmentShader from "./shader/basic.f.glsl?raw"
 import basicVertexShader from "./shader/basic.v.glsl?raw"
 import diffuseFragmentShader from "./shader/diffuse.f.glsl?raw"
 import diffuseVertexShader from "./shader/diffuse.v.glsl?raw"
+import gouraudFragmentShader from "./shader/gouraud.f.glsl?raw"
+import gouraudVertexShader from "./shader/gouraud.v.glsl?raw"
 import normalFragmentShader from "./shader/normal.f.glsl?raw"
 import normalVertexShader from "./shader/normal.v.glsl?raw"
 import phongFragmentShader from "./shader/phong.f.glsl?raw"
@@ -54,6 +56,20 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             })
             break
          case "Gouraud":
+            setShader(scene, gouraudVertexShader, gouraudFragmentShader, {
+               cameraPosition: { value: camera.position },
+               ambientReflectance: { value: settings.ambient_reflectance },
+               ambientColor: { value: normal(settings.ambient_color) },
+               diffuseReflectance: { value: settings.diffuse_reflectance },
+               diffuseColor: { value: normal(settings.diffuse_color) },
+               lightPosition: { value: light.position },
+               lightColor: { value: normal(settings.light_color) },
+               lightIntensity: { value: settings.light_intensity },
+               specularColor: { value: normal(settings.specular_color) },
+               specularReflectance: { value: settings.specular_reflectance },
+               magnitude: { value: settings.magnitude },
+               roughness: { value: settings.roughness },
+            })
             break
          case "Phong":
             setShader(scene, phongVertexShader, phongFragmentShader, {
