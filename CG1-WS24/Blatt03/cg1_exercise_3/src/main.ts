@@ -28,6 +28,22 @@ var camera: THREE.PerspectiveCamera
 var settings: helper.Settings
 var light: THREE.Mesh
 
+// shader uniforms
+var uniforms = {
+   ambientReflectance: { value: 0.5 },
+   ambientColor: { value: normal([104, 13, 13]) },
+   diffuseReflectance: { value: 1 },
+   diffuseColor: { value: normal([204, 25, 25]) },
+   specularReflectance: { value: 1 },
+   specularColor: { value: normal([255, 255, 255]) },
+   lightPosition: { value: new THREE.Vector3(2, 2, 2) },
+   lightColor: { value: normal([255, 255, 255]) },
+   lightIntensity: { value: 1.0 },
+   cameraPosition: { value: new THREE.Vector3(0, 0, 8) },
+   magnitude: { value: 128 },
+   roughness: { value: 0.2 },
+}
+
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    if (changed.key == "shader") {
       switch (changed.value) {
@@ -35,10 +51,12 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             setShader(scene, basicVertexShader, basicFragmentShader)
             break
          case "Ambient":
-            setShader(scene, ambientVertexShader, ambientFragmentShader, {
-               ambientReflectance: { value: settings.ambient_reflectance },
-               ambientColor: { value: normal(settings.ambient_color) },
-            })
+            setShader(
+               scene,
+               ambientVertexShader,
+               ambientFragmentShader,
+               uniforms
+            )
             break
          case "Normal":
             setShader(scene, normalVertexShader, normalFragmentShader)
@@ -47,45 +65,23 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             setShader(scene, toonVertexShader, toonFragmentShader)
             break
          case "Lambert":
-            setShader(scene, diffuseVertexShader, diffuseFragmentShader, {
-               diffuseReflectance: { value: settings.diffuse_reflectance },
-               diffuseColor: { value: normal(settings.diffuse_color) },
-               lightPosition: { value: light.position },
-               lightColor: { value: normal(settings.light_color) },
-               lightIntensity: { value: settings.light_intensity },
-            })
+            setShader(
+               scene,
+               diffuseVertexShader,
+               diffuseFragmentShader,
+               uniforms
+            )
             break
          case "Gouraud":
-            setShader(scene, gouraudVertexShader, gouraudFragmentShader, {
-               cameraPosition: { value: camera.position },
-               ambientReflectance: { value: settings.ambient_reflectance },
-               ambientColor: { value: normal(settings.ambient_color) },
-               diffuseReflectance: { value: settings.diffuse_reflectance },
-               diffuseColor: { value: normal(settings.diffuse_color) },
-               lightPosition: { value: light.position },
-               lightColor: { value: normal(settings.light_color) },
-               lightIntensity: { value: settings.light_intensity },
-               specularColor: { value: normal(settings.specular_color) },
-               specularReflectance: { value: settings.specular_reflectance },
-               magnitude: { value: settings.magnitude },
-               roughness: { value: settings.roughness },
-            })
+            setShader(
+               scene,
+               gouraudVertexShader,
+               gouraudFragmentShader,
+               uniforms
+            )
             break
          case "Phong":
-            setShader(scene, phongVertexShader, phongFragmentShader, {
-               cameraPosition: { value: camera.position },
-               ambientReflectance: { value: settings.ambient_reflectance },
-               ambientColor: { value: normal(settings.ambient_color) },
-               diffuseReflectance: { value: settings.diffuse_reflectance },
-               diffuseColor: { value: normal(settings.diffuse_color) },
-               specularReflectance: { value: settings.specular_reflectance },
-               specularColor: { value: normal(settings.specular_color) },
-               lightPosition: { value: light.position },
-               lightColor: { value: normal(settings.light_color) },
-               lightIntensity: { value: settings.light_intensity },
-               magnitude: { value: settings.magnitude },
-               roughness: { value: settings.roughness },
-            })
+            setShader(scene, phongVertexShader, phongFragmentShader, uniforms)
             break
          case "Blinn-Phong":
             break
@@ -93,57 +89,37 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             break
       }
    } else if (changed.key == "ambient_reflectance") {
-      console.log("ambient_reflectance", changed.value)
-      setShader(scene, ambientVertexShader, ambientFragmentShader, {
-         ambientReflectance: { value: changed.value },
-         ambientColor: { value: normal(settings.ambient_color) },
-      })
+      uniforms.ambientReflectance = { value: changed.value }
    } else if (changed.key == "ambient_color") {
-      console.log("ambient_color", changed.value)
-      setShader(scene, ambientVertexShader, ambientFragmentShader, {
-         ambientReflectance: { value: settings.ambient_reflectance },
-         ambientColor: { value: normal(changed.value) },
-      })
+      uniforms.ambientColor = { value: normal(changed.value) }
    } else if (changed.key == "diffuse_reflectance") {
-      console.log("diffuse_reflectance", changed.value)
-      setShader(scene, diffuseVertexShader, diffuseFragmentShader, {
-         diffuseReflectance: { value: changed.value },
-         diffuseColor: { value: normal(settings.diffuse_color) },
-         lightPosition: { value: light.position },
-         lightColor: { value: normal(settings.light_color) },
-         lightIntensity: { value: settings.light_intensity },
-      })
+      uniforms.diffuseReflectance = { value: changed.value }
    } else if (changed.key == "diffuse_color") {
-      console.log("diffuse_color", changed.value)
-      setShader(scene, diffuseVertexShader, diffuseFragmentShader, {
-         diffuseReflectance: { value: settings.diffuse_reflectance },
-         diffuseColor: { value: normal(changed.value) },
-         lightPosition: { value: light.position },
-         lightColor: { value: normal(settings.light_color) },
-         lightIntensity: { value: settings.light_intensity },
-      })
+      uniforms.diffuseColor = { value: normal(changed.value) }
    } else if (changed.key == "specular_reflectance") {
-      console.log("specular_reflectance", changed.value)
+      uniforms.specularReflectance = { value: changed.value }
    } else if (changed.key == "specular_color") {
-      console.log("specular_color", changed.value)
+      uniforms.specularColor = { value: normal(changed.value) }
    } else if (changed.key == "magnitude") {
-      console.log("magnitude", changed.value)
+      uniforms.magnitude = { value: changed.value }
    } else if (changed.key == "roughness") {
-      console.log("roughness", changed.value)
+      uniforms.roughness = { value: changed.value }
    } else if (changed.key == "lightX") {
       light.position.x = changed.value
+      uniforms.lightPosition.value.x = changed.value
    } else if (changed.key == "lightY") {
       light.position.y = changed.value
+      uniforms.lightPosition.value.y = changed.value
    } else if (changed.key == "lightZ") {
       light.position.z = changed.value
+      uniforms.lightPosition.value.z = changed.value
    } else if (changed.key == "light_color") {
-      console.log("light_color", changed.value)
-      var color = new THREE.Color()
-      color.fromArray(normal(changed.value))
+      var color = new THREE.Color().fromArray(normal(changed.value))
       var material = new THREE.MeshBasicMaterial({ color: color })
       light.material = material
+      uniforms.lightColor = { value: changed.value }
    } else if (changed.key == "light_intensity") {
-      console.log("light_intensity", changed.value)
+      uniforms.lightIntensity = { value: changed.value }
    }
 }
 
