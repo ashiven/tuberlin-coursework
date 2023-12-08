@@ -9,9 +9,9 @@ out vec3 vertexNormal;
 out vec3 lightVector;
 
 void main() {
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
     vertexNormal = normalize(normalMatrix * normal);
 
     lightVector = ( modelViewMatrix * vec4(lightPosition, 1.0) ).xyz - ( modelViewMatrix * vec4(position, 1.0) ).xyz;
-
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }

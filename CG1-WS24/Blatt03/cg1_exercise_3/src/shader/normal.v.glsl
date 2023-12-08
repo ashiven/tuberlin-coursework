@@ -9,7 +9,7 @@ in vec3 normal;
 out vec3 fragNormal;
 
 void main() {
-    fragNormal = normalize(transpose(inverse(mat3(modelMatrix))) * normal);
-
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
+    fragNormal = normalize(transpose(inverse(mat3(modelMatrix))) * normal);
 }

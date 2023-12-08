@@ -21,6 +21,8 @@ in vec3 position;
 out vec4 color;
 
 void main() {
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
     vec3 vertexPosition = mat3(modelMatrix) * position.xyz;
 
     vec3 normalDirection = normalize(normalMatrix * normal);
@@ -29,8 +31,7 @@ void main() {
     vec3 reflectionDirection = normalize(-lightDirection + 2.0 * dot(normalDirection, lightDirection) * normalDirection);
 
     float diffuseTerm = diffuseReflectance * max(dot(normalDirection, lightDirection), 0.0);
-    float specularTerm = specularReflectance * pow(max(dot(reflectionDirection, viewDirection), 0.0), 1.0 / roughness);
+    float specularTerm = specularReflectance * pow(max(dot(reflectionDirection, viewDirection), 0.0), magnitude);
 
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     color = vec4(ambientReflectance * ambientColor + diffuseTerm * diffuseColor + specularTerm * specularColor, 1.0);
 }
