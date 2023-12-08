@@ -25,7 +25,7 @@ void main() {
   vec3 viewDirection = normalize(viewVector);
   vec3 reflectionDirection = normalize(2.0 * dot(normalDirection, lightDirection) * normalDirection - lightDirection);
 
-  float diffuseTerm = diffuseReflectance * max(dot(lightDirection, normalDirection), 0.0);
+  float diffuseTerm = diffuseReflectance * lightIntensity * max(dot(lightDirection, normalDirection), 0.0);
   float specularTerm = specularReflectance * lightIntensity * pow(max(dot(viewDirection, reflectionDirection), 0.0), magnitude);
 
   fragColor = vec4(ambientReflectance * ambientColor + diffuseTerm * diffuseColor + specularTerm * specularColor, 1.0);
