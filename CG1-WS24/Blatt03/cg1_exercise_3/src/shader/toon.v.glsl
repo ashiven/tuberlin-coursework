@@ -14,11 +14,9 @@ out vec3 lightVector;
 out vec3 viewVector;
 
 void main() {
-    vertexNormal = normalize(normalMatrix * normal);
-
-    lightVector = (modelViewMatrix * vec4(lightPosition, 1.0)).xyz - (modelViewMatrix * vec4(position, 1.0)).xyz;
-
-    viewVector = normalize(viewPosition - (modelViewMatrix * vec4(position, 1.0)).xyz);
-
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+
+    vertexNormal = normalize(normalMatrix * normal);
+    lightVector = (modelViewMatrix * vec4(lightPosition, 1.0)).xyz - (modelViewMatrix * vec4(position, 1.0)).xyz;
+    viewVector = normalize(viewPosition - (modelViewMatrix * vec4(position, 1.0)).xyz);
 }

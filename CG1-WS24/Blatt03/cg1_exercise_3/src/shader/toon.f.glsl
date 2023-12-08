@@ -1,8 +1,5 @@
 precision highp float;
 
-uniform vec3 toonColor;
-uniform float toonShades; 
-
 in vec3 vertexNormal;
 in vec3 viewVector;
 
@@ -12,13 +9,11 @@ void main() {
     vec3 normal = normalize(vertexNormal);
     vec3 viewDir = normalize(viewVector);
 
-    float dotProduct = dot(normal, viewDir);
+    vec3 toonColor = vec3(1.0, 0.0, 0.0);
+    float toonShades = 4.0; 
 
     float shadeStep = 1.0 / toonShades;
+    float shadeIndex = floor(dot(normal, viewDir) / shadeStep);
 
-    float shadeIndex = floor(dotProduct / shadeStep);
-
-    vec3 finalColor = toonColor * (shadeIndex * shadeStep);
-
-    fragColor = vec4(finalColor, 1.0);
+    fragColor = vec4(toonColor * (shadeIndex * shadeStep), 1.0);
 }
