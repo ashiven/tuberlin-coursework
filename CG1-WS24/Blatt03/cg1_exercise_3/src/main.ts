@@ -12,6 +12,8 @@ import ambientFragmentShader from "./shader/ambient.f.glsl?raw"
 import ambientVertexShader from "./shader/ambient.v.glsl?raw"
 import basicFragmentShader from "./shader/basic.f.glsl?raw"
 import basicVertexShader from "./shader/basic.v.glsl?raw"
+import cookTorranceFragmentShader from "./shader/cooktorrance.f.glsl?raw"
+import cookTorranceVertexShader from "./shader/cooktorrance.v.glsl?raw"
 import diffuseFragmentShader from "./shader/diffuse.f.glsl?raw"
 import diffuseVertexShader from "./shader/diffuse.v.glsl?raw"
 import gouraudFragmentShader from "./shader/gouraud.f.glsl?raw"
@@ -67,7 +69,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             setShader(scene, normalVertexShader, normalFragmentShader)
             break
          case "Toon":
-            setShader(scene, toonVertexShader, toonFragmentShader)
+            setShader(scene, toonVertexShader, toonFragmentShader, uniforms)
             break
          case "Lambert":
             setShader(
@@ -91,6 +93,12 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          case "Blinn-Phong":
             break
          case "Cook-Torrance":
+            setShader(
+               scene,
+               cookTorranceVertexShader,
+               cookTorranceFragmentShader,
+               uniforms
+            )
             break
       }
    } else if (changed.key == "ambient_reflectance") {
