@@ -24,24 +24,29 @@ import toonFragmentShader from "./shader/toon.f.glsl?raw"
 import toonVertexShader from "./shader/toon.v.glsl?raw"
 
 var scene: THREE.Scene
-var camera: THREE.PerspectiveCamera
-var settings: helper.Settings
+var camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera()
+var settings: helper.Settings = new helper.Settings()
 var light: THREE.Mesh
 
-// shader uniforms
 var uniforms = {
-   ambientReflectance: { value: 0.5 },
-   ambientColor: { value: normal([104, 13, 13]) },
-   diffuseReflectance: { value: 1 },
-   diffuseColor: { value: normal([204, 25, 25]) },
-   specularReflectance: { value: 1 },
-   specularColor: { value: normal([255, 255, 255]) },
-   lightPosition: { value: new THREE.Vector3(2, 2, 2) },
-   lightColor: { value: normal([255, 255, 255]) },
-   lightIntensity: { value: 1.0 },
-   cameraPosition: { value: new THREE.Vector3(0, 0, 8) },
-   magnitude: { value: 128 },
-   roughness: { value: 0.2 },
+   ambientReflectance: { value: settings.ambient_reflectance },
+   ambientColor: { value: normal(settings.ambient_color) },
+   diffuseReflectance: { value: settings.diffuse_reflectance },
+   diffuseColor: { value: normal(settings.diffuse_color) },
+   specularReflectance: { value: settings.specular_reflectance },
+   specularColor: { value: normal(settings.specular_color) },
+   lightPosition: {
+      value: new THREE.Vector3(
+         settings.lightX,
+         settings.lightY,
+         settings.lightZ
+      ),
+   },
+   lightColor: { value: normal(settings.light_color) },
+   lightIntensity: { value: settings.light_intensity },
+   cameraPosition: { value: camera.position },
+   magnitude: { value: settings.magnitude },
+   roughness: { value: settings.roughness },
 }
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
@@ -129,7 +134,6 @@ function main() {
    root.setLayoutColumns(["100%"])
    root.setLayoutRows(["100%"])
 
-   settings = new helper.Settings()
    helper.createGUI(settings)
    settings.addCallback(callback)
 
@@ -152,7 +156,6 @@ function main() {
    light.position.set(settings.lightX, settings.lightY, settings.lightZ)
    scene.add(light)
 
-   camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera, scene)
 
    var controls = new OrbitControls(camera, rendererDiv)
