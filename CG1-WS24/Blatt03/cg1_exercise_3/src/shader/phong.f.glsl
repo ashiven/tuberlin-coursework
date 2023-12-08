@@ -23,7 +23,6 @@ void main() {
   vec3 normalDirection = normalize(vertexNormal);
   vec3 lightDirection = normalize(lightPosition - vertexPosition);
   vec3 viewDirection = normalize(viewVector);
-
   vec3 reflectionDirection = normalize(2.0 * dot(normalDirection, lightDirection) * normalDirection - lightDirection);
 
   float diffuseTerm = diffuseReflectance * max(dot(lightDirection, normalDirection), 0.0);
