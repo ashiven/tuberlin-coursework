@@ -7,13 +7,13 @@ out vec4 fragColor;
 
 void main() {
     vec3 normal = normalize(vertexNormal);
-    vec3 viewDir = normalize(viewVector);
+    vec3 viewDirection = normalize(viewVector);
 
     vec3 toonColor = vec3(1.0, 0.0, 0.0);
     float toonShades = 4.0; 
 
     float shadeStep = 1.0 / toonShades;
-    float shadeIndex = floor(dot(normal, viewDir) / shadeStep);
+    float shadeIndex = floor(dot(normal, viewDirection) / shadeStep);
 
     fragColor = vec4(toonColor * (shadeIndex * shadeStep), 1.0);
 }
