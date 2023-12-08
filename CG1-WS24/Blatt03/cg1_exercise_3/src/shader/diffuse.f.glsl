@@ -2,15 +2,19 @@ precision highp float;
 
 uniform vec3 diffuseColor;
 uniform float diffuseReflectance;
+uniform vec3 lightPosition;
 uniform float lightIntensity;
 
-in vec3 vertexNormal;
-in vec3 lightVector;
+in vec3 fragNormal;
+in vec3 vertexPosition; 
+in vec3 viewVector;
 
 out vec4 fragColor;
 
 void main() {
-    float diffuseTerm = max(dot(normalize(lightVector), normalize(vertexNormal)), 0.0);
+    vec3 normalDirection = normalize(fragNormal);
+    vec3 lightDirection = normalize(lightPosition - vertexPosition);
+    float diffuseTerm = diffuseReflectance * max(dot(lightDirection, normalDirection), 0.0);
 
-    fragColor = lightIntensity * diffuseTerm * vec4(diffuseColor * diffuseReflectance, 1.0);
+    fragColor = vec4(diffuseTerm * diffuseColor, 1.0);
 }
