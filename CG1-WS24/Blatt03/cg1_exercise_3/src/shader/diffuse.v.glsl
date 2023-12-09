@@ -10,12 +10,10 @@ in vec3 normal;
 
 out vec3 vertexNormal;
 out vec3 vertexPosition;
-out vec3 viewVector;
 
 void main() {
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 
     vertexNormal = normalize(normalMatrix * normal);
     vertexPosition = mat3(modelMatrix) * position.xyz;
-    viewVector = cameraPosition - vertexPosition;
 }
