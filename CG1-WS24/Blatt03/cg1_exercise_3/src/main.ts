@@ -12,6 +12,8 @@ import ambientFragmentShader from "./shader/ambient.f.glsl?raw"
 import ambientVertexShader from "./shader/ambient.v.glsl?raw"
 import basicFragmentShader from "./shader/basic.f.glsl?raw"
 import basicVertexShader from "./shader/basic.v.glsl?raw"
+import blinnPhongFragmentShader from "./shader/blinnphong.f.glsl?raw"
+import blinnPhongVertexShader from "./shader/blinnphong.v.glsl?raw"
 import cookTorranceFragmentShader from "./shader/cooktorrance.f.glsl?raw"
 import cookTorranceVertexShader from "./shader/cooktorrance.v.glsl?raw"
 import diffuseFragmentShader from "./shader/diffuse.f.glsl?raw"
@@ -91,6 +93,12 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             setShader(scene, phongVertexShader, phongFragmentShader, uniforms)
             break
          case "Blinn-Phong":
+            setShader(
+               scene,
+               blinnPhongVertexShader,
+               blinnPhongFragmentShader,
+               uniforms
+            )
             break
          case "Cook-Torrance":
             setShader(
