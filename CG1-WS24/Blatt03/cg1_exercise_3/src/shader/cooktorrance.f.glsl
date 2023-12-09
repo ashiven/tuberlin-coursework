@@ -2,11 +2,17 @@ precision highp float;
 
 #define PI 3.14159265
 
+uniform vec3 ambientColor;
+uniform float ambientReflectance;
 uniform vec3 diffuseColor;
+uniform float diffuseReflectance;
 uniform vec3 specularColor;
+uniform float specularReflectance;
+
 uniform float roughness;
 uniform vec3 lightPosition;
 uniform vec3 lightColor;
+uniform float lightIntensity;
 
 in vec3 vertexNormal;
 in vec3 vertexPosition; 
@@ -24,7 +30,7 @@ void main()
 
 	// D: GGX Distribution
 	float cos_theta_half = max(dot(normalDirection, halfwayDirection), 0.0);
-	float tan_theta_half = tan(acos(cos_theta_half)); // not sure if this works
+	float tan_theta_half = tan(acos(cos_theta_half)); 
 
 	float alpha_squared = roughness * roughness;
 	float factor_left = PI * pow(cos_theta_half, 4.0);
@@ -49,17 +55,17 @@ void main()
 
 
 	// F: Schlicks Approximation
-	float factor_left = (1.0 - roughness);
-	float factor_right = pow(1.0 - cos_theta_view, 5.0);
+	factor_left = (1.0 - roughness);
+	factor_right = pow(1.0 - cos_theta_view, 5.0);
 	
-	F = roughness + factor_left * factor_right;
+	float F = roughness + factor_left * factor_right;
 
 
 	float cos_theta_normal_light = max(dot(normalDirection, lightDirection), 0.0);
 	float cos_theta_normal_view = max(dot(normalDirection, viewDirection), 0.0);
-	float specularReflectance = (D * G * F) / (4 * cos_theta_normal_light * cos_theta_normal_view);
+	float specularReflectance = (D * G * F) / (4.0 * cos_theta_normal_light * cos_theta_normal_view);
 
 	float specularTerm = (diffuseReflectance / PI + specularReflectance) * cos_theta_normal_light * lightIntensity;
 	
-	fragColor = lightColor * specularTerm;
+	fragColor = ambientColor * specularTerm;
 }
