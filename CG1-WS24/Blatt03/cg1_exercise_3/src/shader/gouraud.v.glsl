@@ -24,7 +24,7 @@ out vec4 color;
 void main() {
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 
-    vec3 vertexPosition = mat3(modelMatrix) * position.xyz;
+    vec3 vertexPosition = (modelMatrix * vec4(position, 1.0)).xyz;
     vec3 vertexNormal = normalize(transpose(inverse(mat3(modelMatrix))) * normal);
 
     vec3 normalDirection = normalize(vertexNormal);
