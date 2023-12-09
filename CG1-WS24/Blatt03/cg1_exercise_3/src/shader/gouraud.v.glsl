@@ -25,8 +25,9 @@ void main() {
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 
     vec3 vertexPosition = mat3(modelMatrix) * position.xyz;
+    vec3 vertexNormal = normalize(transpose(inverse(mat3(modelMatrix))) * normal);
 
-    vec3 normalDirection = normalize(normalMatrix * normal);
+    vec3 normalDirection = normalize(vertexNormal);
     vec3 lightDirection = normalize(lightPosition - vertexPosition);
     vec3 viewDirection = normalize(cameraPosition - vertexPosition);
     vec3 reflectionDirection = normalize(-lightDirection + 2.0 * dot(normalDirection, lightDirection) * normalDirection);
