@@ -55,17 +55,20 @@ void main()
 
 
 	// F: Schlicks Approximation
-	factor_left = (1.0 - roughness);
+	float F0 = 0.8;
+
+	factor_left = (1.0 - F0);
 	factor_right = pow(1.0 - cos_theta_view, 5.0);
 	
-	float F = roughness + factor_left * factor_right;
+	float F = F0 + factor_left * factor_right;
 
 
+	// Final DGF Term
 	float cos_theta_normal_light = max(dot(normalDirection, lightDirection), 0.0);
 	float cos_theta_normal_view = max(dot(normalDirection, viewDirection), 0.0);
 	float specularReflectance = (D * G * F) / (4.0 * cos_theta_normal_light * cos_theta_normal_view);
 
 	float specularTerm = (diffuseReflectance / PI + specularReflectance) * cos_theta_normal_light * lightIntensity;
 	
-	fragColor = ambientColor * specularTerm;
+	fragColor = specularTerm * ambientColor;
 }
