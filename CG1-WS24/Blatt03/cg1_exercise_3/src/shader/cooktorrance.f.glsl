@@ -18,7 +18,7 @@ in vec3 vertexNormal;
 in vec3 vertexPosition; 
 in vec3 viewVector;
 
-out vec3 fragColor;
+out vec4 fragColor;
 
 void main()
 {
@@ -70,5 +70,5 @@ void main()
 
 	float specularTerm = (diffuseReflectance / PI + specularReflectance) * cos_theta_normal_light * lightIntensity;
 	
-	fragColor = specularTerm * ambientColor;
+	fragColor = vec4(specularTerm * specularColor * lightColor, 1.0);
 }
