@@ -7,9 +7,10 @@ uniform float diffuseReflectance;
 uniform vec3 specularColor;
 uniform float specularReflectance;
 
+uniform vec3 lightColor;
 uniform vec3 lightPosition;
 uniform float lightIntensity;
-uniform float roughness;
+
 uniform float magnitude;
 
 in vec3 vertexNormal;
@@ -27,5 +28,5 @@ void main() {
     float diffuseTerm = diffuseReflectance * lightIntensity * max(dot(lightDirection, normalDirection), 0.0);
     float specularTerm = specularReflectance * lightIntensity * pow(max(dot(halfwayDirection, normalDirection), 0.0), magnitude);
 
-    fragColor = vec4(ambientReflectance * ambientColor + diffuseTerm * diffuseColor + specularTerm * specularColor, 1.0);
+    fragColor = vec4(ambientReflectance * ambientColor + diffuseTerm * diffuseColor * lightColor + specularTerm * specularColor * lightColor, 1.0);
 }

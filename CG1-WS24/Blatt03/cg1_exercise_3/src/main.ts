@@ -138,7 +138,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       var color = new THREE.Color().fromArray(normal(changed.value))
       var material = new THREE.MeshBasicMaterial({ color: color })
       light.material = material
-      uniforms.lightColor = { value: changed.value }
+      uniforms.lightColor = { value: normal(changed.value) }
    } else if (changed.key == "light_intensity") {
       uniforms.lightIntensity = { value: changed.value }
    }

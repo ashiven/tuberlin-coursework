@@ -5,6 +5,7 @@ uniform float diffuseReflectance;
 uniform vec3 ambientColor;
 uniform float ambientReflectance;
 
+uniform vec3 lightColor;
 uniform vec3 lightPosition;
 uniform float lightIntensity;
 
@@ -19,5 +20,5 @@ void main() {
 
     float diffuseTerm = diffuseReflectance * lightIntensity * max(dot(normalDirection, lightDirection), 0.0);
 
-    fragColor = vec4(ambientReflectance * ambientColor + diffuseTerm * diffuseColor, 1.0);
+    fragColor = vec4(ambientReflectance * ambientColor + diffuseTerm * diffuseColor * lightColor, 1.0);
 }
