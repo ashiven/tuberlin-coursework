@@ -29,24 +29,24 @@ void main()
 
 
 	// D: GGX Distribution
-	float cosThetaHalf = max(dot(normalDirection, halfwayDirection), 0.0);
-	float tanThetaHalf = tan(acos(cosThetaHalf)); 
+	float cosNormalHalf = max(dot(normalDirection, halfwayDirection), 0.0);
+	float tanNormalHalf = tan(acos(cosNormalHalf)); 
 
 	float alphaSquared = roughness * roughness;
-	float factorLeft = PI * pow(cosThetaHalf, 4.0);
-	float factorRight = pow(alphaSquared + tanThetaHalf * tanThetaHalf, 2.0);
+	float factorLeft = PI * pow(cosNormalHalf, 4.0);
+	float factorRight = pow(alphaSquared + tanNormalHalf * tanNormalHalf, 2.0);
 
 	float D = alphaSquared / ( factorLeft * factorRight );
 
 
 	// G: Smiths Masking Function
-	float cosThetaView = max(dot(viewDirection, halfwayDirection), 0.0);
-	float cosThetaLight = max(dot(lightDirection, halfwayDirection), 0.0);
-	float tanThetaView = tan(acos(cosThetaView));
-	float tanThetaLight = tan(acos(cosThetaLight));
+	float cosViewHalf = max(dot(viewDirection, halfwayDirection), 0.0);
+	float cosLightHalf = max(dot(lightDirection, halfwayDirection), 0.0);
+	float tanViewHalf = tan(acos(cosViewHalf));
+	float tanLightHalf = tan(acos(cosLightHalf));
 
-	float G1 = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanThetaView * tanThetaView)); 
-	float G2 = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanThetaLight * tanThetaLight));
+	float G1 = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanViewHalf * tanViewHalf)); 
+	float G2 = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanLightHalf * tanLightHalf));
 
 	G1 = max(G1, 0.0);
 	G2 = max(G2, 0.0);
@@ -58,18 +58,18 @@ void main()
 	float F0 = 0.8;
 
 	factorLeft = (1.0 - F0);
-	factorRight = pow(1.0 - cosThetaView, 5.0);
+	factorRight = pow(1.0 - cosViewHalf, 5.0);
 	
 	float F = F0 + factorLeft * factorRight;
 
 
 	// Final DGF Term
-	float cosThetaNormalLight = max(dot(normalDirection, lightDirection), 0.0);
-	float cosThetaNormalView = max(dot(normalDirection, viewDirection), 0.0);
-	float specularReflectanceDGF = specularReflectance * (D * G * F) / (4.0 * cosThetaNormalLight * cosThetaNormalView);
+	float cosNormalLight = max(dot(normalDirection, lightDirection), 0.0);
+	float cosNormalView = max(dot(normalDirection, viewDirection), 0.0);
+	float specularReflectanceDGF = specularReflectance * (D * G * F) / (4.0 * cosNormalLight * cosNormalView);
 
-	float specularTerm = specularReflectanceDGF * cosThetaNormalLight * lightIntensity;
-	float diffuseTerm = ( diffuseReflectance / PI ) * cosThetaNormalLight * lightIntensity;
+	float specularTerm = specularReflectanceDGF * cosNormalLight * lightIntensity;
+	float diffuseTerm = ( diffuseReflectance / PI ) * cosNormalLight * lightIntensity;
 	
 	fragColor = vec4(diffuseTerm * diffuseColor * lightColor + specularTerm * specularColor * lightColor, 1.0);
 }
