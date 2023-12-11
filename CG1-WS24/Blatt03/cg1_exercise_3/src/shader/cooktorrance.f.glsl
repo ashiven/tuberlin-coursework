@@ -37,6 +37,7 @@ void main()
 	float factorRight = pow(alphaSquared + tanNormalHalf * tanNormalHalf, 2.0);
 
 	float D = alphaSquared / ( factorLeft * factorRight );
+	D = cosNormalHalf > 0.0 ? D : 0.0;
 
 
 	// G: Smiths Masking Function
@@ -45,29 +46,32 @@ void main()
 	float tanViewNormal = tan(acos(cosViewNormal));
 	float tanLightNormal = tan(acos(cosLightNormal));
 
-	float G1 = cosViewNormal > 0.0 ? 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanViewNormal * tanViewNormal)) : 0.0; 
-	float G2 = cosLightNormal > 0.0 ? 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanLightNormal * tanLightNormal)) : 0.0;
+	float G1 = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanViewNormal * tanViewNormal));
+	float G2 = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanLightNormal * tanLightNormal));
+	G1 = cosViewNormal > 0.0 ? G1 : 0.0; 
+	G2 = cosLightNormal > 0.0 ? G2 : 0.0;
 
 	float G = G1 * G2;
 
 
 	// F: Schlicks Approximation
 	float cosViewHalf = max(dot(viewDirection, halfwayDirection), 0.0);
-	float F0 = 0.8;
+	vec3 F0 = specularColor;
 
-	factorLeft = (1.0 - F0);
-	factorRight = pow(1.0 - cosViewHalf, 5.0);
+	vec3 facLeft = (1.0 - F0);
+	float facRight = pow(1.0 - cosViewHalf, 5.0);
 	
-	float F = F0 + factorLeft * factorRight;
+	vec3 F = F0 + factorLeft * factorRight;
 
 
 	// Final DGF Term
 	float cosNormalLight = max(dot(normalDirection, lightDirection), 0.0);
 	float cosNormalView = max(dot(normalDirection, viewDirection), 0.0);
-	float specularReflectanceDGF = specularReflectance * (D * G * F) / (4.0 * cosNormalLight * cosNormalView);
+	vec3 specularReflectanceDGF = specularReflectance * (D * G * F) / (4.0 * cosNormalLight * cosNormalView);
 
-	float specularTerm = specularReflectanceDGF * cosNormalLight * lightIntensity;
-	float diffuseTerm = ( diffuseReflectance / PI ) * cosNormalLight * lightIntensity;
+	//float specularTerm = specularReflectanceDGF * cosNormalLight * lightIntensity;
+	vec3 color  = ( (diffuseReflectance / PI) * diffuseColor + specularReflectanceDGF ) * cosNormalLight * lightIntensity * lightColor;
 	
-	fragColor = vec4(diffuseTerm * diffuseColor * lightColor + specularTerm * specularColor * lightColor, 1.0);
+	//fragColor = vec4(diffuseTerm * diffuseColor * lightColor + specularTerm * specularColor * lightColor, 1.0);
+	fragColor = vec4(color, 1.0);
 }
