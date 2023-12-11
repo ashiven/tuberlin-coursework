@@ -1,5 +1,7 @@
 precision highp float;
 
+#define PI 3.14159265
+
 uniform vec3 cameraPosition;
 
 in vec3 vertexNormal;
@@ -16,6 +18,10 @@ void main() {
 
     float shadeStep = 1.0 / toonShades;
     float shadeIndex = floor(dot(normalDirection, viewDirection) / shadeStep);
+
+    float angle = acos(dot(normalDirection, viewDirection));
+
+
 
     fragColor = vec4(toonColor * (shadeIndex * shadeStep), 1.0);
 }

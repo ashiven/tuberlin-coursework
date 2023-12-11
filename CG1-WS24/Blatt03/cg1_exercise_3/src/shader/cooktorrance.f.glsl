@@ -46,12 +46,12 @@ void main()
 	float tanViewNormal = tan(acos(cosViewNormal));
 	float tanLightNormal = tan(acos(cosLightNormal));
 
-	float G1 = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanViewNormal * tanViewNormal));
-	float G2 = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanLightNormal * tanLightNormal));
-	G1 = cosViewNormal > 0.0 ? G1 : 0.0; 
-	G2 = cosLightNormal > 0.0 ? G2 : 0.0;
+	float G1ViewNormal = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanViewNormal * tanViewNormal));
+	float G1LightNormal = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanLightNormal * tanLightNormal));
+	G1ViewNormal = cosViewNormal > 0.0 ? G1ViewNormal : 0.0; 
+	G1LightNormal = cosLightNormal > 0.0 ? G1LightNormal : 0.0;
 
-	float G = G1 * G2;
+	float G = G1ViewNormal * G1LightNormal;
 
 
 	// F: Schlicks Approximation
@@ -70,5 +70,5 @@ void main()
 	vec3 specularReflectanceDGF = specularReflectance * (D * G * F) / (4.0 * cosNormalLight * cosNormalView);
 	
 	
-	fragColor = vec4(( (diffuseReflectance / PI) * diffuseColor + specularReflectanceDGF ) * cosNormalLight * lightIntensity * lightColor, 1.0);
+	fragColor = vec4(((diffuseReflectance / PI) * diffuseColor + specularReflectanceDGF) * cosNormalLight * lightIntensity * lightColor, 1.0);
 }

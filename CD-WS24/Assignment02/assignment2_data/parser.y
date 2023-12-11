@@ -13,6 +13,21 @@ extern int line_number;
 extern FILE *yyin;
 extern int yylex();
 static void yyerror(const char *s);
+
+// define a global variable to store the current class name state 
+char* current_class = NULL;
+
+// declare arrays of methods and states for each interface
+static const char **interface_methods[];
+static const char **interface_states[];
+
+// declare functions used for semantic checks
+void set_class(char* class_name);
+int is_class_method(char* method_name, char** interface_methods[]);
+int allowed_method(char* method_name, char* allowed_methods[]);
+int allowed_state(char* state_name, char* allowed_states[]);
+int method_check(char* class_name, char* method_name);
+int state_check(char* class_name, char* state_name);
 }
 
 /* Enable verbose error messages. */
@@ -69,7 +84,13 @@ variable_identifier
     ;
 
 state_identifier
-    : STATE
+    : STATE { 
+                char* state = strdup($1);
+                memmove(state, state + 3, strlen(state));
+                if (state_check(current_class, state) != 0) {
+                    fprintf(stderr, "State variable %s not allowed in %s\n", state, current_class);
+                }
+            }
     ;
 
 primary_expression
@@ -83,9 +104,15 @@ primary_expression
 
 postfix_expression
     : primary_expression
+    | postfix_expression '[' integer_expression ']'
     | function_call
     | postfix_expression '.' IDENTIFIER
     | postfix_expression INC_OP
+    | postfix_expression DEC_OP
+    ;
+
+integer_expression
+    : expression
     ;
 
 function_call
@@ -98,6 +125,11 @@ function_call_or_method
 
 function_call_generic
     : function_call_header_with_parameters ')'
+    | function_call_header_no_parameters ')'
+    ;
+
+function_call_header_no_parameters
+    : function_call_header
     ;
 
 function_call_header_with_parameters
@@ -141,16 +173,58 @@ additive_expression
     | additive_expression '-' multiplicative_expression 
     ;
 
+shift_expression
+    : additive_expression 
+    | shift_expression LEFT_OP additive_expression
+    | shift_expression RIGHT_OP additive_expression
+    ;
+
 relational_expression
-    : additive_expression
-    | relational_expression '<' additive_expression
-    | relational_expression '>' additive_expression
-    | relational_expression LE_OP additive_expression
-    | relational_expression GE_OP additive_expression
+    : shift_expression
+    | relational_expression '<' shift_expression
+    | relational_expression '>' shift_expression
+    | relational_expression LE_OP shift_expression
+    | relational_expression GE_OP shift_expression
+    ;
+
+equality_expression
+    : relational_expression 
+    | equality_expression EQ_OP relational_expression 
+    | equality_expression NE_OP relational_expression 
+    ;
+
+and_expression
+    : equality_expression 
+    | and_expression '&' equality_expression
+    ;
+
+exclusive_or_expression
+    : and_expression 
+    | exclusive_or_expression XOR_OP and_expression
+    ;
+
+inclusive_or_expression
+    : exclusive_or_expression 
+    | inclusive_or_expression '|' exclusive_or_expression
+    ;
+
+logical_and_expression
+    : inclusive_or_expression 
+    | logical_and_expression AND_OP inclusive_or_expression 
+    ;
+
+logical_or_expression
+    : logical_and_expression 
+    | logical_or_expression OR_OP logical_and_expression 
+    ;
+
+conditional_expression
+    : logical_or_expression 
+    | logical_or_expression '?' expression ':' assignment_expression 
     ;
 
 assignment_expression
-    : relational_expression
+    : conditional_expression
     | unary_expression assignment_operator assignment_expression
     ;
 
@@ -170,11 +244,12 @@ assignment_operator
 
 expression
     : assignment_expression
-    | primary_expression
+    | expression ',' assignment_expression
     ;
 
 
 /* ================= DECLARATION RULES ================= */
+// TODO: add remaining rules from GLSL grammar that are relevant
 
 
 declaration
@@ -197,7 +272,12 @@ function_header_with_parameters
     ;
 
 function_header
-    : fully_specified_type IDENTIFIER '(' { $$ = $2; }
+    : fully_specified_type IDENTIFIER '('   { 
+                                                $$ = $2; 
+                                                if (is_class_method($2, interface_methods) == 0 && method_check(current_class, $2) != 0) {
+                                                    fprintf(stderr, "Interface method %s() not allowed in %s\n", $2, current_class);
+                                                }
+                                            }
     ;
 
 parameter_declarator
@@ -228,6 +308,7 @@ single_declaration
 
 
 /* ================= TYPE RULES ================= */
+// TODO: add remaining rules from GLSL grammar that are relevant
 
 
 fully_specified_type
@@ -262,14 +343,15 @@ initializer
     ;
 
 class_name
-    : RT_MATERIAL { $$ = strdup(", Type: material"); }
-    | RT_TEXTURE { $$ = strdup(", Type: texture"); }
-    | RT_CAMERA { $$ = strdup(", Type: camera"); }
-    | RT_LIGHT { $$ = strdup(", Type: light"); }
-    | RT_PRIMITIVE { $$ = strdup(", Type: primitive"); }
+    : RT_MATERIAL { $$ = strdup(", Type: material"); set_class("material");}
+    | RT_TEXTURE { $$ = strdup(", Type: texture"); set_class("texture");}
+    | RT_CAMERA { $$ = strdup(", Type: camera"); set_class("camera");}
+    | RT_LIGHT { $$ = strdup(", Type: light"); set_class("light");}
+    | RT_PRIMITIVE { $$ = strdup(", Type: primitive"); set_class("primitive");}
     ;
 
 /* ================= STATEMENT RULES ================= */
+// TODO: add remaining rules from GLSL grammar that are relevant
 
 
 declaration_statement
@@ -371,10 +453,10 @@ function_definition
     ;
 
 %%
+
  
-/* Data tables for interface methods and states, so you don't have to extract them yourself.
- * Note: The paper contains a number of errors regarding the allowed state variables. These
- * errors are already corrected here and marked with a comment. */
+/* ================= INTERFACE METHODS ================= */
+
 
 static const char *camera_methods[] = {
     "constructor",
@@ -419,6 +501,10 @@ static const char *light_methods[] = {
 static const char **interface_methods[] = {
     primitive_methods, camera_methods, material_methods, texture_methods, light_methods, NULL
 };
+
+
+/* ================= INTERFACE STATES ================= */
+
 
 static const char *camera_states[] = {
     "RayOrigin",
@@ -509,9 +595,77 @@ static const char **interface_states[] = {
     primitive_states, camera_states, material_states, texture_states, light_states
 };
 
-/* TODO You'll probably want to add some additional functions to implement the
- * semantic checks here. */
- 
+
+/* ================= SEMANTIC CHECK HELPERS ================= */
+
+
+void set_class(char* class_name) {
+    current_class = strdup(class_name);
+}
+
+int is_class_method(char* method_name, char** interface_methods[]) {
+    for (int i = 0; interface_methods[i] != NULL; i++) {
+        for (int j = 0; interface_methods[i][j] != NULL; j++) {
+            if (strcmp(method_name, interface_methods[i][j]) == 0) {
+                return 0;
+            }
+        }        
+    }
+    return 1;
+}
+
+int allowed_method(char* method_name, char* allowed_methods[]) {
+    for (int i = 0; allowed_methods[i] != NULL; i++) {
+        if (strcmp(method_name, allowed_methods[i]) == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int allowed_state(char* state_name, char* allowed_states[]) {
+    for (int i = 0; allowed_states[i] != NULL; i++) {
+        if (strcmp(state_name, allowed_states[i]) == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int method_check(char* class_name, char* method_name) {
+    if (strcmp(class_name, "camera") == 0) {
+        return allowed_method(method_name, camera_methods);
+    } else if (strcmp(class_name, "primitive") == 0) {
+        return allowed_method(method_name, primitive_methods);
+    } else if (strcmp(class_name, "material") == 0) {
+        return allowed_method(method_name, material_methods);
+    } else if (strcmp(class_name, "texture") == 0) {
+        return allowed_method(method_name, texture_methods);
+    } else if (strcmp(class_name, "light") == 0) {
+        return allowed_method(method_name, light_methods);
+    }
+    printf("Invalid class name: %s\n", class_name);
+}
+
+int state_check(char* class_name, char* state_name) {
+    if (strcmp(class_name, "camera") == 0) {
+        return allowed_state(state_name, camera_states);
+    } else if (strcmp(class_name, "primitive") == 0) {
+        return allowed_state(state_name, primitive_states);
+    } else if (strcmp(class_name, "material") == 0) {
+        return allowed_state(state_name, material_states);
+    } else if (strcmp(class_name, "texture") == 0) {
+        return allowed_state(state_name, texture_states);
+    } else if (strcmp(class_name, "light") == 0) {
+        return allowed_state(state_name, light_states);
+    }
+    printf("Invalid class name: %s\n", class_name);
+}
+
+
+/* ================= USER CODE ================= */
+
+
 static void yyerror(const char *s) {
     fprintf(stderr, "%s on line %d\n", s, line_number);
     exit(-1);
