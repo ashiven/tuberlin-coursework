@@ -40,21 +40,19 @@ void main()
 
 
 	// G: Smiths Masking Function
-	float cosViewHalf = max(dot(viewDirection, halfwayDirection), 0.0);
-	float cosLightHalf = max(dot(lightDirection, halfwayDirection), 0.0);
-	float tanViewHalf = tan(acos(cosViewHalf));
-	float tanLightHalf = tan(acos(cosLightHalf));
+	float cosViewNormal = max(dot(viewDirection, normalDirection), 0.0);
+	float cosLightNormal = max(dot(lightDirection, normalDirection), 0.0);
+	float tanViewNormal = tan(acos(cosViewNormal));
+	float tanLightNormal = tan(acos(cosLightNormal));
 
-	float G1 = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanViewHalf * tanViewHalf)); 
-	float G2 = 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanLightHalf * tanLightHalf));
-
-	G1 = max(G1, 0.0);
-	G2 = max(G2, 0.0);
+	float G1 = cosViewNormal > 0.0 ? 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanViewNormal * tanViewNormal)) : 0.0; 
+	float G2 = cosLightNormal > 0.0 ? 2.0 / (1.0 + sqrt(1.0 + alphaSquared * tanLightNormal * tanLightNormal)) : 0.0;
 
 	float G = G1 * G2;
 
 
 	// F: Schlicks Approximation
+	float cosViewHalf = max(dot(viewDirection, halfwayDirection), 0.0);
 	float F0 = 0.8;
 
 	factorLeft = (1.0 - F0);
