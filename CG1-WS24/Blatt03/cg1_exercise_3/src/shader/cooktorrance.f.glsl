@@ -68,10 +68,7 @@ void main()
 	float cosNormalLight = max(dot(normalDirection, lightDirection), 0.0);
 	float cosNormalView = max(dot(normalDirection, viewDirection), 0.0);
 	vec3 specularReflectanceDGF = specularReflectance * (D * G * F) / (4.0 * cosNormalLight * cosNormalView);
-
-	//float specularTerm = specularReflectanceDGF * cosNormalLight * lightIntensity;
-	vec3 color  = ( (diffuseReflectance / PI) * diffuseColor + specularReflectanceDGF ) * cosNormalLight * lightIntensity * lightColor;
 	
-	//fragColor = vec4(diffuseTerm * diffuseColor * lightColor + specularTerm * specularColor * lightColor, 1.0);
-	fragColor = vec4(color, 1.0);
+	
+	fragColor = vec4(( (diffuseReflectance / PI) * diffuseColor + specularReflectanceDGF ) * cosNormalLight * lightIntensity * lightColor, 1.0);
 }
