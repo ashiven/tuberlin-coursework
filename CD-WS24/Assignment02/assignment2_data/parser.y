@@ -31,7 +31,7 @@ int state_allowed_in(char* class_name, char* state_name);
 }
 
 /* Enable verbose error messages. */
-%define parse.error verbose
+%define parse.error custom
 
 /* Declare type for semantic value. You may need to extend this. */
 %union {
@@ -815,6 +815,44 @@ static void yyerror(const char *s) {
     fprintf(stderr, "%s on line %d\n", s, line_number);
     exit(-1);
 }
+
+/*
+Define a function that will be called whenever the parser detects a syntax error. 
+Expected tokens are not recognized correctly here. Not sure why.
+
+This function will be used by bison when changing
+    %define parse.error verbose  
+to  
+    %define parse.error custom
+*/
+static int yyreport_syntax_error(const yypcontext_t *context) {
+    // report syntax error
+    fprintf(stderr, "syntax error, ");
+
+    // report unexpected token
+    yysymbol_kind_t lookahead = yypcontext_token(context);
+    if (lookahead != YYSYMBOL_YYEMPTY) {
+        fprintf(stderr, "unexpected %s, ", yysymbol_name(lookahead));
+    }
+
+    // report expected tokens
+    enum{ TOKENMAX = 5 };
+    yysymbol_kind_t expected[TOKENMAX];
+    int expected_size = yypcontext_expected_tokens(context, expected, TOKENMAX);
+    if (expected_size < 0) {
+        return expected_size;
+    }
+    else {
+        fprintf(stderr, "expecting ");
+        for (int i = 0; i < expected_size; i++) {
+            fprintf(stderr, "%s", yysymbol_name(expected[i]), line_number);
+            i > 0 && i < expected_size ? fprintf(stderr, " or ") : 0;
+        }
+        fprintf(stderr, " on line %d", line_number);
+    }
+    fprintf(stderr, "\n");
+    return 0;
+} 
 
 int main(int argc, char **argv) {
     if (argc > 1) {

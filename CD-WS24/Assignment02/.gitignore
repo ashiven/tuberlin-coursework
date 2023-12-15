@@ -3,5 +3,6 @@ parser.c
 parser.h
 parser.output
 parser.exe
+parser
 *.my_out
 *.my_err
