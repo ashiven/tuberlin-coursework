@@ -61,6 +61,8 @@ int state_allowed_in(char* class_name, char* state_name);
 %token MUL_ASSIGN DIV_ASSIGN ADD_ASSIGN MOD_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN
 %token AND_ASSIGN XOR_ASSIGN OR_ASSIGN SUB_ASSIGN
 
+%token END 0 "$end"
+
 /* You can specify the type for a production using %type.
  * For example, if "function_header" should have a "str" value, use:
  * %type<str> function_header
@@ -585,12 +587,12 @@ jump_statement
 
 translation_unit 
     : external_declaration
-    | translation_unit external_declaration
     ;
 
 external_declaration
-    : function_definition
-    | declaration
+    : function_definition external_declaration
+    | declaration external_declaration
+    | /* empty */
     ;
 
 function_definition
@@ -845,8 +847,8 @@ static int yyreport_syntax_error(const yypcontext_t *context) {
     else {
         fprintf(stderr, "expecting ");
         for (int i = 0; i < expected_size; i++) {
+            i > 0 && i < expected_size - 1 ? fprintf(stderr, " or ") : 0;
             fprintf(stderr, "%s", yysymbol_name(expected[i]), line_number);
-            i > 0 && i < expected_size ? fprintf(stderr, " or ") : 0;
         }
         fprintf(stderr, " on line %d", line_number);
     }
