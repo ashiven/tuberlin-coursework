@@ -8,16 +8,46 @@ import { Application, createWindow } from "./lib/window"
 import * as helper from "./helper"
 import ImageWidget from "./imageWidget"
 
+var scene: THREE.Scene
 var ImgWid: ImageWidget
 var texturePath: string = "./src/textures/earth.jpg"
+var currentGeometry: THREE.BufferGeometry
+var currentMaterial: THREE.Material
+var currentMesh: THREE.Mesh
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    switch (changed.key) {
       case "geometry":
+         switch (changed.value) {
+            case "Quad":
+               break
+            case "Box":
+               scene.remove(currentMesh)
+               currentGeometry = helper.createBox()
+               currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
+               scene.add(currentMesh)
+               break
+            case "Sphere":
+               scene.remove(currentMesh)
+               currentGeometry = helper.createSphere()
+               currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
+               scene.add(currentMesh)
+               break
+            case "Knot":
+               scene.remove(currentMesh)
+               currentGeometry = helper.createKnot()
+               currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
+               scene.add(currentMesh)
+               break
+            case "Bunny":
+               currentGeometry = helper.createBunny()
+               break
+            default:
+               break
+         }
          break
       case "texture":
          texturePath = "./src/textures/" + changed.value.toLowerCase() + ".jpg"
-         console.log(texturePath)
          ImgWid.setImage(texturePath)
          break
       case "shader":
@@ -44,9 +74,6 @@ function main() {
    let textureDiv = createWindow("texture")
    root.appendChild(textureDiv)
 
-   // the image widget. Change the image with setImage
-   // you can enable drawing with enableDrawing
-   // and it triggers the event "updated" while drawing
    ImgWid = new ImageWidget(textureDiv)
    ImgWid.setImage(texturePath)
 
@@ -57,7 +84,14 @@ function main() {
       antialias: true,
    })
 
-   let scene = new THREE.Scene()
+   scene = new THREE.Scene()
+
+   currentGeometry = helper.createBox()
+   currentMaterial = new THREE.MeshBasicMaterial({
+      map: new THREE.TextureLoader().load(texturePath),
+   })
+   currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
+   scene.add(currentMesh)
 
    let camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera, scene)
