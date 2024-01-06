@@ -49,6 +49,10 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       case "texture":
          texturePath = "./src/textures/" + changed.value.toLowerCase() + ".jpg"
          ImgWid.setImage(texturePath)
+         currentMaterial = new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load(texturePath),
+         })
+         currentMesh.material = currentMaterial
          break
       case "shader":
          break
