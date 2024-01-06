@@ -8,11 +8,17 @@ import { Application, createWindow } from "./lib/window"
 import * as helper from "./helper"
 import ImageWidget from "./imageWidget"
 
+var ImgWid: ImageWidget
+var texturePath: string = "./src/textures/earth.jpg"
+
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    switch (changed.key) {
       case "geometry":
          break
       case "texture":
+         texturePath = "./src/textures/" + changed.value.toLowerCase() + ".jpg"
+         console.log(texturePath)
+         ImgWid.setImage(texturePath)
          break
       case "shader":
          break
@@ -41,8 +47,8 @@ function main() {
    // the image widget. Change the image with setImage
    // you can enable drawing with enableDrawing
    // and it triggers the event "updated" while drawing
-   let ImgWid = new ImageWidget(textureDiv)
-   ImgWid.setImage("./src/textures/earth.jpg")
+   ImgWid = new ImageWidget(textureDiv)
+   ImgWid.setImage(texturePath)
 
    let rendererDiv = createWindow("renderer")
    root.appendChild(rendererDiv)
