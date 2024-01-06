@@ -42,7 +42,7 @@ function main() {
    // you can enable drawing with enableDrawing
    // and it triggers the event "updated" while drawing
    let ImgWid = new ImageWidget(textureDiv)
-   ImgWid.setImage("./textures/earth.jpg")
+   ImgWid.setImage("./src/textures/earth.jpg")
 
    let rendererDiv = createWindow("renderer")
    root.appendChild(rendererDiv)
