@@ -31,13 +31,10 @@ function main() {
    root.setLayoutColumns(["50%", "50%"])
    root.setLayoutRows(["100%"])
 
-   // ---------------------------------------------------------------------------
    let settings = new helper.Settings()
    let gui = helper.createGUI(settings)
-
    settings.addCallback(callback)
 
-   // ---------------------------------------------------------------------------
    let textureDiv = createWindow("texture")
    root.appendChild(textureDiv)
 
@@ -47,7 +44,6 @@ function main() {
    let ImgWid = new ImageWidget(textureDiv)
    ImgWid.setImage("./textures/earth.jpg")
 
-   // ---------------------------------------------------------------------------
    let rendererDiv = createWindow("renderer")
    root.appendChild(rendererDiv)
 
