@@ -57,6 +57,12 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          break
       case "texture":
          texturePath = "./src/textures/" + changed.value.toLowerCase() + ".jpg"
+         changed.value === "Wood"
+            ? (texturePath = "./src/textures/wood_ceiling.jpg")
+            : null
+         changed.value === "Environment"
+            ? (texturePath = "./src/textures/indoor.jpg")
+            : null
          ImgWid.setImage(texturePath)
          currentMaterial = new THREE.MeshBasicMaterial({
             map: new THREE.TextureLoader().load(texturePath),
