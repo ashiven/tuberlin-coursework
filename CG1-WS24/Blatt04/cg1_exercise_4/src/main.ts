@@ -8,6 +8,8 @@ import { Application, createWindow } from "./lib/window"
 import * as helper from "./helper"
 import ImageWidget from "./imageWidget"
 
+import { createQuad } from "./functions"
+
 var scene: THREE.Scene
 var ImgWid: ImageWidget
 var texturePath: string = "./src/textures/earth.jpg"
@@ -20,6 +22,10 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       case "geometry":
          switch (changed.value) {
             case "Quad":
+               scene.remove(currentMesh)
+               currentGeometry = createQuad()
+               currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
+               scene.add(currentMesh)
                break
             case "Box":
                scene.remove(currentMesh)
@@ -40,7 +46,10 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
                scene.add(currentMesh)
                break
             case "Bunny":
+               scene.remove(currentMesh)
                currentGeometry = helper.createBunny()
+               currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
+               scene.add(currentMesh)
                break
             default:
                break
@@ -90,7 +99,7 @@ function main() {
 
    scene = new THREE.Scene()
 
-   currentGeometry = helper.createBox()
+   currentGeometry = createQuad()
    currentMaterial = new THREE.MeshBasicMaterial({
       map: new THREE.TextureLoader().load(texturePath),
    })
