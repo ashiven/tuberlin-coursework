@@ -68,7 +68,8 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             ? (texturePath = "./src/textures/indoor.jpg")
             : null
          ImgWid.setImage(texturePath)
-         // TODO: update texture here
+         currentTexture = new THREE.TextureLoader().load(texturePath)
+         currentMaterial.uniforms.textureImg.value = currentTexture
          currentMesh.material = currentMaterial
          break
       case "shader":

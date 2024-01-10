@@ -2,6 +2,7 @@ precision highp float;
 
 uniform mat4 projectionMatrix;
 uniform mat4 modelViewMatrix;
+uniform vec2 uv;
 
 in vec3 position;
 
