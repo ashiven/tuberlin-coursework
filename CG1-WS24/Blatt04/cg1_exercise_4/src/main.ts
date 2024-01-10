@@ -10,11 +10,15 @@ import ImageWidget from "./imageWidget"
 
 import { createQuad } from "./functions"
 
+import uvAttributeFragmentShader from "./shader/uvattribute.f.glsl?raw"
+import uvAttributeVertexShader from "./shader/uvattribute.v.glsl?raw"
+
 var scene: THREE.Scene
 var ImgWid: ImageWidget
 var texturePath: string = "./src/textures/earth.jpg"
+var currentTexture: THREE.Texture
 var currentGeometry: THREE.BufferGeometry
-var currentMaterial: THREE.Material
+var currentMaterial: THREE.RawShaderMaterial
 var currentMesh: THREE.Mesh
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
@@ -64,9 +68,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             ? (texturePath = "./src/textures/indoor.jpg")
             : null
          ImgWid.setImage(texturePath)
-         currentMaterial = new THREE.MeshBasicMaterial({
-            map: new THREE.TextureLoader().load(texturePath),
-         })
+         // TODO: update texture here
          currentMesh.material = currentMaterial
          break
       case "shader":
@@ -106,10 +108,15 @@ function main() {
    scene = new THREE.Scene()
 
    currentGeometry = createQuad()
-   currentMaterial = new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load(texturePath),
+   currentTexture = new THREE.TextureLoader().load(texturePath)
+   currentMaterial = new THREE.RawShaderMaterial({
+      vertexShader: uvAttributeVertexShader,
+      fragmentShader: uvAttributeFragmentShader,
+      uniforms: { textureImg: { value: currentTexture } },
    })
+   currentMaterial.glslVersion = THREE.GLSL3
    currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
+
    scene.add(currentMesh)
 
    let camera = new THREE.PerspectiveCamera()
