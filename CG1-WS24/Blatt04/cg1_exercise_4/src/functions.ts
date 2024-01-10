@@ -45,7 +45,6 @@ export function combineTextures(
    let combinedTexture = new THREE.CanvasTexture(
       context ? context.canvas : originalTexture.image
    )
-   combinedTexture.needsUpdate = true
 
    return combinedTexture
 }
