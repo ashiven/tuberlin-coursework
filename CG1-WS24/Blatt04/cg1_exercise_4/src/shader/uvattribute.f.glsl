@@ -1,3 +1,5 @@
+precision highp float;
+
 uniform sampler2D textureImg;
 
 in vec2 vUv;
