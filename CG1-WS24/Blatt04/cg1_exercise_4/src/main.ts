@@ -8,7 +8,7 @@ import { Application, createWindow } from "./lib/window"
 import * as helper from "./helper"
 import ImageWidget from "./imageWidget"
 
-import { createQuad } from "./functions"
+import { combineTextures, createQuad } from "./functions"
 
 import uvAttributeFragmentShader from "./shader/uvattribute.f.glsl?raw"
 import uvAttributeVertexShader from "./shader/uvattribute.v.glsl?raw"
@@ -88,6 +88,7 @@ function main() {
    let settings = new helper.Settings()
    settings.pen = () => {
       ImgWid.clearDrawing()
+      currentMaterial.uniforms.textureImg.value = currentTexture
    }
    let gui = helper.createGUI(settings)
    settings.addCallback(callback)
@@ -101,8 +102,10 @@ function main() {
 
    // TODO: fix this thing
    ImgWid.DrawingCanvas.addEventListener("updated", () => {
-      let newTexture = new THREE.CanvasTexture(ImgWid.DrawingCanvas)
-      currentMaterial.uniforms.textureImg.value = newTexture
+      let originalTexture = currentMaterial.uniforms.textureImg.value.clone()
+      let canvasTexture = new THREE.CanvasTexture(ImgWid.DrawingCanvas)
+      let combinedTexture = combineTextures(originalTexture, canvasTexture)
+      currentMaterial.uniforms.textureImg.value = combinedTexture
    })
 
    let rendererDiv = createWindow("renderer")

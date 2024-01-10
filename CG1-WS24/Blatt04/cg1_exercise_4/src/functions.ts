@@ -18,3 +18,34 @@ export function createQuad() {
 
    return geometry
 }
+
+export function combineTextures(
+   originalTexture: THREE.Texture,
+   canvasTexture: THREE.CanvasTexture
+) {
+   let context = document.createElement("canvas").getContext("2d")
+
+   context
+      ? (context.canvas.width = Math.min(
+           originalTexture.image.width,
+           canvasTexture.image.width
+        ))
+      : null
+
+   context
+      ? (context.canvas.height = Math.min(
+           originalTexture.image.height,
+           canvasTexture.image.height
+        ))
+      : null
+
+   context?.drawImage(originalTexture.image, 0, 0)
+   context?.drawImage(canvasTexture.image, 0, 0)
+
+   let combinedTexture = new THREE.CanvasTexture(
+      context ? context.canvas : originalTexture.image
+   )
+   combinedTexture.needsUpdate = true
+
+   return combinedTexture
+}
