@@ -8,5 +8,13 @@ export function createQuad() {
       1.0, 1.0, 0.0, -1.0, 1.0, 0.0, -1.0, -1.0, 0.0,
    ])
    geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3))
+
+   let uvs = new Float32Array([
+      0.0, 0.0, 1.0, 0.0, 1.0, 1.0,
+
+      1.0, 1.0, 0.0, 1.0, 0.0, 0.0,
+   ])
+   geometry.setAttribute("uv", new THREE.BufferAttribute(uvs, 2))
+
    return geometry
 }
