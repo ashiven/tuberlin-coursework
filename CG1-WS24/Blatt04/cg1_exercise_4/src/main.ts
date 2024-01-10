@@ -90,6 +90,9 @@ function main() {
    root.setLayoutRows(["100%"])
 
    let settings = new helper.Settings()
+   settings.pen = () => {
+      ImgWid.clearDrawing()
+   }
    let gui = helper.createGUI(settings)
    settings.addCallback(callback)
 
@@ -98,6 +101,7 @@ function main() {
 
    ImgWid = new ImageWidget(textureDiv)
    ImgWid.setImage(texturePath)
+   ImgWid.enableDrawing()
 
    let rendererDiv = createWindow("renderer")
    root.appendChild(rendererDiv)
