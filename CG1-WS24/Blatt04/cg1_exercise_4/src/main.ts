@@ -21,56 +21,52 @@ var currentGeometry: THREE.BufferGeometry
 var currentMaterial: THREE.RawShaderMaterial
 var currentMesh: THREE.Mesh
 
+function updateGeometry(geometry: THREE.BufferGeometry) {
+   scene.remove(currentMesh)
+   currentGeometry = geometry
+   currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
+   scene.add(currentMesh)
+}
+
+function updateTexture(textureName: string) {
+   texturePath = "./src/textures/" + textureName.toLowerCase() + ".jpg"
+   textureName === "Wood"
+      ? (texturePath = "./src/textures/wood_ceiling.jpg")
+      : null
+   textureName === "Environment"
+      ? (texturePath = "./src/textures/indoor.jpg")
+      : null
+   ImgWid.setImage(texturePath)
+   currentTexture = new THREE.TextureLoader().load(texturePath)
+   currentMaterial.uniforms.textureImg.value = currentTexture
+   currentMesh.material = currentMaterial
+}
+
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    switch (changed.key) {
       case "geometry":
          switch (changed.value) {
             case "Quad":
-               scene.remove(currentMesh)
-               currentGeometry = createQuad()
-               currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
-               scene.add(currentMesh)
+               updateGeometry(createQuad())
                break
             case "Box":
-               scene.remove(currentMesh)
-               currentGeometry = helper.createBox()
-               currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
-               scene.add(currentMesh)
+               updateGeometry(helper.createBox())
                break
             case "Sphere":
-               scene.remove(currentMesh)
-               currentGeometry = helper.createSphere()
-               currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
-               scene.add(currentMesh)
+               updateGeometry(helper.createSphere())
                break
             case "Knot":
-               scene.remove(currentMesh)
-               currentGeometry = helper.createKnot()
-               currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
-               scene.add(currentMesh)
+               updateGeometry(helper.createKnot())
                break
             case "Bunny":
-               scene.remove(currentMesh)
-               currentGeometry = helper.createBunny()
-               currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
-               scene.add(currentMesh)
+               updateGeometry(helper.createBunny())
                break
             default:
                break
          }
          break
       case "texture":
-         texturePath = "./src/textures/" + changed.value.toLowerCase() + ".jpg"
-         changed.value === "Wood"
-            ? (texturePath = "./src/textures/wood_ceiling.jpg")
-            : null
-         changed.value === "Environment"
-            ? (texturePath = "./src/textures/indoor.jpg")
-            : null
-         ImgWid.setImage(texturePath)
-         currentTexture = new THREE.TextureLoader().load(texturePath)
-         currentMaterial.uniforms.textureImg.value = currentTexture
-         currentMesh.material = currentMaterial
+         updateTexture(changed.value)
          break
       case "shader":
          break
