@@ -103,6 +103,12 @@ function main() {
    ImgWid.setImage(texturePath)
    ImgWid.enableDrawing()
 
+   // TODO: fix this thing
+   ImgWid.DrawingCanvas.addEventListener("updated", () => {
+      let newTexture = new THREE.CanvasTexture(ImgWid.DrawingCanvas)
+      currentMaterial.uniforms.textureImg.value = newTexture
+   })
+
    let rendererDiv = createWindow("renderer")
    root.appendChild(rendererDiv)
 
