@@ -100,7 +100,6 @@ function main() {
    ImgWid.setImage(texturePath)
    ImgWid.enableDrawing()
 
-   // TODO: fix this thing
    ImgWid.DrawingCanvas.addEventListener("updated", () => {
       let originalTexture = currentMaterial.uniforms.textureImg.value.clone()
       let canvasTexture = new THREE.CanvasTexture(ImgWid.DrawingCanvas)

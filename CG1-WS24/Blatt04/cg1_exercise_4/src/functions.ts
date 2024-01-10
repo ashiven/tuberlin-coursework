@@ -25,26 +25,22 @@ export function combineTextures(
 ) {
    let context = document.createElement("canvas").getContext("2d")
 
-   context
-      ? (context.canvas.width = Math.min(
-           originalTexture.image.width,
-           canvasTexture.image.width
-        ))
-      : null
+   if (context) {
+      context.canvas.width = originalTexture.image.width
+      context.canvas.height = originalTexture.image.height
 
-   context
-      ? (context.canvas.height = Math.min(
-           originalTexture.image.height,
-           canvasTexture.image.height
-        ))
-      : null
+      context.drawImage(originalTexture.image, 0, 0)
+      context.drawImage(
+         canvasTexture.image,
+         0,
+         0,
+         originalTexture.image.width,
+         originalTexture.image.height
+      )
 
-   context?.drawImage(originalTexture.image, 0, 0)
-   context?.drawImage(canvasTexture.image, 0, 0)
-
-   let combinedTexture = new THREE.CanvasTexture(
-      context ? context.canvas : originalTexture.image
-   )
-
-   return combinedTexture
+      let combinedTexture = new THREE.CanvasTexture(context.canvas)
+      return combinedTexture
+   } else {
+      return originalTexture
+   }
 }
