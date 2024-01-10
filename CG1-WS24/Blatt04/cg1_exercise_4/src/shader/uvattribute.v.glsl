@@ -1,8 +1,9 @@
 precision highp float;
 
+layout(location = 2) in vec2 uv;
+
 uniform mat4 projectionMatrix;
 uniform mat4 modelViewMatrix;
-uniform vec2 uv;
 
 in vec3 position;
 
