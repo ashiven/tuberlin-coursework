@@ -45,13 +45,13 @@ function updateTexture(textureName: string) {
 }
 
 function updateShader(vertexShader: any, fragmentShader: any) {
-   let newMaterial = new THREE.RawShaderMaterial({
+   currentMaterial = new THREE.RawShaderMaterial({
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
       uniforms: { textureImg: { value: currentTexture } },
    })
-   newMaterial.glslVersion = THREE.GLSL3
-   currentMesh.material = newMaterial
+   currentMaterial.glslVersion = THREE.GLSL3
+   currentMesh.material = currentMaterial
 }
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
