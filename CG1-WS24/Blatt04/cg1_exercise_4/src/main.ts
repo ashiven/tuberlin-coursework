@@ -10,6 +10,8 @@ import ImageWidget from "./imageWidget"
 
 import { combineTextures, createQuad } from "./functions"
 
+import sphericalFragmentShader from "./shader/spherical.f.glsl?raw"
+import sphericalVertexShader from "./shader/spherical.v.glsl?raw"
 import uvAttributeFragmentShader from "./shader/uvattribute.f.glsl?raw"
 import uvAttributeVertexShader from "./shader/uvattribute.v.glsl?raw"
 
@@ -42,6 +44,12 @@ function updateTexture(textureName: string) {
    currentMesh.material = currentMaterial
 }
 
+function updateShader(vertexShader: any, fragmentShader: any) {
+   currentMaterial.vertexShader = vertexShader
+   currentMaterial.fragmentShader = fragmentShader
+   currentMesh.material = currentMaterial
+}
+
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    switch (changed.key) {
       case "geometry":
@@ -69,6 +77,20 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          updateTexture(changed.value)
          break
       case "shader":
+         switch (changed.value) {
+            case "UV attribute":
+               updateShader(uvAttributeVertexShader, uvAttributeFragmentShader)
+               break
+            case "Spherical":
+               updateShader(sphericalVertexShader, sphericalFragmentShader)
+               break
+            case "Spherical (fixed)":
+               break
+            case "Environment Mapping":
+               break
+            case "Normal Map":
+               break
+         }
          break
       case "environment":
          break
