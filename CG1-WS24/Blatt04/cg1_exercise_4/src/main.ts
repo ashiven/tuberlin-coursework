@@ -48,7 +48,9 @@ function updateShader(vertexShader: any, fragmentShader: any) {
    currentMaterial = new THREE.RawShaderMaterial({
       vertexShader: vertexShader,
       fragmentShader: fragmentShader,
-      uniforms: { textureImg: { value: currentTexture } },
+      uniforms: {
+         textureImg: { value: currentMaterial.uniforms.textureImg.value },
+      },
    })
    currentMaterial.glslVersion = THREE.GLSL3
    currentMesh.material = currentMaterial
