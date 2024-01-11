@@ -12,6 +12,8 @@ import { combineTextures, createQuad } from "./functions"
 
 import sphericalFragmentShader from "./shader/spherical.f.glsl?raw"
 import sphericalVertexShader from "./shader/spherical.v.glsl?raw"
+import sphericalFixedFragmentShader from "./shader/sphericalfixed.f.glsl?raw"
+import sphericalFixedVertexShader from "./shader/sphericalfixed.v.glsl?raw"
 import uvAttributeFragmentShader from "./shader/uvattribute.f.glsl?raw"
 import uvAttributeVertexShader from "./shader/uvattribute.v.glsl?raw"
 
@@ -91,6 +93,10 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
                updateShader(sphericalVertexShader, sphericalFragmentShader)
                break
             case "Spherical (fixed)":
+               updateShader(
+                  sphericalFixedVertexShader,
+                  sphericalFixedFragmentShader
+               )
                break
             case "Environment Mapping":
                break
