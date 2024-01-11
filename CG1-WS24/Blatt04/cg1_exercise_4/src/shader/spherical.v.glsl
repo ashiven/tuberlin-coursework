@@ -9,8 +9,8 @@ in vec3 position;
 out vec2 vUv;
 
 void main() {
-    float u = (PI + atan(position.x, position.z)) / 2.0 * PI;
-    float v = atan(sqrt(position.z * position.z + position.x * position.x), -position.y) / PI;
+    float u = (PI + atan(-position.z, position.x)) / 2.0 * PI;
+    float v = atan(sqrt(position.x * position.x + position.z * position.z), -position.y) / PI;
 
     u = u / 10.0;
 
