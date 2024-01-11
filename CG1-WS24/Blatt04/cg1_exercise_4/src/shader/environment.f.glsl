@@ -2,6 +2,8 @@ precision highp float;
 
 #define PI 3.14159265
 
+uniform sampler2D textureImg;
+
 in vec3 vertexNormal;
 in vec3 viewVector;
 
@@ -11,7 +13,10 @@ void main()
 {
     vec3 normalDirection = normalize(vertexNormal);
 	vec3 viewDirection = normalize(viewVector);
-    vec3 reflectionDirection = 2 * dot(viewDirection, normalDirection) * normalDirection - viewDirection;
+    vec3 reflectionDirection = 2.0 * dot(viewDirection, normalDirection) * normalDirection - viewDirection;
 
-	fragColor = vec4(reflectionDirection, 1.0);
+    float m = 2.0 * sqrt(pow( reflectionDirection.x, 2.0 ) + pow( reflectionDirection.y, 2.0 ) + pow( reflectionDirection.z + 1.0, 2.0 ));
+    vec2 vUv = reflectionDirection.xy / m + 0.5;
+
+	fragColor = texture(textureImg, vUv);
 }

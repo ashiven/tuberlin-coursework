@@ -10,6 +10,8 @@ import ImageWidget from "./imageWidget"
 
 import { combineTextures, createQuad } from "./functions"
 
+import environmentFragmentShader from "./shader/environment.f.glsl?raw"
+import environmentVertexShader from "./shader/environment.v.glsl?raw"
 import sphericalFragmentShader from "./shader/spherical.f.glsl?raw"
 import sphericalVertexShader from "./shader/spherical.v.glsl?raw"
 import sphericalFixedFragmentShader from "./shader/sphericalfixed.f.glsl?raw"
@@ -46,7 +48,7 @@ function updateTexture(textureName: string) {
    currentTexture = new THREE.TextureLoader().load(texturePath)
    currentMaterial.uniforms.textureImg.value = currentTexture
    currentMesh.material = currentMaterial
-   backgroundTexture = currentTexture.clone()
+   backgroundTexture ? (backgroundTexture = currentTexture.clone()) : null
    backgroundTexture.mapping = THREE.EquirectangularReflectionMapping
    scene.background = backgroundTexture
 }
@@ -115,6 +117,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
                )
                break
             case "Environment Mapping":
+               updateShader(environmentVertexShader, environmentFragmentShader)
                break
             case "Normal Map":
                break
