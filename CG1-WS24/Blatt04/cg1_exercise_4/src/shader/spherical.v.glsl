@@ -1,18 +1,15 @@
-
 precision highp float;
 
 uniform mat4 projectionMatrix;
 uniform mat4 modelViewMatrix;
+uniform mat4 modelMatrix;
 
 in vec3 position;
 
-out vec2 vUv;
+out vec3 vertexPosition;
 
 void main() {
-    float u = (3.14 + atan(position.y, position.x)) / 2.0 * 3.14;
-    float v = atan(sqrt(position.x * position.x + position.y * position.y), position.z) / 3.14;
-
-    vUv = vec2(u, v);
+    vertexPosition = (modelMatrix * vec4(position, 1.0)).xyz;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
