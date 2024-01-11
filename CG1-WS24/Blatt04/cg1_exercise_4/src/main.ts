@@ -24,6 +24,7 @@ var currentTexture: THREE.Texture
 var currentGeometry: THREE.BufferGeometry
 var currentMaterial: THREE.RawShaderMaterial
 var currentMesh: THREE.Mesh
+var backgroundTexture: THREE.Texture
 
 function updateGeometry(geometry: THREE.BufferGeometry) {
    scene.remove(currentMesh)
@@ -44,6 +45,9 @@ function updateTexture(textureName: string) {
    currentTexture = new THREE.TextureLoader().load(texturePath)
    currentMaterial.uniforms.textureImg.value = currentTexture
    currentMesh.material = currentMaterial
+   backgroundTexture = currentTexture.clone()
+   backgroundTexture.mapping = THREE.EquirectangularReflectionMapping
+   scene.background = backgroundTexture
 }
 
 function updateShader(vertexShader: any, fragmentShader: any) {
@@ -56,6 +60,16 @@ function updateShader(vertexShader: any, fragmentShader: any) {
    })
    currentMaterial.glslVersion = THREE.GLSL3
    currentMesh.material = currentMaterial
+}
+
+function updateBackground(show: boolean) {
+   if (show) {
+      backgroundTexture = new THREE.TextureLoader().load(texturePath)
+      backgroundTexture.mapping = THREE.EquirectangularReflectionMapping
+      scene.background = backgroundTexture
+   } else {
+      scene.background = null
+   }
 }
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
@@ -105,6 +119,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          }
          break
       case "environment":
+         updateBackground(changed.value)
          break
       case "normalmap":
          break
