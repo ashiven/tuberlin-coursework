@@ -64,7 +64,7 @@ function updateShader(vertexShader: any, fragmentShader: any) {
 
 function updateBackground(show: boolean) {
    if (show) {
-      backgroundTexture = new THREE.TextureLoader().load(texturePath)
+      backgroundTexture = currentTexture.clone()
       backgroundTexture.mapping = THREE.EquirectangularReflectionMapping
       scene.background = backgroundTexture
    } else {
