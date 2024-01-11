@@ -18,6 +18,7 @@ import uvAttributeFragmentShader from "./shader/uvattribute.f.glsl?raw"
 import uvAttributeVertexShader from "./shader/uvattribute.v.glsl?raw"
 
 var scene: THREE.Scene
+var camera: THREE.PerspectiveCamera
 var ImgWid: ImageWidget
 var texturePath: string = "./src/textures/earth.jpg"
 var currentTexture: THREE.Texture
@@ -56,6 +57,7 @@ function updateShader(vertexShader: any, fragmentShader: any) {
       fragmentShader: fragmentShader,
       uniforms: {
          textureImg: { value: currentMaterial.uniforms.textureImg.value },
+         cameraPosition: { value: camera.position },
       },
    })
    currentMaterial.glslVersion = THREE.GLSL3
@@ -177,7 +179,7 @@ function main() {
 
    scene.add(currentMesh)
 
-   let camera = new THREE.PerspectiveCamera()
+   camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera, scene)
 
    let controls = new OrbitControls(camera, rendererDiv)
