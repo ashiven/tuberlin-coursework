@@ -10,8 +10,8 @@ in vec3 position;
 out vec2 vUv;
 
 void main() {
-    float u = (3.14 + arctan2(position.y, position.x)) / 2.0 * 3.14;
-    float v = arctan2(sqrt(position.x * position.x + position.y * position.y), position.z) / 3.14;
+    float u = (3.14 + atan(position.y, position.x)) / 2.0 * 3.14;
+    float v = atan(sqrt(position.x * position.x + position.y * position.y), position.z) / 3.14;
 
     vUv = vec2(u, v);
 
