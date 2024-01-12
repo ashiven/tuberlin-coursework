@@ -12,6 +12,8 @@ import { combineTextures, createQuad } from "./functions"
 
 import environmentFragmentShader from "./shader/environment.f.glsl?raw"
 import environmentVertexShader from "./shader/environment.v.glsl?raw"
+import normalMapFragmentShader from "./shader/normal.f.glsl?raw"
+import normalMapVertexShader from "./shader/normal.v.glsl?raw"
 import sphericalFragmentShader from "./shader/spherical.f.glsl?raw"
 import sphericalVertexShader from "./shader/spherical.v.glsl?raw"
 import sphericalFixedFragmentShader from "./shader/sphericalfixed.f.glsl?raw"
@@ -24,6 +26,7 @@ var camera: THREE.PerspectiveCamera
 var ImgWid: ImageWidget
 var texturePath: string = "./src/textures/earth.jpg"
 var currentTexture: THREE.Texture
+var currentNormals: THREE.Texture
 var currentGeometry: THREE.BufferGeometry
 var currentMaterial: THREE.RawShaderMaterial
 var currentMesh: THREE.Mesh
@@ -60,6 +63,7 @@ function updateShader(vertexShader: any, fragmentShader: any) {
       fragmentShader: fragmentShader,
       uniforms: {
          textureImg: { value: currentMaterial.uniforms.textureImg.value },
+         normalMap: { value: currentNormals },
          cameraPosition: { value: camera.position },
       },
    })
@@ -76,6 +80,16 @@ function updateBackground(show: boolean) {
    } else {
       scene.background = null
    }
+}
+
+function updateNormals(normalName: string) {
+   let normalPath: string =
+      "./src/textures/" + normalName.toLowerCase() + "_normals.jpg"
+   normalName === "Wood"
+      ? (normalPath = "./src/textures/wood_ceiling_normals.jpg")
+      : null
+   currentNormals = new THREE.TextureLoader().load(normalPath)
+   currentMaterial.uniforms.normalMap.value = currentNormals
 }
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
@@ -122,6 +136,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
                updateShader(environmentVertexShader, environmentFragmentShader)
                break
             case "Normal Map":
+               updateShader(normalMapVertexShader, normalMapFragmentShader)
                break
          }
          break
@@ -129,6 +144,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          updateBackground(changed.value)
          break
       case "normalmap":
+         updateNormals(changed.value)
          break
       default:
          break
@@ -174,6 +190,9 @@ function main() {
 
    currentGeometry = createQuad()
    currentTexture = new THREE.TextureLoader().load(texturePath)
+   currentNormals = new THREE.TextureLoader().load(
+      "./src/textures/uniform_normals.jpg"
+   )
    currentMaterial = new THREE.RawShaderMaterial({
       vertexShader: uvAttributeVertexShader,
       fragmentShader: uvAttributeFragmentShader,
