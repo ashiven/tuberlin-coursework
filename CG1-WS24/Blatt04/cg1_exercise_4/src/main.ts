@@ -50,6 +50,7 @@ function updateTexture(textureName: string) {
    currentMesh.material = currentMaterial
    backgroundTexture ? (backgroundTexture = currentTexture.clone()) : null
    backgroundTexture.mapping = THREE.EquirectangularReflectionMapping
+   backgroundTexture.colorSpace = THREE.SRGBColorSpace
    scene.background = backgroundTexture
 }
 
@@ -70,6 +71,7 @@ function updateBackground(show: boolean) {
    if (show) {
       backgroundTexture = currentTexture.clone()
       backgroundTexture.mapping = THREE.EquirectangularReflectionMapping
+      backgroundTexture.colorSpace = THREE.SRGBColorSpace
       scene.background = backgroundTexture
    } else {
       scene.background = null
