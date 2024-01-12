@@ -12,7 +12,7 @@ void main() {
     float u = (PI + atan(-vPosition.z, vPosition.x)) / 2.0 * PI;
     float v = atan(sqrt(vPosition.x * vPosition.x + vPosition.z * vPosition.z), -vPosition.y) / PI;
 
-    u = u / 10.0;
+    u = u / 9.85;
 
     vec2 vUv = vec2(u, v);
 
