@@ -30,7 +30,7 @@ var currentNormals: THREE.Texture
 var currentGeometry: THREE.BufferGeometry
 var currentMaterial: THREE.RawShaderMaterial
 var currentMesh: THREE.Mesh
-var backgroundTexture: THREE.Texture
+var backgroundTexture: any
 
 function updateGeometry(geometry: THREE.BufferGeometry) {
    scene.remove(currentMesh)
@@ -78,6 +78,7 @@ function updateBackground(show: boolean) {
       backgroundTexture.colorSpace = THREE.SRGBColorSpace
       scene.background = backgroundTexture
    } else {
+      backgroundTexture = null
       scene.background = null
    }
 }
