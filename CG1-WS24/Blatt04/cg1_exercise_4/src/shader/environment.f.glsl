@@ -15,7 +15,7 @@ void main()
 	vec3 viewDirection = normalize(viewVector);
     vec3 reflectionDirection = 2.0 * dot(viewDirection, normalDirection) * normalDirection - viewDirection;
 
-    float u = (PI + atan(-reflectionDirection.z, reflectionDirection.x)) / 2.0 * PI;
+    float u = (PI + atan(reflectionDirection.z, reflectionDirection.x)) / 2.0 * PI;
     float v = atan(sqrt(reflectionDirection.x * reflectionDirection.x + reflectionDirection.z * reflectionDirection.z), -reflectionDirection.y) / PI;
 
     u = u / 10.0;
