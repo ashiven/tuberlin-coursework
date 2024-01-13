@@ -1,6 +1,7 @@
 precision highp float;
 
 uniform sampler2D textureImg;
+uniform sampler2D canvasTexture;
 uniform sampler2D normalMap;
 
 in vec3 vertexPosition; 
@@ -10,9 +11,13 @@ in vec2 vUv;
 out vec4 fragColor;
 
 void main() {
-    vec3 ambientColor = texture(textureImg, vUv).rgb;
+    vec4 tex = texture(textureImg, vUv);
+    vec4 canv = texture(canvasTexture, vUv);
+    vec3 color = mix(tex, canv, canv.a).rgb;
+
+    vec3 ambientColor = color;
     float ambientReflectance = 0.2;
-    vec3 diffuseColor = texture(textureImg, vUv).rgb;
+    vec3 diffuseColor = color;
     float diffuseReflectance = 1.0;
     vec3 specularColor = vec3(1.0, 1.0, 1.0);
     float specularReflectance = 0.25;

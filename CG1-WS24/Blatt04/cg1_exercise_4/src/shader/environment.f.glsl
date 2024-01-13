@@ -3,6 +3,7 @@ precision highp float;
 #define PI 3.14159265
 
 uniform sampler2D textureImg;
+uniform sampler2D canvasTexture;
 
 in vec3 vertexNormal;
 in vec3 viewVector;
@@ -22,5 +23,8 @@ void main()
 
     vec2 vUv = vec2(u, v);
 
-	fragColor = texture(textureImg, vUv);
+    vec4 tex = texture(textureImg, vUv);
+    vec4 canv = texture(canvasTexture, vUv);
+    
+    fragColor = mix(tex, canv, canv.a);
 }
