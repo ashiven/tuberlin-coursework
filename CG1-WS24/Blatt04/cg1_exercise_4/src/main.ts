@@ -8,7 +8,7 @@ import { Application, createWindow } from "./lib/window"
 import * as helper from "./helper"
 import ImageWidget from "./imageWidget"
 
-import { combineTextures, createQuad } from "./functions"
+import { createQuad } from "./functions"
 
 import environmentFragmentShader from "./shader/environment.f.glsl?raw"
 import environmentVertexShader from "./shader/environment.v.glsl?raw"
@@ -66,6 +66,7 @@ function updateShader(vertexShader: any, fragmentShader: any) {
       fragmentShader: fragmentShader,
       uniforms: {
          textureImg: { value: currentMaterial.uniforms.textureImg.value },
+         canvasTexture: { value: canvasTexture },
          normalMap: { value: currentNormals },
          cameraPosition: { value: camera.position },
       },
@@ -178,8 +179,7 @@ function main() {
 
    ImgWid.DrawingCanvas.addEventListener("updated", () => {
       canvasTexture = new THREE.CanvasTexture(ImgWid.DrawingCanvas)
-      let combinedTexture = combineTextures(currentTexture, canvasTexture)
-      currentMaterial.uniforms.textureImg.value = combinedTexture
+      currentMaterial.uniforms.canvasTexture.value = canvasTexture
    })
 
    let rendererDiv = createWindow("renderer")
@@ -191,6 +191,7 @@ function main() {
 
    scene = new THREE.Scene()
 
+   canvasTexture = new THREE.CanvasTexture(ImgWid.DrawingCanvas)
    currentGeometry = createQuad()
    currentTexture = new THREE.TextureLoader().load(texturePath)
    currentNormals = new THREE.TextureLoader().load(
@@ -199,7 +200,10 @@ function main() {
    currentMaterial = new THREE.RawShaderMaterial({
       vertexShader: uvAttributeVertexShader,
       fragmentShader: uvAttributeFragmentShader,
-      uniforms: { textureImg: { value: currentTexture } },
+      uniforms: {
+         textureImg: { value: currentTexture },
+         canvasTexture: { value: canvasTexture },
+      },
    })
    currentMaterial.glslVersion = THREE.GLSL3
    currentMesh = new THREE.Mesh(currentGeometry, currentMaterial)
