@@ -31,6 +31,7 @@ var currentGeometry: THREE.BufferGeometry
 var currentMaterial: THREE.RawShaderMaterial
 var currentMesh: THREE.Mesh
 var backgroundTexture: THREE.Texture | null
+var canvasTexture: THREE.CanvasTexture
 
 function updateGeometry(geometry: THREE.BufferGeometry) {
    scene.remove(currentMesh)
@@ -176,9 +177,8 @@ function main() {
    ImgWid.enableDrawing()
 
    ImgWid.DrawingCanvas.addEventListener("updated", () => {
-      let originalTexture = currentMaterial.uniforms.textureImg.value.clone()
-      let canvasTexture = new THREE.CanvasTexture(ImgWid.DrawingCanvas)
-      let combinedTexture = combineTextures(originalTexture, canvasTexture)
+      canvasTexture = new THREE.CanvasTexture(ImgWid.DrawingCanvas)
+      let combinedTexture = combineTextures(currentTexture, canvasTexture)
       currentMaterial.uniforms.textureImg.value = combinedTexture
    })
 

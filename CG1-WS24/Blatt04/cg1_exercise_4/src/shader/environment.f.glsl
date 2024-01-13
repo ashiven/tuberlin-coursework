@@ -18,7 +18,7 @@ void main()
     float u = (PI + atan(reflectionDirection.z, reflectionDirection.x)) / 2.0 * PI;
     float v = atan(sqrt(reflectionDirection.x * reflectionDirection.x + reflectionDirection.z * reflectionDirection.z), -reflectionDirection.y) / PI;
 
-    u = u / 10.0;
+    u = u / 9.85;
 
     vec2 vUv = vec2(u, v);
 
