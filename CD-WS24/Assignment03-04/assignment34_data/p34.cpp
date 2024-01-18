@@ -62,8 +62,7 @@ namespace
 
     void reportUninitializedVariable(Value *Variable)
     {
-      errs() << "Uninitialized variable used: ";
-      Variable->dump();
+      errs() << Variable->getName() << "\n";
     }
   };
 
