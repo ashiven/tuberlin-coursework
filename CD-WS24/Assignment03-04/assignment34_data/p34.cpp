@@ -9,6 +9,7 @@
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Passes/PassPlugin.h"
 #include <llvm/IR/PassManager.h>
+#include <llvm/IR/IRBuilder.h>
 // add additional includes from LLVM or STL as needed
 
 using namespace llvm;
@@ -71,12 +72,65 @@ namespace
   public:
     PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM)
     {
-      // TODO
-      errs() << "fix-pass\n";
+      for (auto &BB : F)
+      {
+        for (auto &Inst : BB)
+        {
+          if (auto *Load = dyn_cast<LoadInst>(&Inst))
+          {
+            Value *Variable = Load->getOperand(0);
+            if (!isVariableInitialized(Variable))
+            {
+              insertInitialization(Inst, Variable);
+            }
+          }
+          else if (auto *Store = dyn_cast<StoreInst>(&Inst))
+          {
+            Value *Variable = Store->getOperand(1);
+            VariableState[Variable] = true;
+          }
+        }
+      }
       return PreservedAnalyses::none();
     }
 
     static bool isRequired() { return true; }
+
+  private:
+    std::map<Value *, bool> VariableState;
+
+    bool isVariableInitialized(Value *Variable)
+    {
+      auto It = VariableState.find(Variable);
+      return It != VariableState.end() && It->second;
+    }
+
+    void insertInitialization(Instruction &InsertBefore, Value *Variable)
+    {
+      IRBuilder<> Builder(&InsertBefore);
+      Type *PointedType = Variable->getType()->getPointerElementType();
+
+      if (PointedType->isIntegerTy())
+      {
+        errs() << "i32\n";
+        Builder.CreateStore(ConstantInt::get(PointedType, 10), Variable);
+      }
+      else if (PointedType->isFloatTy())
+      {
+        errs() << "float\n";
+        Builder.CreateStore(ConstantFP::get(PointedType, 20.0), Variable);
+      }
+      else if (PointedType->isDoubleTy())
+      {
+        errs() << "double\n";
+        Builder.CreateStore(ConstantFP::get(PointedType, 30.0), Variable);
+      }
+      else
+      {
+        errs() << "unknown type\n";
+      }
+      VariableState[Variable] = true;
+    }
   };
 } // namespace
 

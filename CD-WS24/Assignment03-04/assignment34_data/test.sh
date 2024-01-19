@@ -20,9 +20,10 @@ for i in {1..10}; do
     opt -load-pass-plugin ../assignment34_data/p34.so --passes=def-pass test"$i".ll -o test"$i".bc 2>test"$i".my_def
     sort -o "test$i.my_def" "test$i.my_def"
 
-    # run the fix-pass
-    opt -load-pass-plugin ../assignment34_data/p34.so --passes=fix-pass test"$i".ll -o test"$i"_fix.bc
+    # run the fix-pass and also convert the generated bitcode to human redable format using llvm-dis
+    opt -load-pass-plugin ../assignment34_data/p34.so --passes=fix-pass test"$i".ll -o test"$i"_fix.bc 2>test"$i"_fix.my_def
     lli test"$i"_fix.bc >test"$i".my_out
+    llvm-dis test"$i"_fix.bc
 
     # compare the outputs of the passes with the expected outputs
     diff --color -b -c -s "test$i.my_def" "test$i.def"
