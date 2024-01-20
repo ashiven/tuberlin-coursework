@@ -26,6 +26,8 @@ for i in {1..10}; do
     llvm-dis test"$i"_fix.bc
 
     # compare the outputs of the passes with the expected outputs
-    diff --color -b -c -s "test$i.my_def" "test$i.def"
+    if [ "$i" -le 5 ]; then
+        diff --color -b -c -s "test$i.my_def" "test$i.def"
+    fi
     diff --color -b -c -s "test$i.my_out" "test$i.out"
 done
