@@ -6,7 +6,26 @@ import RenderWidget from "./lib/rendererWidget"
 import * as utils from "./lib/utils"
 import { Application, createWindow } from "./lib/window"
 
-function callback(changed: utils.KeyValuePair<helper.Settings>) {}
+var scene: THREE.Scene
+var camera: THREE.PerspectiveCamera
+var canvasWid: CanvasWidget
+var settings: helper.Settings = new helper.Settings()
+var currentWidth: number = settings.width
+var currentHeight: number = settings.height
+
+function callback(changed: utils.KeyValuePair<helper.Settings>) {
+   switch (changed.key) {
+      case "width":
+         currentWidth = changed.value
+         canvasWid.changeDimensions(currentWidth, currentHeight)
+         break
+      case "height":
+         console.log("height")
+         currentHeight = changed.value
+         canvasWid.changeDimensions(currentWidth, currentHeight)
+         break
+   }
+}
 
 function main() {
    let root = Application("Raytracing")
@@ -14,13 +33,15 @@ function main() {
    root.setLayoutColumns(["50%", "50%"])
    root.setLayoutRows(["100%"])
 
-   let settings = new helper.Settings()
    let gui = helper.createGUI(settings)
    settings.addCallback(callback)
 
    let canvasDiv = createWindow("canvas")
    root.appendChild(canvasDiv)
-   let canvasWid = new CanvasWidget(canvasDiv, settings.width, settings.height)
+   canvasWid = new CanvasWidget(canvasDiv, settings.width, settings.height)
+   settings.saveImg = () => {
+      canvasWid.savePNG()
+   }
 
    let rendererDiv = createWindow("renderer")
    root.appendChild(rendererDiv)
@@ -28,11 +49,11 @@ function main() {
       antialias: true,
    })
 
-   let scene = new THREE.Scene()
+   scene = new THREE.Scene()
    helper.setupGeometry(scene)
    helper.setupLight(scene)
 
-   let camera = new THREE.PerspectiveCamera()
+   camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera)
 
    let controls = new OrbitControls(camera, rendererDiv)
