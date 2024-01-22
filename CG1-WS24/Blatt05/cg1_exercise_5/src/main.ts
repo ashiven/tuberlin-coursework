@@ -35,13 +35,13 @@ function main() {
 
    let gui = helper.createGUI(settings)
    settings.addCallback(callback)
+   settings.saveImg = () => {
+      canvasWid.savePNG()
+   }
 
    let canvasDiv = createWindow("canvas")
    root.appendChild(canvasDiv)
    canvasWid = new CanvasWidget(canvasDiv, settings.width, settings.height)
-   settings.saveImg = () => {
-      canvasWid.savePNG()
-   }
 
    let rendererDiv = createWindow("renderer")
    root.appendChild(rendererDiv)
@@ -63,5 +63,4 @@ function main() {
    wid.animate()
 }
 
-// call main entrypoint
 main()
