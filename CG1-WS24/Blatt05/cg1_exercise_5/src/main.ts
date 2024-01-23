@@ -1,6 +1,7 @@
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { CanvasWidget } from "./canvasWidget"
+import { renderImg } from "./functions"
 import * as helper from "./helper"
 import RenderWidget from "./lib/rendererWidget"
 import * as utils from "./lib/utils"
@@ -37,6 +38,9 @@ function main() {
    settings.addCallback(callback)
    settings.saveImg = () => {
       canvasWid.savePNG()
+   }
+   settings.render = () => {
+      renderImg(scene, camera, currentWidth, currentHeight, canvasWid)
    }
 
    let canvasDiv = createWindow("canvas")
