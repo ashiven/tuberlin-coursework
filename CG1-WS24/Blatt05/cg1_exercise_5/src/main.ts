@@ -13,6 +13,7 @@ var canvasWid: CanvasWidget
 var settings: helper.Settings = new helper.Settings()
 var currentWidth: number = settings.width
 var currentHeight: number = settings.height
+var correctSpheres: boolean = settings.correctSpheres
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    switch (changed.key) {
@@ -24,6 +25,9 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          console.log("height")
          currentHeight = changed.value
          canvasWid.changeDimensions(currentWidth, currentHeight)
+         break
+      case "correctSpheres":
+         correctSpheres = changed.value
          break
    }
 }
@@ -40,7 +44,14 @@ function main() {
       canvasWid.savePNG()
    }
    settings.render = () => {
-      renderImg(scene, camera, currentWidth, currentHeight, canvasWid)
+      renderImg(
+         scene,
+         camera,
+         currentWidth,
+         currentHeight,
+         canvasWid,
+         correctSpheres
+      )
    }
 
    let canvasDiv = createWindow("canvas")
