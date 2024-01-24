@@ -22,7 +22,6 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          canvasWid.changeDimensions(currentWidth, currentHeight)
          break
       case "height":
-         console.log("height")
          currentHeight = changed.value
          canvasWid.changeDimensions(currentWidth, currentHeight)
          break
