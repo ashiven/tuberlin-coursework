@@ -106,7 +106,6 @@ function renderImg(
 ) {
    for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
-         console.log("pixel:", x, y)
          const color = getColor(
             scene,
             camera,
@@ -117,7 +116,6 @@ function renderImg(
             false,
             correctSpheres
          )
-         console.log("color:", color)
 
          canvasWid.setPixel(x, y, color)
       }
