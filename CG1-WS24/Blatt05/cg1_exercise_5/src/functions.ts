@@ -29,7 +29,7 @@ function getColor(
    }
 
    const intersects = correctSpheres
-      ? intersectSpheres(scene.children, raycaster)
+      ? intersectSpheres(scene.children)
       : raycaster.intersectObjects(scene.children)
 
    if (intersects.length > 0) {
@@ -43,7 +43,7 @@ function getColor(
    return new THREE.Color(0, 0, 0)
 }
 
-function intersectSpheres(objects: any, raycaster: any) {
+function intersectSpheres(objects: any) {
    let closestSphere: any = null
 
    for (const object of objects) {
@@ -51,7 +51,7 @@ function intersectSpheres(objects: any, raycaster: any) {
          object instanceof THREE.Mesh &&
          object.geometry instanceof THREE.SphereGeometry
       ) {
-         let t = calculateT(object, raycaster.ray)
+         let t = calculateT(object)
 
          if (t > 0 && (closestSphere === null || t < closestSphere.distance)) {
             closestSphere = {
@@ -69,14 +69,14 @@ function intersectSpheres(objects: any, raycaster: any) {
    return [closestSphere]
 }
 
-function calculateT(sphere: any, ray: any) {
+function calculateT(sphere: any) {
    const center = sphere.position
    const radius = sphere.geometry.parameters.radius
 
-   const oc = new THREE.Vector3().subVectors(ray.origin, center)
+   const oc = new THREE.Vector3().subVectors(raycaster.ray.origin, center)
 
-   const a = ray.direction.dot(ray.direction)
-   const b = 2.0 * oc.dot(ray.direction)
+   const a = raycaster.ray.direction.dot(raycaster.ray.direction)
+   const b = 2.0 * oc.dot(raycaster.ray.direction)
    const c = oc.dot(oc) - radius * radius
 
    const discriminant = b * b - 4 * a * c
