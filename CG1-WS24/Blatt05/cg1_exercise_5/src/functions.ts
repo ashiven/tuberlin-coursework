@@ -86,7 +86,7 @@ function getSphereColor(
          let t = 0
 
          if (discriminant < 0) {
-            return new THREE.Color(0, 0, 0)
+            continue
          } else if (discriminant === 0) {
             t = (-0.5 * b) / a
          } else {
