@@ -51,34 +51,7 @@ function intersectSpheres(objects: any, raycaster: any) {
          object instanceof THREE.Mesh &&
          object.geometry instanceof THREE.SphereGeometry
       ) {
-         const center = object.position
-         const radius = object.geometry.parameters.radius
-
-         const oc = new THREE.Vector3().subVectors(raycaster.ray.origin, center)
-
-         const a = raycaster.ray.direction.dot(raycaster.ray.direction)
-         const b = 2.0 * oc.dot(raycaster.ray.direction)
-         const c = oc.dot(oc) - radius * radius
-
-         const discriminant = b * b - 4 * a * c
-
-         let t = 0
-
-         if (discriminant < 0) {
-            continue
-         } else if (discriminant === 0) {
-            t = (-0.5 * b) / a
-         } else {
-            const q =
-               b > 0
-                  ? -0.5 * (b + Math.sqrt(discriminant))
-                  : -0.5 * (b - Math.sqrt(discriminant))
-
-            const t0 = q / a
-            const t1 = c / q
-
-            t = Math.min(t0, t1)
-         }
+         let t = calculateT(object, raycaster.ray)
 
          if (t > 0 && (closestSphere === null || t < closestSphere.distance)) {
             closestSphere = {
@@ -94,6 +67,39 @@ function intersectSpheres(objects: any, raycaster: any) {
    }
 
    return [closestSphere]
+}
+
+function calculateT(sphere: any, ray: any) {
+   const center = sphere.position
+   const radius = sphere.geometry.parameters.radius
+
+   const oc = new THREE.Vector3().subVectors(ray.origin, center)
+
+   const a = ray.direction.dot(ray.direction)
+   const b = 2.0 * oc.dot(ray.direction)
+   const c = oc.dot(oc) - radius * radius
+
+   const discriminant = b * b - 4 * a * c
+
+   let t = 0
+
+   if (discriminant < 0) {
+      return -1
+   } else if (discriminant === 0) {
+      t = (-0.5 * b) / a
+   } else {
+      const q =
+         b > 0
+            ? -0.5 * (b + Math.sqrt(discriminant))
+            : -0.5 * (b - Math.sqrt(discriminant))
+
+      const t0 = q / a
+      const t1 = c / q
+
+      t = Math.min(t0, t1)
+   }
+
+   return t
 }
 
 function renderImg(
