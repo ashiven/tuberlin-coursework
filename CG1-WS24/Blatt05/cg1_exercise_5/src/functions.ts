@@ -9,7 +9,8 @@ function getColor(
    height: number,
    x: number,
    y: number,
-   addHelper: boolean
+   addHelper: boolean,
+   correctSpheres: boolean
 ): THREE.Color {
    const ndcX = (x / width) * 2 - 1
    const ndcY = -(y / height) * 2 + 1
@@ -27,7 +28,9 @@ function getColor(
       )
    }
 
-   const intersects = raycaster.intersectObjects(scene.children)
+   const intersects = correctSpheres
+      ? intersectSpheres(scene.children, raycaster)
+      : raycaster.intersectObjects(scene.children)
 
    if (intersects.length > 0) {
       const object = intersects[0].object
@@ -40,40 +43,16 @@ function getColor(
    return new THREE.Color(0, 0, 0)
 }
 
-function getSphereColor(
-   scene: THREE.Scene,
-   camera: THREE.PerspectiveCamera,
-   width: number,
-   height: number,
-   x: number,
-   y: number,
-   addHelper: boolean
-): THREE.Color {
-   const ndcX = (x / width) * 2 - 1
-   const ndcY = -(y / height) * 2 + 1
-
-   raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera)
-
-   if (addHelper) {
-      scene.add(
-         new THREE.ArrowHelper(
-            raycaster.ray.direction,
-            raycaster.ray.origin,
-            100,
-            0xff0000
-         )
-      )
-   }
-
+function intersectSpheres(objects: any, raycaster: any) {
    let closestSphere: any = null
 
-   for (const child of scene.children) {
+   for (const object of objects) {
       if (
-         child instanceof THREE.Mesh &&
-         child.geometry instanceof THREE.SphereGeometry
+         object instanceof THREE.Mesh &&
+         object.geometry instanceof THREE.SphereGeometry
       ) {
-         const center = child.position
-         const radius = child.geometry.parameters.radius
+         const center = object.position
+         const radius = object.geometry.parameters.radius
 
          const oc = new THREE.Vector3().subVectors(raycaster.ray.origin, center)
 
@@ -104,21 +83,12 @@ function getSphereColor(
          if (t > 0 && (closestSphere === null || t < closestSphere.distance)) {
             closestSphere = {
                distance: t,
-               object: child,
+               object: object,
             }
          }
       }
    }
-
-   if (closestSphere !== null) {
-      const object = closestSphere.object
-
-      if (object instanceof THREE.Mesh) {
-         return object.material.color
-      }
-   }
-
-   return new THREE.Color(0, 0, 0)
+   return [closestSphere]
 }
 
 function renderImg(
@@ -131,9 +101,16 @@ function renderImg(
 ) {
    for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
-         const color = correctSpheres
-            ? getSphereColor(scene, camera, width, height, x, y, false)
-            : getColor(scene, camera, width, height, x, y, false)
+         const color = getColor(
+            scene,
+            camera,
+            width,
+            height,
+            x,
+            y,
+            false,
+            correctSpheres
+         )
 
          canvasWid.setPixel(x, y, color)
       }
