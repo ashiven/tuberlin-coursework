@@ -64,13 +64,23 @@ function getPhongColor(object: any, distance: number, light: THREE.PointLight) {
    const center = object.position.clone()
    const origin = raycaster.ray.origin.clone()
    const direction = raycaster.ray.direction.clone()
-   const intersectionPoint = origin.add(direction.multiplyScalar(distance))
+   const intersectionPoint = origin
+      .clone()
+      .add(direction.clone().multiplyScalar(distance))
 
-   const normalDirection = intersectionPoint.sub(center).normalize()
-   const lightDirection = lightPosition.sub(intersectionPoint).normalize()
+   const normalDirection = intersectionPoint
+      .clone()
+      .sub(center.clone())
+      .normalize()
+   const lightDirection = lightPosition
+      .clone()
+      .sub(intersectionPoint.clone())
+      .normalize()
    const viewDirection = direction.clone().negate().normalize()
-   const reflectionDirection = lightDirection
-      .reflect(normalDirection)
+   const reflectionDirection = normalDirection
+      .clone()
+      .multiplyScalar(lightDirection.clone().dot(normalDirection.clone()) * 2)
+      .sub(lightDirection.clone())
       .normalize()
 
    const diffuseTerm = diffuseReflectance
