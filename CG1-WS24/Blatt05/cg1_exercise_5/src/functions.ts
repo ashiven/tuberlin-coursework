@@ -35,16 +35,17 @@ function getColor(
       : raycaster.intersectObjects(scene.children)
 
    if (intersects.length > 0) {
-      const object = intersects[0].object
-      const distance = intersects[0].distance
+      const intersection = intersects[0]
+      const object = intersection.object
+      const distance = intersection.distance
       const normal =
-         intersects[0].face.normal !== null
-            ? intersects[0].face.normal
+         intersection.face.normal !== null
+            ? intersection.face.normal
                  .clone()
                  .applyMatrix4(object.matrixWorld)
                  .normalize()
             : null
-      const point = intersects[0].point !== null ? intersects[0].point : null
+      const point = intersection.point !== null ? intersection.point : null
       const light = lights[0]
 
       if (object instanceof THREE.Mesh) {
