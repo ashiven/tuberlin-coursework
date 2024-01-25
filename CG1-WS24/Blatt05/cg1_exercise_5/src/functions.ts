@@ -84,16 +84,16 @@ function getPhongColor(
    const normalDirection =
       normal !== null
          ? normal
-         : intersectionPoint.clone().sub(center.clone()).normalize()
+         : intersectionPoint.clone().sub(center).normalize()
    const lightDirection = lightPosition
       .clone()
-      .sub(intersectionPoint.clone())
+      .sub(intersectionPoint)
       .normalize()
    const viewDirection = direction.clone().negate().normalize()
    const reflectionDirection = normalDirection
       .clone()
-      .multiplyScalar(lightDirection.clone().dot(normalDirection.clone()) * 2)
-      .sub(lightDirection.clone())
+      .multiplyScalar(lightDirection.clone().dot(normalDirection) * 2)
+      .sub(lightDirection)
       .normalize()
 
    const diffuseTerm = diffuseReflectance
