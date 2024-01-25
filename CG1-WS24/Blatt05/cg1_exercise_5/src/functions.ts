@@ -36,22 +36,31 @@ function getColor(
    if (intersects.length > 0) {
       const object = intersects[0].object
       const distance = intersects[0].distance
+      const normal =
+         intersects[0].face.normal !== null
+            ? intersects[0].face.normal
+                 .clone()
+                 .applyMatrix4(object.matrixWorld)
+                 .normalize()
+            : null
+      const point = intersects[0].point !== null ? intersects[0].point : null
       const light = lights[0]
 
       if (object instanceof THREE.Mesh) {
-         // TODO: - change this, currently only evaluates phong for spheres
-         if (object.geometry instanceof THREE.SphereGeometry) {
-            return getPhongColor(object, distance, light)
-         }
-
-         return object.material.color
+         return getPhongColor(object, distance, light, normal, point)
       }
    }
 
    return new THREE.Color(0, 0, 0)
 }
 
-function getPhongColor(object: any, distance: number, light: THREE.PointLight) {
+function getPhongColor(
+   object: any,
+   distance: number,
+   light: THREE.PointLight,
+   normal: any,
+   point: any
+) {
    const material = object.material as THREE.MeshPhongMaterial
    const diffuseReflectance = material.color.clone()
    const specularReflectance = material.specular.clone()
@@ -64,14 +73,15 @@ function getPhongColor(object: any, distance: number, light: THREE.PointLight) {
    const center = object.position.clone()
    const origin = raycaster.ray.origin.clone()
    const direction = raycaster.ray.direction.clone()
-   const intersectionPoint = origin
-      .clone()
-      .add(direction.clone().multiplyScalar(distance))
+   const intersectionPoint =
+      point !== null
+         ? point
+         : origin.clone().add(direction.clone().multiplyScalar(distance))
 
-   const normalDirection = intersectionPoint
-      .clone()
-      .sub(center.clone())
-      .normalize()
+   const normalDirection =
+      normal !== null
+         ? normal
+         : intersectionPoint.clone().sub(center.clone()).normalize()
    const lightDirection = lightPosition
       .clone()
       .sub(intersectionPoint.clone())
@@ -118,6 +128,8 @@ function intersectSpheres(objects: any) {
             closestSphere = {
                distance: t,
                object: object,
+               face: { normal: null },
+               point: null,
             }
          }
       }
