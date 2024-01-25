@@ -98,13 +98,13 @@ function getPhongColor(
 
    const diffuseTerm = diffuseReflectance
       .multiplyScalar(lightIntensity)
-      .multiplyScalar(Math.max(0, normalDirection.dot(lightDirection)))
+      .multiplyScalar(Math.max(0, normalDirection.clone().dot(lightDirection)))
 
    const specularTerm = specularReflectance
       .multiplyScalar(lightIntensity)
       .multiplyScalar(
          Math.pow(
-            Math.max(0, viewDirection.dot(reflectionDirection)),
+            Math.max(0, viewDirection.clone().dot(reflectionDirection)),
             magnitude
          )
       )
@@ -114,7 +114,10 @@ function getPhongColor(
       .multiplyScalar(magnitude / 50)
    const diffuseColor = diffuseTerm.multiply(lightColor)
 
-   return diffuseColor.add(specularColor)
+   const distanceToLight = intersectionPoint.distanceTo(lightPosition)
+   const attenuation = 1 / (distanceToLight * distanceToLight)
+
+   return diffuseColor.add(specularColor).multiplyScalar(attenuation)
 }
 
 function intersectSpheres(objects: any) {
