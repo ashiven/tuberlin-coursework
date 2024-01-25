@@ -39,12 +39,7 @@ function getColor(
       const object = intersection.object
       const distance = intersection.distance
       const normal =
-         intersection.face.normal !== null
-            ? intersection.face.normal
-                 .clone()
-                 .applyMatrix4(object.matrixWorld)
-                 .normalize()
-            : null
+         intersection.face.normal !== null ? intersection.face.normal : null
       const point = intersection.point !== null ? intersection.point : null
       const light = lights[0]
 
@@ -84,7 +79,7 @@ function getPhongColor(
 
    const normalDirection =
       normal !== null
-         ? normal
+         ? normal.applyMatrix4(object.matrixWorld).normalize()
          : intersectionPoint.clone().sub(center).normalize()
    const lightDirection = lightPosition
       .clone()
