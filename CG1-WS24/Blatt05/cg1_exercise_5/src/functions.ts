@@ -35,10 +35,13 @@ function getColor(
 
    if (intersects.length > 0) {
       const object = intersects[0].object
+      const distance = intersects[0].distance
+      const light = lights[0]
 
       if (object instanceof THREE.Mesh) {
+         // TODO: - change this, currently only evaluates phong for spheres
          if (object.geometry instanceof THREE.SphereGeometry) {
-            return getPhongColor(object, lights[0])
+            return getPhongColor(object, distance, light)
          }
 
          return object.material.color
@@ -48,7 +51,7 @@ function getColor(
    return new THREE.Color(0, 0, 0)
 }
 
-function getPhongColor(object: any, light: THREE.PointLight) {
+function getPhongColor(object: any, distance: number, light: THREE.PointLight) {
    const material = object.material as THREE.MeshPhongMaterial
    const diffuseReflectance = material.color.clone()
    const specularReflectance = material.specular.clone()
@@ -59,9 +62,9 @@ function getPhongColor(object: any, light: THREE.PointLight) {
    const lightIntensity = light.intensity * 4
 
    const center = object.position.clone()
-   const intersectionPoint = raycaster.ray.origin
-      .clone()
-      .add(raycaster.ray.direction.clone().multiplyScalar(object.distance))
+   const origin = raycaster.ray.origin.clone()
+   const direction = raycaster.ray.direction.clone()
+   const intersectionPoint = origin.add(direction.multiplyScalar(distance))
 
    const normalDirection = intersectionPoint.sub(center).normalize()
    const lightDirection = lightPosition.sub(intersectionPoint).normalize()
@@ -81,7 +84,9 @@ function getPhongColor(object: any, light: THREE.PointLight) {
          )
       )
 
-   const specularColor = specularTerm.multiply(lightColor)
+   const specularColor = specularTerm
+      .multiply(lightColor)
+      .multiplyScalar(magnitude / 50)
    const diffuseColor = diffuseTerm.multiply(lightColor)
 
    return diffuseColor.add(specularColor)
