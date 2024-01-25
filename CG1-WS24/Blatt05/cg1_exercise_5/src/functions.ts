@@ -11,6 +11,7 @@ function getColor(
    y: number,
    addHelper: boolean,
    correctSpheres: boolean,
+   usePhong: boolean,
    lights: any
 ): THREE.Color {
    const ndcX = (x / width) * 2 - 1
@@ -47,7 +48,9 @@ function getColor(
       const light = lights[0]
 
       if (object instanceof THREE.Mesh) {
-         return getPhongColor(object, distance, light, normal, point)
+         return usePhong
+            ? getPhongColor(object, distance, light, normal, point)
+            : object.material.color
       }
    }
 
@@ -182,6 +185,7 @@ function renderImg(
    height: number,
    canvasWid: any,
    correctSpheres: boolean,
+   usePhong: boolean,
    lights: any
 ) {
    for (let x = 0; x < width; x++) {
@@ -195,6 +199,7 @@ function renderImg(
             y,
             false,
             correctSpheres,
+            usePhong,
             lights
          )
 
