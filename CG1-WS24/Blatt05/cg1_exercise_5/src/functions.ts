@@ -10,7 +10,8 @@ function getColor(
    x: number,
    y: number,
    addHelper: boolean,
-   correctSpheres: boolean
+   correctSpheres: boolean,
+   lights: any
 ): THREE.Color {
    const ndcX = (x / width) * 2 - 1
    const ndcY = -(y / height) * 2 + 1
@@ -36,11 +37,54 @@ function getColor(
       const object = intersects[0].object
 
       if (object instanceof THREE.Mesh) {
+         if (object.geometry instanceof THREE.SphereGeometry) {
+            return getPhongColor(object, lights[0])
+         }
+
          return object.material.color
       }
    }
 
    return new THREE.Color(0, 0, 0)
+}
+
+function getPhongColor(object: any, light: THREE.PointLight) {
+   const material = object.material as THREE.MeshPhongMaterial
+   const diffuseReflectance = material.color.clone()
+   const specularReflectance = material.specular.clone()
+   const magnitude = material.shininess
+
+   const lightPosition = light.position.clone()
+   const lightColor = light.color.clone()
+   const lightIntensity = light.intensity * 4
+
+   const center = object.position.clone()
+   const intersectionPoint = raycaster.ray.origin
+      .clone()
+      .add(raycaster.ray.direction.clone().multiplyScalar(object.distance))
+
+   const normalDirection = intersectionPoint.sub(center).normalize()
+   const lightDirection = lightPosition.sub(intersectionPoint).normalize()
+   const viewDirection = raycaster.ray.direction.clone().negate()
+   const reflectionDirection = lightDirection.reflect(normalDirection)
+
+   const diffuseTerm = diffuseReflectance
+      .multiplyScalar(lightIntensity)
+      .multiplyScalar(Math.max(0, normalDirection.dot(lightDirection)))
+
+   const specularTerm = specularReflectance
+      .multiplyScalar(lightIntensity)
+      .multiplyScalar(
+         Math.pow(
+            Math.max(0, viewDirection.dot(reflectionDirection)),
+            magnitude
+         )
+      )
+
+   const specularColor = specularTerm.multiply(lightColor)
+   const diffuseColor = diffuseTerm.multiply(lightColor)
+
+   return diffuseColor.add(specularColor)
 }
 
 function intersectSpheres(objects: any) {
@@ -108,7 +152,8 @@ function renderImg(
    width: number,
    height: number,
    canvasWid: any,
-   correctSpheres: boolean
+   correctSpheres: boolean,
+   lights: any
 ) {
    for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
@@ -120,7 +165,8 @@ function renderImg(
             x,
             y,
             false,
-            correctSpheres
+            correctSpheres,
+            lights
          )
 
          canvasWid.setPixel(x, y, color)

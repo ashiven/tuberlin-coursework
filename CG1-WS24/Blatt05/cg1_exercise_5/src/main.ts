@@ -10,6 +10,7 @@ import { Application, createWindow } from "./lib/window"
 var scene: THREE.Scene
 var camera: THREE.PerspectiveCamera
 var canvasWid: CanvasWidget
+var lights: THREE.Light[]
 var settings: helper.Settings = new helper.Settings()
 var currentWidth: number = settings.width
 var currentHeight: number = settings.height
@@ -49,7 +50,8 @@ function main() {
          currentWidth,
          currentHeight,
          canvasWid,
-         correctSpheres
+         correctSpheres,
+         lights
       )
    }
 
@@ -65,7 +67,7 @@ function main() {
 
    scene = new THREE.Scene()
    helper.setupGeometry(scene)
-   helper.setupLight(scene)
+   lights = helper.setupLight(scene)
 
    camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera)
