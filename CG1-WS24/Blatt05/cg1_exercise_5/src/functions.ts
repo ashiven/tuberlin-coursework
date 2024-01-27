@@ -1,5 +1,7 @@
 import * as THREE from "three"
 
+let total = 0
+
 const raycaster = new THREE.Raycaster()
 
 function getColor(
@@ -46,6 +48,12 @@ function getColor(
             : null
       const point = intersection.point !== null ? intersection.point : null
       const light = lights[0]
+
+      if (total < 15) {
+         scene.add(new THREE.ArrowHelper(normal, point, 5, 0xff0000))
+         console.log(object.material.color)
+         total++
+      }
 
       if (object instanceof THREE.Mesh) {
          return usePhong
