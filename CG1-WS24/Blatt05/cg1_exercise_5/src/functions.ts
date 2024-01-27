@@ -50,7 +50,8 @@ function getColor(
                         light,
                         normal,
                         point,
-                        useShadows
+                        useShadows,
+                        correctSpheres
                      )
                   )
                }
@@ -64,7 +65,8 @@ function getColor(
                      light,
                      normal,
                      point,
-                     useShadows
+                     useShadows,
+                     correctSpheres
                   )
                )
             }
@@ -84,7 +86,8 @@ function getPhongColor(
    light: THREE.PointLight,
    normal: THREE.Vector3,
    point: THREE.Vector3,
-   useShadows: boolean
+   useShadows: boolean,
+   correctSpheres: boolean
 ) {
    const material = object.material as THREE.MeshPhongMaterial
    const diffuseReflectance = material.color.clone()
@@ -143,7 +146,10 @@ function getPhongColor(
 
    let color = diffuseColor.add(specularColor).multiplyScalar(attenuation)
 
-   if (useShadows && isShadowed(scene, lightPosition, intersectionPoint)) {
+   if (
+      useShadows &&
+      isShadowed(scene, lightPosition, intersectionPoint, correctSpheres)
+   ) {
       return color.multiplyScalar(0.2)
    }
 
@@ -153,7 +159,8 @@ function getPhongColor(
 function isShadowed(
    scene: THREE.Scene,
    lightPosition: THREE.Vector3,
-   intersectionPoint: THREE.Vector3
+   intersectionPoint: THREE.Vector3,
+   correctSpheres: boolean
 ) {
    const lightDirection = lightPosition
       .clone()
@@ -162,7 +169,9 @@ function isShadowed(
 
    raycaster.set(intersectionPoint, lightDirection)
 
-   const intersects = raycaster.intersectObjects(scene.children)
+   const intersects = correctSpheres
+      ? intersectSpheres(scene.children)
+      : raycaster.intersectObjects(scene.children)
 
    if (intersects.length > 0) {
       const intersection = intersects[0]
