@@ -12,7 +12,8 @@ function getColor(
    correctSpheres: boolean,
    usePhong: boolean,
    lights: any,
-   allLights: boolean
+   allLights: boolean,
+   useShadows: boolean
 ): THREE.Color {
    let color = new THREE.Color(0, 0, 0)
 
@@ -42,12 +43,30 @@ function getColor(
             if (allLights) {
                for (const light of lights) {
                   color.add(
-                     getPhongColor(object, distance, light, normal, point)
+                     getPhongColor(
+                        scene,
+                        object,
+                        distance,
+                        light,
+                        normal,
+                        point,
+                        useShadows
+                     )
                   )
                }
             } else {
                const light = lights[0]
-               color.add(getPhongColor(object, distance, light, normal, point))
+               color.add(
+                  getPhongColor(
+                     scene,
+                     object,
+                     distance,
+                     light,
+                     normal,
+                     point,
+                     useShadows
+                  )
+               )
             }
          } else {
             color = object.material.color
@@ -59,11 +78,13 @@ function getColor(
 }
 
 function getPhongColor(
+   scene: THREE.Scene,
    object: any,
    distance: number,
    light: THREE.PointLight,
    normal: THREE.Vector3,
-   point: THREE.Vector3
+   point: THREE.Vector3,
+   useShadows: boolean
 ) {
    const material = object.material as THREE.MeshPhongMaterial
    const diffuseReflectance = material.color.clone()
@@ -120,7 +141,40 @@ function getPhongColor(
    const distanceToLight = intersectionPoint.distanceTo(lightPosition)
    const attenuation = 1 / (distanceToLight * distanceToLight)
 
-   return diffuseColor.add(specularColor).multiplyScalar(attenuation)
+   let color = diffuseColor.add(specularColor).multiplyScalar(attenuation)
+
+   if (useShadows && isShadowed(scene, lightPosition, intersectionPoint)) {
+      return color.multiplyScalar(0.2)
+   }
+
+   return color
+}
+
+function isShadowed(
+   scene: THREE.Scene,
+   lightPosition: THREE.Vector3,
+   intersectionPoint: THREE.Vector3
+) {
+   const lightDirection = lightPosition
+      .clone()
+      .sub(intersectionPoint)
+      .normalize()
+
+   raycaster.set(intersectionPoint, lightDirection)
+
+   const intersects = raycaster.intersectObjects(scene.children)
+
+   if (intersects.length > 0) {
+      const intersection = intersects[0]
+      const object = intersection.object
+      const distance = intersection.distance
+
+      if (object instanceof THREE.Mesh) {
+         return distance < intersectionPoint.distanceTo(lightPosition)
+      }
+   }
+
+   return false
 }
 
 function intersectSpheres(objects: any) {
@@ -193,7 +247,8 @@ function renderImg(
    correctSpheres: boolean,
    usePhong: boolean,
    lights: any,
-   allLights: boolean
+   allLights: boolean,
+   useShadows: boolean
 ) {
    for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
@@ -207,7 +262,8 @@ function renderImg(
             correctSpheres,
             usePhong,
             lights,
-            allLights
+            allLights,
+            useShadows
          )
 
          canvasWid.setPixel(x, y, color)

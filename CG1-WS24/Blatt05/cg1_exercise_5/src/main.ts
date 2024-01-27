@@ -17,6 +17,7 @@ var currentHeight: number = settings.height
 var correctSpheres: boolean = settings.correctSpheres
 var usePhong: boolean = settings.phong
 var allLights: boolean = settings.alllights
+var useShadows: boolean = settings.shadows
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    switch (changed.key) {
@@ -36,6 +37,9 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          break
       case "alllights":
          allLights = changed.value
+         break
+      case "shadows":
+         useShadows = changed.value
          break
    }
 }
@@ -61,7 +65,8 @@ function main() {
          correctSpheres,
          usePhong,
          lights,
-         allLights
+         allLights,
+         useShadows
       )
    }
 
