@@ -16,6 +16,7 @@ var currentWidth: number = settings.width
 var currentHeight: number = settings.height
 var correctSpheres: boolean = settings.correctSpheres
 var usePhong: boolean = settings.phong
+var allLights: boolean = settings.alllights
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    switch (changed.key) {
@@ -32,6 +33,9 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          break
       case "phong":
          usePhong = changed.value
+         break
+      case "alllights":
+         allLights = changed.value
          break
    }
 }
@@ -56,7 +60,8 @@ function main() {
          canvasWid,
          correctSpheres,
          usePhong,
-         lights
+         lights,
+         allLights
       )
    }
 
