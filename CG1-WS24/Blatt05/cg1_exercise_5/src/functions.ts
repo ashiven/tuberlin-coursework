@@ -9,27 +9,17 @@ function getColor(
    height: number,
    x: number,
    y: number,
-   addHelper: boolean,
    correctSpheres: boolean,
    usePhong: boolean,
    lights: any,
    allLights: boolean
 ): THREE.Color {
+   let color = new THREE.Color(0, 0, 0)
+
    const ndcX = (x / width) * 2 - 1
    const ndcY = -(y / height) * 2 + 1
 
    raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera)
-
-   if (addHelper) {
-      scene.add(
-         new THREE.ArrowHelper(
-            raycaster.ray.direction,
-            raycaster.ray.origin,
-            100,
-            0xff0000
-         )
-      )
-   }
 
    const intersects = correctSpheres
       ? intersectSpheres(scene.children)
@@ -49,8 +39,6 @@ function getColor(
       const light = lights[0]
 
       if (object instanceof THREE.Mesh) {
-         let color = new THREE.Color(0, 0, 0)
-
          if (usePhong) {
             if (allLights) {
                for (const light of lights) {
@@ -64,12 +52,10 @@ function getColor(
          } else {
             color = object.material.color
          }
-
-         return color
       }
    }
 
-   return new THREE.Color(0, 0, 0)
+   return color
 }
 
 function getPhongColor(
@@ -218,7 +204,6 @@ function renderImg(
             height,
             x,
             y,
-            false,
             correctSpheres,
             usePhong,
             lights,
