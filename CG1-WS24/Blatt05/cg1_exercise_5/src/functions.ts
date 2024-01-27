@@ -39,7 +39,11 @@ function getColor(
       const object = intersection.object
       const distance = intersection.distance
       const normal =
-         intersection.face.normal !== null ? intersection.face.normal : null
+         intersection.face.normal !== null
+            ? intersection.face.normal
+                 .applyMatrix4(object.matrixWorld)
+                 .normalize()
+            : null
       const point = intersection.point !== null ? intersection.point : null
       const light = lights[0]
 
@@ -57,8 +61,8 @@ function getPhongColor(
    object: any,
    distance: number,
    light: THREE.PointLight,
-   normal: any,
-   point: any
+   normal: THREE.Vector3,
+   point: THREE.Vector3
 ) {
    const material = object.material as THREE.MeshPhongMaterial
    const diffuseReflectance = material.color.clone()
@@ -79,7 +83,7 @@ function getPhongColor(
 
    const normalDirection =
       normal !== null
-         ? normal.applyMatrix4(object.matrixWorld).normalize()
+         ? normal
          : intersectionPoint.clone().sub(center).normalize()
    const lightDirection = lightPosition
       .clone()
@@ -93,14 +97,16 @@ function getPhongColor(
       .normalize()
 
    const diffuseTerm = diffuseReflectance
+      .clone()
       .multiplyScalar(lightIntensity)
-      .multiplyScalar(Math.max(0, normalDirection.clone().dot(lightDirection)))
+      .multiplyScalar(Math.max(0, normalDirection.clone().dot(lightDirection))) // TODO: this evaluates to 0 because the normal direction is wrong (probably not being transformed correctly)
 
    const specularTerm = specularReflectance
+      .clone()
       .multiplyScalar(lightIntensity)
       .multiplyScalar(
          Math.pow(
-            Math.max(0, viewDirection.clone().dot(reflectionDirection)),
+            Math.max(0, viewDirection.clone().dot(reflectionDirection)), // TODO: this evaluates to 0 because the normal direction is wrong (probably not being transformed correctly)
             magnitude
          )
       )
