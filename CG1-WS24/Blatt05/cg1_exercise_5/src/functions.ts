@@ -36,7 +36,6 @@ function getColor(
                  .normalize()
             : null
       const point = intersection.point !== null ? intersection.point : null
-      const light = lights[0]
 
       if (object instanceof THREE.Mesh) {
          if (usePhong) {
@@ -47,6 +46,7 @@ function getColor(
                   )
                }
             } else {
+               const light = lights[0]
                color.add(getPhongColor(object, distance, light, normal, point))
             }
          } else {
