@@ -114,14 +114,14 @@ function getPhongColor(
    const diffuseTerm = diffuseReflectance
       .clone()
       .multiplyScalar(lightIntensity)
-      .multiplyScalar(Math.max(0, normalDirection.clone().dot(lightDirection))) // TODO: this evaluates to 0 because the normal direction is wrong (probably not being transformed correctly)
+      .multiplyScalar(Math.max(0, normalDirection.clone().dot(lightDirection)))
 
    const specularTerm = specularReflectance
       .clone()
       .multiplyScalar(lightIntensity)
       .multiplyScalar(
          Math.pow(
-            Math.max(0, viewDirection.clone().dot(reflectionDirection)), // TODO: this evaluates to 0 because the normal direction is wrong (probably not being transformed correctly)
+            Math.max(0, viewDirection.clone().dot(reflectionDirection)),
             magnitude
          )
       )
