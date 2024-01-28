@@ -167,7 +167,12 @@ function isShadowed(
       .sub(intersectionPoint)
       .normalize()
 
-   raycaster.set(intersectionPoint, lightDirection)
+   const offset = 1e-8
+   const origin = intersectionPoint
+      .clone()
+      .add(lightDirection.clone().multiplyScalar(offset))
+
+   raycaster.set(origin, lightDirection)
 
    const intersects = correctSpheres
       ? intersectSpheres(scene.children)
