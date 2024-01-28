@@ -34,14 +34,15 @@ function getColor(
    if (intersects.length > 0) {
       const intersection = intersects[0]
       const object = intersection.object
-      const distance = intersection.distance
-      const normal =
-         intersection.face.normal !== null
-            ? intersection.face.normal
-                 .applyMatrix4(object.matrixWorld.clone().invert().transpose())
-                 .normalize()
-            : null
-      const point = intersection.point !== null ? intersection.point : null
+      let normal = intersection.face.normal
+      if (
+         !(correctSpheres && object.geometry instanceof THREE.SphereGeometry)
+      ) {
+         normal = intersection.face.normal
+            .applyMatrix4(object.matrixWorld.clone().invert().transpose())
+            .normalize()
+      }
+      const point = intersection.point
 
       if (object instanceof THREE.Mesh) {
          if (usePhong) {
@@ -51,7 +52,6 @@ function getColor(
                      getPhongColor(
                         scene,
                         object,
-                        distance,
                         light,
                         normal,
                         point,
@@ -66,7 +66,6 @@ function getColor(
                   getPhongColor(
                      scene,
                      object,
-                     distance,
                      light,
                      normal,
                      point,
@@ -84,7 +83,6 @@ function getColor(
             object.material.mirror &&
             reflectionDepth < maxReflectionDepth
          ) {
-            // TODO: - this does not work if a corrected sphere has a mirror material because normal and point are null
             const reflectionDirection = raycaster.ray.direction
                .clone()
                .reflect(normal)
@@ -123,7 +121,6 @@ function getColor(
 function getPhongColor(
    scene: THREE.Scene,
    object: any,
-   distance: number,
    light: THREE.PointLight,
    normal: THREE.Vector3,
    point: THREE.Vector3,
@@ -139,18 +136,10 @@ function getPhongColor(
    const lightColor = light.color.clone()
    const lightIntensity = light.intensity * 4
 
-   const center = object.position.clone()
-   const origin = raycaster.ray.origin.clone()
    const direction = raycaster.ray.direction.clone()
-   const intersectionPoint =
-      point !== null
-         ? point
-         : origin.clone().add(direction.clone().multiplyScalar(distance))
+   const intersectionPoint = point
 
-   const normalDirection =
-      normal !== null
-         ? normal
-         : intersectionPoint.clone().sub(center).normalize()
+   const normalDirection = normal
    const lightDirection = lightPosition
       .clone()
       .sub(intersectionPoint)
@@ -256,6 +245,19 @@ function intersectSpheres(objects: any) {
    if (closestSphere === null) {
       return raycaster.intersectObjects(objects)
    }
+
+   const object = closestSphere.object
+   const center = object.position.clone()
+   const origin = raycaster.ray.origin.clone()
+   const direction = raycaster.ray.direction.clone()
+
+   const intersectionPoint = origin
+      .clone()
+      .add(direction.clone().multiplyScalar(closestSphere.distance))
+   const normalDirection = intersectionPoint.clone().sub(center).normalize()
+
+   closestSphere.face.normal = normalDirection
+   closestSphere.point = intersectionPoint
 
    return [closestSphere]
 }
