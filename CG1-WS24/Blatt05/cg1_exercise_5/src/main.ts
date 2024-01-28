@@ -18,6 +18,8 @@ var correctSpheres: boolean = settings.correctSpheres
 var usePhong: boolean = settings.phong
 var allLights: boolean = settings.alllights
 var useShadows: boolean = settings.shadows
+var useMirrors: boolean = settings.mirrors
+var maxReflectionDepth: number = settings.maxDepth
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    switch (changed.key) {
@@ -40,6 +42,12 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          break
       case "shadows":
          useShadows = changed.value
+         break
+      case "mirrors":
+         useMirrors = changed.value
+         break
+      case "maxDepth":
+         maxReflectionDepth = changed.value
          break
    }
 }
@@ -66,7 +74,9 @@ function main() {
          usePhong,
          lights,
          allLights,
-         useShadows
+         useShadows,
+         useMirrors,
+         maxReflectionDepth
       )
    }
 

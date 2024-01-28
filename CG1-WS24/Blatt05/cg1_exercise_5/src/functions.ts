@@ -1,7 +1,6 @@
 import * as THREE from "three"
 
 const raycaster = new THREE.Raycaster()
-const maxReflectionDepth = 2
 
 function getColor(
    scene: THREE.Scene,
@@ -15,6 +14,8 @@ function getColor(
    lights: any,
    allLights: boolean,
    useShadows: boolean,
+   useMirrors: boolean,
+   maxReflectionDepth: number,
    reflectionDepth: number = 0
 ): THREE.Color {
    let color = new THREE.Color(0, 0, 0)
@@ -22,7 +23,9 @@ function getColor(
    const ndcX = (x / width) * 2 - 1
    const ndcY = -(y / height) * 2 + 1
 
-   raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera)
+   reflectionDepth === 0
+      ? raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera)
+      : null
 
    const intersects = correctSpheres
       ? intersectSpheres(scene.children)
@@ -76,10 +79,14 @@ function getColor(
             color = object.material.color
          }
 
-         if (object.material.mirror && reflectionDepth < maxReflectionDepth) {
+         if (
+            useMirrors &&
+            object.material.mirror &&
+            reflectionDepth < maxReflectionDepth
+         ) {
             const reflectionDirection = raycaster.ray.direction
                .clone()
-               .reflect(normal) // need correct sphere normals and intersection points
+               .reflect(normal)
                .normalize()
             const reflectionOrigin = point
                .clone()
@@ -98,6 +105,8 @@ function getColor(
                lights,
                allLights,
                useShadows,
+               useMirrors,
+               maxReflectionDepth,
                reflectionDepth + 1
             )
 
@@ -293,7 +302,9 @@ function renderImg(
    usePhong: boolean,
    lights: any,
    allLights: boolean,
-   useShadows: boolean
+   useShadows: boolean,
+   useMirrors: boolean,
+   maxReflectionDepth: number
 ) {
    for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
@@ -308,7 +319,9 @@ function renderImg(
             usePhong,
             lights,
             allLights,
-            useShadows
+            useShadows,
+            useMirrors,
+            maxReflectionDepth
          )
 
          canvasWid.setPixel(x, y, color)
