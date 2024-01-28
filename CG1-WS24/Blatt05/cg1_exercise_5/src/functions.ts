@@ -48,31 +48,25 @@ function getColor(
          if (usePhong) {
             if (allLights) {
                for (const light of lights) {
-                  color.add(
-                     getPhongColor(
-                        scene,
-                        object,
-                        light,
-                        normal,
-                        point,
-                        useShadows,
-                        correctSpheres
-                     )
-                  )
+                  let phongColor = getPhongColor(object, light, normal, point)
+                  if (
+                     useShadows &&
+                     isShadowed(scene, light.position, point, correctSpheres)
+                  ) {
+                     phongColor.multiplyScalar(0.2)
+                  }
+                  color.add(phongColor)
                }
             } else {
                const light = lights[0]
-               color.add(
-                  getPhongColor(
-                     scene,
-                     object,
-                     light,
-                     normal,
-                     point,
-                     useShadows,
-                     correctSpheres
-                  )
-               )
+               let phongColor = getPhongColor(object, light, normal, point)
+               if (
+                  useShadows &&
+                  isShadowed(scene, light.position, point, correctSpheres)
+               ) {
+                  phongColor.multiplyScalar(0.2)
+               }
+               color.add(phongColor)
             }
          } else {
             color = object.material.color
@@ -119,13 +113,10 @@ function getColor(
 }
 
 function getPhongColor(
-   scene: THREE.Scene,
    object: any,
    light: THREE.PointLight,
    normal: THREE.Vector3,
-   point: THREE.Vector3,
-   useShadows: boolean,
-   correctSpheres: boolean
+   point: THREE.Vector3
 ) {
    const material = object.material as THREE.MeshPhongMaterial
    const diffuseReflectance = material.color.clone()
@@ -175,13 +166,6 @@ function getPhongColor(
    const attenuation = 1 / (distanceToLight * distanceToLight)
 
    let color = diffuseColor.add(specularColor).multiplyScalar(attenuation)
-
-   if (
-      useShadows &&
-      isShadowed(scene, lightPosition, intersectionPoint, correctSpheres)
-   ) {
-      color.multiplyScalar(0.2)
-   }
 
    return color
 }
