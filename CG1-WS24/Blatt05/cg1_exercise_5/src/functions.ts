@@ -54,48 +54,59 @@ function getColor(
                const light = lights[0]
                color.add(getPhongColor(object, light, normal, point))
             }
-         } else {
-            color = object.material.color
-         }
 
-         if (
-            useMirrors &&
-            object.material.mirror &&
-            reflectionDepth < maxReflectionDepth
-         ) {
-            const reflectionDirection = raycaster.ray.direction
-               .clone()
-               .reflect(normal)
-               .normalize()
-            const reflectionOrigin = point
-               .clone()
-               .add(reflectionDirection.clone().multiplyScalar(1e-8))
-            raycaster.set(reflectionOrigin, reflectionDirection)
+            if (
+               useMirrors &&
+               object.material.mirror &&
+               reflectionDepth < maxReflectionDepth
+            ) {
+               const reflectionDirection = raycaster.ray.direction
+                  .clone()
+                  .reflect(normal)
+                  .normalize()
+               const reflectionOrigin = point
+                  .clone()
+                  .add(reflectionDirection.clone().multiplyScalar(1e-8))
+               raycaster.set(reflectionOrigin, reflectionDirection)
 
-            const reflectionColor = getColor(
-               scene,
-               camera,
-               width,
-               height,
-               x,
-               y,
-               correctSpheres,
-               usePhong,
-               lights,
-               allLights,
-               useShadows,
-               useMirrors,
-               maxReflectionDepth,
-               reflectionDepth + 1
-            )
+               const reflectionColor = getColor(
+                  scene,
+                  camera,
+                  width,
+                  height,
+                  x,
+                  y,
+                  correctSpheres,
+                  usePhong,
+                  lights,
+                  allLights,
+                  useShadows,
+                  useMirrors,
+                  maxReflectionDepth,
+                  reflectionDepth + 1
+               )
 
-            const reflectivity = object.material.reflectivity
-            color.lerp(reflectionColor, reflectivity)
-         }
+               const reflectivity = object.material.reflectivity
+               color.lerp(reflectionColor, reflectivity)
+            }
 
-         if (useShadows) {
-            if (allLights) {
-               for (const light of lights) {
+            if (useShadows) {
+               if (allLights) {
+                  for (const light of lights) {
+                     if (
+                        isShadowed(
+                           scene,
+                           light.position,
+                           point,
+                           correctSpheres,
+                           normal
+                        )
+                     ) {
+                        color.multiplyScalar(0.2 * lights.length)
+                     }
+                  }
+               } else {
+                  const light = lights[0]
                   if (
                      isShadowed(
                         scene,
@@ -105,23 +116,12 @@ function getColor(
                         normal
                      )
                   ) {
-                     color.multiplyScalar(0.2 * lights.length)
+                     color.multiplyScalar(0.2)
                   }
                }
-            } else {
-               const light = lights[0]
-               if (
-                  isShadowed(
-                     scene,
-                     light.position,
-                     point,
-                     correctSpheres,
-                     normal
-                  )
-               ) {
-                  color.multiplyScalar(0.2)
-               }
             }
+         } else {
+            color = object.material.color
          }
       }
    }
