@@ -48,25 +48,11 @@ function getColor(
          if (usePhong) {
             if (allLights) {
                for (const light of lights) {
-                  let phongColor = getPhongColor(object, light, normal, point)
-                  if (
-                     useShadows &&
-                     isShadowed(scene, light.position, point, correctSpheres)
-                  ) {
-                     phongColor.multiplyScalar(0.2)
-                  }
-                  color.add(phongColor)
+                  color.add(getPhongColor(object, light, normal, point))
                }
             } else {
                const light = lights[0]
-               let phongColor = getPhongColor(object, light, normal, point)
-               if (
-                  useShadows &&
-                  isShadowed(scene, light.position, point, correctSpheres)
-               ) {
-                  phongColor.multiplyScalar(0.2)
-               }
-               color.add(phongColor)
+               color.add(getPhongColor(object, light, normal, point))
             }
          } else {
             color = object.material.color
@@ -105,6 +91,37 @@ function getColor(
 
             const reflectivity = object.material.reflectivity
             color.lerp(reflectionColor, reflectivity)
+         }
+
+         if (useShadows) {
+            if (allLights) {
+               for (const light of lights) {
+                  if (
+                     isShadowed(
+                        scene,
+                        light.position,
+                        point,
+                        correctSpheres,
+                        normal
+                     )
+                  ) {
+                     color.multiplyScalar(0.2 * lights.length)
+                  }
+               }
+            } else {
+               const light = lights[0]
+               if (
+                  isShadowed(
+                     scene,
+                     light.position,
+                     point,
+                     correctSpheres,
+                     normal
+                  )
+               ) {
+                  color.multiplyScalar(0.2)
+               }
+            }
          }
       }
    }
@@ -174,7 +191,8 @@ function isShadowed(
    scene: THREE.Scene,
    lightPosition: THREE.Vector3,
    intersectionPoint: THREE.Vector3,
-   correctSpheres: boolean
+   correctSpheres: boolean,
+   normalDirection: THREE.Vector3
 ) {
    const lightDirection = lightPosition
       .clone()
@@ -184,7 +202,7 @@ function isShadowed(
    const offset = 1e-8
    const origin = intersectionPoint
       .clone()
-      .add(lightDirection.clone().multiplyScalar(offset))
+      .add(normalDirection.clone().multiplyScalar(offset))
 
    raycaster.set(origin, lightDirection)
 
