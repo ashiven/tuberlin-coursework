@@ -84,6 +84,7 @@ function getColor(
             object.material.mirror &&
             reflectionDepth < maxReflectionDepth
          ) {
+            // TODO: - this does not work if a corrected sphere has a mirror material because normal and point are null
             const reflectionDirection = raycaster.ray.direction
                .clone()
                .reflect(normal)
