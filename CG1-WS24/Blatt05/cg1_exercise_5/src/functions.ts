@@ -1,6 +1,7 @@
 import * as THREE from "three"
 
 const raycaster = new THREE.Raycaster()
+const maxReflectionDepth = 2
 
 function getColor(
    scene: THREE.Scene,
@@ -13,7 +14,8 @@ function getColor(
    usePhong: boolean,
    lights: any,
    allLights: boolean,
-   useShadows: boolean
+   useShadows: boolean,
+   reflectionDepth: number = 0
 ): THREE.Color {
    let color = new THREE.Color(0, 0, 0)
 
@@ -72,6 +74,35 @@ function getColor(
             }
          } else {
             color = object.material.color
+         }
+
+         if (object.material.mirror && reflectionDepth < maxReflectionDepth) {
+            const reflectionDirection = raycaster.ray.direction
+               .clone()
+               .reflect(normal) // need correct sphere normals and intersection points
+               .normalize()
+            const reflectionOrigin = point
+               .clone()
+               .add(reflectionDirection.clone().multiplyScalar(1e-8))
+            raycaster.set(reflectionOrigin, reflectionDirection)
+
+            const reflectionColor = getColor(
+               scene,
+               camera,
+               width,
+               height,
+               x,
+               y,
+               correctSpheres,
+               usePhong,
+               lights,
+               allLights,
+               useShadows,
+               reflectionDepth + 1
+            )
+
+            const reflectivity = object.material.reflectivity
+            color.lerp(reflectionColor, reflectivity)
          }
       }
    }
