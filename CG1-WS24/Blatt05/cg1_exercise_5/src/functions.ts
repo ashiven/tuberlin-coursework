@@ -150,7 +150,7 @@ function getPhongColor(
       useShadows &&
       isShadowed(scene, lightPosition, intersectionPoint, correctSpheres)
    ) {
-      return color.multiplyScalar(0.2)
+      color.multiplyScalar(0.2)
    }
 
    return color
