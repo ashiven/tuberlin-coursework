@@ -291,25 +291,34 @@ function renderImg(
    allLights: boolean,
    useShadows: boolean,
    useMirrors: boolean,
-   maxReflectionDepth: number
+   maxReflectionDepth: number,
+   subsamples: number
 ) {
    for (let x = 0; x < width; x++) {
       for (let y = 0; y < height; y++) {
-         const color = getColor(
-            scene,
-            camera,
-            width,
-            height,
-            x,
-            y,
-            correctSpheres,
-            usePhong,
-            lights,
-            allLights,
-            useShadows,
-            useMirrors,
-            maxReflectionDepth
-         )
+         let color = new THREE.Color(0, 0, 0)
+
+         for (let i = 0; i < subsamples; i++) {
+            for (let j = 0; j < subsamples; j++) {
+               const sampleColor = getColor(
+                  scene,
+                  camera,
+                  width,
+                  height,
+                  x + i / subsamples,
+                  y + j / subsamples,
+                  correctSpheres,
+                  usePhong,
+                  lights,
+                  allLights,
+                  useShadows,
+                  useMirrors,
+                  maxReflectionDepth
+               )
+               color.add(sampleColor)
+            }
+         }
+         color.multiplyScalar(1 / (subsamples * subsamples))
 
          canvasWid.setPixel(x, y, color)
       }

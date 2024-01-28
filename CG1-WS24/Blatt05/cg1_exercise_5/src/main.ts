@@ -20,6 +20,7 @@ var allLights: boolean = settings.alllights
 var useShadows: boolean = settings.shadows
 var useMirrors: boolean = settings.mirrors
 var maxReflectionDepth: number = settings.maxDepth
+var subsamples: number = settings.subsamples
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
    switch (changed.key) {
@@ -49,6 +50,9 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       case "maxDepth":
          maxReflectionDepth = changed.value
          break
+      case "subsamples":
+         subsamples = changed.value
+         break
    }
 }
 
@@ -58,7 +62,7 @@ function main() {
    root.setLayoutColumns(["50%", "50%"])
    root.setLayoutRows(["100%"])
 
-   let gui = helper.createGUI(settings)
+   helper.createGUI(settings)
    settings.addCallback(callback)
    settings.saveImg = () => {
       canvasWid.savePNG()
@@ -76,7 +80,8 @@ function main() {
          allLights,
          useShadows,
          useMirrors,
-         maxReflectionDepth
+         maxReflectionDepth,
+         subsamples
       )
    }
 
