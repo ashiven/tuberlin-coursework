@@ -87,6 +87,14 @@ export function setupGeometry(scene: THREE.Scene, blitzcrank: boolean = false) {
    }) as THREE.MeshPhongMaterial & { mirror: boolean }
    mirrorMaterial.mirror = true
 
+   var mirrorMaterial2 = new THREE.MeshPhongMaterial({
+      color: 0x00aaff,
+      specular: 0xffffff,
+      shininess: 10000,
+      reflectivity: 0.8,
+   }) as THREE.MeshPhongMaterial & { mirror: boolean }
+   mirrorMaterial2.mirror = true
+
    var sphereGeometry = new THREE.SphereGeometry(50 / 300, 8, 4)
    var planeGeometry = new THREE.PlaneGeometry(602 / 300, 602 / 300)
    var boxGeometry = new THREE.BoxGeometry(100 / 300, 100 / 300, 100 / 300)
@@ -108,32 +116,32 @@ export function setupGeometry(scene: THREE.Scene, blitzcrank: boolean = false) {
    scene.add(box)
 
    if (blitzcrank) {
-      var head = new THREE.Mesh(sphereGeometry, mirrorMaterial)
+      var head = new THREE.Mesh(sphereGeometry, mirrorMaterial2)
       head.position.set(0, 55 / 300, -150 / 300)
       scene.add(head)
 
       var bodyGeometry = new THREE.SphereGeometry(100 / 300, 8, 4)
-      var body = new THREE.Mesh(bodyGeometry, mirrorMaterial)
+      var body = new THREE.Mesh(bodyGeometry, mirrorMaterial2)
       body.position.set(0, -100 / 300, -150 / 300)
       scene.add(body)
 
       var armGeometry = new THREE.BoxGeometry(100 / 300, 20 / 300, 20 / 300)
-      var leftArm = new THREE.Mesh(armGeometry, mirrorMaterial)
+      var leftArm = new THREE.Mesh(armGeometry, mirrorMaterial2)
       leftArm.position.set(-150 / 300, -30 / 300, -150 / 300)
       leftArm.rotateZ(-0.5)
       scene.add(leftArm)
 
-      var rightArm = new THREE.Mesh(armGeometry, mirrorMaterial)
+      var rightArm = new THREE.Mesh(armGeometry, mirrorMaterial2)
       rightArm.position.set(150 / 300, -30 / 300, -150 / 300)
       rightArm.rotateZ(0.5)
       scene.add(rightArm)
 
       var legGeometry = new THREE.BoxGeometry(20 / 300, 100 / 300, 20 / 300)
-      var leftLeg = new THREE.Mesh(legGeometry, mirrorMaterial)
+      var leftLeg = new THREE.Mesh(legGeometry, mirrorMaterial2)
       leftLeg.position.set(-50 / 300, -240 / 300, -150 / 300)
       scene.add(leftLeg)
 
-      var rightLeg = new THREE.Mesh(legGeometry, mirrorMaterial)
+      var rightLeg = new THREE.Mesh(legGeometry, mirrorMaterial2)
       rightLeg.position.set(50 / 300, -240 / 300, -150 / 300)
       scene.add(rightLeg)
    }
