@@ -96,7 +96,7 @@ function main() {
    })
 
    scene = new THREE.Scene()
-   helper.setupGeometry(scene)
+   helper.setupGeometry(scene, true)
    lights = helper.setupLight(scene)
 
    camera = new THREE.PerspectiveCamera()

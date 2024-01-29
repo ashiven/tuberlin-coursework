@@ -96,6 +96,7 @@ function getColor(
                      if (
                         isShadowed(
                            scene,
+                           object,
                            light.position,
                            point,
                            correctSpheres,
@@ -110,6 +111,7 @@ function getColor(
                   if (
                      isShadowed(
                         scene,
+                        object,
                         light.position,
                         point,
                         correctSpheres,
@@ -189,6 +191,7 @@ function getPhongColor(
 
 function isShadowed(
    scene: THREE.Scene,
+   currentObject: any,
    lightPosition: THREE.Vector3,
    intersectionPoint: THREE.Vector3,
    correctSpheres: boolean,
@@ -215,7 +218,7 @@ function isShadowed(
       const object = intersection.object
       const distance = intersection.distance
 
-      if (object instanceof THREE.Mesh) {
+      if (object instanceof THREE.Mesh && object !== currentObject) {
          return distance < intersectionPoint.distanceTo(lightPosition)
       }
    }
