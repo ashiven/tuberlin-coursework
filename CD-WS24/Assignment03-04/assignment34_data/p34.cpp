@@ -22,53 +22,102 @@ namespace
   public:
     PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM)
     {
-      // BB: Basic Block, iterates over all basic blocks in the function
-      for (auto &BB : F)
-      {
-        // Inst: Instruction, iterates over all instructions in the basic block
-        for (auto &Inst : BB)
-        {
-          // check if the instruction is a load instruction, if so, check if the variable is initialized
-          if (auto *Load = dyn_cast<LoadInst>(&Inst))
-          {
-            Value *Variable = Load->getOperand(0);
-            if (!isVariableInitialized(Variable))
-            {
-              reportUninitializedVariable(Variable);
-              // set the second value of the tuple to true, so that the variable is not reported again
-              VariableState[Variable] = std::make_tuple(false, true);
-            }
-          }
-          // check if the instruction is a store instruction, if so, mark the variable as initialized
-          else if (auto *Store = dyn_cast<StoreInst>(&Inst))
-          {
-            Value *Variable = Store->getOperand(1);
-            VariableState[Variable] = std::make_tuple(true, false);
-          }
-        }
-      }
-      return PreservedAnalyses::all();
+      analyze(F);
     }
 
     static bool isRequired() { return true; }
 
   private:
-    std::map<Value *, std::tuple<bool, bool>> VariableState;
-
-    bool isVariableInitialized(Value *Variable)
+    struct Node
     {
-      // find the variable in the map, which returns an iterator
-      auto It = VariableState.find(Variable);
-      // if the iterator is not equal to the end of the map and the first value of the tuple is true, the variable is initialized
-      return It != VariableState.end() && std::get<0>(It->second);
+      Instruction *I;
+      std::vector<Value *> variableUses;
+      std::set<Value *> in;
+      std::set<Value *> out;
+
+      explicit Node(Instruction *I)
+      {
+        this->I = I;
+        for (auto &Op : I->operands())
+        {
+          if (auto *V = dyn_cast<Value>(&Op))
+          {
+            variableUses.push_back(V);
+          }
+        }
+      }
     }
 
-    void reportUninitializedVariable(Value *Variable)
+    std::map<Instruction *, Node>
+        Nodes;
+
+    analyze(Function &F)
     {
-      if (!std::get<1>(VariableState[Variable]))
+      /* =============== initialize all nodes =============== */
+      for (auto &BB : F)
       {
-        errs() << Variable->getName() << "\n";
+        for (Instruction &I : BB)
+        {
+          Nodes[&I] = Node(&I);
+        }
       }
+
+      /* =============== compute in sets while changes to out sets =============== */
+      bool changed = true;
+      while (changed)
+      {
+        changed = false;
+
+        for (BasicBlock &BB : F)
+        {
+          for (Instruction &I : BB)
+          {
+            std::set<Value *> GEN = computeGEN(&I);
+            std::set<Value *> currentOut = Nodes[&I].out;
+
+            std::set<Value *> IN = computeIN(&I);
+            Nodes[&I].in = IN;
+            Nodes[&I].out = IN.union(GEN); // this may modify a reference to IN. Needs to be cloned?
+
+            if (currentOut != Nodes[&I].out)
+            {
+              changed = true;
+            }
+          }
+        }
+      }
+
+      /* =============== find unitialized uses =============== */
+      for (auto &Node : Nodes)
+      {
+        for (auto &variableUse : Node.variableUses)
+        {
+          if (Node.in.find(variableUse) == Node.in.end())
+          {
+            errs() << "Variable " << variableUse->getName() << " is not initialized before use in instruction " << Node.second.I->getName() << "\n";
+          }
+        }
+      }
+    }
+
+    computeGEN(Instruction *I)
+    {
+      std::set<Value *> GEN;
+      if (auto *Store = dyn_cast<StoreInst>(I))
+      {
+        GEN.insert(Store->getOperand(1));
+      }
+      return GEN;
+    }
+
+    computeIN(Instruction *I)
+    {
+      std::set<Value *> IN;
+      for (auto *Pred : predecessors(I->getParent()))
+      {
+        IN = IN.intersect(Nodes[Pred->getTerminator()].out);
+      }
+      return IN;
     }
   };
 
