@@ -13,6 +13,7 @@
 // add additional includes from LLVM or STL as needed
 
 using namespace llvm;
+using namespace std;
 
 namespace
 {
@@ -23,6 +24,7 @@ namespace
     PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM)
     {
       analyze(F);
+      return PreservedAnalyses::all();
     }
 
     static bool isRequired() { return true; }
@@ -30,37 +32,60 @@ namespace
   private:
     struct Node
     {
-      Instruction *I;
-      std::vector<Value *> variableUses;
-      std::set<Value *> in;
-      std::set<Value *> out;
+      set<Value *> USES;
+      set<Value *> IN;
+      set<Value *> GEN;
+      set<Value *> OUT;
 
-      explicit Node(Instruction *I)
+      explicit Node(const BasicBlock &BB) : USES({}), IN({}), GEN({}), OUT({})
       {
-        this->I = I;
-        for (auto &Op : I->operands())
+        for (const auto &Inst : BB)
         {
-          if (auto *V = dyn_cast<Value>(&Op))
+          if (auto *Load = dyn_cast<LoadInst>(&Inst))
           {
-            variableUses.push_back(V);
+            Value *Variable = Load->getOperand(0);
+            USES.insert(Variable);
+          }
+          else if (auto *Store = dyn_cast<StoreInst>(&Inst))
+          {
+            Value *Variable = Store->getOperand(1);
+            GEN.insert(Variable);
           }
         }
       }
-    }
+    };
 
-    std::map<Instruction *, Node>
+    map<BasicBlock *, Node *>
         Nodes;
 
-    analyze(Function &F)
+    void analyze(Function &F)
     {
       /* =============== initialize all nodes =============== */
       for (auto &BB : F)
       {
-        for (Instruction &I : BB)
-        {
-          Nodes[&I] = Node(&I);
-        }
+        Nodes[&BB] = new Node(BB);
       }
+
+      /*
+      // print all nodes for debugging
+      errs() << " Initial Nodes: \n";
+      for (const auto &NodePair : Nodes)
+      {
+        const Node *Node = NodePair.second;
+        errs() << "BasicBlock: " << NodePair.first->getName() << "\n";
+        errs() << "USES: ";
+        for (auto &Variable : Node->USES)
+        {
+          errs() << Variable->getName() << " ";
+        }
+        errs() << "\n";
+        errs() << "GEN: ";
+        for (auto &Variable : Node->GEN)
+        {
+          errs() << Variable->getName() << " ";
+        }
+        errs() << "\n";
+      }*/
 
       /* =============== compute in sets while changes to out sets =============== */
       bool changed = true;
@@ -70,52 +95,82 @@ namespace
 
         for (BasicBlock &BB : F)
         {
-          for (Instruction &I : BB)
+          set<Value *> GEN = Nodes[&BB]->GEN;
+          set<Value *> currentOut = Nodes[&BB]->OUT;
+          set<Value *> IN = computeIN(&BB);
+
+          set<Value *> newOut;
+          set_union(IN.begin(), IN.end(), GEN.begin(), GEN.end(), inserter(newOut, newOut.begin()));
+
+          Nodes[&BB]->IN = IN;
+          Nodes[&BB]->OUT = newOut;
+
+          if (currentOut != newOut)
           {
-            std::set<Value *> GEN = computeGEN(&I);
-            std::set<Value *> currentOut = Nodes[&I].out;
-
-            std::set<Value *> IN = computeIN(&I);
-            Nodes[&I].in = IN;
-            Nodes[&I].out = IN.union(GEN); // this may modify a reference to IN. Needs to be cloned?
-
-            if (currentOut != Nodes[&I].out)
-            {
-              changed = true;
-            }
+            changed = true;
           }
         }
       }
+
+      /*
+      // print all nodes for debugging
+      errs() << " Final Nodes: \n";
+      for (const auto &NodePair : Nodes)
+      {
+        const Node *Node = NodePair.second;
+        errs() << "BasicBlock: " << NodePair.first->getName() << "\n";
+        errs() << "USES: ";
+        for (auto &Variable : Node->USES)
+        {
+          errs() << Variable->getName() << " ";
+        }
+        errs() << "\n";
+        errs() << "GEN: ";
+        for (auto &Variable : Node->GEN)
+        {
+          errs() << Variable->getName() << " ";
+        }
+        errs() << "\n";
+        errs() << "IN: ";
+        for (auto &Variable : Node->IN)
+        {
+          errs() << Variable->getName() << " ";
+        }
+        errs() << "\n";
+        errs() << "OUT: ";
+        for (auto &Variable : Node->OUT)
+        {
+          errs() << Variable->getName() << " ";
+        }
+        errs() << "\n";
+      }
+      */
 
       /* =============== find unitialized uses =============== */
-      for (auto &Node : Nodes)
+      map<string, bool> reported;
+      for (const auto &NodePair : Nodes)
       {
-        for (auto &variableUse : Node.variableUses)
+        const Node *Node = NodePair.second;
+        set<Value *> UNINIT;
+        set_difference(Node->USES.begin(), Node->USES.end(), Node->OUT.begin(), Node->OUT.end(), inserter(UNINIT, UNINIT.begin()));
+        for (auto &Variable : UNINIT)
         {
-          if (Node.in.find(variableUse) == Node.in.end())
+          if (reported.find(Variable->getName()) == reported.end())
           {
-            errs() << "Variable " << variableUse->getName() << " is not initialized before use in instruction " << Node.second.I->getName() << "\n";
+            reported[Variable->getName()] = true;
+            errs() << Variable->getName() << "\n";
           }
         }
       }
     }
 
-    computeGEN(Instruction *I)
+    set<Value *> computeIN(BasicBlock *BB)
     {
-      std::set<Value *> GEN;
-      if (auto *Store = dyn_cast<StoreInst>(I))
+      set<Value *> IN;
+      for (auto it = pred_begin(BB), et = pred_end(BB); it != et; ++it)
       {
-        GEN.insert(Store->getOperand(1));
-      }
-      return GEN;
-    }
-
-    computeIN(Instruction *I)
-    {
-      std::set<Value *> IN;
-      for (auto *Pred : predecessors(I->getParent()))
-      {
-        IN = IN.intersect(Nodes[Pred->getTerminator()].out);
+        BasicBlock *Pred = *it;
+        set_intersection(IN.begin(), IN.end(), Nodes[Pred]->OUT.begin(), Nodes[Pred]->OUT.end(), inserter(IN, IN.begin()));
       }
       return IN;
     }
@@ -151,7 +206,7 @@ namespace
     static bool isRequired() { return true; }
 
   private:
-    std::map<Value *, bool> VariableState;
+    map<Value *, bool> VariableState;
 
     bool isVariableInitialized(Value *Variable)
     {
