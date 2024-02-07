@@ -66,29 +66,29 @@ namespace
         Nodes[&BB] = new Node(BB);
       }
 
-      /*
       // print all nodes for debugging
-      errs() << " Initial Nodes: \n";
+      /*
       for (const auto &NodePair : Nodes)
       {
         const Node *Node = NodePair.second;
-        errs() << "BasicBlock: " << NodePair.first->getName() << "\n";
-        errs() << "USES: ";
+        errs() << NodePair.first->getName();
+        errs() << " USES: ";
         for (auto &Variable : Node->USES)
         {
           errs() << Variable->getName() << " ";
         }
-        errs() << "\n";
-        errs() << "GEN: ";
+        errs() << " GEN: ";
         for (auto &Variable : Node->GEN)
         {
           errs() << Variable->getName() << " ";
         }
         errs() << "\n";
-      }*/
+      }
+      */
 
       /* =============== compute in sets while changes to out sets =============== */
       bool changed = true;
+      int iteration = 0;
       while (changed)
       {
         changed = false;
@@ -102,6 +102,21 @@ namespace
           set<Value *> newOut;
           set_union(IN.begin(), IN.end(), GEN.begin(), GEN.end(), inserter(newOut, newOut.begin()));
 
+          // print IN and OUT sets for debugging
+          /*
+          errs() << "[" << iteration << "] " << BB.getName() << " IN: ";
+          for (auto &Variable : IN)
+          {
+            errs() << Variable->getName() << " ";
+          }
+          errs() << " OUT: ";
+          for (auto &Variable : newOut)
+          {
+            errs() << Variable->getName() << " ";
+          }
+          errs() << "\n";
+          */
+
           Nodes[&BB]->IN = IN;
           Nodes[&BB]->OUT = newOut;
 
@@ -110,41 +125,8 @@ namespace
             changed = true;
           }
         }
+        iteration++;
       }
-
-      /*
-      // print all nodes for debugging
-      errs() << " Final Nodes: \n";
-      for (const auto &NodePair : Nodes)
-      {
-        const Node *Node = NodePair.second;
-        errs() << "BasicBlock: " << NodePair.first->getName() << "\n";
-        errs() << "USES: ";
-        for (auto &Variable : Node->USES)
-        {
-          errs() << Variable->getName() << " ";
-        }
-        errs() << "\n";
-        errs() << "GEN: ";
-        for (auto &Variable : Node->GEN)
-        {
-          errs() << Variable->getName() << " ";
-        }
-        errs() << "\n";
-        errs() << "IN: ";
-        for (auto &Variable : Node->IN)
-        {
-          errs() << Variable->getName() << " ";
-        }
-        errs() << "\n";
-        errs() << "OUT: ";
-        for (auto &Variable : Node->OUT)
-        {
-          errs() << Variable->getName() << " ";
-        }
-        errs() << "\n";
-      }
-      */
 
       /* =============== find unitialized uses =============== */
       map<string, bool> reported;
@@ -167,10 +149,22 @@ namespace
     set<Value *> computeIN(BasicBlock *BB)
     {
       set<Value *> IN;
-      for (auto it = pred_begin(BB), et = pred_end(BB); it != et; ++it)
+
+      if (pred_empty(BB))
+      {
+        return IN;
+      }
+
+      IN = Nodes[*(pred_begin(BB))]->OUT;
+
+      for (auto it = next(pred_begin(BB)), et = pred_end(BB); it != et; ++it)
       {
         BasicBlock *Pred = *it;
-        set_intersection(IN.begin(), IN.end(), Nodes[Pred]->OUT.begin(), Nodes[Pred]->OUT.end(), inserter(IN, IN.begin()));
+        set<Value *> result;
+
+        set_intersection(IN.begin(), IN.end(), Nodes[Pred]->OUT.begin(), Nodes[Pred]->OUT.end(), inserter(result, result.begin()));
+
+        IN = result;
       }
       return IN;
     }
