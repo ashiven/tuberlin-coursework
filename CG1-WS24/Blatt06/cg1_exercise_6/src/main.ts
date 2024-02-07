@@ -12,11 +12,11 @@ import * as helper from "./helper"
  ******************************************************************************/
 
 function initAnimation() {
-   console.log("Intializing animation.")
+   //console.log("Intializing animation.")
 }
 
 function stepAnimation() {
-   console.log("Step animation.")
+   //console.log("Step animation.")
 }
 
 /*******************************************************************************
@@ -24,11 +24,11 @@ function stepAnimation() {
  ******************************************************************************/
 
 function initPendulum() {
-   console.log("Intializing pendulum.")
+   //console.log("Intializing pendulum.")
 }
 
 function stepPendulum() {
-   console.log("Step pendulum.")
+   //console.log("Step pendulum.")
 }
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
@@ -67,6 +67,9 @@ function main() {
 
    scene = new THREE.Scene()
    scene.background = new THREE.Color(0xffffff)
+
+   const elephant = helper.getElephant()
+   scene.add(elephant)
 
    const camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera)
