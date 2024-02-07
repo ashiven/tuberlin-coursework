@@ -1,11 +1,23 @@
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 
+import indices from "./data/indices.json"
+import weights from "./data/weights.json"
+
+import jump from "./data/jump.json"
+import swimming from "./data/swimming.json"
+import swing_dance from "./data/swing_dance.json"
+
 import RenderWidget from "./lib/rendererWidget"
 import type * as utils from "./lib/utils"
 import { Application, createWindow } from "./lib/window"
 
 import * as helper from "./helper"
+
+var settings: helper.Settings
+var scene: THREE.Scene
+var wid: RenderWidget
+var elephant: THREE.Mesh
 
 /*******************************************************************************
  * Linear Blend Skinning.
@@ -46,10 +58,6 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
    }
 }
 
-var settings: helper.Settings
-var scene: THREE.Scene
-let wid: RenderWidget
-
 function main() {
    var root = Application("Animation & Simulation")
    root.setLayout([["renderer"]])
@@ -68,8 +76,25 @@ function main() {
    scene = new THREE.Scene()
    scene.background = new THREE.Color(0xffffff)
 
-   const elephant = helper.getElephant()
+   elephant = helper.getElephant()
    scene.add(elephant)
+
+   const swimmingRest = swimming.restpose
+   const dancingRest = swing_dance.restpose
+   const jumpingRest = jump.restpose
+
+   const a = indices
+   const b = weights
+
+   for (const matrixWorldArr of jumpingRest) {
+      const matrixWorld = new THREE.Matrix4().fromArray(matrixWorldArr)
+      const sphere = new THREE.Mesh(
+         new THREE.SphereGeometry(0.01),
+         new THREE.MeshBasicMaterial({ color: 0xff0000 })
+      )
+      sphere.applyMatrix4(matrixWorld)
+      scene.add(sphere)
+   }
 
    const camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera)
