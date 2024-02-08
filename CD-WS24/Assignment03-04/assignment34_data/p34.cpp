@@ -10,6 +10,7 @@
 #include "llvm/Passes/PassPlugin.h"
 #include <llvm/IR/PassManager.h>
 #include <llvm/IR/IRBuilder.h>
+#include <llvm/IR/Constants.h>
 // add additional includes from LLVM or STL as needed
 
 using namespace llvm;
@@ -32,24 +33,26 @@ namespace
   private:
     struct Node
     {
-      set<Value *> USES;
-      set<Value *> IN;
-      set<Value *> GEN;
-      set<Value *> OUT;
+      set<string> USES;
+      set<string> IN;
+      set<string> GEN;
+      set<string> KILL;
+      set<string> OUT;
+      bool firstNode = false;
 
-      explicit Node(const BasicBlock &BB) : USES({}), IN({}), GEN({}), OUT({})
+      explicit Node(const BasicBlock &BB) : USES({}), IN({}), GEN({}), KILL({}), OUT({})
       {
         for (const auto &Inst : BB)
         {
           if (auto *Load = dyn_cast<LoadInst>(&Inst))
           {
             Value *Variable = Load->getOperand(0);
-            USES.insert(Variable);
+            USES.insert(Variable->getName());
           }
           else if (auto *Store = dyn_cast<StoreInst>(&Inst))
           {
             Value *Variable = Store->getOperand(1);
-            GEN.insert(Variable);
+            GEN.insert(Variable->getName());
           }
         }
       }
@@ -58,12 +61,42 @@ namespace
     map<BasicBlock *, Node *>
         Nodes;
 
+    map<string, string> Dummys;
+
     void analyze(Function &F)
     {
-      /* =============== initialize all nodes =============== */
+      /* =============== initialize all nodes and dummys =============== */
+      for (auto &BB : F)
+      {
+        for (auto &Inst : BB)
+        {
+          if (auto *Alloca = dyn_cast<AllocaInst>(&Inst))
+          {
+            string VariableName = Alloca->getName();
+            Dummys[VariableName] = "d_" + VariableName;
+          }
+        }
+      }
+      set<string> dummySet;
+      for (auto &DummyPair : Dummys)
+      {
+        dummySet.insert(DummyPair.second);
+      }
+
+      bool firstNode = true;
       for (auto &BB : F)
       {
         Nodes[&BB] = new Node(BB);
+        if (firstNode)
+        {
+          Nodes[&BB]->IN = dummySet;
+          Nodes[&BB]->firstNode = true;
+          firstNode = false;
+        }
+        for (auto &Variable : Nodes[&BB]->GEN)
+        {
+          Nodes[&BB]->KILL.insert(Dummys[Variable]);
+        }
       }
 
       // print all nodes for debugging
@@ -73,14 +106,24 @@ namespace
         const Node *Node = NodePair.second;
         errs() << NodePair.first->getName();
         errs() << " USES: ";
-        for (auto &Variable : Node->USES)
+        for (const auto &Variable : Node->USES)
         {
-          errs() << Variable->getName() << " ";
+          errs() << Variable << " ";
         }
         errs() << " GEN: ";
-        for (auto &Variable : Node->GEN)
+        for (const auto &Variable : Node->GEN)
         {
-          errs() << Variable->getName() << " ";
+          errs() << Variable << " ";
+        }
+        errs() << " KILL: ";
+        for (const auto &Variable : Node->KILL)
+        {
+          errs() << Variable << " ";
+        }
+        errs() << " IN: ";
+        for (const auto &Variable : Node->IN)
+        {
+          errs() << Variable << " ";
         }
         errs() << "\n";
       }
@@ -95,24 +138,27 @@ namespace
 
         for (BasicBlock &BB : F)
         {
-          set<Value *> GEN = Nodes[&BB]->GEN;
-          set<Value *> currentOut = Nodes[&BB]->OUT;
-          set<Value *> IN = computeIN(&BB);
+          set<string> GEN = Nodes[&BB]->GEN;
+          set<string> currentOut = Nodes[&BB]->OUT;
+          set<string> IN = !Nodes[&BB]->firstNode ? computeIN(&BB) : Nodes[&BB]->IN;
 
-          set<Value *> newOut;
-          set_union(IN.begin(), IN.end(), GEN.begin(), GEN.end(), inserter(newOut, newOut.begin()));
+          set<string> outIn;
+          set_difference(IN.begin(), IN.end(), Nodes[&BB]->KILL.begin(), Nodes[&BB]->KILL.end(), inserter(outIn, outIn.begin()));
+
+          set<string> newOut;
+          set_union(outIn.begin(), outIn.end(), GEN.begin(), GEN.end(), inserter(newOut, newOut.begin()));
 
           // print IN and OUT sets for debugging
           /*
           errs() << "[" << iteration << "] " << BB.getName() << " IN: ";
-          for (auto &Variable : IN)
+          for (const auto &Variable : IN)
           {
-            errs() << Variable->getName() << " ";
+            errs() << Variable << " ";
           }
           errs() << " OUT: ";
-          for (auto &Variable : newOut)
+          for (const auto &Variable : newOut)
           {
-            errs() << Variable->getName() << " ";
+            errs() << Variable << " ";
           }
           errs() << "\n";
           */
@@ -133,22 +179,23 @@ namespace
       for (const auto &NodePair : Nodes)
       {
         const Node *Node = NodePair.second;
-        set<Value *> UNINIT;
-        set_difference(Node->USES.begin(), Node->USES.end(), Node->OUT.begin(), Node->OUT.end(), inserter(UNINIT, UNINIT.begin()));
-        for (auto &Variable : UNINIT)
+        for (auto &Variable : Node->USES)
         {
-          if (reported.find(Variable->getName()) == reported.end())
+          if (Node->OUT.find(Dummys[Variable]) != Node->OUT.end())
           {
-            reported[Variable->getName()] = true;
-            errs() << Variable->getName() << "\n";
+            if (reported.find(Variable) == reported.end())
+            {
+              reported[Variable] = true;
+              errs() << Variable << "\n";
+            }
           }
         }
       }
     }
 
-    set<Value *> computeIN(BasicBlock *BB)
+    set<string> computeIN(BasicBlock *BB)
     {
-      set<Value *> IN;
+      set<string> IN;
 
       if (pred_empty(BB))
       {
@@ -160,9 +207,9 @@ namespace
       for (auto it = next(pred_begin(BB)), et = pred_end(BB); it != et; ++it)
       {
         BasicBlock *Pred = *it;
-        set<Value *> result;
+        set<string> result;
 
-        set_intersection(IN.begin(), IN.end(), Nodes[Pred]->OUT.begin(), Nodes[Pred]->OUT.end(), inserter(result, result.begin()));
+        set_union(IN.begin(), IN.end(), Nodes[Pred]->OUT.begin(), Nodes[Pred]->OUT.end(), inserter(result, result.begin()));
 
         IN = result;
       }
