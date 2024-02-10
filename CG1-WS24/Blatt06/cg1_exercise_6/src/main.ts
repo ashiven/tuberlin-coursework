@@ -76,6 +76,22 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       case "restpose":
          showRestpose = changed.value
          break
+      case "animation":
+         switch (changed.value) {
+            case helper.Animations.jump:
+               currentAnimation = jump
+               break
+            case helper.Animations.swimming:
+               currentAnimation = swimming
+               break
+            case helper.Animations.swing_dance:
+               currentAnimation = swing_dance
+               break
+         }
+         showSkeleton
+            ? addSkeleton(scene, currentAnimation.restpose)
+            : removeSkeleton(scene)
+         break
    }
 }
 
@@ -98,10 +114,6 @@ function main() {
 
    elephant = helper.getElephant()
    showMesh ? scene.add(elephant) : null
-
-   const swimmingRest = swimming.restpose
-   const dancingRest = swing_dance.restpose
-   const jumpingRest = jump.restpose
 
    const a = indices
    const b = weights
