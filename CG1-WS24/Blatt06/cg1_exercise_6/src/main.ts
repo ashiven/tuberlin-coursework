@@ -21,6 +21,7 @@ var elephant: THREE.Mesh
 var showMesh: boolean = settings.mesh
 var showSkeleton: boolean = settings.skeleton
 var showRestpose: boolean = settings.restpose
+var currentAnimation: helper.Animation = jump
 
 /*******************************************************************************
  * Linear Blend Skinning.
@@ -66,11 +67,36 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          break
       case "skeleton":
          showSkeleton = changed.value
+         showSkeleton
+            ? addSkeleton(scene, currentAnimation.restpose)
+            : removeSkeleton(scene)
          break
       case "restpose":
          showRestpose = changed.value
          break
    }
+}
+
+function addSkeleton(scene: THREE.Scene, animation: any) {
+   for (const matrixWorldArr of animation) {
+      const matrixWorld = new THREE.Matrix4().fromArray(matrixWorldArr)
+      const sphere = new THREE.Mesh(
+         new THREE.SphereGeometry(0.01),
+         new THREE.MeshBasicMaterial({ color: 0xff0000 })
+      )
+      sphere.applyMatrix4(matrixWorld)
+      scene.add(sphere)
+   }
+}
+
+function removeSkeleton(scene: THREE.Scene) {
+   scene.children = scene.children.filter(
+      (child) =>
+         !(
+            child instanceof THREE.Mesh &&
+            child.geometry instanceof THREE.SphereGeometry
+         )
+   )
 }
 
 function main() {
@@ -100,15 +126,7 @@ function main() {
    const a = indices
    const b = weights
 
-   for (const matrixWorldArr of jumpingRest) {
-      const matrixWorld = new THREE.Matrix4().fromArray(matrixWorldArr)
-      const sphere = new THREE.Mesh(
-         new THREE.SphereGeometry(0.01),
-         new THREE.MeshBasicMaterial({ color: 0xff0000 })
-      )
-      sphere.applyMatrix4(matrixWorld)
-      scene.add(sphere)
-   }
+   showSkeleton ? addSkeleton(scene, currentAnimation.restpose) : null
 
    const camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera)
