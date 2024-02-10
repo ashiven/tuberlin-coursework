@@ -88,9 +88,8 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
                currentAnimation = swing_dance
                break
          }
-         showSkeleton
-            ? addSkeleton(scene, currentAnimation.restpose)
-            : removeSkeleton(scene)
+         removeSkeleton(scene)
+         showSkeleton ? addSkeleton(scene, currentAnimation.restpose) : null
          break
    }
 }
