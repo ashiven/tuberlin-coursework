@@ -14,10 +14,13 @@ import { Application, createWindow } from "./lib/window"
 
 import * as helper from "./helper"
 
-var settings: helper.Settings
+var settings: helper.Settings = new helper.Settings()
 var scene: THREE.Scene
 var wid: RenderWidget
 var elephant: THREE.Mesh
+var showMesh: boolean = settings.mesh
+var showSkeleton: boolean = settings.skeleton
+var showRestpose: boolean = settings.restpose
 
 /*******************************************************************************
  * Linear Blend Skinning.
@@ -56,6 +59,18 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             break
       }
    }
+   switch (changed.key) {
+      case "mesh":
+         showMesh = changed.value
+         showMesh ? scene.add(elephant) : scene.remove(elephant)
+         break
+      case "skeleton":
+         showSkeleton = changed.value
+         break
+      case "restpose":
+         showRestpose = changed.value
+         break
+   }
 }
 
 function main() {
@@ -64,7 +79,6 @@ function main() {
    root.setLayoutColumns(["100%"])
    root.setLayoutRows(["100%"])
 
-   settings = new helper.Settings()
    helper.createGUI(settings)
    settings.addCallback(callback)
 
@@ -77,7 +91,7 @@ function main() {
    scene.background = new THREE.Color(0xffffff)
 
    elephant = helper.getElephant()
-   scene.add(elephant)
+   showMesh ? scene.add(elephant) : null
 
    const swimmingRest = swimming.restpose
    const dancingRest = swing_dance.restpose
