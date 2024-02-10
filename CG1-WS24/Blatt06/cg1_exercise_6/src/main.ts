@@ -14,6 +14,8 @@ import { Application, createWindow } from "./lib/window"
 
 import * as helper from "./helper"
 
+import { addSkeleton, removeSkeleton } from "./functions"
+
 var settings: helper.Settings = new helper.Settings()
 var scene: THREE.Scene
 var wid: RenderWidget
@@ -75,28 +77,6 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          showRestpose = changed.value
          break
    }
-}
-
-function addSkeleton(scene: THREE.Scene, animation: any) {
-   for (const matrixWorldArr of animation) {
-      const matrixWorld = new THREE.Matrix4().fromArray(matrixWorldArr)
-      const sphere = new THREE.Mesh(
-         new THREE.SphereGeometry(0.01),
-         new THREE.MeshBasicMaterial({ color: 0xff0000 })
-      )
-      sphere.applyMatrix4(matrixWorld)
-      scene.add(sphere)
-   }
-}
-
-function removeSkeleton(scene: THREE.Scene) {
-   scene.children = scene.children.filter(
-      (child) =>
-         !(
-            child instanceof THREE.Mesh &&
-            child.geometry instanceof THREE.SphereGeometry
-         )
-   )
 }
 
 function main() {
