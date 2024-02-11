@@ -54,8 +54,38 @@ function stepAnimation() {
             boneIndex++
          }
       })
+      calculateLBS()
       currentFrame = (currentFrame + 1) % currentAnimation.frames.length
    }
+}
+
+function calculateLBS() {
+   const vertices = elephant.geometry.getAttribute("position")
+   for (let i = 0, l = vertices.count; i < l; i++) {
+      const vertex = new THREE.Vector3().fromBufferAttribute(vertices, i)
+      const vertexWeights = weights[i]
+      const vertexIndices = indices[i]
+
+      let newVertex = new THREE.Vector3(0, 0, 0)
+      for (let j = 0; j < vertexIndices.length; j++) {
+         const index = vertexIndices[j]
+         const weight = vertexWeights[j]
+
+         const boneMatrixArr = currentAnimation.frames[currentFrame][index]
+         const boneMatrix = new THREE.Matrix4().fromArray(boneMatrixArr)
+         const restBoneMatrixArr = currentAnimation.restpose[index]
+         const restBoneMatrix = new THREE.Matrix4().fromArray(restBoneMatrixArr)
+         const restBoneMatrixInv = restBoneMatrix.clone().invert()
+
+         const diff = boneMatrix.clone().multiply(restBoneMatrixInv)
+         const result = vertex.clone().applyMatrix4(diff)
+         result.multiplyScalar(weight)
+
+         newVertex.add(result)
+      }
+      vertices.setXYZ(i, newVertex.x, newVertex.y, newVertex.z)
+   }
+   vertices.needsUpdate = true
 }
 
 /*******************************************************************************
