@@ -35,25 +35,27 @@ function initAnimation() {
 }
 
 function stepAnimation() {
-   const frame = currentAnimation.frames[currentFrame]
-   var boneIndex = 0
-   scene.traverse((child) => {
-      if (
-         child instanceof THREE.Mesh &&
-         child.geometry instanceof THREE.SphereGeometry
-      ) {
-         const position = new THREE.Vector3()
-         const quaternion = new THREE.Quaternion()
-         const scale = new THREE.Vector3()
-         const matrixWorld = new THREE.Matrix4().fromArray(frame[boneIndex])
-         matrixWorld.decompose(position, quaternion, scale)
-         child.position.copy(position)
-         child.quaternion.copy(quaternion)
-         child.scale.copy(scale)
-         boneIndex++
-      }
-   })
-   currentFrame = (currentFrame + 1) % currentAnimation.frames.length
+   if (!showRestpose) {
+      const frame = currentAnimation.frames[currentFrame]
+      var boneIndex = 0
+      scene.traverse((child) => {
+         if (
+            child instanceof THREE.Mesh &&
+            child.geometry instanceof THREE.SphereGeometry
+         ) {
+            const position = new THREE.Vector3()
+            const quaternion = new THREE.Quaternion()
+            const scale = new THREE.Vector3()
+            const matrixWorld = new THREE.Matrix4().fromArray(frame[boneIndex])
+            matrixWorld.decompose(position, quaternion, scale)
+            child.position.copy(position)
+            child.quaternion.copy(quaternion)
+            child.scale.copy(scale)
+            boneIndex++
+         }
+      })
+      currentFrame = (currentFrame + 1) % currentAnimation.frames.length
+   }
 }
 
 /*******************************************************************************
@@ -94,6 +96,11 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          break
       case "restpose":
          showRestpose = changed.value
+         if (showRestpose) {
+            removeSkeleton(scene)
+            addSkeleton(scene, currentAnimation.restpose)
+            currentFrame = 0
+         }
          break
       case "animation":
          switch (changed.value) {
