@@ -24,6 +24,7 @@ var showMesh: boolean = settings.mesh
 var showSkeleton: boolean = settings.skeleton
 var showRestpose: boolean = settings.restpose
 var currentAnimation: helper.Animation = jump
+var currentFrame: number = 0
 
 /*******************************************************************************
  * Linear Blend Skinning.
@@ -34,7 +35,25 @@ function initAnimation() {
 }
 
 function stepAnimation() {
-   //console.log("Step animation.")
+   const frame = currentAnimation.frames[currentFrame]
+   var boneIndex = 0
+   scene.traverse((child) => {
+      if (
+         child instanceof THREE.Mesh &&
+         child.geometry instanceof THREE.SphereGeometry
+      ) {
+         const position = new THREE.Vector3()
+         const quaternion = new THREE.Quaternion()
+         const scale = new THREE.Vector3()
+         const matrixWorld = new THREE.Matrix4().fromArray(frame[boneIndex])
+         matrixWorld.decompose(position, quaternion, scale)
+         child.position.copy(position)
+         child.quaternion.copy(quaternion)
+         child.scale.copy(scale)
+         boneIndex++
+      }
+   })
+   currentFrame = (currentFrame + 1) % currentAnimation.frames.length
 }
 
 /*******************************************************************************
