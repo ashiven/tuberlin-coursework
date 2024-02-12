@@ -74,7 +74,7 @@ function calculateLBS() {
       let newNormal = new THREE.Vector3(0, 0, 0)
       for (let j = 0; j < boneIndices.length; j++) {
          const index = boneIndices[j]
-         const weight = boneIndices[j]
+         const weight = boneWeights[j]
 
          const boneMatrixArr = currentAnimation.frames[currentFrame][index]
          const boneMatrix = new THREE.Matrix4().fromArray(boneMatrixArr)
