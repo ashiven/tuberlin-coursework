@@ -32,6 +32,7 @@ var currentAnimation: helper.Animation = jump
 var currentFrame: number = 0
 var restBoneMatrixInversions: Array<THREE.Matrix4> =
    boneMatrixInvs(currentAnimation)
+var restingElephant: THREE.Mesh = helper.getElephant()
 
 /*******************************************************************************
  * Linear Blend Skinning.
@@ -69,6 +70,8 @@ function stepAnimation() {
 function calculateLBS() {
    const vertices = elephant.geometry.getAttribute("position")
    const normals = elephant.geometry.getAttribute("normal")
+   const restVertices = restingElephant.geometry.getAttribute("position")
+   const restNormals = restingElephant.geometry.getAttribute("normal")
 
    let vertex = new THREE.Vector3()
    let normal = new THREE.Vector3()
@@ -77,12 +80,12 @@ function calculateLBS() {
    let matrixSum = new THREE.Matrix4()
    matrixSum.set(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-   for (let i = 0, l = vertices.count; i < l; i++) {
+   for (let i = 0, l = restVertices.count; i < l; i++) {
       const boneWeights = weights[i]
       const boneIndices = indices[i]
 
-      vertex.fromBufferAttribute(vertices, i)
-      normal.fromBufferAttribute(normals, i)
+      vertex.fromBufferAttribute(restVertices, i)
+      normal.fromBufferAttribute(restNormals, i)
       matrixSum.set(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
       for (let j = 0; j < boneIndices.length; j++) {
