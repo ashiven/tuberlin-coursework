@@ -39,7 +39,9 @@ var restingElephant: THREE.Mesh = helper.getElephant()
  ******************************************************************************/
 
 function initAnimation() {
-   //console.log("Intializing animation.")
+   elephant = helper.getElephant()
+   showMesh ? scene.add(elephant) : null
+   showSkeleton ? addSkeleton(scene, currentAnimation.restpose) : null
 }
 
 function stepAnimation() {
@@ -123,7 +125,8 @@ function calculateLBS() {
  ******************************************************************************/
 
 function initPendulum() {
-   //console.log("Intializing pendulum.")
+   removeSkeleton(scene)
+   scene.remove(elephant)
 }
 
 function stepPendulum() {
@@ -204,11 +207,6 @@ function main() {
 
    scene = new THREE.Scene()
    scene.background = new THREE.Color(0xffffff)
-
-   elephant = helper.getElephant()
-   showMesh ? scene.add(elephant) : null
-
-   showSkeleton ? addSkeleton(scene, currentAnimation.restpose) : null
 
    const camera = new THREE.PerspectiveCamera()
    helper.setupCamera(camera)
