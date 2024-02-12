@@ -22,4 +22,15 @@ function removeSkeleton(scene: THREE.Scene) {
    )
 }
 
-export { addSkeleton, removeSkeleton }
+function boneMatrixInvs(currentAnimation: any) {
+   let restBoneMatrixInversions = []
+   for (let i = 0; i < currentAnimation.restpose.length; i++) {
+      const restBoneMatrix = new THREE.Matrix4().fromArray(
+         currentAnimation.restpose[i]
+      )
+      restBoneMatrixInversions.push(restBoneMatrix.clone().invert())
+   }
+   return restBoneMatrixInversions
+}
+
+export { addSkeleton, boneMatrixInvs, removeSkeleton }

@@ -14,7 +14,7 @@ import { Application, createWindow } from "./lib/window"
 
 import * as helper from "./helper"
 
-import { addSkeleton, removeSkeleton } from "./functions"
+import { addSkeleton, boneMatrixInvs, removeSkeleton } from "./functions"
 
 var settings: helper.Settings = new helper.Settings()
 var scene: THREE.Scene
@@ -25,6 +25,8 @@ var showSkeleton: boolean = settings.skeleton
 var showRestpose: boolean = settings.restpose
 var currentAnimation: helper.Animation = jump
 var currentFrame: number = 0
+var restBoneMatrixInversions: Array<THREE.Matrix4> =
+   boneMatrixInvs(currentAnimation)
 
 /*******************************************************************************
  * Linear Blend Skinning.
@@ -76,25 +78,20 @@ function calculateLBS() {
 
          const boneMatrixArr = currentAnimation.frames[currentFrame][index]
          const boneMatrix = new THREE.Matrix4().fromArray(boneMatrixArr)
-         const restBoneMatrixArr = currentAnimation.restpose[index]
-         const restBoneMatrix = new THREE.Matrix4().fromArray(restBoneMatrixArr)
-         const restBoneMatrixInv = restBoneMatrix.clone().invert()
+         const restBoneMatrixInv = restBoneMatrixInversions[index]
 
-         const diffVertex = boneMatrix
+         const diff = boneMatrix
             .clone()
             .multiply(restBoneMatrixInv)
             .multiplyScalar(weight)
-         const resultVertex = vertex.clone().applyMatrix4(diffVertex)
 
+         const resultVertex = vertex.clone().applyMatrix4(diff)
          newVertex.add(resultVertex)
 
-         const diffNormal = boneMatrix
-            .clone()
-            .multiply(restBoneMatrixInv)
-            .multiplyScalar(weight)
          const resultNormal = normal
             .clone()
-            .applyMatrix4(diffNormal.invert().transpose())
+            .applyMatrix4(diff.invert().transpose())
+         newNormal.add(resultNormal)
       }
       vertices.setXYZ(i, newVertex.x, newVertex.y, newVertex.z)
       normals.setXYZ(i, newNormal.x, newNormal.y, newNormal.z)
@@ -163,6 +160,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          }
          removeSkeleton(scene)
          showSkeleton ? addSkeleton(scene, currentAnimation.restpose) : null
+         restBoneMatrixInversions = boneMatrixInvs(currentAnimation)
          break
    }
 }
@@ -186,9 +184,6 @@ function main() {
 
    elephant = helper.getElephant()
    showMesh ? scene.add(elephant) : null
-
-   const a = indices
-   const b = weights
 
    showSkeleton ? addSkeleton(scene, currentAnimation.restpose) : null
 
