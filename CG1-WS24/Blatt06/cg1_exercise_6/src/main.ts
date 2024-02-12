@@ -69,16 +69,19 @@ function stepAnimation() {
 function calculateLBS() {
    const vertices = elephant.geometry.getAttribute("position")
    const normals = elephant.geometry.getAttribute("normal")
+
+   let vertex = new THREE.Vector3()
+   let normal = new THREE.Vector3()
+   let newVertex = new THREE.Vector3()
+   let newNormal = new THREE.Vector3()
+   let matrixSum = new THREE.Matrix4()
+
    for (let i = 0, l = vertices.count; i < l; i++) {
-      const vertex = new THREE.Vector3().fromBufferAttribute(vertices, i)
-      const normal = new THREE.Vector3().fromBufferAttribute(normals, i)
       const boneWeights = weights[i]
       const boneIndices = indices[i]
 
-      let newVertex = new THREE.Vector3(0, 0, 0)
-      let newNormal = new THREE.Vector3(0, 0, 0)
-
-      let matrixSum = new THREE.Matrix4()
+      vertex.fromBufferAttribute(vertices, i)
+      normal.fromBufferAttribute(normals, i)
 
       for (let j = 0; j < boneIndices.length; j++) {
          const index = boneIndices[j]
