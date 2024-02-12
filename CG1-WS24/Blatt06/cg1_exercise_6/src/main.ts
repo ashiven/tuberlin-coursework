@@ -98,8 +98,8 @@ function calculateLBS() {
          normalMatrixSum = addMatrices(normalMatrixSum, diff)
       }
 
-      newVertex.applyMatrix4(vertexMatrixSum)
-      newNormal.applyMatrix3(
+      newVertex = vertex.applyMatrix4(vertexMatrixSum)
+      newNormal = normal.applyMatrix3(
          new THREE.Matrix3().setFromMatrix4(
             normalMatrixSum.clone().invert().transpose()
          )
