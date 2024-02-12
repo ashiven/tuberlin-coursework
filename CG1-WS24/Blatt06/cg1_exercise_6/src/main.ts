@@ -158,7 +158,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          showRestpose = changed.value
          if (showRestpose) {
             removeSkeleton(scene)
-            addSkeleton(scene, currentAnimation.restpose)
+            showSkeleton ? addSkeleton(scene, currentAnimation.restpose) : null
             currentFrame = 0
             scene.remove(elephant)
             elephant = helper.getElephant()
@@ -179,6 +179,10 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          }
          removeSkeleton(scene)
          showSkeleton ? addSkeleton(scene, currentAnimation.restpose) : null
+         currentFrame = 0
+         scene.remove(elephant)
+         elephant = helper.getElephant()
+         showMesh ? scene.add(elephant) : null
          restBoneMatrixInversions = boneMatrixInvs(currentAnimation)
          break
    }
