@@ -61,12 +61,15 @@ function stepAnimation() {
 
 function calculateLBS() {
    const vertices = elephant.geometry.getAttribute("position")
+   const normals = elephant.geometry.getAttribute("normal")
    for (let i = 0, l = vertices.count; i < l; i++) {
       const vertex = new THREE.Vector3().fromBufferAttribute(vertices, i)
+      const normal = new THREE.Vector3().fromBufferAttribute(normals, i)
       const vertexWeights = weights[i]
       const vertexIndices = indices[i]
 
       let newVertex = new THREE.Vector3(0, 0, 0)
+      let newNormal = new THREE.Vector3(0, 0, 0)
       for (let j = 0; j < vertexIndices.length; j++) {
          const index = vertexIndices[j]
          const weight = vertexWeights[j]
@@ -77,13 +80,24 @@ function calculateLBS() {
          const restBoneMatrix = new THREE.Matrix4().fromArray(restBoneMatrixArr)
          const restBoneMatrixInv = restBoneMatrix.clone().invert()
 
-         const diff = boneMatrix.clone().multiply(restBoneMatrixInv)
-         const result = vertex.clone().applyMatrix4(diff)
-         result.multiplyScalar(weight)
+         const diffVertex = boneMatrix
+            .clone()
+            .multiply(restBoneMatrixInv)
+            .multiplyScalar(weight)
+         const resultVertex = vertex.clone().applyMatrix4(diffVertex)
 
-         newVertex.add(result)
+         newVertex.add(resultVertex)
+
+         const diffNormal = boneMatrix
+            .clone()
+            .multiply(restBoneMatrixInv)
+            .multiplyScalar(weight)
+         const resultNormal = normal
+            .clone()
+            .applyMatrix4(diffNormal.invert().transpose())
       }
       vertices.setXYZ(i, newVertex.x, newVertex.y, newVertex.z)
+      normals.setXYZ(i, newNormal.x, newNormal.y, newNormal.z)
    }
    vertices.needsUpdate = true
 }
@@ -130,6 +144,9 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
             removeSkeleton(scene)
             addSkeleton(scene, currentAnimation.restpose)
             currentFrame = 0
+            scene.remove(elephant)
+            elephant = helper.getElephant()
+            showMesh ? scene.add(elephant) : null
          }
          break
       case "animation":
