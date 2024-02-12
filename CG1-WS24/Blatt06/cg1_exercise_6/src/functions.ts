@@ -33,4 +33,12 @@ function boneMatrixInvs(currentAnimation: any) {
    return restBoneMatrixInversions
 }
 
-export { addSkeleton, boneMatrixInvs, removeSkeleton }
+function addMatrices(matrixA: THREE.Matrix4, matrixB: THREE.Matrix4) {
+   const result = new THREE.Matrix4()
+   for (let i = 0; i < 16; i++) {
+      result.elements[i] = matrixA.elements[i] + matrixB.elements[i]
+   }
+   return result
+}
+
+export { addMatrices, addSkeleton, boneMatrixInvs, removeSkeleton }

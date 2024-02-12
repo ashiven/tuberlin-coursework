@@ -14,7 +14,12 @@ import { Application, createWindow } from "./lib/window"
 
 import * as helper from "./helper"
 
-import { addSkeleton, boneMatrixInvs, removeSkeleton } from "./functions"
+import {
+   addMatrices,
+   addSkeleton,
+   boneMatrixInvs,
+   removeSkeleton,
+} from "./functions"
 
 var settings: helper.Settings = new helper.Settings()
 var scene: THREE.Scene
@@ -72,6 +77,10 @@ function calculateLBS() {
 
       let newVertex = new THREE.Vector3(0, 0, 0)
       let newNormal = new THREE.Vector3(0, 0, 0)
+
+      let vertexMatrixSum = new THREE.Matrix4()
+      let normalMatrixSum = new THREE.Matrix4()
+
       for (let j = 0; j < boneIndices.length; j++) {
          const index = boneIndices[j]
          const weight = boneWeights[j]
@@ -85,14 +94,17 @@ function calculateLBS() {
             .multiply(restBoneMatrixInv)
             .multiplyScalar(weight)
 
-         const resultVertex = vertex.clone().applyMatrix4(diff)
-         newVertex.add(resultVertex)
-
-         const resultNormal = normal
-            .clone()
-            .applyMatrix4(diff.invert().transpose())
-         newNormal.add(resultNormal)
+         vertexMatrixSum = addMatrices(vertexMatrixSum, diff)
+         normalMatrixSum = addMatrices(normalMatrixSum, diff)
       }
+
+      newVertex.applyMatrix4(vertexMatrixSum)
+      newNormal.applyMatrix3(
+         new THREE.Matrix3().setFromMatrix4(
+            normalMatrixSum.clone().invert().transpose()
+         )
+      )
+
       vertices.setXYZ(i, newVertex.x, newVertex.y, newVertex.z)
       normals.setXYZ(i, newNormal.x, newNormal.y, newNormal.z)
    }
