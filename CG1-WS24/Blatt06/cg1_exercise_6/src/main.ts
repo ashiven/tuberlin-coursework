@@ -75,6 +75,7 @@ function calculateLBS() {
    let newVertex = new THREE.Vector3()
    let newNormal = new THREE.Vector3()
    let matrixSum = new THREE.Matrix4()
+   matrixSum.set(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
    for (let i = 0, l = vertices.count; i < l; i++) {
       const boneWeights = weights[i]
@@ -82,6 +83,7 @@ function calculateLBS() {
 
       vertex.fromBufferAttribute(vertices, i)
       normal.fromBufferAttribute(normals, i)
+      matrixSum.set(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
       for (let j = 0; j < boneIndices.length; j++) {
          const index = boneIndices[j]
