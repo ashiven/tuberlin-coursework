@@ -78,8 +78,7 @@ function calculateLBS() {
       let newVertex = new THREE.Vector3(0, 0, 0)
       let newNormal = new THREE.Vector3(0, 0, 0)
 
-      let vertexMatrixSum = new THREE.Matrix4()
-      let normalMatrixSum = new THREE.Matrix4()
+      let matrixSum = new THREE.Matrix4()
 
       for (let j = 0; j < boneIndices.length; j++) {
          const index = boneIndices[j]
@@ -94,14 +93,13 @@ function calculateLBS() {
             .multiply(restBoneMatrixInv)
             .multiplyScalar(weight)
 
-         vertexMatrixSum = addMatrices(vertexMatrixSum, diff)
-         normalMatrixSum = addMatrices(normalMatrixSum, diff)
+         matrixSum = addMatrices(matrixSum, diff)
       }
 
-      newVertex = vertex.applyMatrix4(vertexMatrixSum)
+      newVertex = vertex.applyMatrix4(matrixSum)
       newNormal = normal.applyMatrix3(
          new THREE.Matrix3().setFromMatrix4(
-            normalMatrixSum.clone().invert().transpose()
+            matrixSum.clone().invert().transpose()
          )
       )
 
