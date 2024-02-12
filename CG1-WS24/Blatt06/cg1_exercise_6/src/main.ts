@@ -97,6 +97,7 @@ function calculateLBS() {
       normals.setXYZ(i, newNormal.x, newNormal.y, newNormal.z)
    }
    vertices.needsUpdate = true
+   normals.needsUpdate = true
 }
 
 /*******************************************************************************
