@@ -164,18 +164,22 @@ function initPendulum() {
 function stepPendulum() {
    const gravitationalForce = new THREE.Vector3(0, -9.81 * mass, 0)
 
-   const springLength = sphere.position.length() - box.position.length()
-   const springDirection = sphere.position.clone().sub(box.position).normalize()
-   const springForceMagnitude = -stiffness * springLength
+   const displacement = sphere.position.clone().sub(box.position)
+   const distance = displacement.length()
+   const springDirection = displacement.clone().normalize()
+   const springLengthDifference = distance - radius
+   const springForceMagnitude = -stiffness * springLengthDifference
    const springForce = springDirection
       .clone()
       .multiplyScalar(springForceMagnitude)
 
    const totalForce = gravitationalForce.clone().add(springForce)
    const acceleration = totalForce.clone().divideScalar(mass)
-   sphere.userData.velocity.add(acceleration.clone().multiplyScalar(step))
-   sphere.position.add(sphere.userData.velocity.clone().multiplyScalar(step))
-   updateLine()
+   console.log(springForce)
+   console.log(acceleration)
+   //sphere.userData.velocity.add(acceleration.clone().multiplyScalar(step))
+   //sphere.position.add(sphere.userData.velocity.clone().multiplyScalar(step))
+   //updateLine()
 }
 
 function updateLine() {
