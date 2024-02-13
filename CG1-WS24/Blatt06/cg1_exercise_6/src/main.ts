@@ -134,11 +134,12 @@ function initPendulum() {
    removeSkeleton(scene)
    scene.remove(elephant)
    box = helper.getBox()
-   scene.add(box)
    sphere = helper.getSphere()
+   line = helper.getLine(50)
+   scene.add(box)
    scene.add(sphere)
-   line = helper.getLine()
    scene.add(line)
+   box.position.set(0, 50, 0)
 }
 
 function stepPendulum() {
