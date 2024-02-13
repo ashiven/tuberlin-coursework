@@ -33,12 +33,18 @@ var currentFrame: number = 0
 var restBoneMatrixInversions: Array<THREE.Matrix4> =
    boneMatrixInvs(currentAnimation)
 var restingElephant: THREE.Mesh = helper.getElephant()
+var box: THREE.Mesh
+var sphere: THREE.Mesh
+var line: THREE.Line
 
 /*******************************************************************************
  * Linear Blend Skinning.
  ******************************************************************************/
 
 function initAnimation() {
+   scene.remove(box)
+   scene.remove(sphere)
+   scene.remove(line)
    elephant = helper.getElephant()
    showMesh ? scene.add(elephant) : null
    showSkeleton ? addSkeleton(scene, currentAnimation.restpose) : null
@@ -127,6 +133,12 @@ function calculateLBS() {
 function initPendulum() {
    removeSkeleton(scene)
    scene.remove(elephant)
+   box = helper.getBox()
+   scene.add(box)
+   sphere = helper.getSphere()
+   scene.add(sphere)
+   line = helper.getLine()
+   scene.add(line)
 }
 
 function stepPendulum() {
