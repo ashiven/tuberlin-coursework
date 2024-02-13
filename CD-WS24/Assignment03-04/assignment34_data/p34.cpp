@@ -38,9 +38,10 @@ namespace
       set<string> GEN;
       set<string> KILL;
       set<string> OUT;
+      BasicBlock *Block;
       bool firstNode = false;
 
-      explicit Node(const BasicBlock &BB) : USES({}), IN({}), GEN({}), KILL({}), OUT({})
+      explicit Node(const BasicBlock &BB) : USES({}), IN({}), GEN({}), KILL({}), OUT({}), Block(const_cast<BasicBlock *>(&BB))
       {
         for (const auto &Inst : BB)
         {
@@ -189,8 +190,39 @@ namespace
               errs() << Variable << "\n";
             }
           }
+          else if (Node->IN.find(Dummys[Variable]) != Node->IN.end() && useBeforeDef(Node, Variable))
+          {
+            if (reported.find(Variable) == reported.end())
+            {
+              reported[Variable] = true;
+              errs() << Variable << "\n";
+            }
+          }
         }
       }
+    }
+
+    bool useBeforeDef(const Node *Node, const string &Variable)
+    {
+      bool defined = false;
+      for (auto &Inst : *(Node->Block))
+      {
+        if (auto *Load = dyn_cast<LoadInst>(&Inst))
+        {
+          if (Load->getOperand(0)->getName() == Variable && !defined)
+          {
+            return true;
+          }
+        }
+        else if (auto *Store = dyn_cast<StoreInst>(&Inst))
+        {
+          if (Store->getOperand(1)->getName() == Variable)
+          {
+            defined = true;
+          }
+        }
+      }
+      return false;
     }
 
     set<string> computeIN(BasicBlock *BB)

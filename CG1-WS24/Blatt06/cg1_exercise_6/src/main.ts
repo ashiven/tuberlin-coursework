@@ -24,6 +24,11 @@ import {
 var settings: helper.Settings = new helper.Settings()
 var scene: THREE.Scene
 var wid: RenderWidget
+
+/*******************************************************************************
+ * Linear Blend Skinning.
+ ******************************************************************************/
+
 var elephant: THREE.Mesh
 var showMesh: boolean = settings.mesh
 var showSkeleton: boolean = settings.skeleton
@@ -33,13 +38,6 @@ var currentFrame: number = 0
 var restBoneMatrixInversions: Array<THREE.Matrix4> =
    boneMatrixInvs(currentAnimation)
 var restingElephant: THREE.Mesh = helper.getElephant()
-var box: THREE.Mesh
-var sphere: THREE.Mesh
-var line: THREE.Line
-
-/*******************************************************************************
- * Linear Blend Skinning.
- ******************************************************************************/
 
 function initAnimation() {
    scene.remove(box)
@@ -130,6 +128,25 @@ function calculateLBS() {
 /*******************************************************************************
  * Pendulum.
  ******************************************************************************/
+
+var box: THREE.Mesh
+var sphere: THREE.Mesh
+var line: THREE.Line
+var mass: number = settings.mass
+var stiffness: number = settings.stiffness
+var step: number = settings.step
+var radius: number = settings.radius
+var solverType: helper.SolverTypes = settings.solverType
+var double: boolean = settings.double
+settings.reset = () => {
+   mass = settings.mass
+   stiffness = settings.stiffness
+   step = settings.step
+   radius = settings.radius
+   solverType = settings.solverType
+   double = settings.double
+   initPendulum()
+}
 
 function initPendulum() {
    removeSkeleton(scene)
