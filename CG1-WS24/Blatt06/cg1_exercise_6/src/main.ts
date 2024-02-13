@@ -140,7 +140,7 @@ var radius: number = settings.radius
 var solverType: helper.SolverTypes = settings.solverType
 var double: boolean = settings.double
 settings.reset = () => {
-   sphere.position.set(0, 0, 0)
+   sphere.position.set(25, 0, 0)
    velocity = new THREE.Vector3(0, 0, 0)
    updateLine()
 }
@@ -156,6 +156,7 @@ function initPendulum() {
    scene.add(sphere)
    scene.add(line)
    box.position.set(0, radius, 0)
+   sphere.position.set(25, 0, 0)
 }
 
 function stepPendulum() {
@@ -236,6 +237,25 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          elephant = helper.getElephant()
          showMesh ? scene.add(elephant) : null
          restBoneMatrixInversions = boneMatrixInvs(currentAnimation)
+         break
+      case "mass":
+         mass = changed.value
+         break
+      case "stiffness":
+         stiffness = changed.value
+         break
+      case "step":
+         step = changed.value
+         break
+      case "radius":
+         radius = changed.value
+         updateLine()
+         break
+      case "solverType":
+         solverType = changed.value
+         break
+      case "double":
+         double = changed.value
          break
    }
 }
