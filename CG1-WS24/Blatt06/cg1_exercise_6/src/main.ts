@@ -45,6 +45,7 @@ function initAnimation() {
    scene.remove(box)
    scene.remove(sphere)
    scene.remove(line)
+   currentFrame = 0
    elephant = helper.getElephant()
    showMesh ? scene.add(elephant) : null
    showSkeleton ? addSkeleton(scene, currentAnimation.restpose) : null
@@ -133,6 +134,7 @@ function calculateLBS() {
 function initPendulum() {
    removeSkeleton(scene)
    scene.remove(elephant)
+   currentFrame = 0
    box = helper.getBox()
    sphere = helper.getSphere()
    line = helper.getLine(50)
