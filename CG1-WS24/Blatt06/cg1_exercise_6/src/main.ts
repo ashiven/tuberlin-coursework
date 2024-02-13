@@ -154,15 +154,33 @@ function initPendulum() {
    currentFrame = 0
    box = helper.getBox()
    sphere = helper.getSphere()
-   line = helper.getLine(50)
+   line = helper.getLine(radius)
    scene.add(box)
    scene.add(sphere)
    scene.add(line)
-   box.position.set(0, 50, 0)
+   box.position.set(0, radius, 0)
 }
 
 function stepPendulum() {
-   //console.log("Step pendulum.")
+   const gravitationalForce = new THREE.Vector3(0, -9.81 * mass, 0)
+
+   const springLength = sphere.position.length() - box.position.length()
+   const springDirection = sphere.position.clone().sub(box.position).normalize()
+   const springForceMagnitude = -stiffness * springLength
+   const springForce = springDirection
+      .clone()
+      .multiplyScalar(springForceMagnitude)
+
+   const totalForce = gravitationalForce.clone().add(springForce)
+   const acceleration = totalForce.clone().divideScalar(mass)
+   sphere.userData.velocity.add(acceleration.clone().multiplyScalar(step))
+   sphere.position.add(sphere.userData.velocity.clone().multiplyScalar(step))
+   updateLine()
+}
+
+function updateLine() {
+   const points = [new THREE.Vector3(0, 50, 0), sphere.position]
+   line.geometry.setFromPoints(points)
 }
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
