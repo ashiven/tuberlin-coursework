@@ -140,13 +140,9 @@ var radius: number = settings.radius
 var solverType: helper.SolverTypes = settings.solverType
 var double: boolean = settings.double
 settings.reset = () => {
-   mass = settings.mass
-   stiffness = settings.stiffness
-   step = settings.step
-   radius = settings.radius
-   solverType = settings.solverType
-   double = settings.double
-   initPendulum()
+   sphere.position.set(0, 0, 0)
+   velocity = new THREE.Vector3(0, 0, 0)
+   updateLine()
 }
 
 function initPendulum() {
