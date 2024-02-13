@@ -132,6 +132,7 @@ function calculateLBS() {
 var box: THREE.Mesh
 var sphere: THREE.Mesh
 var line: THREE.Line
+var velocity: THREE.Vector3 = new THREE.Vector3(0, 0, 0)
 var mass: number = settings.mass
 var stiffness: number = settings.stiffness
 var step: number = settings.step
@@ -175,11 +176,9 @@ function stepPendulum() {
 
    const totalForce = gravitationalForce.clone().add(springForce)
    const acceleration = totalForce.clone().divideScalar(mass)
-   console.log(springForce)
-   console.log(acceleration)
-   //sphere.userData.velocity.add(acceleration.clone().multiplyScalar(step))
-   //sphere.position.add(sphere.userData.velocity.clone().multiplyScalar(step))
-   //updateLine()
+   velocity.add(acceleration.clone().multiplyScalar(step))
+   sphere.position.add(velocity.clone().multiplyScalar(step))
+   updateLine()
 }
 
 function updateLine() {
