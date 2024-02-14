@@ -173,8 +173,8 @@ function stepPendulum() {
 
    const totalForce = gravitationalForce.clone().add(springForce)
    const acceleration = totalForce.clone().divideScalar(mass)
-   velocity.add(acceleration.clone().multiplyScalar(step))
    sphere.position.add(velocity.clone().multiplyScalar(step))
+   velocity.add(acceleration.clone().multiplyScalar(step))
    updateLine()
 }
 
