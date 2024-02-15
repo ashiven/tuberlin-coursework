@@ -204,8 +204,8 @@ function stepPendulum() {
             .add(predictedAcceleration)
             .multiplyScalar(0.5)
 
-         velocity.add(averageAcceleration.clone().multiplyScalar(step))
          sphere.position.add(velocity.clone().multiplyScalar(step))
+         velocity.add(averageAcceleration.clone().multiplyScalar(step))
       case helper.SolverTypes.Euler:
          sphere.position.add(velocity.clone().multiplyScalar(step))
          velocity.add(acceleration.clone().multiplyScalar(step))
