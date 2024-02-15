@@ -75,6 +75,13 @@ function stepAnimation() {
 }
 
 function calculateLBS() {
+   var frameBoneMatrices = []
+   const boneMatrixArrs = currentAnimation.frames[currentFrame]
+   for (let i = 0; i < boneMatrixArrs.length; i++) {
+      const frameBoneMatrix = new THREE.Matrix4().fromArray(boneMatrixArrs[i])
+      frameBoneMatrices.push(frameBoneMatrix)
+   }
+
    const vertices = elephant.geometry.getAttribute("position")
    const normals = elephant.geometry.getAttribute("normal")
    const restVertices = restingElephant.geometry.getAttribute("position")
@@ -99,8 +106,7 @@ function calculateLBS() {
          const index = boneIndices[j]
          const weight = boneWeights[j]
 
-         const boneMatrixArr = currentAnimation.frames[currentFrame][index]
-         const boneMatrix = new THREE.Matrix4().fromArray(boneMatrixArr)
+         const boneMatrix = frameBoneMatrices[index]
          const restBoneMatrixInv = restBoneMatrixInversions[index]
 
          const diff = boneMatrix
