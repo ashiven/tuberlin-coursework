@@ -142,7 +142,7 @@ var double: boolean = settings.double
 settings.reset = () => {
    sphere.position.set(25, 0, 0)
    velocity = new THREE.Vector3(0, 0, 0)
-   updateLine()
+   updateLine(box, sphere)
 }
 
 function initPendulum() {
@@ -163,7 +163,7 @@ function stepPendulum() {
    sphere.position.add(velocity.clone().multiplyScalar(step))
    const acceleration = getAcceleration(box, sphere)
    updateVelocity(acceleration, box, sphere)
-   updateLine()
+   updateLine(box, sphere)
 }
 
 function getAcceleration(objectFix: THREE.Mesh, objectAttached: THREE.Mesh) {
@@ -227,8 +227,8 @@ function updateVelocity(
    }
 }
 
-function updateLine() {
-   const points = [new THREE.Vector3(0, 50, 0), sphere.position]
+function updateLine(objectA: THREE.Mesh, objectB: THREE.Mesh) {
+   const points = [objectA.position, objectB.position]
    line.geometry.setFromPoints(points)
 }
 
@@ -298,7 +298,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          break
       case "radius":
          radius = changed.value
-         updateLine()
+         updateLine(box, sphere)
          break
       case "solverType":
          solverType = changed.value
