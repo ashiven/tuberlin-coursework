@@ -191,7 +191,6 @@ function stepPendulum() {
    updateVelocity(velocity, acceleration, box, sphere)
    updateLine(line, box, sphere)
    if (double) {
-      sphere2.position.add(velocity2.clone().multiplyScalar(step))
       const acceleration2 = getAcceleration(sphere, sphere2)
       updateVelocity(velocity2, acceleration2, sphere, sphere2)
       updateLine(line2, sphere, sphere2)
