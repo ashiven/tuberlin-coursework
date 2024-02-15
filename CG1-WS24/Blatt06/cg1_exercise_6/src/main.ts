@@ -161,7 +161,6 @@ function initPendulum() {
    scene.remove(sphere)
    scene.remove(sphere2)
    scene.remove(box)
-   currentFrame = 0
    velocity = new THREE.Vector3(0, 0, 0)
    velocity2 = new THREE.Vector3(0, 0, 0)
    box = helper.getBox()
