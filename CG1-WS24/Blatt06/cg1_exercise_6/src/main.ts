@@ -173,8 +173,43 @@ function stepPendulum() {
 
    const totalForce = gravitationalForce.clone().add(springForce)
    const acceleration = totalForce.clone().divideScalar(mass)
-   sphere.position.add(velocity.clone().multiplyScalar(step))
-   velocity.add(acceleration.clone().multiplyScalar(step))
+
+   switch (solverType) {
+      case helper.SolverTypes.Trapezoid:
+         const predictedVelocity = velocity
+            .clone()
+            .add(acceleration.clone().multiplyScalar(step))
+         const predictedDisplacement = sphere.position
+            .clone()
+            .add(predictedVelocity.clone().multiplyScalar(step))
+            .sub(box.position)
+
+         const predictedDistance = predictedDisplacement.length()
+         const predictedSpringDirection = predictedDisplacement
+            .clone()
+            .normalize()
+         const predictedSpringLengthDifference = predictedDistance - radius
+         const predictedSpringForceMagnitude =
+            -stiffness * predictedSpringLengthDifference
+         const predictedSpringForce = predictedSpringDirection
+            .clone()
+            .multiplyScalar(predictedSpringForceMagnitude)
+         const predictedTotalForce = gravitationalForce
+            .clone()
+            .add(predictedSpringForce)
+         const predictedAcceleration = predictedTotalForce.divideScalar(mass)
+
+         const averageAcceleration = acceleration
+            .clone()
+            .add(predictedAcceleration)
+            .multiplyScalar(0.5)
+
+         velocity.add(averageAcceleration.clone().multiplyScalar(step))
+         sphere.position.add(velocity.clone().multiplyScalar(step))
+      case helper.SolverTypes.Euler:
+         sphere.position.add(velocity.clone().multiplyScalar(step))
+         velocity.add(acceleration.clone().multiplyScalar(step))
+   }
    updateLine()
 }
 
