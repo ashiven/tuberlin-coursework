@@ -174,6 +174,14 @@ function stepPendulum() {
    const totalForce = gravitationalForce.clone().add(springForce)
    const acceleration = totalForce.clone().divideScalar(mass)
 
+   sphere.position.add(velocity.clone().multiplyScalar(step))
+   updateVelocity(acceleration)
+   updateLine()
+}
+
+function updateVelocity(acceleration: THREE.Vector3) {
+   const gravitationalForce = new THREE.Vector3(0, -9.81 * mass, 0)
+
    switch (solverType) {
       case helper.SolverTypes.Trapezoid:
          const predictedVelocity = velocity
@@ -204,13 +212,10 @@ function stepPendulum() {
             .add(predictedAcceleration)
             .multiplyScalar(0.5)
 
-         sphere.position.add(velocity.clone().multiplyScalar(step))
          velocity.add(averageAcceleration.clone().multiplyScalar(step))
       case helper.SolverTypes.Euler:
-         sphere.position.add(velocity.clone().multiplyScalar(step))
          velocity.add(acceleration.clone().multiplyScalar(step))
    }
-   updateLine()
 }
 
 function updateLine() {
