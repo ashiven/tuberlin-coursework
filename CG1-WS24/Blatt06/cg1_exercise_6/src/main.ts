@@ -134,8 +134,8 @@ var sphere: THREE.Mesh
 var sphere2: THREE.Mesh
 var line: THREE.Line
 var line2: THREE.Line
-var velocity: THREE.Vector3 = new THREE.Vector3(0, 0, 0)
-var velocity2: THREE.Vector3 = new THREE.Vector3(0, 0, 0)
+var velocity: THREE.Vector3
+var velocity2: THREE.Vector3
 var mass: number = settings.mass
 var stiffness: number = settings.stiffness
 var step: number = settings.step
@@ -159,6 +159,8 @@ function initPendulum() {
    scene.remove(line)
    scene.remove(line2)
    currentFrame = 0
+   velocity = new THREE.Vector3(0, 0, 0)
+   velocity2 = new THREE.Vector3(0, 0, 0)
    box = helper.getBox()
    sphere = helper.getSphere()
    line = helper.getLine(radius)
