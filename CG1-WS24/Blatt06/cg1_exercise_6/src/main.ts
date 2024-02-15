@@ -131,8 +131,11 @@ function calculateLBS() {
 
 var box: THREE.Mesh
 var sphere: THREE.Mesh
+var sphere2: THREE.Mesh
 var line: THREE.Line
+var line2: THREE.Line
 var velocity: THREE.Vector3 = new THREE.Vector3(0, 0, 0)
+var velocity2: THREE.Vector3 = new THREE.Vector3(0, 0, 0)
 var mass: number = settings.mass
 var stiffness: number = settings.stiffness
 var step: number = settings.step
@@ -142,7 +145,12 @@ var double: boolean = settings.double
 settings.reset = () => {
    sphere.position.set(25, 0, 0)
    velocity = new THREE.Vector3(0, 0, 0)
-   updateLine(box, sphere)
+   updateLine(line, box, sphere)
+   if (double) {
+      sphere2.position.set(0, -radius, 0)
+      velocity2 = new THREE.Vector3(0, 0, 0)
+      updateLine(line2, sphere, sphere2)
+   }
 }
 
 function initPendulum() {
@@ -157,13 +165,26 @@ function initPendulum() {
    scene.add(line)
    box.position.set(0, radius, 0)
    sphere.position.set(25, 0, 0)
+   if (double) {
+      sphere2 = helper.getSphere()
+      line2 = helper.getLine(radius)
+      scene.add(line2)
+      scene.add(sphere2)
+      sphere2.position.set(0, -radius, 0)
+   }
 }
 
 function stepPendulum() {
    sphere.position.add(velocity.clone().multiplyScalar(step))
    const acceleration = getAcceleration(box, sphere)
-   updateVelocity(acceleration, box, sphere)
-   updateLine(box, sphere)
+   updateVelocity(acceleration, velocity, box, sphere)
+   updateLine(line, box, sphere)
+   if (double) {
+      sphere2.position.add(velocity2.clone().multiplyScalar(step))
+      const acceleration2 = getAcceleration(sphere, sphere2)
+      updateVelocity(acceleration2, velocity2, sphere, sphere2)
+      updateLine(line2, sphere, sphere2)
+   }
 }
 
 function getAcceleration(objectFix: THREE.Mesh, objectAttached: THREE.Mesh) {
@@ -186,6 +207,7 @@ function getAcceleration(objectFix: THREE.Mesh, objectAttached: THREE.Mesh) {
 
 function updateVelocity(
    acceleration: THREE.Vector3,
+   velocity: THREE.Vector3,
    objectFix: THREE.Mesh,
    objectAttached: THREE.Mesh
 ) {
@@ -227,7 +249,7 @@ function updateVelocity(
    }
 }
 
-function updateLine(objectA: THREE.Mesh, objectB: THREE.Mesh) {
+function updateLine(line: any, objectA: THREE.Mesh, objectB: THREE.Mesh) {
    const points = [objectA.position, objectB.position]
    line.geometry.setFromPoints(points)
 }
@@ -298,13 +320,14 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
          break
       case "radius":
          radius = changed.value
-         updateLine(box, sphere)
+         updateLine(line, box, sphere)
          break
       case "solverType":
          solverType = changed.value
          break
       case "double":
          double = changed.value
+         initPendulum()
          break
    }
 }
