@@ -187,14 +187,13 @@ function initPendulum() {
 }
 
 function stepPendulum() {
-   sphere.position.add(velocity.clone().multiplyScalar(step))
    const acceleration = getAcceleration(box, sphere)
-   updateVelocity(acceleration, velocity, box, sphere)
+   updateVelocity(velocity, acceleration, box, sphere)
    updateLine(line, box, sphere)
    if (double) {
       sphere2.position.add(velocity2.clone().multiplyScalar(step))
       const acceleration2 = getAcceleration(sphere, sphere2)
-      updateVelocity(acceleration2, velocity2, sphere, sphere2)
+      updateVelocity(velocity2, acceleration2, sphere, sphere2)
       updateLine(line2, sphere, sphere2)
    }
 }
@@ -218,45 +217,31 @@ function getAcceleration(objectFix: THREE.Mesh, objectAttached: THREE.Mesh) {
 }
 
 function updateVelocity(
-   acceleration: THREE.Vector3,
    velocity: THREE.Vector3,
+   acceleration: THREE.Vector3,
    objectFix: THREE.Mesh,
    objectAttached: THREE.Mesh
 ) {
-   const gravitationalForce = new THREE.Vector3(0, -9.81 * mass, 0)
-
    switch (solverType) {
       case helper.SolverTypes.Trapezoid:
-         const predictedVelocity = velocity
-            .clone()
-            .add(acceleration.clone().multiplyScalar(step))
-         const predictedDisplacement = objectAttached.position
-            .clone()
-            .add(predictedVelocity.clone().multiplyScalar(step))
-            .sub(objectFix.position)
-
-         const predictedDistance = predictedDisplacement.length()
-         const predictedSpringDirection = predictedDisplacement
-            .clone()
-            .normalize()
-         const predictedSpringLengthDifference = predictedDistance - radius
-         const predictedSpringForceMagnitude =
-            -stiffness * predictedSpringLengthDifference
-         const predictedSpringForce = predictedSpringDirection
-            .clone()
-            .multiplyScalar(predictedSpringForceMagnitude)
-         const predictedTotalForce = gravitationalForce
-            .clone()
-            .add(predictedSpringForce)
-         const predictedAcceleration = predictedTotalForce.divideScalar(mass)
+         const updatedObjectAttached = objectAttached.clone()
+         updatedObjectAttached.position.add(
+            velocity.clone().multiplyScalar(step)
+         )
+         const predictedAcceleration = getAcceleration(
+            objectFix,
+            updatedObjectAttached
+         )
 
          const averageAcceleration = acceleration
             .clone()
             .add(predictedAcceleration)
             .multiplyScalar(0.5)
 
+         objectAttached.position.add(velocity.clone().multiplyScalar(step))
          velocity.add(averageAcceleration.clone().multiplyScalar(step))
       case helper.SolverTypes.Euler:
+         objectAttached.position.add(velocity.clone().multiplyScalar(step))
          velocity.add(acceleration.clone().multiplyScalar(step))
    }
 }
