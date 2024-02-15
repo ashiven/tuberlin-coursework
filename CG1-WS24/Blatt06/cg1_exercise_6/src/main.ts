@@ -156,6 +156,8 @@ settings.reset = () => {
 function initPendulum() {
    removeSkeleton(scene)
    scene.remove(elephant)
+   scene.remove(line)
+   scene.remove(line2)
    currentFrame = 0
    box = helper.getBox()
    sphere = helper.getSphere()
