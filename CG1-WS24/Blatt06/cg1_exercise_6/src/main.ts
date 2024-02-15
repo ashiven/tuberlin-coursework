@@ -158,6 +158,9 @@ function initPendulum() {
    scene.remove(elephant)
    scene.remove(line)
    scene.remove(line2)
+   scene.remove(sphere)
+   scene.remove(sphere2)
+   scene.remove(box)
    currentFrame = 0
    velocity = new THREE.Vector3(0, 0, 0)
    velocity2 = new THREE.Vector3(0, 0, 0)
@@ -325,6 +328,7 @@ function callback(changed: utils.KeyValuePair<helper.Settings>) {
       case "radius":
          radius = changed.value
          updateLine(line, box, sphere)
+         updateLine(line2, sphere, sphere2)
          break
       case "solverType":
          solverType = changed.value
