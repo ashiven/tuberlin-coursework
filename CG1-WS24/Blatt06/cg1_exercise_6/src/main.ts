@@ -160,9 +160,16 @@ function initPendulum() {
 }
 
 function stepPendulum() {
+   sphere.position.add(velocity.clone().multiplyScalar(step))
+   const acceleration = getAcceleration(box, sphere)
+   updateVelocity(acceleration, box, sphere)
+   updateLine()
+}
+
+function getAcceleration(objectFix: THREE.Mesh, objectAttached: THREE.Mesh) {
    const gravitationalForce = new THREE.Vector3(0, -9.81 * mass, 0)
 
-   const displacement = sphere.position.clone().sub(box.position)
+   const displacement = objectAttached.position.clone().sub(objectFix.position)
    const distance = displacement.length()
    const springDirection = displacement.clone().normalize()
    const springLengthDifference = distance - radius
@@ -174,12 +181,14 @@ function stepPendulum() {
    const totalForce = gravitationalForce.clone().add(springForce)
    const acceleration = totalForce.clone().divideScalar(mass)
 
-   sphere.position.add(velocity.clone().multiplyScalar(step))
-   updateVelocity(acceleration)
-   updateLine()
+   return acceleration
 }
 
-function updateVelocity(acceleration: THREE.Vector3) {
+function updateVelocity(
+   acceleration: THREE.Vector3,
+   objectFix: THREE.Mesh,
+   objectAttached: THREE.Mesh
+) {
    const gravitationalForce = new THREE.Vector3(0, -9.81 * mass, 0)
 
    switch (solverType) {
@@ -187,10 +196,10 @@ function updateVelocity(acceleration: THREE.Vector3) {
          const predictedVelocity = velocity
             .clone()
             .add(acceleration.clone().multiplyScalar(step))
-         const predictedDisplacement = sphere.position
+         const predictedDisplacement = objectAttached.position
             .clone()
             .add(predictedVelocity.clone().multiplyScalar(step))
-            .sub(box.position)
+            .sub(objectFix.position)
 
          const predictedDistance = predictedDisplacement.length()
          const predictedSpringDirection = predictedDisplacement
