@@ -235,10 +235,15 @@ function updatePositionAndVelocity(
          updatedObjectAttached.position.add(
             velocityGiven.clone().multiplyScalar(step)
          )
-         let predictedAcceleration = getAcceleration(
-            objectFix,
-            updatedObjectAttached
-         )
+         const updatedObjectBelow = sphere2.clone()
+         updatedObjectBelow.position.add(velocity2.clone().multiplyScalar(step))
+         let predictedAcceleration = double
+            ? getAcceleration(
+                 objectFix,
+                 updatedObjectAttached,
+                 updatedObjectBelow
+              )
+            : getAcceleration(objectFix, updatedObjectAttached)
          if (twoSpheres) {
             const updatedObjectFix = objectFix.clone()
             updatedObjectFix.position.add(velocity.clone().multiplyScalar(step))
