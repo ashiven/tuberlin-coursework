@@ -18,7 +18,6 @@ import {
    addMatrices,
    addSkeleton,
    boneMatrixInvs,
-   getSpringForce,
    removeSkeleton,
    updateLine,
 } from "./functions"
@@ -44,7 +43,9 @@ var restingElephant: THREE.Mesh = helper.getElephant()
 function initAnimation() {
    scene.remove(box)
    scene.remove(sphere)
+   scene.remove(sphere2)
    scene.remove(line)
+   scene.remove(line2)
    currentFrame = 0
    elephant = helper.getElephant()
    showMesh ? scene.add(elephant) : null
@@ -213,27 +214,14 @@ function getAcceleration(
    objectBelow?: THREE.Mesh
 ) {
    const gravitationalForce = new THREE.Vector3(0, -9.81 * mass, 0)
-
-   const springForce = getSpringForce(
-      objectAttached,
-      objectFix,
-      radius,
-      stiffness
-   )
-
+   const springForce = getSpringForce(objectAttached, objectFix)
    let totalForce = gravitationalForce.clone().add(springForce)
    if (objectBelow) {
-      const springForce2 = getSpringForce(
-         objectAttached,
-         objectBelow,
-         radius,
-         stiffness
-      )
+      const springForce2 = getSpringForce(objectAttached, objectBelow)
       totalForce.add(springForce2)
    }
 
    const acceleration = totalForce.clone().divideScalar(mass)
-
    return acceleration
 }
 
@@ -276,6 +264,18 @@ function updatePositionAndVelocity(
       case helper.SolverTypes.Euler:
          velocity.add(acceleration.clone().multiplyScalar(step))
    }
+}
+
+function getSpringForce(objectA: THREE.Mesh, objectB: THREE.Mesh) {
+   const displacement = objectA.position.clone().sub(objectB.position)
+   const distance = displacement.length()
+   const springDirection = displacement.clone().normalize()
+   const springLengthDifference = distance - radius
+   const springForceMagnitude = -stiffness * springLengthDifference
+   const springForce = springDirection
+      .clone()
+      .multiplyScalar(springForceMagnitude)
+   return springForce
 }
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
