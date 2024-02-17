@@ -41,4 +41,33 @@ function addMatrices(matrixA: THREE.Matrix4, matrixB: THREE.Matrix4) {
    return result
 }
 
-export { addMatrices, addSkeleton, boneMatrixInvs, removeSkeleton }
+function updateLine(line: any, objectA: THREE.Mesh, objectB: THREE.Mesh) {
+   const points = [objectA.position, objectB.position]
+   line.geometry.setFromPoints(points)
+}
+
+function getSpringForce(
+   objectA: THREE.Mesh,
+   objectB: THREE.Mesh,
+   radius: number,
+   stiffness: number
+) {
+   const displacement = objectA.position.clone().sub(objectB.position)
+   const distance = displacement.length()
+   const springDirection = displacement.clone().normalize()
+   const springLengthDifference = distance - radius
+   const springForceMagnitude = -stiffness * springLengthDifference
+   const springForce = springDirection
+      .clone()
+      .multiplyScalar(springForceMagnitude)
+   return springForce
+}
+
+export {
+   addMatrices,
+   addSkeleton,
+   boneMatrixInvs,
+   getSpringForce,
+   removeSkeleton,
+   updateLine,
+}

@@ -18,7 +18,9 @@ import {
    addMatrices,
    addSkeleton,
    boneMatrixInvs,
+   getSpringForce,
    removeSkeleton,
+   updateLine,
 } from "./functions"
 
 var settings: helper.Settings = new helper.Settings()
@@ -212,27 +214,21 @@ function getAcceleration(
 ) {
    const gravitationalForce = new THREE.Vector3(0, -9.81 * mass, 0)
 
-   const displacement = objectAttached.position.clone().sub(objectFix.position)
-   const distance = displacement.length()
-   const springDirection = displacement.clone().normalize()
-   const springLengthDifference = distance - radius
-   const springForceMagnitude = -stiffness * springLengthDifference
-   const springForce = springDirection
-      .clone()
-      .multiplyScalar(springForceMagnitude)
+   const springForce = getSpringForce(
+      objectAttached,
+      objectFix,
+      radius,
+      stiffness
+   )
 
    let totalForce = gravitationalForce.clone().add(springForce)
    if (objectBelow) {
-      const displacement2 = objectAttached.position
-         .clone()
-         .sub(objectBelow.position)
-      const distance2 = displacement2.length()
-      const springDirection2 = displacement2.clone().normalize()
-      const springLengthDifference2 = distance2 - radius
-      const springForceMagnitude2 = -stiffness * springLengthDifference2
-      const springForce2 = springDirection2
-         .clone()
-         .multiplyScalar(springForceMagnitude2)
+      const springForce2 = getSpringForce(
+         objectAttached,
+         objectBelow,
+         radius,
+         stiffness
+      )
       totalForce.add(springForce2)
    }
 
@@ -280,11 +276,6 @@ function updatePositionAndVelocity(
       case helper.SolverTypes.Euler:
          velocity.add(acceleration.clone().multiplyScalar(step))
    }
-}
-
-function updateLine(line: any, objectA: THREE.Mesh, objectB: THREE.Mesh) {
-   const points = [objectA.position, objectB.position]
-   line.geometry.setFromPoints(points)
 }
 
 function callback(changed: utils.KeyValuePair<helper.Settings>) {
