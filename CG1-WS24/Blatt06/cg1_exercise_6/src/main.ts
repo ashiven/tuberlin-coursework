@@ -220,7 +220,6 @@ function getAcceleration(
       const springForce2 = getSpringForce(objectAttached, objectBelow)
       totalForce.add(springForce2)
    }
-
    const acceleration = totalForce.clone().divideScalar(mass)
    return acceleration
 }
