@@ -187,10 +187,9 @@ function initPendulum() {
 }
 
 function stepPendulum() {
-   const acceleration = getAcceleration(box, sphere)
-   updatePositionAndVelocity(velocity, acceleration, box, sphere)
-   updateLine(line, box, sphere)
+   let acceleration = getAcceleration(box, sphere)
    if (double) {
+      acceleration = getAcceleration(box, sphere, sphere2)
       const acceleration2 = getAcceleration(sphere, sphere2)
       updatePositionAndVelocity(
          velocity2,
@@ -202,9 +201,15 @@ function stepPendulum() {
       )
       updateLine(line2, sphere, sphere2)
    }
+   updatePositionAndVelocity(velocity, acceleration, box, sphere)
+   updateLine(line, box, sphere)
 }
 
-function getAcceleration(objectFix: THREE.Mesh, objectAttached: THREE.Mesh) {
+function getAcceleration(
+   objectFix: THREE.Mesh,
+   objectAttached: THREE.Mesh,
+   objectBelow?: THREE.Mesh
+) {
    const gravitationalForce = new THREE.Vector3(0, -9.81 * mass, 0)
 
    const displacement = objectAttached.position.clone().sub(objectFix.position)
@@ -216,7 +221,21 @@ function getAcceleration(objectFix: THREE.Mesh, objectAttached: THREE.Mesh) {
       .clone()
       .multiplyScalar(springForceMagnitude)
 
-   const totalForce = gravitationalForce.clone().add(springForce)
+   let totalForce = gravitationalForce.clone().add(springForce)
+   if (objectBelow) {
+      const displacement2 = objectAttached.position
+         .clone()
+         .sub(objectBelow.position)
+      const distance2 = displacement2.length()
+      const springDirection2 = displacement2.clone().normalize()
+      const springLengthDifference2 = distance2 - radius
+      const springForceMagnitude2 = -stiffness * springLengthDifference2
+      const springForce2 = springDirection2
+         .clone()
+         .multiplyScalar(springForceMagnitude2)
+      totalForce.add(springForce2)
+   }
+
    const acceleration = totalForce.clone().divideScalar(mass)
 
    return acceleration
