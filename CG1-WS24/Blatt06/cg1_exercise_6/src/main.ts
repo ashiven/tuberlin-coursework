@@ -194,14 +194,7 @@ function stepPendulum() {
    if (double) {
       acceleration = getAcceleration(box, sphere, sphere2)
       const acceleration2 = getAcceleration(sphere, sphere2)
-      updatePositionAndVelocity(
-         velocity2,
-         acceleration2,
-         sphere,
-         sphere2,
-         velocity,
-         true
-      )
+      updatePositionAndVelocity(velocity2, acceleration2, sphere, sphere2, true)
       updateLine(line2, sphere, sphere2)
    }
    updatePositionAndVelocity(velocity, acceleration, box, sphere)
@@ -225,19 +218,18 @@ function getAcceleration(
 }
 
 function updatePositionAndVelocity(
-   velocity: THREE.Vector3,
+   velocityGiven: THREE.Vector3,
    acceleration: THREE.Vector3,
    objectFix: THREE.Mesh,
    objectAttached: THREE.Mesh,
-   firstSphereVelocity: THREE.Vector3 = new THREE.Vector3(0, 0, 0),
    twoSpheres: boolean = false
 ) {
-   objectAttached.position.add(velocity.clone().multiplyScalar(step))
+   objectAttached.position.add(velocityGiven.clone().multiplyScalar(step))
    switch (solverType) {
       case helper.SolverTypes.Trapezoid:
          const updatedObjectAttached = objectAttached.clone()
          updatedObjectAttached.position.add(
-            velocity.clone().multiplyScalar(step)
+            velocityGiven.clone().multiplyScalar(step)
          )
          let predictedAcceleration = getAcceleration(
             objectFix,
@@ -245,9 +237,7 @@ function updatePositionAndVelocity(
          )
          if (twoSpheres) {
             const updatedObjectFix = objectFix.clone()
-            updatedObjectFix.position.add(
-               firstSphereVelocity.clone().multiplyScalar(step)
-            )
+            updatedObjectFix.position.add(velocity.clone().multiplyScalar(step))
             predictedAcceleration = getAcceleration(
                updatedObjectFix,
                updatedObjectAttached
@@ -259,9 +249,9 @@ function updatePositionAndVelocity(
             .add(predictedAcceleration)
             .multiplyScalar(0.5)
 
-         velocity.add(averageAcceleration.clone().multiplyScalar(step))
+         velocityGiven.add(averageAcceleration.clone().multiplyScalar(step))
       case helper.SolverTypes.Euler:
-         velocity.add(acceleration.clone().multiplyScalar(step))
+         velocityGiven.add(acceleration.clone().multiplyScalar(step))
    }
 }
 
