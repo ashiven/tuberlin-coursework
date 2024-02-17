@@ -190,15 +190,19 @@ function initPendulum() {
 }
 
 function stepPendulum() {
-   let acceleration = getAcceleration(box, sphere)
+   let acceleration, acceleration2
    if (double) {
       acceleration = getAcceleration(box, sphere, sphere2)
-      const acceleration2 = getAcceleration(sphere, sphere2)
+      acceleration2 = getAcceleration(sphere, sphere2)
+      updatePositionAndVelocity(velocity, acceleration, box, sphere)
       updatePositionAndVelocity(velocity2, acceleration2, sphere, sphere2, true)
+      updateLine(line, box, sphere)
       updateLine(line2, sphere, sphere2)
+   } else {
+      acceleration = getAcceleration(box, sphere)
+      updatePositionAndVelocity(velocity, acceleration, box, sphere)
+      updateLine(line, box, sphere)
    }
-   updatePositionAndVelocity(velocity, acceleration, box, sphere)
-   updateLine(line, box, sphere)
 }
 
 function getAcceleration(
