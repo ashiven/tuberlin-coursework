@@ -240,7 +240,22 @@ function updatePositionAndVelocity(
 }
 
 function trapezoidUpdateSingle(acceleration: THREE.Vector3) {
-   return
+   const updatedSphere = sphere.clone()
+   updatedSphere.position.add(velocity.clone().multiplyScalar(step))
+
+   const newAcceleration = getAcceleration(box, updatedSphere)
+   const newVelocity = velocity
+      .clone()
+      .add(acceleration.clone().multiplyScalar(step))
+
+   const averageAcceleration = acceleration
+      .clone()
+      .add(newAcceleration)
+      .divideScalar(2)
+   const averageVelocity = velocity.clone().add(newVelocity).divideScalar(2)
+
+   sphere.position.add(averageVelocity.clone().multiplyScalar(step))
+   velocity.add(averageAcceleration.clone().multiplyScalar(step))
 }
 
 function trapezoidUpdateDouble(
