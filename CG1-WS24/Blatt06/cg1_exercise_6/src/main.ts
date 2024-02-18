@@ -194,12 +194,16 @@ function stepPendulum() {
    if (double) {
       acceleration = getAcceleration(box, sphere, sphere2)
       acceleration2 = getAcceleration(sphere, sphere2)
-      updatePositionAndVelocity(acceleration, acceleration2)
+      solverType === helper.SolverTypes.Trapezoid
+         ? trapezoidUpdateDouble(acceleration, acceleration2)
+         : updatePositionAndVelocity(acceleration, acceleration2)
       updateLine(line, box, sphere)
       updateLine(line2, sphere, sphere2)
    } else {
       acceleration = getAcceleration(box, sphere)
-      updatePositionAndVelocity(acceleration)
+      solverType === helper.SolverTypes.Trapezoid
+         ? trapezoidUpdateSingle(acceleration)
+         : updatePositionAndVelocity(acceleration)
       updateLine(line, box, sphere)
    }
 }
@@ -233,6 +237,17 @@ function updatePositionAndVelocity(
       sphere2.position.add(velocity2.clone().multiplyScalar(step))
       velocity2.add(acceleration2.clone().multiplyScalar(step))
    }
+}
+
+function trapezoidUpdateSingle(acceleration: THREE.Vector3) {
+   return
+}
+
+function trapezoidUpdateDouble(
+   acceleration: THREE.Vector3,
+   acceleration2: THREE.Vector3
+) {
+   return
 }
 
 function getSpringForce(objectA: THREE.Mesh, objectB: THREE.Mesh) {
