@@ -262,7 +262,37 @@ function trapezoidUpdateDouble(
    acceleration: THREE.Vector3,
    acceleration2: THREE.Vector3
 ) {
-   return
+   const updatedSphere = sphere.clone()
+   const updatedSphere2 = sphere2.clone()
+   updatedSphere.position.add(velocity.clone().multiplyScalar(step))
+   updatedSphere2.position.add(velocity2.clone().multiplyScalar(step))
+
+   const newAcceleration = getAcceleration(box, updatedSphere, updatedSphere2)
+   const newAcceleration2 = getAcceleration(updatedSphere, updatedSphere2)
+
+   const newVelocity = velocity
+      .clone()
+      .add(acceleration.clone().multiplyScalar(step))
+   const newVelocity2 = velocity2
+      .clone()
+      .add(acceleration2.clone().multiplyScalar(step))
+
+   const averageAcceleration = acceleration
+      .clone()
+      .add(newAcceleration)
+      .divideScalar(2)
+   const averageAcceleration2 = acceleration2
+      .clone()
+      .add(newAcceleration2)
+      .divideScalar(2)
+
+   const averageVelocity = velocity.clone().add(newVelocity).divideScalar(2)
+   const averageVelocity2 = velocity2.clone().add(newVelocity2).divideScalar(2)
+
+   sphere.position.add(averageVelocity.clone().multiplyScalar(step))
+   velocity.add(averageAcceleration.clone().multiplyScalar(step))
+   sphere2.position.add(averageVelocity2.clone().multiplyScalar(step))
+   velocity2.add(averageAcceleration2.clone().multiplyScalar(step))
 }
 
 function getSpringForce(objectA: THREE.Mesh, objectB: THREE.Mesh) {
