@@ -194,13 +194,12 @@ function stepPendulum() {
    if (double) {
       acceleration = getAcceleration(box, sphere, sphere2)
       acceleration2 = getAcceleration(sphere, sphere2)
-      updatePositionAndVelocity(velocity, acceleration, box, sphere)
-      updatePositionAndVelocity(velocity2, acceleration2, sphere, sphere2, true)
+      updatePositionAndVelocity(acceleration, acceleration2)
       updateLine(line, box, sphere)
       updateLine(line2, sphere, sphere2)
    } else {
       acceleration = getAcceleration(box, sphere)
-      updatePositionAndVelocity(velocity, acceleration, box, sphere)
+      updatePositionAndVelocity(acceleration)
       updateLine(line, box, sphere)
    }
 }
@@ -222,45 +221,17 @@ function getAcceleration(
 }
 
 function updatePositionAndVelocity(
-   velocityGiven: THREE.Vector3,
    acceleration: THREE.Vector3,
-   objectFix: THREE.Mesh,
-   objectAttached: THREE.Mesh,
-   twoSpheres: boolean = false
+   acceleration2?: THREE.Vector3
 ) {
-   objectAttached.position.add(velocityGiven.clone().multiplyScalar(step))
-   switch (solverType) {
-      case helper.SolverTypes.Trapezoid:
-         const updatedObjectAttached = objectAttached.clone()
-         updatedObjectAttached.position.add(
-            velocityGiven.clone().multiplyScalar(step)
-         )
-         const updatedObjectBelow = sphere2.clone()
-         updatedObjectBelow.position.add(velocity2.clone().multiplyScalar(step))
-         let predictedAcceleration = double
-            ? getAcceleration(
-                 objectFix,
-                 updatedObjectAttached,
-                 updatedObjectBelow
-              )
-            : getAcceleration(objectFix, updatedObjectAttached)
-         if (twoSpheres) {
-            const updatedObjectFix = objectFix.clone()
-            updatedObjectFix.position.add(velocity.clone().multiplyScalar(step))
-            predictedAcceleration = getAcceleration(
-               updatedObjectFix,
-               updatedObjectAttached
-            )
-         }
-
-         const averageAcceleration = acceleration
-            .clone()
-            .add(predictedAcceleration)
-            .multiplyScalar(0.5)
-
-         velocityGiven.add(averageAcceleration.clone().multiplyScalar(step))
-      case helper.SolverTypes.Euler:
-         velocityGiven.add(acceleration.clone().multiplyScalar(step))
+   if (!acceleration2) {
+      sphere.position.add(velocity.clone().multiplyScalar(step))
+      velocity.add(acceleration.clone().multiplyScalar(step))
+   } else {
+      sphere.position.add(velocity.clone().multiplyScalar(step))
+      velocity.add(acceleration.clone().multiplyScalar(step))
+      sphere2.position.add(velocity2.clone().multiplyScalar(step))
+      velocity2.add(acceleration2.clone().multiplyScalar(step))
    }
 }
 
