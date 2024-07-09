@@ -1,0 +1,142 @@
+% 01.05.2024
+% Jannik 
+% Novak
+% 392210
+% nevisha@pm.me
+
+% ---------- PREAMBLE ----------
+
+\documentclass{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{blindtext}
+
+\title{Hausaufgabe 2}
+\author{Jannik Novak, Ullie Eisenhardt}
+\date{09. 05. 2024}
+
+% ---------- TEXT ----------
+
+\begin{document}
+
+\maketitle
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+
+\section{Auflistungen}
+
+\subsection{Description}
+
+\begin{description}
+    \item Hallo
+    \item Dido
+    \item Moin
+\end{description}
+
+\subsection{Itemize}
+
+\begin{itemize}
+    \item Hello
+    \item Gogo
+    \item Yea
+    \begin{itemize}
+        \item Unterpunkt 1
+        \item Unterpunkt 2
+    \end{itemize}
+\end{itemize}
+
+\subsection{Enumerate}
+
+\begin{enumerate}
+    \item Alfons
+    \item Bertrecht
+    \item Carl
+    \begin{enumerate}
+        \item Erhardt
+        \item Franziska
+        \begin{enumerate}
+            \item Gunter
+            \item Herbert
+            \begin{enumerate}
+                \item Irine
+                \item Juergen
+                \item Konrad
+            \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Itemize und Enumerate}
+
+\begin{itemize}
+    \item hallo
+    \begin{enumerate}
+        \item moin
+        \begin{itemize}
+            \item servus
+            \begin{enumerate}
+                \item howdy
+                \begin{itemize}
+                    \item gruetzi
+                    \begin{enumerate}
+                        \item nihao
+                    \end{enumerate}
+                \end{itemize}
+            \end{enumerate}
+        \end{itemize}
+    \end{enumerate}
+\end{itemize}
+
+\clearpage
+
+\section{Tabellen}
+
+\subsection{Tabelle 1}
+
+\begin{tabular}{l c c c r }
+    left & center & center & center & right \\
+    \hline
+    1 & 2 & 3 & 4 & 5 \\
+    1 & 2 & 3 & 4 & 5 \\
+    1 & 2 & 3 & 4 & 5 \\
+    1 & 2 & 3 & 4 & 5 \\
+\end{tabular}
+
+\subsection{Tabelle 2}
+
+\begin{tabular}{|l|c|c|c|r|}
+    left & center & center & center & right \\
+    \hline
+    \multicolumn{1}{|l}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c|}{3} & 4 & 5 \\
+    \multicolumn{1}{|l}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c|}{3} & 4 & 5 \\
+    \multicolumn{1}{|l}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c|}{3} & 4 & 5 \\
+\end{tabular}
+
+\subsection{Tabelle 3}
+
+\begin{tabular}{*6{|r}|*6{l|}}
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+    \hline
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+    1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+\end{tabular}
+
+\subsection{Tabelle 4}
+
+\begin{tabular}{|l|p{5cm}|r|}
+    left & center & right \\
+    \hline
+    1 & Das hier ist ein etwas langer Text der mehrere Zeilen umfassen wird. Jaja so ist das tatsaechlich. & 3 \\
+    1 & Das hier ist ein etwas langer Text der mehrere Zeilen umfassen wird. Jaja so ist das tatsaechlich. & 3 \\
+    1 & Das hier ist ein etwas langer Text der mehrere Zeilen umfassen wird. Jaja so ist das tatsaechlich. & 3 \\
+    1 & Das hier ist ein etwas langer Text der mehrere Zeilen umfassen wird. Jaja so ist das tatsaechlich. & 3 \\
+\end{tabular}
+
+\end{document}

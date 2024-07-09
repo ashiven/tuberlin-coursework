@@ -1,0 +1,94 @@
+% 01.05.2024
+% Jannik 
+% Novak
+% 392210
+% nevisha@pm.me
+
+% ---------- PREAMBLE ----------
+
+\documentclass{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{blindtext}
+\usepackage{geometry}
+\usepackage{layout}
+\usepackage[backend=biber,style=alphabetic,]{biblatex}
+\usepackage{pdfpages}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\addbibresource{lib.bib}
+\geometry{legalpaper, landscape, margin=2in}
+
+\hypersetup{
+pdfpagemode=FullScreen,
+colorlinks=true,
+breaklinks=true,
+plainpages=false,
+citecolor=red}
+
+\pagestyle{fancy}
+
+\lhead{\slshape \rightmark}
+\chead{}
+\rhead{\slshape \leftmark}
+
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+\title{Hausaufgabe 8}
+\author{Jannik Novak, Ullie Eisenhardt}
+\date{19. 06. 2024}
+
+% ---------- TEXT ----------
+
+\begin{document}
+
+\maketitle
+
+\clearpage
+
+\tableofcontents
+
+\section{Aufgabe 8.1}
+\label{sec:intro}
+
+\subsection{Layout}
+\layout
+\clearpage
+
+\subsection{Seite 1}
+\blindtext
+\clearpage
+
+
+\newgeometry{a4paper, total={170mm,257mm}, left=20mm, top=20mm}
+\subsection{Seite 2}
+\blindtext
+\clearpage
+
+\restoregeometry
+\subsection{Seite 3}
+\blindtext
+\clearpage
+
+\section{Aufgabe 8.2}
+\label{sec:zwei}
+
+\subsection{PDF}
+\includepdf[pages={2,1}, nup=2x1]{latex_ueb_08.pdf}
+\clearpage
+
+\section{Aufgabe 8.3}
+
+\subsection{Hyperrefs}
+Die erste wichtige~\href{https://www.youtube.com/watch?v=dQw4w9WgXcQ}{Quelle}. Gefolgt von der zweiten wichtigen~\href{https://www.youtube.com/watch?v=cPJUBQd-PNM}{Quelle}. Das erste~\hyperref[sec:intro]{Kapitel}. Das zweite~\hyperref[sec:zwei]{Kapitel}.
+
+\subsection{Footnotes}
+
+Dies ist ein wichtiger Text\footnote{sehr wichtig..}. Und dies ist kein so wichtiger Text\footnote{eher unwichtig...}.
+
+\end{document}

@@ -1,0 +1,108 @@
+% 01.05.2024
+% Jannik 
+% Novak
+% 392210
+% nevisha@pm.me
+
+% ---------- PREAMBLE ----------
+
+\documentclass{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{blindtext}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Hausaufgabe 3}
+\author{Jannik Novak, Ullie Eisenhardt}
+\date{14. 05. 2024}
+
+% ---------- TEXT ----------
+
+\begin{document}
+
+\maketitle
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+
+\section{Aufgabe 3.2}
+
+\subsection{Folgenstetigkeit}
+
+\begin{align*}
+    \lim_{n\to\infty} (f \cdot g)(x_n) & = \lim_{n\to\infty} (f(x_n) \cdot g(x_n)) \\
+    & = \lim_{n\to\infty} f(x_n) \cdot \lim_{n\to\infty} g(x_n) \\
+    & = f(x_0) \cdot g(x_0) \\
+    & = (f \cdot g)(x_0)
+\end{align*}
+
+\subsection{Grenzwert}
+
+\begin{align}
+    \lim_{k\to\infty} {{k^3 - k^2 + k - 1} \over {k^3 + k^2 + k + 1}} 
+    & = \lim_{k\to\infty} {{k^3 \over k^3} \cdot {{1 - {k^2 \over k^3} + {k \over k^3} - {1 \over k^3}} \over {1 + {k^2 \over k^3} + {k \over k^3} + {1 \over k^3}}}} \\
+    & = \lim_{k\to\infty} {{1 - {1 \over k} + {1 \over k^2} - {1 \over k^3}} \over {1 + {1 \over k} + {1 \over k^2} + {1 \over k^3}}} \\
+    & = 1
+\end{align}
+
+\subsection{Teleskopsumme}
+
+\begin{equation}
+    A^{n+1} - B^{n+1} = \sum_{k=0}^{n} A^k(A-B)B^{n-k}\tag{TKS}
+\end{equation}
+
+\clearpage
+
+\section{Aufgabe 3.3}
+
+\subsection{Integral}
+
+Es sei $R := [0,\pi] \times [0,\pi]$ und $f(x,y) := sin(x + y)$. Wir berechnen das Integral:
+
+\begin{align*}
+    \int_R f(x,y)dV & = \int_{0}^{\pi} \left( \int_{0}^{\pi} \textrm{sin}(x + y)dy \right) dx \\
+    & = \int_{0}^{\pi} -\textrm{cos}(x + y) \Biggr|_{y=0}^{y=\pi} dx \\
+    & = - \int_{0}^{\pi} (\textrm{cos}(x + \pi) - \textrm{cos}(x)) dx \\
+    & = -(\textrm{sin}(x+\pi) - \textrm{sin}(x)) \Biggr|_{0}^{\pi} \\
+    & = -(\textrm{sin}(2\pi) - \textrm{sin}(\pi) - (\textrm{sin}(\pi)-0)) \\
+    & = 0
+\end{align*}
+
+\subsection{Eulerscher Exponentialansatz}
+
+Der Eulersche Exponentialansatz $y(x) = e^{\lambda x}$ führt zu:
+
+\begin{align*}
+    y''' - y' = 0 & \Leftrightarrow e^{\lambda x}(\lambda^3 - \lambda) = 0 \\
+    & \Leftrightarrow \lambda^3 - \lambda = 0 \\
+    & \Leftrightarrow \lambda(\lambda^2 - 1) = 0 \\
+    & \Leftrightarrow \overbrace{\lambda(\lambda + 1)(\lambda - 1)}^{=:p(\lambda)} = 0
+\end{align*}
+
+\subsection{Norm}
+
+Wenden wir auf diese Gleichung die Norm an, erhalten wir:
+
+\begin{align*}
+    \left\| \sum_{k=0}^{l} {A^k \over k! } - \sum_{k=0}^{l} {B^k \over k!} \right\|_2 & = \left\| (A - B) \sum_{k=0}^{l-1} {1 \over (k + 1)! } \sum_{j=0}^{k} {A^j B^{k-j}} \right\|_2 \\
+    & \leq \|A-B\|_2 \cdot \sum_{k=0}^{l-1} {1 \over (k + 1)! } \sum_{j=0}^{k} \|A\|_{2}^{j} \cdot \|B\|_{2}^{k-j} \\
+    & \leq ... \\
+    & = \|A-B\|_2 \cdot \sum_{k=0}^{l-1} {1 \over k!} \textrm{max}\{\|A\|_{2}, \|B\|_{2} \}^k
+\end{align*}
+
+\subsection{Komplexe Konjugierung}
+
+Das konjugiert-komplexe Paar $\lambda_{3/4} = 1 \pm 3i$ liefert die Lösungen
+
+\begin{align*}
+    y_3(x) = \textbf{Re}e^{\lambda_3 x} = \textbf{Re}e^{1+3i} = \textbf{Re}e^x(\cos(3x) + i\sin(3x)) = e^x\cos(3x) \\ 
+    y_4(x) = \textbf{Im}e^{\lambda_3 x} = \textbf{Im}e^{1+3i} = \textbf{Im}e^x(\cos(3x) + i\sin(3x)) = e^x\sin(3x) \\ 
+\end{align*}
+
+\end{document}

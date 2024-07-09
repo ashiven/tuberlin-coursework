@@ -1,0 +1,195 @@
+% 01.05.2024
+% Jannik 
+% Novak
+% 392210
+% nevisha@pm.me
+
+% ---------- PREAMBLE ----------
+
+\documentclass{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{blindtext}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Hausaufgabe 4}
+\author{Jannik Novak, Ullie Eisenhardt}
+\date{18. 05. 2024}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand{\binomial}[2]{(#1 + #2)^2}
+\newcommand{\hallo}[1]{Hallo #1,}
+
+% ---------- TEXT ----------
+
+\begin{document}
+
+\maketitle
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+
+\section{Aufgabe 4.1}
+
+\subsection{Zahlenmengen}
+
+Die natürlichen Zahlen $\N$, sind eine Untermenge der ganzen Zahlen $\Z$. Diese sind eine Untermenge der reellen Zahlen $\R$. Diese sind wiederum eine Untermenge der komplexen Zahlen $\C$.
+
+\subsection{Kommandos}
+
+\hallo{Peter} wusstest du, dass $\binomial{a}{b} = a^2 + 2ab + b^2$ gilt? 
+
+\section{Aufgabe 4.2}
+
+\subsection{Rand von Mengen}
+
+Es gilt:
+%
+\begin{align*}
+    M_1 & = \{(x,y) \in \R^2 \, | \, |x| + |y| = 1 \} \\
+    \mathring{M_1} & = \emptyset \\
+    \partial M_1 & = \{(x,y) \in \R^2 \, | \, |x| + |y| = 1 \} = M_1
+\end{align*}
+%
+
+\subsection{Gradient}
+
+Mit Hilfe der Rechenregeln für Summen (Linearität) erhalten wir:
+%
+\begin{align*}
+    \nabla (f + g)(x) & = \left( \begin{array}{c} \partial_{x_1}(f(x) + g(x)) \\ \cdot \cdot \cdot \\ \partial_{x_n}(f(x) + g(x)) \end{array} \right) \\
+    & = \left( \begin{array}{c} \partial_{x_1}f(x) + \partial_{x_1}g(x) \\ \cdot \cdot \cdot \\ \partial_{x_n}f(x) + \partial_{x_n}g(x) \end{array} \right) \\
+    & = \nabla f(x) + \nabla g(x)
+\end{align*}
+%
+\clearpage
+
+\subsection{Lineare Gleichungssysteme}
+
+Wir betrachten das folgende lineare Gleichungssytem:
+%
+\begin{equation*}
+    \left( 
+    \begin{array}{ccc}
+         1 & 1 & 1 \\
+         2 & -2 & -1 \\
+         4 & 4 & 1
+    \end{array} 
+    \right) 
+    \left( 
+    \begin{array}{c}
+         c_1 \\
+         c_2 \\
+         c_3
+    \end{array} 
+    \right) 
+    = 
+    \left( 
+    \begin{array}{c}
+         2 \\
+         -1 \\
+         0
+    \end{array} 
+    \right) 
+\end{equation*}
+%
+Wir lösen es mit Hilfe des Gauss-Algorithmus:
+%
+\begin{align*}
+    \begin{array}{ccccc}
+         1 & 1 & 1 & | & 2 \\
+         2 & -2 & -1 & | & -1 \\
+         4 & 4 & 1 & | & 0 
+    \end{array}
+    & \rightsquigarrow
+    \begin{array}{ccccc}
+         1 & 1 & 1 & | & 2 \\
+         2 & -2 & -1 & | & -1 \\
+         0 & 0 & -3 & | & -8 
+    \end{array} \\
+    & \rightsquigarrow
+    \begin{array}{ccccc}
+         1 & 1 & 1 & | & 2 \\
+         2 & -2 & -1 & | & -1 \\
+         0 & 0 & -3 & | & -8 
+    \end{array} \\
+    & \rightsquigarrow
+    \begin{array}{ccccc}
+         1 & 1 & 1 & | & 2 \\
+         0 & -4 & -3 & | & -5 \\
+         0 & 0 & -3 & | & -8 
+    \end{array} 
+\end{align*}
+%
+
+\section{Aufgabe 4.3}
+
+\subsection{Funktion}
+
+Die Funktion
+%
+\begin{equation*}
+    f: \R^2 \rightarrow \R, \qquad f(x,y) = \left\{ \begin{array}{ll}
+         x \sin ({1 \over y}) + y \cos ({1 \over x}) & \text{falls} \, x \neq 0 \, \text{und} \, y \neq 0 \\
+         0 & \text{falls} \, x = 0 \, \text{und} \, y = 0
+    \end{array} \right.
+\end{equation*}
+%
+ist stetig auf $\R^2$ außer auf $\{(x,y) \in \R^2 \, | \, x = 0$ oder $y = 0\} \, \backslash \, \{(0,0)\}$.
+
+\subsection{Kettenbruch}
+
+Mit Hilfe des \texttt{\textbackslash cfrac}-Befehls setzen wir einen schönen Kettenbruch:
+%
+\begin{equation*}
+    {4 \over \pi} = 1 + \cfrac{1^2}{3 + \cfrac{2^2}{5 + \cfrac{3^2}{7 + \cfrac{4^2}{9+\cfrac{5^2}{\ddots}}}}}
+\end{equation*}
+%
+
+\clearpage
+
+\subsection{Laplace Operator}
+
+Tip: \texttt{split}-Umgebung: \\
+Die folgende Rechnung bestätigt unsere Formel für den Laplace-Operator in Polarkoordinaten.
+%
+\begin{equation}
+\begin{split}
+    \partial_{r}^{2}g + {1 \over r} \cdot \partial_r g + {1 \over r^2} \cdot \partial_{\varphi}^{2}g & = \cos(\varphi)^2\partial_{x}^{2}f + 2\cos(\varphi)\sin(\varphi)\partial_x \partial_y f \\
+    & \quad +\sin(\varphi)^2 \partial_{y}^{2} f + {1 \over r} (\cos(\varphi) \partial_x f + \sin(\varphi) \partial_y f) \\
+    & \quad + {1 \over r^2} (-r(\cos(\varphi) \partial_x f + \sin(\varphi) \partial_y f) \\
+    & \quad + r^2 (\sin(\varphi)^2 \partial_{x}^{2} f + \cos(\varphi)^2 \partial_{y}^{2} f) \\
+    & \quad - 2r^2 \sin(\varphi) \cos(\varphi) \partial_x \partial_y f) \\
+    & = \partial_{x}^{2} f ( \cos(\varphi)^2 + \sin(\varphi)^2) \\
+    & \quad + \partial_{y}^{2} f (\sin(\varphi)^2 + \cos(\varphi)^2) \\
+    & \quad + \partial_x \partial_y f (2\cos(\varphi)sin(\varphi) - 2\sin(\varphi)\cos(\varphi)) \\
+    & \quad + \partial_x f ({1 \over r} \cos(\varphi) - {1 \over r}\cos(\varphi)) \\
+    & \quad + \partial_y f ({1 \over r} \sin(\varphi) - {1 \over r}\sin(\varphi)) \\
+    & = \partial_{x}^{2} f + \partial_{y}^{2} f
+\end{split}
+\end{equation}
+%
+\subsection{Maxwellsche Gleichungen}
+
+Wir betrachten die Maxwellschen Gleichungen, wobei wir \textbf{\textit{B}}, \textbf{\textit{E}}, \textbf{\textit{j}} \textit{fett} setzen,
+statt sie mit Vektorpfeilen zu versehen, wie es in der Literatur auch vorkommt.
+Die Gleichungen sollen zentriert gesetzt werden, also nicht nach dem Gleichheitszeichen ausgerichtet werden.
+%
+\begin{gather*}
+    \nabla \cdot \textbf{\textit{E}} = {\rho \over \varepsilon_0} \\
+    \nabla \cdot \textbf{\textit{B}} = 0 \\
+    \nabla \times \textbf{\textit{E}} = - {\partial \textbf{\textit{B}} \over \partial t} \\
+    \nabla \times \textbf{\textit{B}} = \mu_0 \textbf{\textit{j}} + \mu_0 \varepsilon_0 {\partial \textbf{\textit{E}} \over \partial t}
+\end{gather*}
+%
+\end{document}

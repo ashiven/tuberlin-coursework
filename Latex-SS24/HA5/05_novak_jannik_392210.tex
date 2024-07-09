@@ -1,0 +1,161 @@
+% 01.05.2024
+% Jannik 
+% Novak
+% 392210
+% nevisha@pm.me
+
+% ---------- PREAMBLE ----------
+
+\documentclass{article}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{blindtext}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{cancel}
+\usepackage{mathtools}
+
+\title{Hausaufgabe 5}
+\author{Jannik Novak, Ullie Eisenhardt}
+\date{26. 05. 2024}
+
+\newtheorem{th1}{Theorem 1}[section]
+\newtheorem{th2}{Theorem 2}
+\newtheorem{th3}[th2]{Theorem 3}
+
+% ---------- TEXT ----------
+
+\begin{document}
+
+\maketitle
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+
+\section{Aufgabe 5.1 1)}
+
+\begin{th1}
+Das ist ein spannendes Theorem.
+\end{th1}
+
+\begin{th2}
+Ein Theorem? 
+\end{th2}
+
+\begin{th3}
+Noch ein Theorem?
+\end{th3}
+
+\section{Aufgabe 5.1 2)}
+
+\begin{th1}
+Das ist ein spannendes Theorem.
+\end{th1}
+
+\begin{th3}
+Noch ein Theorem?
+\end{th3}
+
+\begin{th2}
+Ein Theorem? 
+\end{th2}
+
+\section{Aufgabe 5.2}
+
+\subsection{Cancel}
+
+%
+\begin{equation*}
+    \cancel{ \dfrac{\varphi}{2} }  + 2 = A
+\end{equation*}
+%
+
+\subsection{Matrizen}
+
+%
+\begin{equation*}
+    \left(
+    \begin{array}{ccc}
+         1 & 2 & 3\\
+         10 & 20 & 30 \\
+         100 & 200 & 300 
+    \end{array}
+    \right)
+    = 
+    \left(
+    \begin{array}{lll}
+         1 & 2 & 3\\
+         10 & 20 & 30 \\
+         100 & 200 & 300 
+    \end{array}
+    \right)
+    = 
+    \left(
+    \begin{array}{rrr}
+         1 & 2 & 3\\
+         10 & 20 & 30 \\
+         100 & 200 & 300 
+    \end{array}
+    \right)
+\end{equation*}
+%
+
+\subsection{Intertext}
+
+%
+\begin{align*}
+    A = \sum_{0 \leq i < j \leq n} a_{ij}
+\intertext{sieht hässlich aus im Vergleich zu}
+    A = \sum_{\mathclap{0 \leq i < j \leq n}} a_{ij}
+\end{align*}
+%
+
+\clearpage
+
+\section{Aufgabe 5.3 1)}
+
+\subsection{Formeln}
+
+%
+\begin{equation}
+\label{eq:py}
+    a^2+b^2 = c^2
+\end{equation}
+%
+
+%
+\begin{equation}
+\label{eq:bim}
+    (a-b)^2 = a^2 -2ab + b^2
+\end{equation}
+%
+
+%
+\begin{equation}
+\label{eq:bip}
+    (a+b)^2 = a^2 +2ab +b^2
+\end{equation}
+%
+
+\section{Aufgabe 5.3 2)}
+\label{sec:0}
+
+Dies ist eine Referenz zur ersten Gleichung~\eqref{eq:py}. Dies ist eine Referenz zur zweiten Gleichung~\eqref{eq:bim}. Die letzte Gleichung~\eqref{eq:bip}.
+
+\subsection{Ebene 1}
+\label{sec:1}
+
+Hier beziehen wir uns auf den Abschnitt~\ref{sec:0}. Noch eine Referenz zum Abschnitt~\ref{sec:2}.
+
+\subsubsection{Ebene 2}
+\label{sec:2}
+
+Hier eine Referenz zum Abschnitt~\ref{sec:1}. Weiterhin ein Referenz zur Seite \pageref{sec:0}.
+
+\end{document}
