@@ -1,0 +1,53 @@
+# RUN: choco-opt -p all -t riscv %s > %t && riscv-interpreter %t | filecheck %s
+# RUN: python3 %s | filecheck %s
+
+x: int = 0
+
+x = 20 * 10
+print(x)
+x = 2 + 1
+print(x)
+x = 2 - 1
+print(x)
+x = 4 // 2
+print(x)
+x = 3 % 2
+print(x)
+
+x = 0 * x
+print(x)
+x = 0 - x
+print(x)
+x = 1 * x
+print(x)
+x = 1
+x = 0 // x
+print(x)
+x = 1
+x = 0 % x
+print(x)
+
+x = x * 0
+print(x)
+x = x - 0
+print(x)
+x = x + 0
+print(x)
+x = x * 1
+print(x)
+
+
+# CHECK: 200
+# CHECK-NEXT: 3
+# CHECK-NEXT: 1
+# CHECK-NEXT: 2
+# CHECK-NEXT: 1
+# CHECK-NEXT: 0
+# CHECK-NEXT: 0
+# CHECK-NEXT: 0
+# CHECK-NEXT: 0
+# CHECK-NEXT: 0
+# CHECK-NEXT: 0
+# CHECK-NEXT: 0
+# CHECK-NEXT: 0
+# CHECK-NEXT: 0

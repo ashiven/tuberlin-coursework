@@ -1,0 +1,18 @@
+# RUN: choco-opt -p all -t riscv %s > %t && riscv-interpreter %t | filecheck %s
+# RUN: python3 %s | filecheck %s
+
+temp0: int = 0
+temp1: int = 0
+temp2: int = 0
+temp3: int = 0
+res: int = 0
+
+temp0 = 42
+temp1 = temp0 + 4
+temp2 = temp1 * 5
+temp3 = temp2 // 2
+res = temp3 * 15
+
+print(res)
+
+# CHECK: 1725
