@@ -1,0 +1,63 @@
+/*
+  Test 4, while, for and correct identification of "public" as class scope variable modifier.
+  Lexical and parsing error-free.
+*/ 
+
+class Test4 : rt_Material;
+
+public float a;
+
+void constructor(int alpha) {
+  a = alpha;
+}
+
+
+void shade() 
+
+  // compound_statement_no_new_scope ->
+  // '{' statement_list '}'
+{
+
+  // statement ->
+  // simple_statement ->
+  // declaration_statement ->
+  // declaration ->
+  // init_declarator_list ';' ->
+  // single_declaration ';' ->
+  // fully_specified_type IDENTIFIER '=' initializer ';'
+  // fully_specified_type IDENTIFIER '=' assignment_expression ';'
+  // fully_specified_type IDENTIFIER '=' primary_expression ';'
+  // FLOAT IDENTIFIER '=' INT ';'
+  float f = 0;
+
+
+  if(a < 0)
+    f = 1; 
+  else 
+    f = 2; 
+
+  // selection_statement ->
+  // IF '(' expression ')' selection_rest_statement ->
+  // IF '(' expression ')' statement ELSE statement ->
+  // IF '(' expression ')' compound_statement ELSE compound_statement ->
+  // IF '(' expression ')' '{' statement_list '}' ELSE '{' statement_list '}' ->
+  // IF '(' expression ')' '{' expression_statement '}' ELSE '{' expression_statement '}' ->
+  // IF '(' expression ')' '{' assignment_expression '}' ELSE '{' assignment_expression '}' ->
+  if (a < 0) {
+    a = 3; 
+  }
+  else {
+    a = 4; 
+  }
+
+  while (a > 0) {
+    f += 0.01;
+  }
+
+  int j;
+  for(j = 0; j < 10; j++)
+    f = f * j;
+
+
+  rt_SampleColor = color(f);
+}

@@ -1,0 +1,6 @@
+test*.bc
+test*.ll
+p34.so
+p34.o
+test*.my_def
+test*.my_out
