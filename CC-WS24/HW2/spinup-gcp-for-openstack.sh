@@ -57,9 +57,15 @@ done
 
 # create firewall rules to allow TCP, ICMP, and UDP traffic
 # for the ip ranges of cc-subnet1 and cc-subnet2 restricted to the cc tag
-gcloud compute firewall-rules create allow-tcp-icmp-udp-cc-sn12 \
+gcloud compute firewall-rules create allow-tcp-icmp-udp-cc-sn1 \
     --network=cc-network1 \
-    --source-ranges=10.0.0.0/24,10.1.0.0/24 \
+    --source-ranges=10.0.0.0/24 \
+    --target-tags=cc \
+    --allow=tcp,icmp,udp
+
+gcloud compute firewall-rules create allow-tcp-icmp-udp-cc-sn2 \
+    --network=cc-network2 \
+    --source-ranges=10.1.0.0/24 \
     --target-tags=cc \
     --allow=tcp,icmp,udp
 
