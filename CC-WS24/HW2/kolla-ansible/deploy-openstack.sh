@@ -26,4 +26,3 @@ kolla-ansible --passwords ./passwords.yml --configdir "$(readlink -e ./)" --inve
 
 # Destroy OpenStack deployment
 # kolla-ansible --passwords ./passwords.yml --configdir "$(readlink -e ./)" --inventory ./multinode --yes-i-really-really-mean-it destroy
-

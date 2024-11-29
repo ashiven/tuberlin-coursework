@@ -8,12 +8,13 @@ gcloud compute networks create cc-network2 --subnet-mode=custom
 gcloud compute networks subnets create cc-subnet1 \
     --network=cc-network1 \
     --range=10.0.0.0/24 \
-    --region=us-central1
+    --region=europe-west10 \
+    --secondary-range="cc-subnet1-secondary=10.0.1.0/24"
 
 gcloud compute networks subnets create cc-subnet2 \
     --network=cc-network2 \
-    --range=10.0.1.0/24 \
-    --region=us-central1
+    --range=10.1.0.0/24 \
+    --region=europe-west10
 
 # create nested virtualization image
 DISK_NAME="nested-vm-disk"
@@ -23,7 +24,7 @@ IMAGE_NAME="nested-ubuntu-2204"
 IMAGE_FAMILY="ubuntu-2204-lts"
 IMAGE_PROJECT="ubuntu-os-cloud"
 TAG="cc"
-ZONE="us-central1-a"
+ZONE="europe-west10-a"
 
 gcloud compute disks create "$DISK_NAME" \
     --type="$DISK_TYPE" \
@@ -47,31 +48,24 @@ for INSTANCE_NAME in controller compute1 compute2; do
     gcloud compute instances create "$INSTANCE_NAME" \
         --zone="$ZONE" \
         --machine-type="n2-standard-2" \
-        --network-interface subnet=cc-subnet1 \
-        --network-interface subnet=cc-subnet2 \
+        --network-interface=network=cc-network1,subnet=cc-subnet1 \
+        --network-interface=network=cc-network2,subnet=cc-subnet2 \
         --tags="$TAG" \
         --boot-disk-size="$DISK_SIZE" \
-        --image "$IMAGE_NAME"
+        --image="$IMAGE_NAME"
 done
 
 # create firewall rules to allow TCP, ICMP, and UDP traffic
 # for the ip ranges of cc-subnet1 and cc-subnet2 restricted to the cc tag
-gcloud compute firewall-rules create allow-tcp-icmp-udp-cc-sn1 \
-    --network=cc-subnet1 \
-    --source-ranges=10.0.0.0/24 \
-    --target-tags=cc \
-    --allow=tcp,icmp,udp
-
-gcloud compute firewall-rules create allow-tcp-icmp-udp-cc-sn2 \
-    --network=cc-subnet2 \
-    --source-ranges=10.0.0.1/24 \
+gcloud compute firewall-rules create allow-tcp-icmp-udp-cc-sn12 \
+    --network=cc-network1 \
+    --source-ranges=10.0.0.0/24,10.1.0.0/24 \
     --target-tags=cc \
     --allow=tcp,icmp,udp
 
 # create a firewall rule for cc-network1 that allows all TCP and ICMP traffic from external IPs to the cc tag
 gcloud compute firewall-rules create allow-tcp-icmp-cc-nw1 \
     --network=cc-network1 \
-    --direction=INGRESS \
     --source-ranges=0.0.0.0/0 \
     --target-tags=cc \
     --allow=tcp,icmp

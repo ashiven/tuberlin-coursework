@@ -6,6 +6,7 @@ ansible_private_key_file=[******PRIVATE_KEY_FILE_FOR_SSH_GCP_MACHINES******]
 
 # These initial groups are the only groups required to be modified. The
 # additional groups are for more control of the environment.
+# TODO:
 [control]
 # These hostname must be resolvable from your deployment host
 [******PUBLIC_IP_OF_CONTROLLER_VM******]
@@ -15,6 +16,7 @@ ansible_private_key_file=[******PRIVATE_KEY_FILE_FOR_SSH_GCP_MACHINES******]
 
 # The network nodes are where your l3-agent and loadbalancers will run
 # This can be the same as a host in the control group
+# TODO:
 [network:children]
 control
 
