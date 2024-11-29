@@ -1,28 +1,26 @@
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
-ansible_user=[******REMOTE_ANSIBLE_USER******]
+ansible_user=ashiven@Terminator
 ansible_become=True
-ansible_private_key_file=[******PRIVATE_KEY_FILE_FOR_SSH_GCP_MACHINES******]
+ansible_private_key_file=../id_rsa
 
 # These initial groups are the only groups required to be modified. The
 # additional groups are for more control of the environment.
-# TODO:
 [control]
 # These hostname must be resolvable from your deployment host
-[******PUBLIC_IP_OF_CONTROLLER_VM******]
+[34.32.39.16]
 
 # The above can also be specified as follows:
 #control[01:03]     ansible_user=kolla
 
 # The network nodes are where your l3-agent and loadbalancers will run
 # This can be the same as a host in the control group
-# TODO:
 [network:children]
 control
 
 [compute]
-[******PUBLIC_IP_OF_COMPUTE1_VM******]
-[******PUBLIC_IP_OF_COMPUTE2_VM******]
+[34.32.53.52]
+[34.32.76.131]
 
 [monitoring:children]
 control

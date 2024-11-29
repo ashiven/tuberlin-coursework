@@ -1,0 +1,5 @@
+kolla-ansible: '--passwords ./passwords.yml --configdir /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/kolla-ansible --inventory ./multinode deploy' is not a kolla-ansible command. See 'kolla-ansible --help'.
+Did you mean one of these?
+  deploy-bifrost
+  deploy-servers
+  install-deps
