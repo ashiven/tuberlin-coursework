@@ -3,15 +3,15 @@ PLAY [Gather facts for all hosts] **********************************************
 
 TASK [Group hosts to determine when using --limit] *****************************
 ok: [localhost]
-ok: [34.32.7.229]
 ok: [34.32.41.29]
 ok: [34.32.11.54]
+ok: [34.32.7.229]
 
 TASK [Gather facts] ************************************************************
-fatal: [localhost]: FAILED! => {"changed": false, "module_stderr": "sudo: a password is required\n", "module_stdout": "", "msg": "MODULE FAILURE\nSee stdout/stderr for the exact error", "rc": 1}
-ok: [34.32.7.229]
+ok: [localhost]
 ok: [34.32.11.54]
 ok: [34.32.41.29]
+ok: [34.32.7.229]
 
 PLAY [Gather facts for all hosts (if using --limit)] ***************************
 skipping: no hosts matched
@@ -19,61 +19,62 @@ skipping: no hosts matched
 PLAY [Group hosts based on configuration] **************************************
 
 TASK [Group hosts based on Kolla action] ***************************************
-ok: [34.32.7.229]
+ok: [localhost]
 ok: [34.32.41.29]
 ok: [34.32.11.54]
+ok: [34.32.7.229]
 
 TASK [Group hosts based on enabled services] ***********************************
-ok: [34.32.7.229] => (item=enable_aodh_False)
-ok: [34.32.7.229] => (item=enable_barbican_False)
-ok: [34.32.7.229] => (item=enable_blazar_False)
-ok: [34.32.7.229] => (item=enable_ceilometer_False)
-ok: [34.32.7.229] => (item=enable_ceph_rgw_False)
-ok: [34.32.7.229] => (item=enable_cinder_False)
-ok: [34.32.7.229] => (item=enable_cloudkitty_False)
-ok: [34.32.7.229] => (item=enable_collectd_False)
-ok: [34.32.7.229] => (item=enable_cyborg_False)
-ok: [34.32.7.229] => (item=enable_designate_False)
-ok: [34.32.7.229] => (item=enable_etcd_False)
-ok: [34.32.7.229] => (item=enable_glance_True)
-ok: [34.32.7.229] => (item=enable_gnocchi_False)
-ok: [34.32.7.229] => (item=enable_grafana_False)
-ok: [34.32.7.229] => (item=enable_hacluster_False)
-ok: [34.32.7.229] => (item=enable_heat_True)
-ok: [34.32.7.229] => (item=enable_horizon_True)
-ok: [34.32.7.229] => (item=enable_influxdb_False)
-ok: [34.32.7.229] => (item=enable_ironic_False)
-ok: [34.32.7.229] => (item=enable_iscsid_False)
-ok: [34.32.7.229] => (item=enable_keystone_True)
-ok: [34.32.7.229] => (item=enable_kuryr_False)
-ok: [34.32.7.229] => (item=enable_letsencrypt_False)
-ok: [34.32.7.229] => (item=enable_loadbalancer_True)
-ok: [34.32.7.229] => (item=enable_magnum_False)
-ok: [34.32.7.229] => (item=enable_manila_False)
-ok: [34.32.7.229] => (item=enable_mariadb_True)
-ok: [34.32.7.229] => (item=enable_masakari_False)
-ok: [34.32.7.229] => (item=enable_memcached_True)
-ok: [34.32.7.229] => (item=enable_mistral_False)
-ok: [34.32.7.229] => (item=enable_multipathd_False)
-ok: [34.32.7.229] => (item=enable_neutron_True)
-ok: [34.32.7.229] => (item=enable_nova_True)
-ok: [34.32.7.229] => (item=enable_octavia_False)
-ok: [34.32.7.229] => (item=enable_opensearch_False)
-ok: [34.32.7.229] => (item=enable_opensearch_dashboards_False)
-ok: [34.32.7.229] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
-ok: [34.32.7.229] => (item=enable_ovn_False)
-ok: [34.32.7.229] => (item=enable_placement_True)
-ok: [34.32.7.229] => (item=enable_prometheus_False)
-ok: [34.32.7.229] => (item=enable_rabbitmq_True)
-ok: [34.32.7.229] => (item=enable_redis_False)
-ok: [34.32.7.229] => (item=enable_skyline_False)
-ok: [34.32.7.229] => (item=enable_swift_False)
-ok: [34.32.7.229] => (item=enable_tacker_False)
-ok: [34.32.7.229] => (item=enable_telegraf_False)
-ok: [34.32.7.229] => (item=enable_trove_False)
-ok: [34.32.7.229] => (item=enable_venus_False)
-ok: [34.32.7.229] => (item=enable_watcher_False)
-ok: [34.32.7.229] => (item=enable_zun_False)
+ok: [localhost] => (item=enable_aodh_False)
+ok: [localhost] => (item=enable_barbican_False)
+ok: [localhost] => (item=enable_blazar_False)
+ok: [localhost] => (item=enable_ceilometer_False)
+ok: [localhost] => (item=enable_ceph_rgw_False)
+ok: [localhost] => (item=enable_cinder_False)
+ok: [localhost] => (item=enable_cloudkitty_False)
+ok: [localhost] => (item=enable_collectd_False)
+ok: [localhost] => (item=enable_cyborg_False)
+ok: [localhost] => (item=enable_designate_False)
+ok: [localhost] => (item=enable_etcd_False)
+ok: [localhost] => (item=enable_glance_True)
+ok: [localhost] => (item=enable_gnocchi_False)
+ok: [localhost] => (item=enable_grafana_False)
+ok: [localhost] => (item=enable_hacluster_False)
+ok: [localhost] => (item=enable_heat_True)
+ok: [localhost] => (item=enable_horizon_True)
+ok: [localhost] => (item=enable_influxdb_False)
+ok: [localhost] => (item=enable_ironic_False)
+ok: [localhost] => (item=enable_iscsid_False)
+ok: [localhost] => (item=enable_keystone_True)
+ok: [localhost] => (item=enable_kuryr_False)
+ok: [localhost] => (item=enable_letsencrypt_False)
+ok: [localhost] => (item=enable_loadbalancer_True)
+ok: [localhost] => (item=enable_magnum_False)
+ok: [localhost] => (item=enable_manila_False)
+ok: [localhost] => (item=enable_mariadb_True)
+ok: [localhost] => (item=enable_masakari_False)
+ok: [localhost] => (item=enable_memcached_True)
+ok: [localhost] => (item=enable_mistral_False)
+ok: [localhost] => (item=enable_multipathd_False)
+ok: [localhost] => (item=enable_neutron_True)
+ok: [localhost] => (item=enable_nova_True)
+ok: [localhost] => (item=enable_octavia_False)
+ok: [localhost] => (item=enable_opensearch_False)
+ok: [localhost] => (item=enable_opensearch_dashboards_False)
+ok: [localhost] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [localhost] => (item=enable_ovn_False)
+ok: [localhost] => (item=enable_placement_True)
+ok: [localhost] => (item=enable_prometheus_False)
+ok: [localhost] => (item=enable_rabbitmq_True)
+ok: [localhost] => (item=enable_redis_False)
+ok: [localhost] => (item=enable_skyline_False)
+ok: [localhost] => (item=enable_swift_False)
+ok: [localhost] => (item=enable_tacker_False)
+ok: [localhost] => (item=enable_telegraf_False)
+ok: [localhost] => (item=enable_trove_False)
+ok: [localhost] => (item=enable_venus_False)
+ok: [localhost] => (item=enable_watcher_False)
+ok: [localhost] => (item=enable_zun_False)
 ok: [34.32.41.29] => (item=enable_aodh_False)
 ok: [34.32.41.29] => (item=enable_barbican_False)
 ok: [34.32.41.29] => (item=enable_blazar_False)
@@ -124,6 +125,56 @@ ok: [34.32.41.29] => (item=enable_trove_False)
 ok: [34.32.41.29] => (item=enable_venus_False)
 ok: [34.32.41.29] => (item=enable_watcher_False)
 ok: [34.32.41.29] => (item=enable_zun_False)
+ok: [34.32.7.229] => (item=enable_aodh_False)
+ok: [34.32.7.229] => (item=enable_barbican_False)
+ok: [34.32.7.229] => (item=enable_blazar_False)
+ok: [34.32.7.229] => (item=enable_ceilometer_False)
+ok: [34.32.7.229] => (item=enable_ceph_rgw_False)
+ok: [34.32.7.229] => (item=enable_cinder_False)
+ok: [34.32.7.229] => (item=enable_cloudkitty_False)
+ok: [34.32.7.229] => (item=enable_collectd_False)
+ok: [34.32.7.229] => (item=enable_cyborg_False)
+ok: [34.32.7.229] => (item=enable_designate_False)
+ok: [34.32.7.229] => (item=enable_etcd_False)
+ok: [34.32.7.229] => (item=enable_glance_True)
+ok: [34.32.7.229] => (item=enable_gnocchi_False)
+ok: [34.32.7.229] => (item=enable_grafana_False)
+ok: [34.32.7.229] => (item=enable_hacluster_False)
+ok: [34.32.7.229] => (item=enable_heat_True)
+ok: [34.32.7.229] => (item=enable_horizon_True)
+ok: [34.32.7.229] => (item=enable_influxdb_False)
+ok: [34.32.7.229] => (item=enable_ironic_False)
+ok: [34.32.7.229] => (item=enable_iscsid_False)
+ok: [34.32.7.229] => (item=enable_keystone_True)
+ok: [34.32.7.229] => (item=enable_kuryr_False)
+ok: [34.32.7.229] => (item=enable_letsencrypt_False)
+ok: [34.32.7.229] => (item=enable_loadbalancer_True)
+ok: [34.32.7.229] => (item=enable_magnum_False)
+ok: [34.32.7.229] => (item=enable_manila_False)
+ok: [34.32.7.229] => (item=enable_mariadb_True)
+ok: [34.32.7.229] => (item=enable_masakari_False)
+ok: [34.32.7.229] => (item=enable_memcached_True)
+ok: [34.32.7.229] => (item=enable_mistral_False)
+ok: [34.32.7.229] => (item=enable_multipathd_False)
+ok: [34.32.7.229] => (item=enable_neutron_True)
+ok: [34.32.7.229] => (item=enable_nova_True)
+ok: [34.32.7.229] => (item=enable_octavia_False)
+ok: [34.32.7.229] => (item=enable_opensearch_False)
+ok: [34.32.7.229] => (item=enable_opensearch_dashboards_False)
+ok: [34.32.7.229] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [34.32.7.229] => (item=enable_ovn_False)
+ok: [34.32.7.229] => (item=enable_placement_True)
+ok: [34.32.7.229] => (item=enable_prometheus_False)
+ok: [34.32.7.229] => (item=enable_rabbitmq_True)
+ok: [34.32.7.229] => (item=enable_redis_False)
+ok: [34.32.7.229] => (item=enable_skyline_False)
+ok: [34.32.7.229] => (item=enable_swift_False)
+ok: [34.32.7.229] => (item=enable_tacker_False)
+ok: [34.32.7.229] => (item=enable_telegraf_False)
+ok: [34.32.7.229] => (item=enable_trove_False)
+ok: [34.32.7.229] => (item=enable_venus_False)
+ok: [34.32.7.229] => (item=enable_watcher_False)
+ok: [34.32.7.229] => (item=enable_zun_False)
 ok: [34.32.11.54] => (item=enable_aodh_False)
 ok: [34.32.11.54] => (item=enable_barbican_False)
 ok: [34.32.11.54] => (item=enable_blazar_False)
@@ -178,7 +229,7 @@ ok: [34.32.11.54] => (item=enable_zun_False)
 PLAY [Apply role prechecks] ****************************************************
 
 TASK [prechecks : Checking loadbalancer group] *********************************
-ok: [34.32.7.229] => {
+ok: [localhost] => {
     "changed": false,
     "msg": "All assertions passed"
 }
@@ -187,15 +238,19 @@ ok: [34.32.41.29] => {
     "msg": "All assertions passed"
 }
 ok: [34.32.11.54] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [34.32.7.229] => {
     "changed": false,
     "msg": "All assertions passed"
 }
 
 TASK [prechecks : include_tasks] ***********************************************
-included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/prechecks/tasks/host_os_checks.yml for 34.32.7.229, 34.32.41.29, 34.32.11.54
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/prechecks/tasks/host_os_checks.yml for localhost, 34.32.41.29, 34.32.11.54, 34.32.7.229
 
 TASK [prechecks : Checking host OS distribution] *******************************
-ok: [34.32.7.229] => {
+ok: [localhost] => {
     "changed": false,
     "msg": "All assertions passed"
 }
@@ -204,14 +259,20 @@ ok: [34.32.41.29] => {
     "msg": "All assertions passed"
 }
 ok: [34.32.11.54] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [34.32.7.229] => {
     "changed": false,
     "msg": "All assertions passed"
 }
 
 TASK [prechecks : Checking host OS release or version] *************************
-ok: [34.32.7.229] => {
+fatal: [localhost]: FAILED! => {
+    "assertion": "ansible_facts.distribution_release in host_os_distributions[ansible_facts.distribution] or ansible_facts.distribution_version in host_os_distributions[ansible_facts.distribution] or ansible_facts.distribution_major_version in host_os_distributions[ansible_facts.distribution]",
     "changed": false,
-    "msg": "All assertions passed"
+    "evaluated_to": false,
+    "msg": "Ubuntu release focal version 20.04 is not supported. Supported releases are: jammy, noble"
 }
 ok: [34.32.41.29] => {
     "changed": false,
@@ -221,29 +282,33 @@ ok: [34.32.11.54] => {
     "changed": false,
     "msg": "All assertions passed"
 }
+ok: [34.32.7.229] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
 
 TASK [prechecks : Checking if CentOS is Stream] ********************************
-skipping: [34.32.7.229]
 skipping: [34.32.41.29]
 skipping: [34.32.11.54]
+skipping: [34.32.7.229]
 
 TASK [prechecks : Fail if not running on CentOS Stream] ************************
-skipping: [34.32.7.229]
 skipping: [34.32.41.29]
 skipping: [34.32.11.54]
+skipping: [34.32.7.229]
 
 TASK [prechecks : include_tasks] ***********************************************
-included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/prechecks/tasks/timesync_checks.yml for 34.32.7.229, 34.32.41.29, 34.32.11.54
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/prechecks/tasks/timesync_checks.yml for 34.32.41.29, 34.32.11.54, 34.32.7.229
 
 TASK [prechecks : Check for a running host NTP daemon] *************************
 ok: [34.32.41.29]
-ok: [34.32.11.54]
 ok: [34.32.7.229]
+ok: [34.32.11.54]
 
 TASK [prechecks : Fail if a host NTP daemon is not running] ********************
-skipping: [34.32.7.229]
 skipping: [34.32.41.29]
 skipping: [34.32.11.54]
+skipping: [34.32.7.229]
 
 TASK [prechecks : Checking timedatectl status] *********************************
 ok: [34.32.7.229]
@@ -251,53 +316,49 @@ ok: [34.32.41.29]
 ok: [34.32.11.54]
 
 TASK [prechecks : Fail if the clock is not synchronized] ***********************
-skipping: [34.32.7.229]
 skipping: [34.32.41.29]
 skipping: [34.32.11.54]
+skipping: [34.32.7.229]
 
 TASK [prechecks : Ensure /etc/localtime exist] *********************************
+ok: [34.32.41.29]
 ok: [34.32.7.229]
 ok: [34.32.11.54]
-ok: [34.32.41.29]
 
 TASK [prechecks : Fail if /etc/localtime is absent] ****************************
-skipping: [34.32.7.229]
 skipping: [34.32.41.29]
 skipping: [34.32.11.54]
+skipping: [34.32.7.229]
 
 TASK [prechecks : Ensure /etc/timezone exist] **********************************
-ok: [34.32.7.229]
 ok: [34.32.41.29]
 ok: [34.32.11.54]
+ok: [34.32.7.229]
 
 TASK [prechecks : Fail if /etc/timezone is absent] *****************************
-skipping: [34.32.7.229]
 skipping: [34.32.41.29]
 skipping: [34.32.11.54]
+skipping: [34.32.7.229]
 
 TASK [prechecks : include_tasks] ***********************************************
-included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/prechecks/tasks/port_checks.yml for 34.32.7.229, 34.32.41.29, 34.32.11.54
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/prechecks/tasks/port_checks.yml for 34.32.41.29, 34.32.11.54, 34.32.7.229
 
 TASK [prechecks : Checking the api_interface is present] ***********************
-skipping: [34.32.7.229]
 skipping: [34.32.41.29]
 skipping: [34.32.11.54]
+skipping: [34.32.7.229]
 
 TASK [prechecks : Checking the api_interface is active] ************************
-skipping: [34.32.7.229]
 skipping: [34.32.41.29]
 skipping: [34.32.11.54]
+skipping: [34.32.7.229]
 
 TASK [prechecks : Checking the api_interface ip address configuration] *********
-skipping: [34.32.7.229]
 skipping: [34.32.41.29]
 skipping: [34.32.11.54]
+skipping: [34.32.7.229]
 
 TASK [prechecks : Checking if system uses systemd] *****************************
-ok: [34.32.7.229] => {
-    "changed": false,
-    "msg": "All assertions passed"
-}
 ok: [34.32.41.29] => {
     "changed": false,
     "msg": "All assertions passed"
@@ -306,18 +367,744 @@ ok: [34.32.11.54] => {
     "changed": false,
     "msg": "All assertions passed"
 }
+ok: [34.32.7.229] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
 
 TASK [prechecks : Checking Docker version] *************************************
-ok: [34.32.7.229]
 ok: [34.32.41.29]
 ok: [34.32.11.54]
+ok: [34.32.7.229]
 
 TASK [prechecks : Checking empty passwords in passwords.yml. Run kolla-genpwd if this task fails] ***
-fatal: [34.32.7.229 -> localhost]: FAILED! => {"changed": false, "failed_when_result": "The conditional check 'result.stdout | regex_replace('(.*ssh_key.*)', '') is search(\":\")' failed. The error was: error while evaluating conditional (result.stdout | regex_replace('(.*ssh_key.*)', '') is search(\":\")): 'dict object' has no attribute 'stdout'", "module_stderr": "sudo: a password is required\n", "module_stdout": "", "msg": "MODULE FAILURE\nSee stdout/stderr for the exact error", "rc": 1}
+ok: [34.32.41.29 -> localhost]
+
+TASK [prechecks : Check if nscd is running] ************************************
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+
+TASK [prechecks : Fail if nscd is running] *************************************
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+
+TASK [prechecks : Validate that internal and external vip address are different when TLS is enabled only on either the internal and external network] ***
+skipping: [34.32.41.29]
+
+TASK [prechecks : Validate that enable_ceph is disabled] ***********************
+skipping: [34.32.41.29]
+
+TASK [prechecks : Validate rabbitmq variables] *********************************
+skipping: [34.32.41.29]
+
+TASK [prechecks : Checking docker SDK version] *********************************
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+
+TASK [prechecks : Checking dbus-python package] ********************************
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+
+TASK [prechecks : Checking Ansible version] ************************************
+ok: [34.32.41.29] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [prechecks : Check if config_owner_user existed] **************************
+ok: [34.32.41.29]
+ok: [34.32.7.229]
+ok: [34.32.11.54]
+
+TASK [prechecks : Check if config_owner_group existed] *************************
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+
+TASK [prechecks : Check if ansible user can do passwordless sudo] **************
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+
+TASK [prechecks : Check if external mariadb hosts are reachable from the load balancer] ***
+skipping: [34.32.41.29] => (item=34.32.41.29) 
+skipping: [34.32.41.29]
+skipping: [34.32.11.54] => (item=34.32.41.29) 
+skipping: [34.32.11.54]
+skipping: [34.32.7.229] => (item=34.32.41.29) 
+skipping: [34.32.7.229]
+
+TASK [prechecks : Check if external database address is reachable from all hosts] ***
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+
+PLAY [Apply role common] *******************************************************
+
+TASK [common : include_tasks] **************************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/common/tasks/precheck.yml for 34.32.41.29, 34.32.11.54, 34.32.7.229
+
+TASK [service-precheck : common | Validate inventory groups] *******************
+skipping: [34.32.41.29] => (item=fluentd) 
+skipping: [34.32.41.29] => (item=kolla-toolbox) 
+skipping: [34.32.41.29] => (item=cron) 
+skipping: [34.32.41.29]
+skipping: [34.32.11.54] => (item=fluentd) 
+skipping: [34.32.11.54] => (item=kolla-toolbox) 
+skipping: [34.32.11.54] => (item=cron) 
+skipping: [34.32.11.54]
+skipping: [34.32.7.229] => (item=fluentd) 
+skipping: [34.32.7.229] => (item=kolla-toolbox) 
+skipping: [34.32.7.229] => (item=cron) 
+skipping: [34.32.7.229]
+
+PLAY [Apply role loadbalancer] *************************************************
+
+PLAY [Apply role letsencrypt] **************************************************
+skipping: no hosts matched
+
+PLAY [Apply role collectd] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role influxdb] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role telegraf] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role redis] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role mariadb] ******************************************************
+
+TASK [mariadb : Group MariaDB hosts based on shards] ***************************
+ok: [34.32.41.29] => (item=34.32.41.29)
+
+TASK [mariadb : include_tasks] *************************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/mariadb/tasks/precheck.yml for 34.32.41.29
+
+TASK [service-precheck : mariadb | Validate inventory groups] ******************
+skipping: [34.32.41.29] => (item=mariadb) 
+skipping: [34.32.41.29] => (item=mariadb-clustercheck) 
+skipping: [34.32.41.29]
+
+TASK [mariadb : Get container facts] *******************************************
+ok: [34.32.41.29]
+
+TASK [mariadb : Checking free port for MariaDB] ********************************
+ok: [34.32.41.29]
+
+TASK [mariadb : Checking free port for MariaDB WSREP] **************************
+ok: [34.32.41.29]
+
+TASK [mariadb : Checking free port for MariaDB IST] ****************************
+ok: [34.32.41.29]
+
+TASK [mariadb : Checking free port for MariaDB SST] ****************************
+ok: [34.32.41.29]
+
+PLAY [Restart mariadb services] ************************************************
+skipping: no hosts matched
+
+PLAY [Start mariadb services] **************************************************
+skipping: no hosts matched
+
+PLAY [Restart bootstrap mariadb service] ***************************************
+skipping: no hosts matched
+
+PLAY [Apply mariadb post-configuration] ****************************************
+
+TASK [Include mariadb post-deploy.yml] *****************************************
+skipping: [34.32.41.29]
+
+TASK [Include mariadb post-upgrade.yml] ****************************************
+skipping: [34.32.41.29]
+
+PLAY [Apply role memcached] ****************************************************
+
+TASK [memcached : include_tasks] ***********************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/memcached/tasks/precheck.yml for 34.32.41.29
+
+TASK [service-precheck : memcached | Validate inventory groups] ****************
+skipping: [34.32.41.29] => (item=memcached) 
+skipping: [34.32.41.29]
+
+TASK [memcached : Get container facts] *****************************************
+ok: [34.32.41.29]
+
+TASK [memcached : Checking free port for Memcached] ****************************
+ok: [34.32.41.29]
+
+PLAY [Apply role prometheus] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role iscsi] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role multipathd] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role rabbitmq] *****************************************************
+
+TASK [rabbitmq : include_tasks] ************************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/rabbitmq/tasks/precheck.yml for 34.32.41.29
+
+TASK [service-precheck : rabbitmq | Validate inventory groups] *****************
+skipping: [34.32.41.29] => (item=rabbitmq) 
+skipping: [34.32.41.29]
+
+TASK [rabbitmq : Get container facts] ******************************************
+ok: [34.32.41.29]
+
+TASK [rabbitmq : Checking free port for RabbitMQ] ******************************
+ok: [34.32.41.29]
+
+TASK [rabbitmq : Checking free port for RabbitMQ Management] *******************
+ok: [34.32.41.29]
+
+TASK [rabbitmq : Checking free port for RabbitMQ Cluster] **********************
+ok: [34.32.41.29]
+
+TASK [rabbitmq : Checking free port for RabbitMQ EPMD] *************************
+ok: [34.32.41.29]
+
+TASK [rabbitmq : Check if all rabbit hostnames are resolvable] *****************
+ok: [34.32.41.29] => (item=34.32.41.29)
+
+TASK [rabbitmq : Check if each rabbit hostname resolves uniquely to the proper IP address] ***
+skipping: [34.32.41.29] => (item=[{'changed': False, 'stdout': '10.0.0.14       STREAM controller\n10.0.0.14       DGRAM  \n10.0.0.14       RAW    ', 'stderr': '', 'rc': 0, 'cmd': ['getent', 'ahostsv4', 'controller'], 'start': '2024-11-30 21:47:11.360510', 'end': '2024-11-30 21:47:11.364339', 'delta': '0:00:00.003829', 'msg': '', 'invocation': {'module_args': {'_raw_params': 'getent ahostsv4 controller', '_uses_shell': False, 'expand_argument_vars': True, 'stdin_add_newline': True, 'strip_empty_ends': True, 'argv': None, 'chdir': None, 'executable': None, 'creates': None, 'removes': None, 'stdin': None}}, 'stderr_lines': [], 'failed': False, 'item': '34.32.41.29', 'ansible_loop_var': 'item'}, '10.0.0.14       STREAM controller']) 
+skipping: [34.32.41.29] => (item=[{'changed': False, 'stdout': '10.0.0.14       STREAM controller\n10.0.0.14       DGRAM  \n10.0.0.14       RAW    ', 'stderr': '', 'rc': 0, 'cmd': ['getent', 'ahostsv4', 'controller'], 'start': '2024-11-30 21:47:11.360510', 'end': '2024-11-30 21:47:11.364339', 'delta': '0:00:00.003829', 'msg': '', 'invocation': {'module_args': {'_raw_params': 'getent ahostsv4 controller', '_uses_shell': False, 'expand_argument_vars': True, 'stdin_add_newline': True, 'strip_empty_ends': True, 'argv': None, 'chdir': None, 'executable': None, 'creates': None, 'removes': None, 'stdin': None}}, 'stderr_lines': [], 'failed': False, 'item': '34.32.41.29', 'ansible_loop_var': 'item'}, '10.0.0.14       DGRAM  ']) 
+skipping: [34.32.41.29] => (item=[{'changed': False, 'stdout': '10.0.0.14       STREAM controller\n10.0.0.14       DGRAM  \n10.0.0.14       RAW    ', 'stderr': '', 'rc': 0, 'cmd': ['getent', 'ahostsv4', 'controller'], 'start': '2024-11-30 21:47:11.360510', 'end': '2024-11-30 21:47:11.364339', 'delta': '0:00:00.003829', 'msg': '', 'invocation': {'module_args': {'_raw_params': 'getent ahostsv4 controller', '_uses_shell': False, 'expand_argument_vars': True, 'stdin_add_newline': True, 'strip_empty_ends': True, 'argv': None, 'chdir': None, 'executable': None, 'creates': None, 'removes': None, 'stdin': None}}, 'stderr_lines': [], 'failed': False, 'item': '34.32.41.29', 'ansible_loop_var': 'item'}, '10.0.0.14       RAW    ']) 
+skipping: [34.32.41.29]
+
+TASK [rabbitmq : Check if TLS certificate exists for RabbitMQ] *****************
+skipping: [34.32.41.29]
+
+TASK [rabbitmq : Check if TLS key exists for RabbitMQ] *************************
+skipping: [34.32.41.29]
+
+TASK [rabbitmq : List RabbitMQ policies] ***************************************
+skipping: [34.32.41.29]
+
+TASK [rabbitmq : Check if RabbitMQ HA needs to be configured] ******************
+skipping: [34.32.41.29]
+
+TASK [rabbitmq : List RabbitMQ queues] *****************************************
+skipping: [34.32.41.29]
+
+TASK [rabbitmq : Check if RabbitMQ quorum queues need to be configured] ********
+skipping: [34.32.41.29]
+
+PLAY [Restart rabbitmq services] ***********************************************
+skipping: no hosts matched
+
+PLAY [Apply rabbitmq post-configuration] ***************************************
+
+TASK [Include rabbitmq post-deploy.yml] ****************************************
+skipping: [34.32.41.29]
+
+PLAY [Apply role etcd] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role keystone] *****************************************************
+
+TASK [keystone : include_tasks] ************************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/keystone/tasks/precheck.yml for 34.32.41.29
+
+TASK [service-precheck : keystone | Validate inventory groups] *****************
+skipping: [34.32.41.29] => (item=keystone) 
+skipping: [34.32.41.29] => (item=keystone-ssh) 
+skipping: [34.32.41.29] => (item=keystone-fernet) 
+skipping: [34.32.41.29]
+
+TASK [keystone : Get container facts] ******************************************
+ok: [34.32.41.29]
+
+TASK [keystone : Checking free port for Keystone Public] ***********************
+ok: [34.32.41.29]
+
+TASK [keystone : Checking free port for Keystone SSH] **************************
+ok: [34.32.41.29]
+
+TASK [keystone : Checking fernet_token_expiry] *********************************
+ok: [34.32.41.29] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+PLAY [Apply role opensearch] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role swift] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceph-rgw] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role glance] *******************************************************
+
+TASK [glance : include_tasks] **************************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/glance/tasks/precheck.yml for 34.32.41.29
+
+TASK [service-precheck : glance | Validate inventory groups] *******************
+skipping: [34.32.41.29] => (item=glance-api) 
+skipping: [34.32.41.29] => (item=glance-tls-proxy) 
+skipping: [34.32.41.29]
+
+TASK [glance : Get container facts] ********************************************
+ok: [34.32.41.29]
+
+TASK [glance : Checking free port for Glance API] ******************************
+ok: [34.32.41.29]
+
+TASK [glance : Check if S3 configurations are defined] *************************
+skipping: [34.32.41.29] => (item=glance_backend_s3_url) 
+skipping: [34.32.41.29] => (item=glance_backend_s3_bucket) 
+skipping: [34.32.41.29] => (item=glance_backend_s3_access_key) 
+skipping: [34.32.41.29] => (item=glance_backend_s3_secret_key) 
+skipping: [34.32.41.29]
+
+PLAY [Apply role ironic] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cinder] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role placement] ****************************************************
+
+TASK [placement : include_tasks] ***********************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/placement/tasks/precheck.yml for 34.32.41.29
+
+TASK [service-precheck : placement | Validate inventory groups] ****************
+skipping: [34.32.41.29] => (item=placement-api) 
+skipping: [34.32.41.29]
+
+TASK [placement : Get container facts] *****************************************
+ok: [34.32.41.29]
+
+TASK [placement : Checking free port for Placement API] ************************
+ok: [34.32.41.29]
+
+PLAY [Apply role openvswitch] **************************************************
+
+TASK [openvswitch : include_tasks] *********************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/openvswitch/tasks/precheck.yml for 34.32.11.54, 34.32.7.229, 34.32.41.29
+
+TASK [service-precheck : openvswitch | Validate inventory groups] **************
+skipping: [34.32.11.54] => (item=openvswitch-db-server) 
+skipping: [34.32.11.54] => (item=openvswitch-vswitchd) 
+skipping: [34.32.11.54]
+skipping: [34.32.7.229] => (item=openvswitch-db-server) 
+skipping: [34.32.7.229] => (item=openvswitch-vswitchd) 
+skipping: [34.32.7.229]
+skipping: [34.32.41.29] => (item=openvswitch-db-server) 
+skipping: [34.32.41.29] => (item=openvswitch-vswitchd) 
+skipping: [34.32.41.29]
+
+TASK [openvswitch : Get container facts] ***************************************
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+ok: [34.32.41.29]
+
+TASK [openvswitch : Checking free port for OVSDB] ******************************
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+ok: [34.32.41.29]
+
+PLAY [Apply role ovs-dpdk] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ovn-controller] ***********************************************
+skipping: no hosts matched
+
+PLAY [Apply role ovn-db] *******************************************************
+skipping: no hosts matched
+
+PLAY [Bootstrap nova API databases] ********************************************
+
+TASK [Bootstrap deploy] ********************************************************
+skipping: [34.32.41.29]
+
+TASK [Bootstrap upgrade] *******************************************************
+skipping: [34.32.41.29]
+
+PLAY [Bootstrap nova cell databases] *******************************************
+
+TASK [Bootstrap deploy] ********************************************************
+skipping: [34.32.41.29]
+
+TASK [Bootstrap upgrade] *******************************************************
+skipping: [34.32.41.29]
+
+PLAY [Apply role nova] *********************************************************
+
+TASK [nova : include_tasks] ****************************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/nova/tasks/precheck.yml for 34.32.41.29
+
+TASK [service-precheck : nova | Validate inventory groups] *********************
+skipping: [34.32.41.29] => (item=nova-api) 
+skipping: [34.32.41.29] => (item=nova-scheduler) 
+skipping: [34.32.41.29] => (item=nova-super-conductor) 
+skipping: [34.32.41.29]
+
+TASK [nova : Get container facts] **********************************************
+ok: [34.32.41.29]
+
+TASK [nova : Checking free port for Nova API] **********************************
+ok: [34.32.41.29]
+
+TASK [nova : Checking free port for Nova Metadata] *****************************
+ok: [34.32.41.29]
+
+PLAY [Apply role nova-cell] ****************************************************
+
+TASK [nova-cell : include_tasks] ***********************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/nova-cell/tasks/precheck.yml for 34.32.11.54, 34.32.7.229, 34.32.41.29
+
+TASK [service-precheck : nova | Validate inventory groups] *********************
+skipping: [34.32.11.54] => (item=nova-libvirt) 
+skipping: [34.32.11.54] => (item=nova-ssh) 
+skipping: [34.32.11.54] => (item=nova-novncproxy) 
+skipping: [34.32.11.54] => (item=nova-spicehtml5proxy) 
+skipping: [34.32.11.54] => (item=nova-serialproxy) 
+skipping: [34.32.7.229] => (item=nova-libvirt) 
+skipping: [34.32.11.54] => (item=nova-conductor) 
+skipping: [34.32.7.229] => (item=nova-ssh) 
+skipping: [34.32.11.54] => (item=nova-compute) 
+skipping: [34.32.7.229] => (item=nova-novncproxy) 
+skipping: [34.32.11.54] => (item=nova-compute-ironic) 
+skipping: [34.32.11.54]
+skipping: [34.32.7.229] => (item=nova-spicehtml5proxy) 
+skipping: [34.32.41.29] => (item=nova-libvirt) 
+skipping: [34.32.7.229] => (item=nova-serialproxy) 
+skipping: [34.32.41.29] => (item=nova-ssh) 
+skipping: [34.32.7.229] => (item=nova-conductor) 
+skipping: [34.32.41.29] => (item=nova-novncproxy) 
+skipping: [34.32.7.229] => (item=nova-compute) 
+skipping: [34.32.41.29] => (item=nova-spicehtml5proxy) 
+skipping: [34.32.41.29] => (item=nova-serialproxy) 
+skipping: [34.32.7.229] => (item=nova-compute-ironic) 
+skipping: [34.32.7.229]
+skipping: [34.32.41.29] => (item=nova-conductor) 
+skipping: [34.32.41.29] => (item=nova-compute) 
+skipping: [34.32.41.29] => (item=nova-compute-ironic) 
+skipping: [34.32.41.29]
+
+TASK [nova-cell : Get container facts] *****************************************
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+ok: [34.32.41.29]
+
+TASK [nova-cell : Checking available compute nodes in inventory] ***************
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+
+TASK [nova-cell : Checking free port for Nova NoVNC Proxy] *********************
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+ok: [34.32.41.29]
+
+TASK [nova-cell : Checking free port for Nova Serial Proxy] ********************
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+
+TASK [nova-cell : Checking free port for Nova Spice HTML5 Proxy] ***************
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+
+TASK [nova-cell : Checking free port for Nova SSH (API interface)] *************
+skipping: [34.32.41.29]
+ok: [34.32.7.229]
+ok: [34.32.11.54]
+
+TASK [nova-cell : Checking free port for Nova SSH (migration interface)] *******
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+
+TASK [nova-cell : Checking free port for Nova Libvirt] *************************
+skipping: [34.32.41.29]
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+
+TASK [nova-cell : Checking that host libvirt is not running] *******************
+skipping: [34.32.41.29]
+ok: [34.32.7.229]
+ok: [34.32.11.54]
+
+TASK [nova-cell : Checking that nova_libvirt container is not running] *********
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+
+PLAY [Refresh nova scheduler cell cache] ***************************************
+
+TASK [nova : Refresh cell cache in nova scheduler] *****************************
+skipping: [34.32.41.29]
+
+PLAY [Reload global Nova super conductor services] *****************************
+
+TASK [nova : Reload nova super conductor services to remove RPC version pin] ***
+skipping: [34.32.41.29]
+
+PLAY [Reload Nova cell services] ***********************************************
+
+TASK [nova-cell : Reload nova cell services to remove RPC version cap] *********
+skipping: [34.32.11.54] => (item=nova-conductor) 
+skipping: [34.32.11.54] => (item=nova-compute) 
+skipping: [34.32.11.54] => (item=nova-compute-ironic) 
+skipping: [34.32.11.54] => (item=nova-novncproxy) 
+skipping: [34.32.11.54] => (item=nova-serialproxy) 
+skipping: [34.32.11.54] => (item=nova-spicehtml5proxy) 
+skipping: [34.32.7.229] => (item=nova-conductor) 
+skipping: [34.32.7.229] => (item=nova-compute) 
+skipping: [34.32.7.229] => (item=nova-compute-ironic) 
+skipping: [34.32.7.229] => (item=nova-novncproxy) 
+skipping: [34.32.11.54]
+skipping: [34.32.7.229] => (item=nova-serialproxy) 
+skipping: [34.32.7.229] => (item=nova-spicehtml5proxy) 
+skipping: [34.32.7.229]
+skipping: [34.32.41.29] => (item=nova-conductor) 
+skipping: [34.32.41.29] => (item=nova-compute) 
+skipping: [34.32.41.29] => (item=nova-compute-ironic) 
+skipping: [34.32.41.29] => (item=nova-novncproxy) 
+skipping: [34.32.41.29] => (item=nova-serialproxy) 
+skipping: [34.32.41.29] => (item=nova-spicehtml5proxy) 
+skipping: [34.32.41.29]
+
+PLAY [Reload global Nova API services] *****************************************
+
+TASK [nova : Reload nova API services to remove RPC version pin] ***************
+skipping: [34.32.41.29] => (item=nova-scheduler) 
+skipping: [34.32.41.29] => (item=nova-api) 
+skipping: [34.32.41.29]
+
+PLAY [Run Nova API online data migrations] *************************************
+
+TASK [nova : Run Nova API online database migrations] **************************
+skipping: [34.32.41.29]
+
+PLAY [Run Nova cell online data migrations] ************************************
+
+TASK [nova-cell : Run Nova cell online database migrations] ********************
+skipping: [34.32.41.29]
+
+PLAY [Apply role neutron] ******************************************************
+
+TASK [neutron : include_tasks] *************************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/neutron/tasks/precheck.yml for 34.32.41.29, 34.32.11.54, 34.32.7.229
+
+TASK [service-precheck : neutron | Validate inventory groups] ******************
+skipping: [34.32.41.29] => (item=neutron-server) 
+skipping: [34.32.41.29] => (item=neutron-openvswitch-agent) 
+skipping: [34.32.41.29] => (item=neutron-linuxbridge-agent) 
+skipping: [34.32.11.54] => (item=neutron-server) 
+skipping: [34.32.11.54] => (item=neutron-openvswitch-agent) 
+skipping: [34.32.41.29] => (item=neutron-dhcp-agent) 
+skipping: [34.32.11.54] => (item=neutron-linuxbridge-agent) 
+skipping: [34.32.41.29] => (item=neutron-l3-agent) 
+skipping: [34.32.41.29] => (item=neutron-sriov-agent) 
+skipping: [34.32.11.54] => (item=neutron-dhcp-agent) 
+skipping: [34.32.41.29] => (item=neutron-mlnx-agent) 
+skipping: [34.32.11.54] => (item=neutron-l3-agent) 
+skipping: [34.32.41.29] => (item=neutron-eswitchd) 
+skipping: [34.32.11.54] => (item=neutron-sriov-agent) 
+skipping: [34.32.41.29] => (item=neutron-metadata-agent) 
+skipping: [34.32.11.54] => (item=neutron-mlnx-agent) 
+skipping: [34.32.41.29] => (item=neutron-ovn-metadata-agent) 
+skipping: [34.32.11.54] => (item=neutron-eswitchd) 
+skipping: [34.32.11.54] => (item=neutron-metadata-agent) 
+skipping: [34.32.41.29] => (item=neutron-bgp-dragent) 
+skipping: [34.32.11.54] => (item=neutron-ovn-metadata-agent) 
+skipping: [34.32.41.29] => (item=neutron-infoblox-ipam-agent) 
+skipping: [34.32.11.54] => (item=neutron-bgp-dragent) 
+skipping: [34.32.41.29] => (item=neutron-metering-agent) 
+skipping: [34.32.11.54] => (item=neutron-infoblox-ipam-agent) 
+skipping: [34.32.41.29] => (item=ironic-neutron-agent) 
+skipping: [34.32.11.54] => (item=neutron-metering-agent) 
+skipping: [34.32.41.29] => (item=neutron-tls-proxy) 
+skipping: [34.32.11.54] => (item=ironic-neutron-agent) 
+skipping: [34.32.41.29] => (item=neutron-ovn-agent) 
+skipping: [34.32.11.54] => (item=neutron-tls-proxy) 
+skipping: [34.32.41.29]
+skipping: [34.32.11.54] => (item=neutron-ovn-agent) 
+skipping: [34.32.11.54]
+skipping: [34.32.7.229] => (item=neutron-server) 
+skipping: [34.32.7.229] => (item=neutron-openvswitch-agent) 
+skipping: [34.32.7.229] => (item=neutron-linuxbridge-agent) 
+skipping: [34.32.7.229] => (item=neutron-dhcp-agent) 
+skipping: [34.32.7.229] => (item=neutron-l3-agent) 
+skipping: [34.32.7.229] => (item=neutron-sriov-agent) 
+skipping: [34.32.7.229] => (item=neutron-mlnx-agent) 
+skipping: [34.32.7.229] => (item=neutron-eswitchd) 
+skipping: [34.32.7.229] => (item=neutron-metadata-agent) 
+skipping: [34.32.7.229] => (item=neutron-ovn-metadata-agent) 
+skipping: [34.32.7.229] => (item=neutron-bgp-dragent) 
+skipping: [34.32.7.229] => (item=neutron-infoblox-ipam-agent) 
+skipping: [34.32.7.229] => (item=neutron-metering-agent) 
+skipping: [34.32.7.229] => (item=ironic-neutron-agent) 
+skipping: [34.32.7.229] => (item=neutron-tls-proxy) 
+skipping: [34.32.7.229] => (item=neutron-ovn-agent) 
+skipping: [34.32.7.229]
+
+TASK [neutron : Get container facts] *******************************************
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+
+TASK [neutron : Checking free port for Neutron Server] *************************
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+ok: [34.32.41.29]
+
+TASK [neutron : Checking number of network agents] *****************************
+skipping: [34.32.41.29]
+
+TASK [neutron : Checking tenant network types] *********************************
+ok: [34.32.41.29] => (item=vxlan) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "vxlan",
+    "msg": "All assertions passed"
+}
+
+TASK [neutron : Checking whether Ironic enabled] *******************************
+skipping: [34.32.41.29]
+
+TASK [neutron : Checking if neutron's dns domain has proper value] *************
+skipping: [34.32.41.29]
+
+TASK [neutron : Get container facts] *******************************************
+ok: [34.32.11.54]
+ok: [34.32.41.29]
+ok: [34.32.7.229]
+
+TASK [neutron : Get container volume facts] ************************************
+ok: [34.32.11.54]
+ok: [34.32.41.29]
+ok: [34.32.7.229]
+
+TASK [neutron : Check for ML2/OVN presence] ************************************
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+
+TASK [neutron : Check for ML2/OVS presence] ************************************
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+skipping: [34.32.7.229]
+
+PLAY [Apply role kuryr] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role hacluster] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role heat] *********************************************************
+
+TASK [heat : include_tasks] ****************************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/heat/tasks/precheck.yml for 34.32.41.29
+
+TASK [service-precheck : heat | Validate inventory groups] *********************
+skipping: [34.32.41.29] => (item=heat-api) 
+skipping: [34.32.41.29] => (item=heat-api-cfn) 
+skipping: [34.32.41.29] => (item=heat-engine) 
+skipping: [34.32.41.29]
+
+TASK [heat : Get container facts] **********************************************
+ok: [34.32.41.29]
+
+TASK [heat : Checking free port for Heat API] **********************************
+ok: [34.32.41.29]
+
+TASK [heat : Checking free port for Heat API CFN] ******************************
+ok: [34.32.41.29]
+
+PLAY [Apply role horizon] ******************************************************
+
+TASK [horizon : include_tasks] *************************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/horizon/tasks/precheck.yml for 34.32.41.29
+
+TASK [service-precheck : horizon | Validate inventory groups] ******************
+skipping: [34.32.41.29] => (item=horizon) 
+skipping: [34.32.41.29]
+
+TASK [horizon : Get container facts] *******************************************
+ok: [34.32.41.29]
+
+TASK [horizon : Checking free port for Horizon] ********************************
+ok: [34.32.41.29]
+
+PLAY [Apply role magnum] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role mistral] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role manila] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role gnocchi] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role ceilometer] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role aodh] *********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role barbican] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cyborg] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role designate] ****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role trove] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role watcher] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role grafana] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role cloudkitty] ***************************************************
+skipping: no hosts matched
+
+PLAY [Apply role tacker] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role octavia] ******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role zun] **********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role blazar] *******************************************************
+skipping: no hosts matched
+
+PLAY [Apply role masakari] *****************************************************
+skipping: no hosts matched
+
+PLAY [Apply role venus] ********************************************************
+skipping: no hosts matched
+
+PLAY [Apply role skyline] ******************************************************
+skipping: no hosts matched
 
 PLAY RECAP *********************************************************************
-34.32.11.54                : ok=16   changed=0    unreachable=0    failed=0    skipped=9    rescued=0    ignored=0   
-34.32.41.29                : ok=16   changed=0    unreachable=0    failed=0    skipped=9    rescued=0    ignored=0   
-34.32.7.229                : ok=16   changed=0    unreachable=0    failed=1    skipped=9    rescued=0    ignored=0   
-localhost                  : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+34.32.11.54                : ok=35   changed=0    unreachable=0    failed=0    skipped=26   rescued=0    ignored=0   
+34.32.41.29                : ok=76   changed=0    unreachable=0    failed=0    skipped=62   rescued=0    ignored=0   
+34.32.7.229                : ok=35   changed=0    unreachable=0    failed=0    skipped=26   rescued=0    ignored=0   
+localhost                  : ok=7    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
 

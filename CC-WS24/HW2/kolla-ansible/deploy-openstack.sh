@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Generate all openstack passwords and keys and copy the file to working dir (this assumes a venv named 'venv'; change if required)
-kolla-genpwd -p ../venv/share/kolla-ansible/etc_examples/kolla/passwords.yml && cp ../venv/share/kolla-ansible/etc_examples/kolla/passwords.yml ./
+# kolla-genpwd -p ../venv/share/kolla-ansible/etc_examples/kolla/passwords.yml && cp ../venv/share/kolla-ansible/etc_examples/kolla/passwords.yml ./
 
 # Prepare VMs for kolla-ansible
 ansible-playbook -i ./multinode ./pre-bootstrap.yml | tee ./pre-bootstrap.log
@@ -10,7 +10,7 @@ ansible-playbook -i ./multinode ./pre-bootstrap.yml | tee ./pre-bootstrap.log
 kolla-ansible bootstrap-servers --passwords ./passwords.yml --configdir "$(readlink -e ./)" --inventory ./multinode | tee ./bootstrap-servers.log
 
 # Fix a common bug in /etc/hosts (this is not an idempotent operation! only execute this once)
-ansible-playbook -i ./multinode ./fix-hosts-file.yml
+# ansible-playbook -i ./multinode ./fix-hosts-file.yml
 
 # Pull the new images on target hosts (optional operation, but recommended)
 kolla-ansible pull --passwords ./passwords.yml --configdir "$(readlink -e ./)" --inventory ./multinode
