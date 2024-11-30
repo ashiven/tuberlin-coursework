@@ -1,5 +1,10 @@
 id_rsa
 id_rsa.pub
 venv
+
 all-in-one
 passwords.yml
+admin-openrc.sh
+admin-openrc-system.sh
+clouds.yaml
+public-openrc.sh

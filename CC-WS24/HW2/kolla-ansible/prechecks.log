@@ -1,5 +1,323 @@
-kolla-ansible: '--passwords ./passwords.yml --configdir /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/kolla-ansible --inventory ./multinode --skip-tags haproxy prechecks' is not a kolla-ansible command. See 'kolla-ansible --help'.
-Did you mean one of these?
-  deploy-bifrost
-  deploy-servers
-  install-deps
+
+PLAY [Gather facts for all hosts] **********************************************
+
+TASK [Group hosts to determine when using --limit] *****************************
+ok: [localhost]
+ok: [34.32.7.229]
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+
+TASK [Gather facts] ************************************************************
+fatal: [localhost]: FAILED! => {"changed": false, "module_stderr": "sudo: a password is required\n", "module_stdout": "", "msg": "MODULE FAILURE\nSee stdout/stderr for the exact error", "rc": 1}
+ok: [34.32.7.229]
+ok: [34.32.11.54]
+ok: [34.32.41.29]
+
+PLAY [Gather facts for all hosts (if using --limit)] ***************************
+skipping: no hosts matched
+
+PLAY [Group hosts based on configuration] **************************************
+
+TASK [Group hosts based on Kolla action] ***************************************
+ok: [34.32.7.229]
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+
+TASK [Group hosts based on enabled services] ***********************************
+ok: [34.32.7.229] => (item=enable_aodh_False)
+ok: [34.32.7.229] => (item=enable_barbican_False)
+ok: [34.32.7.229] => (item=enable_blazar_False)
+ok: [34.32.7.229] => (item=enable_ceilometer_False)
+ok: [34.32.7.229] => (item=enable_ceph_rgw_False)
+ok: [34.32.7.229] => (item=enable_cinder_False)
+ok: [34.32.7.229] => (item=enable_cloudkitty_False)
+ok: [34.32.7.229] => (item=enable_collectd_False)
+ok: [34.32.7.229] => (item=enable_cyborg_False)
+ok: [34.32.7.229] => (item=enable_designate_False)
+ok: [34.32.7.229] => (item=enable_etcd_False)
+ok: [34.32.7.229] => (item=enable_glance_True)
+ok: [34.32.7.229] => (item=enable_gnocchi_False)
+ok: [34.32.7.229] => (item=enable_grafana_False)
+ok: [34.32.7.229] => (item=enable_hacluster_False)
+ok: [34.32.7.229] => (item=enable_heat_True)
+ok: [34.32.7.229] => (item=enable_horizon_True)
+ok: [34.32.7.229] => (item=enable_influxdb_False)
+ok: [34.32.7.229] => (item=enable_ironic_False)
+ok: [34.32.7.229] => (item=enable_iscsid_False)
+ok: [34.32.7.229] => (item=enable_keystone_True)
+ok: [34.32.7.229] => (item=enable_kuryr_False)
+ok: [34.32.7.229] => (item=enable_letsencrypt_False)
+ok: [34.32.7.229] => (item=enable_loadbalancer_True)
+ok: [34.32.7.229] => (item=enable_magnum_False)
+ok: [34.32.7.229] => (item=enable_manila_False)
+ok: [34.32.7.229] => (item=enable_mariadb_True)
+ok: [34.32.7.229] => (item=enable_masakari_False)
+ok: [34.32.7.229] => (item=enable_memcached_True)
+ok: [34.32.7.229] => (item=enable_mistral_False)
+ok: [34.32.7.229] => (item=enable_multipathd_False)
+ok: [34.32.7.229] => (item=enable_neutron_True)
+ok: [34.32.7.229] => (item=enable_nova_True)
+ok: [34.32.7.229] => (item=enable_octavia_False)
+ok: [34.32.7.229] => (item=enable_opensearch_False)
+ok: [34.32.7.229] => (item=enable_opensearch_dashboards_False)
+ok: [34.32.7.229] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [34.32.7.229] => (item=enable_ovn_False)
+ok: [34.32.7.229] => (item=enable_placement_True)
+ok: [34.32.7.229] => (item=enable_prometheus_False)
+ok: [34.32.7.229] => (item=enable_rabbitmq_True)
+ok: [34.32.7.229] => (item=enable_redis_False)
+ok: [34.32.7.229] => (item=enable_skyline_False)
+ok: [34.32.7.229] => (item=enable_swift_False)
+ok: [34.32.7.229] => (item=enable_tacker_False)
+ok: [34.32.7.229] => (item=enable_telegraf_False)
+ok: [34.32.7.229] => (item=enable_trove_False)
+ok: [34.32.7.229] => (item=enable_venus_False)
+ok: [34.32.7.229] => (item=enable_watcher_False)
+ok: [34.32.7.229] => (item=enable_zun_False)
+ok: [34.32.41.29] => (item=enable_aodh_False)
+ok: [34.32.41.29] => (item=enable_barbican_False)
+ok: [34.32.41.29] => (item=enable_blazar_False)
+ok: [34.32.41.29] => (item=enable_ceilometer_False)
+ok: [34.32.41.29] => (item=enable_ceph_rgw_False)
+ok: [34.32.41.29] => (item=enable_cinder_False)
+ok: [34.32.41.29] => (item=enable_cloudkitty_False)
+ok: [34.32.41.29] => (item=enable_collectd_False)
+ok: [34.32.41.29] => (item=enable_cyborg_False)
+ok: [34.32.41.29] => (item=enable_designate_False)
+ok: [34.32.41.29] => (item=enable_etcd_False)
+ok: [34.32.41.29] => (item=enable_glance_True)
+ok: [34.32.41.29] => (item=enable_gnocchi_False)
+ok: [34.32.41.29] => (item=enable_grafana_False)
+ok: [34.32.41.29] => (item=enable_hacluster_False)
+ok: [34.32.41.29] => (item=enable_heat_True)
+ok: [34.32.41.29] => (item=enable_horizon_True)
+ok: [34.32.41.29] => (item=enable_influxdb_False)
+ok: [34.32.41.29] => (item=enable_ironic_False)
+ok: [34.32.41.29] => (item=enable_iscsid_False)
+ok: [34.32.41.29] => (item=enable_keystone_True)
+ok: [34.32.41.29] => (item=enable_kuryr_False)
+ok: [34.32.41.29] => (item=enable_letsencrypt_False)
+ok: [34.32.41.29] => (item=enable_loadbalancer_True)
+ok: [34.32.41.29] => (item=enable_magnum_False)
+ok: [34.32.41.29] => (item=enable_manila_False)
+ok: [34.32.41.29] => (item=enable_mariadb_True)
+ok: [34.32.41.29] => (item=enable_masakari_False)
+ok: [34.32.41.29] => (item=enable_memcached_True)
+ok: [34.32.41.29] => (item=enable_mistral_False)
+ok: [34.32.41.29] => (item=enable_multipathd_False)
+ok: [34.32.41.29] => (item=enable_neutron_True)
+ok: [34.32.41.29] => (item=enable_nova_True)
+ok: [34.32.41.29] => (item=enable_octavia_False)
+ok: [34.32.41.29] => (item=enable_opensearch_False)
+ok: [34.32.41.29] => (item=enable_opensearch_dashboards_False)
+ok: [34.32.41.29] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [34.32.41.29] => (item=enable_ovn_False)
+ok: [34.32.41.29] => (item=enable_placement_True)
+ok: [34.32.41.29] => (item=enable_prometheus_False)
+ok: [34.32.41.29] => (item=enable_rabbitmq_True)
+ok: [34.32.41.29] => (item=enable_redis_False)
+ok: [34.32.41.29] => (item=enable_skyline_False)
+ok: [34.32.41.29] => (item=enable_swift_False)
+ok: [34.32.41.29] => (item=enable_tacker_False)
+ok: [34.32.41.29] => (item=enable_telegraf_False)
+ok: [34.32.41.29] => (item=enable_trove_False)
+ok: [34.32.41.29] => (item=enable_venus_False)
+ok: [34.32.41.29] => (item=enable_watcher_False)
+ok: [34.32.41.29] => (item=enable_zun_False)
+ok: [34.32.11.54] => (item=enable_aodh_False)
+ok: [34.32.11.54] => (item=enable_barbican_False)
+ok: [34.32.11.54] => (item=enable_blazar_False)
+ok: [34.32.11.54] => (item=enable_ceilometer_False)
+ok: [34.32.11.54] => (item=enable_ceph_rgw_False)
+ok: [34.32.11.54] => (item=enable_cinder_False)
+ok: [34.32.11.54] => (item=enable_cloudkitty_False)
+ok: [34.32.11.54] => (item=enable_collectd_False)
+ok: [34.32.11.54] => (item=enable_cyborg_False)
+ok: [34.32.11.54] => (item=enable_designate_False)
+ok: [34.32.11.54] => (item=enable_etcd_False)
+ok: [34.32.11.54] => (item=enable_glance_True)
+ok: [34.32.11.54] => (item=enable_gnocchi_False)
+ok: [34.32.11.54] => (item=enable_grafana_False)
+ok: [34.32.11.54] => (item=enable_hacluster_False)
+ok: [34.32.11.54] => (item=enable_heat_True)
+ok: [34.32.11.54] => (item=enable_horizon_True)
+ok: [34.32.11.54] => (item=enable_influxdb_False)
+ok: [34.32.11.54] => (item=enable_ironic_False)
+ok: [34.32.11.54] => (item=enable_iscsid_False)
+ok: [34.32.11.54] => (item=enable_keystone_True)
+ok: [34.32.11.54] => (item=enable_kuryr_False)
+ok: [34.32.11.54] => (item=enable_letsencrypt_False)
+ok: [34.32.11.54] => (item=enable_loadbalancer_True)
+ok: [34.32.11.54] => (item=enable_magnum_False)
+ok: [34.32.11.54] => (item=enable_manila_False)
+ok: [34.32.11.54] => (item=enable_mariadb_True)
+ok: [34.32.11.54] => (item=enable_masakari_False)
+ok: [34.32.11.54] => (item=enable_memcached_True)
+ok: [34.32.11.54] => (item=enable_mistral_False)
+ok: [34.32.11.54] => (item=enable_multipathd_False)
+ok: [34.32.11.54] => (item=enable_neutron_True)
+ok: [34.32.11.54] => (item=enable_nova_True)
+ok: [34.32.11.54] => (item=enable_octavia_False)
+ok: [34.32.11.54] => (item=enable_opensearch_False)
+ok: [34.32.11.54] => (item=enable_opensearch_dashboards_False)
+ok: [34.32.11.54] => (item=enable_openvswitch_True_enable_ovs_dpdk_False)
+ok: [34.32.11.54] => (item=enable_ovn_False)
+ok: [34.32.11.54] => (item=enable_placement_True)
+ok: [34.32.11.54] => (item=enable_prometheus_False)
+ok: [34.32.11.54] => (item=enable_rabbitmq_True)
+ok: [34.32.11.54] => (item=enable_redis_False)
+ok: [34.32.11.54] => (item=enable_skyline_False)
+ok: [34.32.11.54] => (item=enable_swift_False)
+ok: [34.32.11.54] => (item=enable_tacker_False)
+ok: [34.32.11.54] => (item=enable_telegraf_False)
+ok: [34.32.11.54] => (item=enable_trove_False)
+ok: [34.32.11.54] => (item=enable_venus_False)
+ok: [34.32.11.54] => (item=enable_watcher_False)
+ok: [34.32.11.54] => (item=enable_zun_False)
+
+PLAY [Apply role prechecks] ****************************************************
+
+TASK [prechecks : Checking loadbalancer group] *********************************
+ok: [34.32.7.229] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [34.32.41.29] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [34.32.11.54] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [prechecks : include_tasks] ***********************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/prechecks/tasks/host_os_checks.yml for 34.32.7.229, 34.32.41.29, 34.32.11.54
+
+TASK [prechecks : Checking host OS distribution] *******************************
+ok: [34.32.7.229] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [34.32.41.29] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [34.32.11.54] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [prechecks : Checking host OS release or version] *************************
+ok: [34.32.7.229] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [34.32.41.29] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [34.32.11.54] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [prechecks : Checking if CentOS is Stream] ********************************
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+
+TASK [prechecks : Fail if not running on CentOS Stream] ************************
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+
+TASK [prechecks : include_tasks] ***********************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/prechecks/tasks/timesync_checks.yml for 34.32.7.229, 34.32.41.29, 34.32.11.54
+
+TASK [prechecks : Check for a running host NTP daemon] *************************
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+ok: [34.32.7.229]
+
+TASK [prechecks : Fail if a host NTP daemon is not running] ********************
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+
+TASK [prechecks : Checking timedatectl status] *********************************
+ok: [34.32.7.229]
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+
+TASK [prechecks : Fail if the clock is not synchronized] ***********************
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+
+TASK [prechecks : Ensure /etc/localtime exist] *********************************
+ok: [34.32.7.229]
+ok: [34.32.11.54]
+ok: [34.32.41.29]
+
+TASK [prechecks : Fail if /etc/localtime is absent] ****************************
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+
+TASK [prechecks : Ensure /etc/timezone exist] **********************************
+ok: [34.32.7.229]
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+
+TASK [prechecks : Fail if /etc/timezone is absent] *****************************
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+
+TASK [prechecks : include_tasks] ***********************************************
+included: /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/venv/share/kolla-ansible/ansible/roles/prechecks/tasks/port_checks.yml for 34.32.7.229, 34.32.41.29, 34.32.11.54
+
+TASK [prechecks : Checking the api_interface is present] ***********************
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+
+TASK [prechecks : Checking the api_interface is active] ************************
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+
+TASK [prechecks : Checking the api_interface ip address configuration] *********
+skipping: [34.32.7.229]
+skipping: [34.32.41.29]
+skipping: [34.32.11.54]
+
+TASK [prechecks : Checking if system uses systemd] *****************************
+ok: [34.32.7.229] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [34.32.41.29] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+ok: [34.32.11.54] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [prechecks : Checking Docker version] *************************************
+ok: [34.32.7.229]
+ok: [34.32.41.29]
+ok: [34.32.11.54]
+
+TASK [prechecks : Checking empty passwords in passwords.yml. Run kolla-genpwd if this task fails] ***
+fatal: [34.32.7.229 -> localhost]: FAILED! => {"changed": false, "failed_when_result": "The conditional check 'result.stdout | regex_replace('(.*ssh_key.*)', '') is search(\":\")' failed. The error was: error while evaluating conditional (result.stdout | regex_replace('(.*ssh_key.*)', '') is search(\":\")): 'dict object' has no attribute 'stdout'", "module_stderr": "sudo: a password is required\n", "module_stdout": "", "msg": "MODULE FAILURE\nSee stdout/stderr for the exact error", "rc": 1}
+
+PLAY RECAP *********************************************************************
+34.32.11.54                : ok=16   changed=0    unreachable=0    failed=0    skipped=9    rescued=0    ignored=0   
+34.32.41.29                : ok=16   changed=0    unreachable=0    failed=0    skipped=9    rescued=0    ignored=0   
+34.32.7.229                : ok=16   changed=0    unreachable=0    failed=1    skipped=9    rescued=0    ignored=0   
+localhost                  : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
