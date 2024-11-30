@@ -1,6 +1,13 @@
 
 PLAY [control, compute] ********************************************************
-skipping: no hosts matched
 
-PLAY RECAP *********************************************************************
+TASK [Gathering Facts] *********************************************************
+ok: [34.32.39.16]
+ok: [34.32.53.52]
+fatal: [34.32.76.131]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: Host key verification failed.", "unreachable": true}
 
+TASK [Install python-minimal] **************************************************
+ok: [34.32.39.16]
+ok: [34.32.53.52]
+
+TASK [Install pip] *************************************************************

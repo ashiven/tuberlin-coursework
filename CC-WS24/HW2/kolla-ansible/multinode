@@ -8,7 +8,7 @@ ansible_private_key_file=../id_rsa
 # additional groups are for more control of the environment.
 [control]
 # These hostname must be resolvable from your deployment host
-[34.32.39.16]
+34.32.39.16
 
 # The above can also be specified as follows:
 #control[01:03]     ansible_user=kolla
@@ -19,8 +19,8 @@ ansible_private_key_file=../id_rsa
 control
 
 [compute]
-[34.32.53.52]
-[34.32.76.131]
+34.32.53.52
+34.32.76.131
 
 [monitoring:children]
 control
