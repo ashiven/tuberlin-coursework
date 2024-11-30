@@ -1,5 +1,18 @@
-kolla-ansible: '--passwords ./passwords.yml --configdir /mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/kolla-ansible --inventory ./multinode bootstrap-servers' is not a kolla-ansible command. See 'kolla-ansible --help'.
-Did you mean one of these?
-  deploy-bifrost
-  deploy-servers
-  install-deps
+Bootstrapping servers : ansible-playbook -e @/mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/kolla-ansible/globals.yml  -e @./passwords.yml -e CONFIG_DIR=/mnt/c/Users/janni/OneDrive/Dokumente/Projects/uni/CC-WS24/HW2/kolla-ansible  -e kolla_action=bootstrap-servers /home/ashiven/.local/share/kolla-ansible/ansible/kolla-host.yml  --inventory ./multinode
+
+PLAY [Gather facts for all hosts] **********************************************
+
+TASK [Gather facts] ************************************************************
+fatal: [localhost]: FAILED! => {"changed": false, "module_stderr": "sudo: a password is required\n", "module_stdout": "", "msg": "MODULE FAILURE\nSee stdout/stderr for the exact error", "rc": 1}
+ok: [34.32.11.54]
+ok: [34.32.41.29]
+ok: [34.32.7.229]
+
+NO MORE HOSTS LEFT *************************************************************
+
+PLAY RECAP *********************************************************************
+34.32.11.54                : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+34.32.41.29                : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+34.32.7.229                : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+localhost                  : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+
