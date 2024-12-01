@@ -1,5 +1,7 @@
 id_rsa
 id_rsa.pub
+mykey
+mykey.pub
 venv
 
 all-in-one
