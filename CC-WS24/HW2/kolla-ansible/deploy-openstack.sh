@@ -10,7 +10,7 @@ ansible-playbook -i ./multinode ./pre-bootstrap.yml | tee ./pre-bootstrap.log
 kolla-ansible bootstrap-servers --passwords ./passwords.yml --configdir "$(readlink -e ./)" --inventory ./multinode | tee ./bootstrap-servers.log
 
 # Fix a common bug in /etc/hosts (this is not an idempotent operation! only execute this once)
-# ansible-playbook -i ./multinode ./fix-hosts-file.yml
+ansible-playbook -i ./multinode ./fix-hosts-file.yml
 
 # Pull the new images on target hosts (optional operation, but recommended)
 kolla-ansible pull --passwords ./passwords.yml --configdir "$(readlink -e ./)" --inventory ./multinode
