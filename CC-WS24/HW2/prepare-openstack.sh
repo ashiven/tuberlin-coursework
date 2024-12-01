@@ -16,9 +16,9 @@ ssh-keygen -t rsa -b 2048 -f "./mykey" -N "" -q
 openstack keypair create --public-key ./mykey.pub mykey
 
 # copy the private key to controller vm and set it's permissions to 400
-ZONE=europe-west10-a
 KEY_PATH=./id_rsa
 USERNAME=$(awk '{print $3}' "${KEY_PATH}.pub")
+ZONE=europe-west10-a
 CONTROLLER_IP=$(gcloud compute instances describe controller --zone=$ZONE --format="get(networkInterfaces[0].accessConfigs[0].natIP)")
 
 scp -i "$KEY_PATH" -o StrictHostKeyChecking=no ./mykey "$USERNAME@$CONTROLLER_IP:/home/$USERNAME/mykey"
