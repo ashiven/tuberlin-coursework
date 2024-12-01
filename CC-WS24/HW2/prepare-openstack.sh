@@ -34,5 +34,5 @@ openstack server create \
     openstack-instance
 
 # create a floating ip and associate it with the new instance
-FLOATING_IP=$(openstack floating ip create public --format="value" -c "floating_ip_address")
+FLOATING_IP=$(openstack floating ip create external --format="value" -c "floating_ip_address")
 openstack server add floating ip openstack-instance "$FLOATING_IP"

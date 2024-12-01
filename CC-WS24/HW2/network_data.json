@@ -1,0 +1,20 @@
+{
+   "links": [
+      {
+         "id": "tapf2430457-61",
+         "vif_id": "f2430457-61ea-4d39-bdb4-59ba87b1ed0a",
+         "type": "ovs",
+         "mtu": null,
+         "ethernet_mac_address": "fa:16:3e:4d:66:67"
+      }
+   ],
+   "networks": [
+      {
+         "id": "network0",
+         "type": "ipv4_dhcp",
+         "link": "tapf2430457-61",
+         "network_id": "01600866-f540-44e7-bf10-93a7404a95e7"
+      }
+   ],
+   "services": [{ "type": "dns", "address": "8.8.8.8" }]
+}
