@@ -1,0 +1,108 @@
+Spark Command: /usr/local/java8/bin/java -cp /usr/local/spark/conf/:/usr/local/spark/jars/* -Xmx1g org.apache.spark.deploy.master.Master --host 10.0.0.77 --port 7077 --webui-port 8080
+========================================
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+24/12/02 19:41:47 INFO Master: Started daemon with process name: 1931@localhost
+24/12/02 19:41:47 INFO SignalUtils: Registering signal handler for TERM
+24/12/02 19:41:47 INFO SignalUtils: Registering signal handler for HUP
+24/12/02 19:41:47 INFO SignalUtils: Registering signal handler for INT
+24/12/02 19:41:58 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+24/12/02 19:41:58 INFO SecurityManager: Changing view acls to: ubuntu
+24/12/02 19:41:58 INFO SecurityManager: Changing modify acls to: ubuntu
+24/12/02 19:41:58 INFO SecurityManager: Changing view acls groups to: 
+24/12/02 19:41:58 INFO SecurityManager: Changing modify acls groups to: 
+24/12/02 19:41:58 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: ubuntu; groups with view permissions: EMPTY; users with modify permissions: ubuntu; groups with modify permissions: EMPTY
+24/12/02 19:42:18 INFO Utils: Successfully started service 'sparkMaster' on port 7077.
+24/12/02 19:42:18 INFO Master: Starting Spark master at spark://10.0.0.77:7077
+24/12/02 19:42:18 INFO Master: Running Spark version 3.4.4
+24/12/02 19:42:18 INFO JettyUtils: Start Jetty 10.0.0.77:8080 for MasterUI
+24/12/02 19:42:18 INFO Utils: Successfully started service 'MasterUI' on port 8080.
+24/12/02 19:42:19 INFO MasterWebUI: Bound MasterWebUI to 10.0.0.77, and started at http://10.0.0.77:8080
+24/12/02 19:42:19 INFO Master: I have been elected leader! New state: ALIVE
+24/12/02 19:43:10 INFO Master: Registering worker 10.0.0.80:44306 with 2 cores, 1024.0 MiB RAM
+24/12/02 19:43:32 INFO Master: Registering worker 10.0.0.100:34395 with 2 cores, 1024.0 MiB RAM
+24/12/02 19:48:49 INFO Master: Registering app JavaSparkPi
+24/12/02 19:48:49 INFO Master: Registered app JavaSparkPi with ID app-20241202194849-0000
+24/12/02 19:48:49 INFO Master: Start scheduling for app app-20241202194849-0000 with rpId: 0
+24/12/02 19:48:50 INFO Master: Launching executor app-20241202194849-0000/0 on worker worker-20241202194307-10.0.0.80-44306
+24/12/02 19:48:50 INFO Master: Launching executor app-20241202194849-0000/1 on worker worker-20241202194330-10.0.0.100-34395
+24/12/02 19:48:50 INFO Master: Start scheduling for app app-20241202194849-0000 with rpId: 0
+24/12/02 19:48:50 INFO Master: Start scheduling for app app-20241202194849-0000 with rpId: 0
+24/12/02 19:51:30 INFO Master: Received unregister request from application app-20241202194849-0000
+24/12/02 19:51:30 INFO Master: Removing app app-20241202194849-0000
+24/12/02 19:51:30 WARN Master: Got status update for unknown executor app-20241202194849-0000/1
+24/12/02 19:51:30 WARN Master: Got status update for unknown executor app-20241202194849-0000/0
+24/12/02 19:51:30 INFO Master: 10.0.0.77:52022 got disassociated, removing it.
+24/12/02 19:51:30 INFO Master: 10.0.0.77:42869 got disassociated, removing it.
+24/12/02 20:01:01 INFO Master: Registering app JavaSparkPi
+24/12/02 20:01:01 INFO Master: Registered app JavaSparkPi with ID app-20241202200101-0001
+24/12/02 20:01:01 INFO Master: Start scheduling for app app-20241202200101-0001 with rpId: 0
+24/12/02 20:01:01 WARN Master: App app-20241202200101-0001 requires more resource than any of Workers could have.
+24/12/02 20:01:34 INFO Master: 10.0.0.77:52024 got disassociated, removing it.
+24/12/02 20:01:34 INFO Master: 10.0.0.77:35255 got disassociated, removing it.
+24/12/02 20:01:34 INFO Master: Removing app app-20241202200101-0001
+24/12/02 20:07:57 INFO Master: Registering app JavaSparkPi
+24/12/02 20:07:57 INFO Master: Registered app JavaSparkPi with ID app-20241202200757-0002
+24/12/02 20:07:57 INFO Master: Start scheduling for app app-20241202200757-0002 with rpId: 0
+24/12/02 20:07:57 WARN Master: App app-20241202200757-0002 requires more resource than any of Workers could have.
+24/12/02 20:08:26 INFO Master: 10.0.0.77:52030 got disassociated, removing it.
+24/12/02 20:08:26 INFO Master: 10.0.0.77:46594 got disassociated, removing it.
+24/12/02 20:08:26 INFO Master: Removing app app-20241202200757-0002
+24/12/02 20:29:31 INFO Master: Registering app JavaSparkPi
+24/12/02 20:29:31 INFO Master: Registered app JavaSparkPi with ID app-20241202202931-0003
+24/12/02 20:29:31 INFO Master: Start scheduling for app app-20241202202931-0003 with rpId: 0
+24/12/02 20:29:31 INFO Master: Launching executor app-20241202202931-0003/0 on worker worker-20241202194307-10.0.0.80-44306
+24/12/02 20:29:31 INFO Master: Launching executor app-20241202202931-0003/1 on worker worker-20241202194330-10.0.0.100-34395
+24/12/02 20:29:31 INFO Master: Start scheduling for app app-20241202202931-0003 with rpId: 0
+24/12/02 20:29:32 INFO Master: Start scheduling for app app-20241202202931-0003 with rpId: 0
+24/12/02 20:37:34 INFO Master: Removing executor app-20241202202931-0003/1 because it is EXITED
+24/12/02 20:37:34 INFO Master: Start scheduling for app app-20241202202931-0003 with rpId: 0
+24/12/02 20:37:34 INFO Master: Launching executor app-20241202202931-0003/2 on worker worker-20241202194330-10.0.0.100-34395
+24/12/02 20:37:34 INFO Master: Start scheduling for app app-20241202202931-0003 with rpId: 0
+24/12/02 20:37:37 INFO Master: Removing executor app-20241202202931-0003/0 because it is EXITED
+24/12/02 20:37:37 INFO Master: Start scheduling for app app-20241202202931-0003 with rpId: 0
+24/12/02 20:37:37 INFO Master: Launching executor app-20241202202931-0003/3 on worker worker-20241202194307-10.0.0.80-44306
+24/12/02 20:37:37 INFO Master: Start scheduling for app app-20241202202931-0003 with rpId: 0
+24/12/02 20:37:56 INFO Master: Received unregister request from application app-20241202202931-0003
+24/12/02 20:37:56 INFO Master: Removing app app-20241202202931-0003
+24/12/02 20:37:56 INFO Master: 10.0.0.77:52032 got disassociated, removing it.
+24/12/02 20:37:56 INFO Master: 10.0.0.77:36703 got disassociated, removing it.
+24/12/02 20:37:56 WARN Master: Got status update for unknown executor app-20241202202931-0003/2
+24/12/02 20:37:56 WARN Master: Got status update for unknown executor app-20241202202931-0003/3
+24/12/02 20:54:25 INFO Master: 10.0.0.80:50604 got disassociated, removing it.
+24/12/02 21:15:29 INFO Master: Registering app JavaSparkPi
+24/12/02 21:15:29 INFO Master: Registered app JavaSparkPi with ID app-20241202211529-0004
+24/12/02 21:15:29 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:15:29 INFO Master: Launching executor app-20241202211529-0004/0 on worker worker-20241202194307-10.0.0.80-44306
+24/12/02 21:15:29 INFO Master: Launching executor app-20241202211529-0004/1 on worker worker-20241202194330-10.0.0.100-34395
+24/12/02 21:15:29 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:15:30 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:23:32 INFO Master: Removing executor app-20241202211529-0004/1 because it is EXITED
+24/12/02 21:23:32 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:23:32 INFO Master: Launching executor app-20241202211529-0004/2 on worker worker-20241202194330-10.0.0.100-34395
+24/12/02 21:23:32 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:23:35 INFO Master: Removing executor app-20241202211529-0004/0 because it is EXITED
+24/12/02 21:23:35 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:23:35 INFO Master: Launching executor app-20241202211529-0004/3 on worker worker-20241202194307-10.0.0.80-44306
+24/12/02 21:23:35 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:31:35 INFO Master: Removing executor app-20241202211529-0004/2 because it is EXITED
+24/12/02 21:31:35 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:31:35 INFO Master: Launching executor app-20241202211529-0004/4 on worker worker-20241202194330-10.0.0.100-34395
+24/12/02 21:31:35 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:31:40 INFO Master: Removing executor app-20241202211529-0004/3 because it is EXITED
+24/12/02 21:31:40 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:31:40 INFO Master: Launching executor app-20241202211529-0004/5 on worker worker-20241202194307-10.0.0.80-44306
+24/12/02 21:31:40 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:39:38 INFO Master: Removing executor app-20241202211529-0004/4 because it is EXITED
+24/12/02 21:39:38 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:39:38 INFO Master: Launching executor app-20241202211529-0004/6 on worker worker-20241202194330-10.0.0.100-34395
+24/12/02 21:39:38 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:39:46 INFO Master: Removing executor app-20241202211529-0004/5 because it is EXITED
+24/12/02 21:39:46 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:39:46 INFO Master: Launching executor app-20241202211529-0004/7 on worker worker-20241202194307-10.0.0.80-44306
+24/12/02 21:39:46 INFO Master: Start scheduling for app app-20241202211529-0004 with rpId: 0
+24/12/02 21:41:38 INFO Master: Received unregister request from application app-20241202211529-0004
+24/12/02 21:41:38 INFO Master: Removing app app-20241202211529-0004
+24/12/02 21:41:38 INFO Master: 10.0.0.77:52048 got disassociated, removing it.
+24/12/02 21:41:38 INFO Master: 10.0.0.77:38400 got disassociated, removing it.
+24/12/02 21:41:38 WARN Master: Got status update for unknown executor app-20241202211529-0004/7
+24/12/02 21:41:39 WARN Master: Got status update for unknown executor app-20241202211529-0004/6
