@@ -1,137 +1,54 @@
-package org.apache.spark.examples;
+1)What happens here?
 
-import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.sql.SparkSession;
 
-import java.util.ArrayList;
-import java.util.List;
+A Spark master node is started at 10.0.0.77:7077.
+Two worker nodes successfully register with the master node:
+Worker 1: 10.0.0.80:33546 (2 cores, 2GB RAM).
+Worker 2: 10.0.0.100:44916 (2 cores, 2GB RAM).
 
-/**
- * Computes an approximation to pi
- * Usage: JavaSparkPi [partitions]
- */
-public final class JavaSparkPi {
+The JavaSparkPi application registers with the master
+The master launches executors on both worker nodes:
+Executor 0 is launched on Worker 2 (10.0.0.100).
+Executor 1 is launched on Worker 1 (10.0.0.80).
+Each executor processes its assigned tasks, computing whether randomly generated points fall within a unit circle.
 
-  public static void main(String[] args) throws Exception {
-    SparkSession spark = SparkSession
-      .builder()
-      .appName("JavaSparkPi")
-      .getOrCreate();
+Both initial executors exit with error code 1
+Spark detects the failure and automatically launches a new executor to retry the task
+Executor 2 replaces Executor 0 on worker 10.0.0.100
+Executor 3 replaces Executor 1 on worker 10.0.0.80
+The tasks are retried on the new executors, ensuring successful completion. The master aggregates results from all tasks and computes the approximate value of π. Application completes successfully, and resources are cleaned up by both the master and worker nodes.
 
-    JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
 
-    int slices = (args.length == 1) ? Integer.parseInt(args[0]) : 2;
-    int n = 100000 * slices;
-    List<Integer> l = new ArrayList<>(n);
-    for (int i = 0; i < n; i++) {
-      l.add(i);
-    }
 
-    JavaRDD<Integer> dataSet = jsc.parallelize(l, slices);
+2)Program structured and tasks distributed
 
-    int count = dataSet.map(integer -> {
-      double x = Math.random() * 2 - 1;
-      double y = Math.random() * 2 - 1;
-      return (x * x + y * y <= 1) ? 1 : 0;
-    }).reduce((integer, integer2) -> integer + integer2);
 
-    System.out.println("Pi is roughly " + 4.0 * count / n);
+The program starts by creating a SparkSession, the entry point to the Spark application.
+A JavaSparkContext is derived from the session to manage RDDs (Resilient Distributed Datasets) and interact with the cluster.
 
-    spark.stop();
-  }
-}
+Input parameter: 500 slices (partitions)
+Total points: n = 100000 * 500 = 50 million points
+The computation is distributed across 2 worker nodes, each with 2 cores
 
-The `JavaSparkPi` program is a simple example of distributed computing using Apache Spark. Here's an analysis of what happens in the program, its structure, and how tasks are distributed:
+Creates a SparkSession and JavaSparkContext
+Generates a list of n integers (0 to n-1)
+Splits the data into specified number of slices (500)
 
----
+For each number in the dataset:
+Generates random points (x,y) in a 2x2 square (-1 to 1)
+Checks if point falls within unit circle (x² + y² ≤ 1)
+Returns 1 if inside, 0 if outside
 
-### **What Happens in the Program**
-1. **Setup Spark Context**:
-   - A `SparkSession` is created as the entry point to the Spark application.
-   - A `JavaSparkContext` is derived from the `SparkSession`, which enables interactions with the Spark cluster.
+Reduces results by summing all points inside circle
+Calculates π ≈ 4 * (points_inside_circle / total_points)
+SparkSession stopped, all resources are released.
 
-2. **Input Parameters**:
-   - The program takes an optional argument for the number of partitions (`slices`). If not provided, it defaults to `2`.
 
-3. **Data Preparation**:
-   - The number of points to process is set to `100,000 * slices`.
-   - A list of integers (`l`) is created to represent these points.
-
-4. **Parallelize the Data**:
-   - The list is converted into a Spark `JavaRDD` and partitioned based on the number of slices.
-
-5. **Monte Carlo Simulation**:
-   - Each point in the RDD generates random coordinates `(x, y)` in the range `[-1, 1]`.
-   - It checks if the point lies inside a unit circle and returns `1` if true, `0` otherwise.
-
-6. **Reduce Operation**:
-   - The `map` function generates 1 or 0 for each point.
-   - The `reduce` function aggregates these values across all partitions to calculate the total count of points within the circle.
-
-7. **Approximate Pi**:
-   - The result is used to approximate the value of Pi using the formula:
-     \[
-     \text{Pi} \approx 4 \times \frac{\text{count of points in circle}}{\text{total points}}
-     \]
-
-8. **Output**:
-   - The program prints the approximate value of Pi to the console.
-
-9. **Shutdown**:
-   - The `SparkSession` is stopped.
-
----
-
-### **Structure of the Program**
-
-1. **Initialization**:
-   - A Spark application is initialized with the name `"JavaSparkPi"`.
-
-2. **Data Distribution**:
-   - The dataset is divided into multiple partitions (`slices`) and distributed across the cluster.
-   - Each partition operates independently on its subset of the data.
-
-3. **Task Distribution**:
-   - Spark applies transformations (e.g., `map`) and actions (e.g., `reduce`) to the RDD.
-   - Each transformation is lazily evaluated, and the computation is triggered only when the `reduce` action is called.
-
-4. **Execution**:
-   - Spark uses its driver program to coordinate the job and assigns tasks to worker nodes.
-   - Workers process their respective data partitions in parallel and report results back to the driver.
-
----
-
-### **Observations in the Logs**
-
-1. **Task Scheduling**:
-   - The Spark driver creates a job and divides it into stages based on transformations.
-   - Tasks are distributed across the workers, with one task per partition.
-
-2. **Parallel Processing**:
-   - Each worker node processes its assigned partition independently, running the `map` function to compute whether points fall inside the circle.
-
-3. **Shuffling and Aggregation**:
-   - The results of the `map` function are aggregated using the `reduce` operation.
-   - The driver collects and combines these partial results to calculate the final approximation of Pi.
-
----
-
-### **Insights into Task Distribution**
-1. **Parallelism**:
-   - The number of slices determines the level of parallelism.
-   - Each partition is processed as a separate task, allowing distributed computation.
-
-2. **Load Balancing**:
-   - If the partitions are uneven or the dataset is large, some workers may handle more data than others, leading to potential bottlenecks.
-
-3. **Fault Tolerance**:
-   - If a worker fails, Spark can reassign its task to another worker, ensuring reliable execution.
-
----
-
-### **Conclusion**
-- The program is a demonstration of distributed computation using Spark.
-- Tasks are distributed across the cluster using the concept of RDDs and partitions.
-- Each worker processes data in parallel, and the driver collects and combines results.
-- While simple, the program showcases the efficiency and scalability of Spark for computational tasks.
+Spark initializes a distributed computing environment where the master node coordinates the tasks. 
+The data is divided into multiple segments and distributed across the cluster for parallel processing. 
+The dataset is divided into 500 partitions, each of which is assigned to a different core on the Worker node. 
+Worker 1 and Worker 2 each have 2 cores, enabling 4 tasks to be processed simultaneously. 
+Each partition is processed independently by the map function.
+When initial tasks fail , Spark automatically retries them on newly launched executors. 
+Tasks are scheduled by the Master and executed by the Workers. 
+Reduce operation triggers the execution, merging the results of all the partitions.
