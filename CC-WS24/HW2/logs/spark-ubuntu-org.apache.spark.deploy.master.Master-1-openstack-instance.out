@@ -27,17 +27,9 @@ Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
 24/12/02 22:04:30 INFO Master: Launching executor app-20241202220430-0000/1 on worker worker-20241202220248-10.0.0.80-33546
 24/12/02 22:04:30 INFO Master: Start scheduling for app app-20241202220430-0000 with rpId: 0
 24/12/02 22:04:31 INFO Master: Start scheduling for app app-20241202220430-0000 with rpId: 0
-24/12/02 22:12:33 INFO Master: Removing executor app-20241202220430-0000/0 because it is EXITED
-24/12/02 22:12:33 INFO Master: Start scheduling for app app-20241202220430-0000 with rpId: 0
-24/12/02 22:12:33 INFO Master: Launching executor app-20241202220430-0000/2 on worker worker-20241202220259-10.0.0.100-44916
-24/12/02 22:12:34 INFO Master: Start scheduling for app app-20241202220430-0000 with rpId: 0
-24/12/02 22:12:36 INFO Master: Removing executor app-20241202220430-0000/1 because it is EXITED
-24/12/02 22:12:36 INFO Master: Start scheduling for app app-20241202220430-0000 with rpId: 0
-24/12/02 22:12:36 INFO Master: Launching executor app-20241202220430-0000/3 on worker worker-20241202220248-10.0.0.80-33546
-24/12/02 22:12:36 INFO Master: Start scheduling for app app-20241202220430-0000 with rpId: 0
 24/12/02 22:14:36 INFO Master: Received unregister request from application app-20241202220430-0000
 24/12/02 22:14:36 INFO Master: Removing app app-20241202220430-0000
 24/12/02 22:14:36 INFO Master: 10.0.0.77:52068 got disassociated, removing it.
 24/12/02 22:14:36 INFO Master: 10.0.0.77:45093 got disassociated, removing it.
-24/12/02 22:14:37 WARN Master: Got status update for unknown executor app-20241202220430-0000/2
-24/12/02 22:14:37 WARN Master: Got status update for unknown executor app-20241202220430-0000/3
+24/12/02 22:14:37 WARN Master: Got status update for unknown executor app-20241202220430-0000/1
+24/12/02 22:14:37 WARN Master: Got status update for unknown executor app-20241202220430-0000/0
