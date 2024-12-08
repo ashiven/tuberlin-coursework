@@ -10,13 +10,10 @@ The JavaSparkPi application registers with the master
 The master launches executors on both worker nodes:
 Executor 0 is launched on Worker 2 (10.0.0.100).
 Executor 1 is launched on Worker 1 (10.0.0.80).
-Each executor processes its assigned tasks, computing whether randomly generated points fall within a unit circle.
 
-Both initial executors exit with error code 1
-Spark detects the failure and automatically launches a new executor to retry the task
-Executor 2 replaces Executor 0 on worker 10.0.0.100
-Executor 3 replaces Executor 1 on worker 10.0.0.80
-The tasks are retried on the new executors, ensuring successful completion. The master aggregates results from all tasks and computes the approximate value of π. Application completes successfully, and resources are cleaned up by both the master and worker nodes.
+Each executor processes its assigned tasks, computing whether randomly generated points fall within a unit circle.
+The master aggregates results from all tasks and computes the approximate value of π. 
+Application completes successfully, and resources are cleaned up by both the master and worker nodes.
 
 
 

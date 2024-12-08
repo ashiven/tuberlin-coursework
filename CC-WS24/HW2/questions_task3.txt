@@ -4,13 +4,13 @@ First, we activated the python virtual environment and then imported the environ
 Through the import-images.sh and create-network.sh scripts, we added ubuntu and cirros vm images, two flavors and created internal and external networks. 
 Then we set up a security group allowing all traffic for TCP, ICMP and UDP and generated and imported a new SSH key pair.
 After that, we created an openstack VM using the ubuntu image and medium flavor on the admin network with the previously created security group. 
-We assigned a floating IP to this vm and attempted to connect to it from the controller VM but ran into connectivity issues due to missing routing and NAT configuration. 
+We assigned a floating IP to this VM and attempted to connect to it from the controller VM but ran into connectivity issues due to missing routing and NAT configuration. 
 After running the iptables-magic.sh script to configure proper NAT and routing, we were able to ping the floating IP, connect via SSH, and access the internet on the VM. 
 Finally, we retrieved the network_data.json file from the openstack metadata service.
 
 
 Question 2:
-The OpenStack VM was not reachable initially due to missing routing and NAT configurations:
+The openstack VM was not reachable initially due to missing routing and NAT configurations:
 1) The floating IP address lacked proper routing through the gateway br-ex
 2) The VM's traffic wasn't masqueraded for external communication
 3) Forwarding rules were missing to allow packets between the interfaces ens4 and br-ex
@@ -19,7 +19,7 @@ The OpenStack VM was not reachable initially due to missing routing and NAT conf
 Question 3:
 docker exec openvswitch_vswitchd ip a add $floating_gateway dev br-ex
 # Adds the floating gateway IP (10.122.0.1) to the br-ex interface in the openvswitch_vswitchd container
-# This enables the bridge interface to act as a gateway
+# This enables the bridge interface br-ex to act as a gateway
    
 docker exec openvswitch_vswitchd ip link set br-ex up
 # Activates the br-ex interface so it can route traffic
