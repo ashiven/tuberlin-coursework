@@ -24,3 +24,11 @@ curl http://localhost:8080
 # Test the backend service
 curl http://localhost:8081
 
+# run webapp playbook
+ansible-playbook -i hosts.ini webapp.yml
+
+# find nodeport of frontend service
+kubectl get service frontend --namespace=webapp -o jsonpath='{.spec.ports[0].nodePort}'
+
+# test deployment
+python3 test-deployment.py <VM1>:<NodePort> <VM2>:<NodePort> <VM3>:<NodePort>

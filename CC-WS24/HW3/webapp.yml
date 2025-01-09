@@ -1,0 +1,143 @@
+---
+- name: Deploy web application to Kubernetes
+  hosts: k8s_master
+  become: true
+  tasks:
+     - name: Ensure Python dependencies for k8s module are installed
+       ansible.builtin.pip:
+          name:
+             - kubernetes
+             - openshift
+       when: ansible_python_version is version('3', '>=')
+
+     - name: Create Kubernetes namespace
+       community.kubernetes.k8s:
+          state: present
+          definition:
+             apiVersion: v1
+             kind: Namespace
+             metadata:
+                name: webapp
+
+     - name: Deploy backend Deployment
+       community.kubernetes.k8s:
+          state: present
+          definition:
+             apiVersion: apps/v1
+             kind: Deployment
+             metadata:
+                name: backend
+                namespace: webapp
+             spec:
+                replicas: 6
+                selector:
+                   matchLabels:
+                      app: backend
+                template:
+                   metadata:
+                      labels:
+                         app: backend
+                   spec:
+                      containers:
+                         - name: backend
+                           image: my_backend_image:latest
+                           ports:
+                              - containerPort: 8080
+                           readinessProbe:
+                              httpGet:
+                                 path: /health
+                                 port: 8080
+                                 httpHeaders:
+                                    - name: Custom-Header
+                                      value: "Custom-Value"
+                              initialDelaySeconds: 5
+                              periodSeconds: 10
+                           livenessProbe:
+                              httpGet:
+                                 path: /health
+                                 port: 8080
+                                 httpHeaders:
+                                    - name: Custom-Header
+                                      value: "Custom-Value"
+                              initialDelaySeconds: 10
+                              periodSeconds: 20
+
+     - name: Deploy backend Service
+       community.kubernetes.k8s:
+          state: present
+          definition:
+             apiVersion: v1
+             kind: Service
+             metadata:
+                name: backend
+                namespace: webapp
+             spec:
+                selector:
+                   app: backend
+                ports:
+                   - protocol: TCP
+                     port: 80
+                     targetPort: 8080
+                type: ClusterIP
+
+     - name: Deploy frontend Deployment
+       community.kubernetes.k8s:
+          state: present
+          definition:
+             apiVersion: apps/v1
+             kind: Deployment
+             metadata:
+                name: frontend
+                namespace: webapp
+             spec:
+                replicas: 4
+                selector:
+                   matchLabels:
+                      app: frontend
+                template:
+                   metadata:
+                      labels:
+                         app: frontend
+                   spec:
+                      containers:
+                         - name: frontend
+                           image: my_frontend_image:latest
+                           ports:
+                              - containerPort: 80
+                           readinessProbe:
+                              httpGet:
+                                 path: /health
+                                 port: 80
+                                 httpHeaders:
+                                    - name: Custom-Header
+                                      value: "Custom-Value"
+                              initialDelaySeconds: 5
+                              periodSeconds: 10
+                           livenessProbe:
+                              httpGet:
+                                 path: /health
+                                 port: 80
+                                 httpHeaders:
+                                    - name: Custom-Header
+                                      value: "Custom-Value"
+                              initialDelaySeconds: 10
+                              periodSeconds: 20
+
+     - name: Deploy frontend Service
+       community.kubernetes.k8s:
+          state: present
+          definition:
+             apiVersion: v1
+             kind: Service
+             metadata:
+                name: frontend
+                namespace: webapp
+             spec:
+                selector:
+                   app: frontend
+                ports:
+                   - protocol: TCP
+                     port: 80
+                     targetPort: 80
+                     nodePort: 30001
+                type: NodePort
