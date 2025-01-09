@@ -1,0 +1,26 @@
+# Login to Docker Hub
+docker login
+
+# Build Docker images
+docker build -t sunyanqi/frontend:1.0 -f frontend.Dockerfile .
+docker build -t sunyanqi/backend:1.0 -f backend.Dockerfile .
+
+# Push images to Docker Hub
+docker push sunyanqi/frontend:1.0
+docker push sunyanqi/backend:1.0
+
+# Create a custom Docker network
+docker network create web_network
+
+# Run the backend service
+docker run -d --name cc-backend-service --network web_network -p 8081:8080 sunyanqi/backend:1.0
+
+# Run the frontend service
+docker run -d --name frontend --network web_network -p 8080:8080 sunyanqi/frontend:1.0
+
+# Test the frontend service
+curl http://localhost:8080
+
+# Test the backend service
+curl http://localhost:8081
+

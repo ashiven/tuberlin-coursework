@@ -1,0 +1,5 @@
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+NAME         STATUS   ROLES           AGE     VERSION
+k8s-node-1   Ready    control-plane   4h50m   v1.27.7
+k8s-node-2   Ready    control-plane   4h37m   v1.27.7
+k8s-node-3   Ready    control-plane   4h37m   v1.27.7

@@ -13,3 +13,5 @@ public-openrc.sh
 
 spark-3.4.4.tgz
 jdk8.tar.gz
+
+.codegpt
