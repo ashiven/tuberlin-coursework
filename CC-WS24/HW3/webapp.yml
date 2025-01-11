@@ -3,12 +3,11 @@
   hosts: k8s-node-1
   become: true
   tasks:
-     - name: Ensure Python dependencies for k8s module are installed
-       ansible.builtin.pip:
-          name:
-             - kubernetes
-             - openshift
-       when: ansible_python_version is version('3', '>=')
+     - name: Install dependencies
+       shell: |
+          apt-get update
+          apt-get install -y python3-pip
+          pip3 install kubernetes pyyaml jsonpatch
 
      - name: Create Kubernetes namespace
        community.kubernetes.k8s:

@@ -9,6 +9,10 @@ docker build -t sunyanqi/backend:1.0 -f backend.Dockerfile .
 docker push sunyanqi/frontend:1.0
 docker push sunyanqi/backend:1.0
 
+
+
+
+
 # Create a custom Docker network
 docker network create web_network
 
@@ -28,7 +32,7 @@ curl http://localhost:8081
 
 
 # run webapp playbook
-ansible-playbook -i hosts.ini webapp.yml
+ansible-playbook -i hosts.ini --private-key ../HW2/id_rsa webapp.yml
 
 # find nodeport of frontend service
 kubectl get service frontend --namespace=webapp -o jsonpath='{.spec.ports[0].nodePort}'
