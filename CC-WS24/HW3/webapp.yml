@@ -47,18 +47,12 @@
                               httpGet:
                                  path: /health
                                  port: 8080
-                                 httpHeaders:
-                                    - name: CC-Backend-Server-IP
-                                      value: "Custom-Value"
                               initialDelaySeconds: 5
                               periodSeconds: 10
                            livenessProbe:
                               httpGet:
                                  path: /health
                                  port: 8080
-                                 httpHeaders:
-                                    - name: CC-Backend-Server-IP
-                                      value: "Custom-Value"
                               initialDelaySeconds: 10
                               periodSeconds: 20
 
@@ -103,23 +97,17 @@
                          - name: frontend
                            image: sunyanqi/frontend:latest
                            ports:
-                              - containerPort: 80
+                              - containerPort: 8080
                            readinessProbe:
                               httpGet:
                                  path: /health
                                  port: 8080
-                                 httpHeaders:
-                                    - name: CC-Frontend-Server-IP
-                                      value: "Custom-Value"
                               initialDelaySeconds: 5
                               periodSeconds: 10
                            livenessProbe:
                               httpGet:
                                  path: /health
                                  port: 8080
-                                 httpHeaders:
-                                    - name: CC-Frontend-Server-IP
-                                      value: "Custom-Value"
                               initialDelaySeconds: 10
                               periodSeconds: 20
 
