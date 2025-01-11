@@ -1,0 +1,8 @@
+Kubernetes control plane is running at https://127.0.0.1:6443
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+
+NAME         STATUS   ROLES           AGE   VERSION
+k8s-node-1   Ready    control-plane   11m   v1.31.4
+k8s-node-2   Ready    control-plane   10m   v1.31.4
+k8s-node-3   Ready    control-plane   10m   v1.31.4
