@@ -1,6 +1,6 @@
 ---
 - name: Deploy web application to Kubernetes
-  hosts: k8s_master
+  hosts: k8s-node-1
   become: true
   tasks:
      - name: Ensure Python dependencies for k8s module are installed
@@ -40,7 +40,7 @@
                    spec:
                       containers:
                          - name: backend
-                           image: my_backend_image:latest
+                           image: sunyanqi/backend:latest
                            ports:
                               - containerPort: 8080
                            readinessProbe:
@@ -48,7 +48,7 @@
                                  path: /health
                                  port: 8080
                                  httpHeaders:
-                                    - name: Custom-Header
+                                    - name: CC-Backend-Server-IP
                                       value: "Custom-Value"
                               initialDelaySeconds: 5
                               periodSeconds: 10
@@ -57,7 +57,7 @@
                                  path: /health
                                  port: 8080
                                  httpHeaders:
-                                    - name: Custom-Header
+                                    - name: CC-Backend-Server-IP
                                       value: "Custom-Value"
                               initialDelaySeconds: 10
                               periodSeconds: 20
@@ -69,14 +69,14 @@
              apiVersion: v1
              kind: Service
              metadata:
-                name: backend
+                name: cc-backend-service
                 namespace: webapp
              spec:
                 selector:
                    app: backend
                 ports:
                    - protocol: TCP
-                     port: 80
+                     port: 8080
                      targetPort: 8080
                 type: ClusterIP
 
@@ -101,24 +101,24 @@
                    spec:
                       containers:
                          - name: frontend
-                           image: my_frontend_image:latest
+                           image: sunyanqi/frontend:latest
                            ports:
                               - containerPort: 80
                            readinessProbe:
                               httpGet:
                                  path: /health
-                                 port: 80
+                                 port: 8080
                                  httpHeaders:
-                                    - name: Custom-Header
+                                    - name: CC-Frontend-Server-IP
                                       value: "Custom-Value"
                               initialDelaySeconds: 5
                               periodSeconds: 10
                            livenessProbe:
                               httpGet:
                                  path: /health
-                                 port: 80
+                                 port: 8080
                                  httpHeaders:
-                                    - name: Custom-Header
+                                    - name: CC-Frontend-Server-IP
                                       value: "Custom-Value"
                               initialDelaySeconds: 10
                               periodSeconds: 20
@@ -137,7 +137,7 @@
                    app: frontend
                 ports:
                    - protocol: TCP
-                     port: 80
-                     targetPort: 80
+                     port: 8080
+                     targetPort: 8080
                      nodePort: 30001
                 type: NodePort

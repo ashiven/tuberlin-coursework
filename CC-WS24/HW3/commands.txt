@@ -24,6 +24,9 @@ curl http://localhost:8080
 # Test the backend service
 curl http://localhost:8081
 
+
+
+
 # run webapp playbook
 ansible-playbook -i hosts.ini webapp.yml
 
