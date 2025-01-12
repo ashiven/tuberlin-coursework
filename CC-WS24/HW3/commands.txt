@@ -2,12 +2,12 @@
 docker login
 
 # Build Docker images
-docker build -t ashiven/frontend:1.0 -f frontend.Dockerfile .
-docker build -t ashiven/backend:1.0 -f backend.Dockerfile .
+docker build -t ashiven/frontend:3.0 -f frontend.Dockerfile .
+docker build -t ashiven/backend:3.0 -f backend.Dockerfile .
 
 # Push images to Docker Hub
-docker push ashiven/frontend:1.0
-docker push ashiven/backend:1.0
+docker push ashiven/frontend:3.0
+docker push ashiven/backend:3.0
 
 # Run webapp playbook
 ansible-playbook -i hosts.ini --private-key id_rsa webapp.yml
