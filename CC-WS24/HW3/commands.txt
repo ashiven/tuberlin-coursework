@@ -2,42 +2,18 @@
 docker login
 
 # Build Docker images
-docker build -t sunyanqi/frontend:1.0 -f frontend.Dockerfile .
-docker build -t sunyanqi/backend:1.0 -f backend.Dockerfile .
+docker build -t ashiven/frontend:1.0 -f frontend.Dockerfile .
+docker build -t ashiven/backend:1.0 -f backend.Dockerfile .
 
 # Push images to Docker Hub
-docker push sunyanqi/frontend:1.0
-docker push sunyanqi/backend:1.0
+docker push ashiven/frontend:1.0
+docker push ashiven/backend:1.0
 
+# Run webapp playbook
+ansible-playbook -i hosts.ini --private-key id_rsa webapp.yml
 
+# Find node port of frontend service
+kubectl get service frontend -n webapp -o jsonpath='{.spec.ports[0].nodePort}'
 
-
-# Create a custom Docker network
-docker network create web_network
-
-# Run the backend service
-docker run -d --name cc-backend-service --network web_network -p 8081:8080 sunyanqi/backend:1.0
-
-# Run the frontend service
-docker run -d --name frontend --network web_network -p 8080:8080 sunyanqi/frontend:1.0
-
-# Test the frontend service
-curl http://localhost:8080
-
-# Test the backend service
-curl http://localhost:8081
-
-
-
-
-# create kubernetes cluster (from kubespray dir)
-ansible-playbook -i ../uni/CC-WS24/HW3/hosts.yaml --private-key ../uni/CC-WS24/HW2/id_rsa -v -b cluster.yml 
-
-# run webapp playbook
-ansible-playbook -i hosts.ini --private-key ../HW2/id_rsa webapp.yml
-
-# find nodeport of frontend service
-kubectl get service frontend --namespace=webapp -o jsonpath='{.spec.ports[0].nodePort}'
-
-# test deployment
-python3 test-deployment.py <VM1>:<NodePort> <VM2>:<NodePort> <VM3>:<NodePort>
+# Test deployment
+python3 test-deployment.py 34.32.54.240:30001 34.32.40.155:30001 34.32.69.183:30001

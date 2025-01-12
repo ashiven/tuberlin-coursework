@@ -1,0 +1,39 @@
+Sending 100 requests to 34.32.54.240:30001...
+Sending 100 requests to 34.32.40.155:30001...
+Sending 100 requests to 34.32.69.183:30001...
+
+Encountered 4 frontends: 
+frontend-599f6c699c-86l44
+frontend-599f6c699c-hlxtp
+frontend-599f6c699c-bfl6z
+frontend-599f6c699c-9txwq
+
+Encountered 6 backends:
+backend-57c8df7f8f-p666p
+backend-57c8df7f8f-8d8dd
+backend-57c8df7f8f-xnfvc
+backend-57c8df7f8f-n6wz7
+backend-57c8df7f8f-7dz28
+backend-57c8df7f8f-d9hr2
+
+Encountered 18 reply texts:
+Hey! You are IP 10.233.69.139 and requested /etc/nginx/html/ from IP 10.233.69.137 (backend-57c8df7f8f-7dz28)
+Hey! You are IP 10.233.69.139 and requested /etc/nginx/html/ from IP 10.233.69.138 (backend-57c8df7f8f-n6wz7)
+Hey! You are IP 10.233.69.139 and requested /etc/nginx/html/ from IP 10.233.76.138 (backend-57c8df7f8f-xnfvc)
+Hey! You are IP 10.233.69.139 and requested /etc/nginx/html/ from IP 10.233.76.139 (backend-57c8df7f8f-d9hr2)
+Hey! You are IP 10.233.69.139 and requested /etc/nginx/html/ from IP 10.233.76.72 (backend-57c8df7f8f-8d8dd)
+Hey! You are IP 10.233.69.139 and requested /etc/nginx/html/ from IP 10.233.76.73 (backend-57c8df7f8f-p666p)
+Hey! You are IP 10.233.76.140 and requested /etc/nginx/html/ from IP 10.233.76.138 (backend-57c8df7f8f-xnfvc)
+Hey! You are IP 10.233.76.140 and requested /etc/nginx/html/ from IP 10.233.76.139 (backend-57c8df7f8f-d9hr2)
+Hey! You are IP 10.233.76.140 and requested /etc/nginx/html/ from IP 10.233.76.73 (backend-57c8df7f8f-p666p)
+Hey! You are IP 10.233.76.141 and requested /etc/nginx/html/ from IP 10.233.69.137 (backend-57c8df7f8f-7dz28)
+Hey! You are IP 10.233.76.141 and requested /etc/nginx/html/ from IP 10.233.69.138 (backend-57c8df7f8f-n6wz7)
+Hey! You are IP 10.233.76.141 and requested /etc/nginx/html/ from IP 10.233.76.72 (backend-57c8df7f8f-8d8dd)
+Hey! You are IP 10.233.76.74 and requested /etc/nginx/html/ from IP 10.233.69.137 (backend-57c8df7f8f-7dz28)
+Hey! You are IP 10.233.76.74 and requested /etc/nginx/html/ from IP 10.233.69.138 (backend-57c8df7f8f-n6wz7)
+Hey! You are IP 10.233.76.74 and requested /etc/nginx/html/ from IP 10.233.76.138 (backend-57c8df7f8f-xnfvc)
+Hey! You are IP 10.233.76.74 and requested /etc/nginx/html/ from IP 10.233.76.139 (backend-57c8df7f8f-d9hr2)
+Hey! You are IP 10.233.76.74 and requested /etc/nginx/html/ from IP 10.233.76.72 (backend-57c8df7f8f-8d8dd)
+Hey! You are IP 10.233.76.74 and requested /etc/nginx/html/ from IP 10.233.76.73 (backend-57c8df7f8f-p666p)
+
+All tests passed.
