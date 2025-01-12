@@ -10,7 +10,7 @@
           pip3 install kubernetes pyyaml jsonpatch
 
      - name: Create Kubernetes namespace
-       community.kubernetes.k8s:
+       kubernetes.core.k8s:
           state: present
           definition:
              apiVersion: v1
@@ -19,7 +19,7 @@
                 name: webapp
 
      - name: Deploy backend Deployment
-       community.kubernetes.k8s:
+       kubernetes.core.k8s:
           state: present
           definition:
              apiVersion: apps/v1
@@ -39,7 +39,7 @@
                    spec:
                       containers:
                          - name: backend
-                           image: sunyanqi/backend:latest
+                           image: ashiven/backend:1.0
                            ports:
                               - containerPort: 8080
                            readinessProbe:
@@ -56,7 +56,7 @@
                               periodSeconds: 20
 
      - name: Deploy backend Service
-       community.kubernetes.k8s:
+       kubernetes.core.k8s:
           state: present
           definition:
              apiVersion: v1
@@ -74,7 +74,7 @@
                 type: ClusterIP
 
      - name: Deploy frontend Deployment
-       community.kubernetes.k8s:
+       kubernetes.core.k8s:
           state: present
           definition:
              apiVersion: apps/v1
@@ -94,7 +94,7 @@
                    spec:
                       containers:
                          - name: frontend
-                           image: sunyanqi/frontend:latest
+                           image: ashiven/frontend:1.0
                            ports:
                               - containerPort: 8080
                            readinessProbe:
@@ -111,7 +111,7 @@
                               periodSeconds: 20
 
      - name: Deploy frontend Service
-       community.kubernetes.k8s:
+       kubernetes.core.k8s:
           state: present
           definition:
              apiVersion: v1
@@ -125,5 +125,4 @@
                 ports:
                    - protocol: TCP
                      port: 8080
-                     nodePort: 30080
-                type: NodePort
+                type: LoadBalancer
