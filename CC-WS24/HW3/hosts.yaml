@@ -2,15 +2,15 @@ all:
    hosts:
       k8s-node-1:
          ansible_host: 34.32.54.240
-         ip: 10.214.0.8
+         ip: 10.214.0.11
          access_ip: 34.32.54.240
       k8s-node-2:
          ansible_host: 34.32.40.155
-         ip: 10.214.0.9
+         ip: 10.214.0.12
          access_ip: 34.32.40.155
       k8s-node-3:
          ansible_host: 34.32.69.183
-         ip: 10.214.0.10
+         ip: 10.214.0.13
          access_ip: 34.32.69.183
    children:
       kube_control_plane:
