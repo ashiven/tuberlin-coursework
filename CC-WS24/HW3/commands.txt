@@ -12,7 +12,6 @@ docker push sunyanqi/backend:1.0
 
 
 
-
 # Create a custom Docker network
 docker network create web_network
 
@@ -30,6 +29,9 @@ curl http://localhost:8081
 
 
 
+
+# create kubernetes cluster (from kubespray dir)
+ansible-playbook -i ../uni/CC-WS24/HW3/hosts.yaml --private-key ../uni/CC-WS24/HW2/id_rsa -v -b -u ashiven@Terminator cluster.yml 
 
 # run webapp playbook
 ansible-playbook -i hosts.ini --private-key ../HW2/id_rsa webapp.yml
