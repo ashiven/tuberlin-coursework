@@ -39,19 +39,25 @@
                    spec:
                       containers:
                          - name: backend
-                           image: ashiven/backend:1.0
+                           image: ashiven/backend:3.0
                            ports:
                               - containerPort: 8080
                            readinessProbe:
                               httpGet:
                                  path: /health
                                  port: 8080
+                                 httpHeaders:
+                                    - name: Custom-Header-Backend
+                                      value: "Shallan"
                               initialDelaySeconds: 5
                               periodSeconds: 10
                            livenessProbe:
                               httpGet:
                                  path: /health
                                  port: 8080
+                                 httpHeaders:
+                                    - name: Custom-Header-Backend
+                                      value: "Shallan"
                               initialDelaySeconds: 10
                               periodSeconds: 20
 
@@ -94,19 +100,25 @@
                    spec:
                       containers:
                          - name: frontend
-                           image: ashiven/frontend:1.0
+                           image: ashiven/frontend:3.0
                            ports:
                               - containerPort: 8080
                            readinessProbe:
                               httpGet:
                                  path: /health
                                  port: 8080
+                                 httpHeaders:
+                                    - name: Custom-Header-Frontend
+                                      value: "Kaladin"
                               initialDelaySeconds: 5
                               periodSeconds: 10
                            livenessProbe:
                               httpGet:
                                  path: /health
                                  port: 8080
+                                 httpHeaders:
+                                    - name: Custom-Header-Frontend
+                                      value: "Kaladin"
                               initialDelaySeconds: 10
                               periodSeconds: 20
 
