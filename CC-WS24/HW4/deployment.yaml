@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: scheduler-service
+   labels:
+      app: scheduler
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         app: scheduler
+   template:
+      metadata:
+         labels:
+            app: scheduler
+      spec:
+         serviceAccountName: scheduler-sa
+         containers:
+            - name: scheduler-container
+              image: your-dockerhub-username/scheduler-service:latest
+              env:
+                 - name: SCHEDULING_PERIOD
+                   value: "10"
+                 - name: CARBON_AWARE
+                   value: "true" # Set to "false" for default scheduling
+              resources:
+                 requests:
+                    cpu: "500m"
+                    memory: "256Mi"
+                 limits:
+                    cpu: "1"
+                    memory: "512Mi"
