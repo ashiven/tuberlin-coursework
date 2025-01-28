@@ -1,17 +1,26 @@
 apiVersion: v1
 kind: Pod
 metadata:
-   name: workload-simulator
+   name: workload-placeholder
    labels:
-      app: workload-simulator
+      app: workload-placeholder
 spec:
+   affinity:
+      nodeAffinity:
+         requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+               - matchExpressions:
+                    - key: kubernetes.io/hostname
+                      operator: In
+                      values:
+                         - placeholder-node
    containers:
       - name: sysbench
         image: zyclonite/sysbench
         command:
            - "/bin/sh"
            - "-c"
-           - "sysbench cpu --cpu-max-prime=10000 --time=60 run"
+           - "placeholder-command"
         resources:
            requests:
               cpu: "500m"

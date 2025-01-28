@@ -15,12 +15,12 @@ logging.basicConfig(
 
 # Constants
 CARBON_INTENSITY_URL = "https://wj38sqbq69.execute-api.us-east-1.amazonaws.com/Prod/row"
-DEFAULT_SCHEDULING_PERIOD = 10  # in seconds
+DEFAULT_SCHEDULING_PERIOD = 10
 WORKLOAD_TEMPLATE = "workload.yaml"
 NODES_TO_REGIONS = {
-    "node-a": "region-a",
-    "node-b": "region-b",
-    "node-c": "region-c",
+    "k8s-node-1": "DE",
+    "k8s-node-2": "ERCOT",
+    "k8s-node-3": "NL",
 }
 
 # Load kubeconfig
@@ -34,7 +34,7 @@ def get_carbon_intensity():
         response = requests.get(CARBON_INTENSITY_URL)
         response.raise_for_status()
         return response.json()
-    except requests.RequestException as e:
+    except Exception as e:
         logging.error(f"Failed to fetch carbon intensity: {e}")
         return {}
 
@@ -45,7 +45,7 @@ def get_lowest_intensity_node(carbon_data):
     best_node = None
 
     for node, region in NODES_TO_REGIONS.items():
-        intensity = carbon_data.get(region, {}).get("carbon", float("inf"))
+        intensity = carbon_data.get(region, float("inf"))
         if intensity < min_intensity:
             min_intensity = intensity
             best_node = node
@@ -64,6 +64,7 @@ def create_pod_spec(workload_name, node_name, execution_time):
         pod_spec = yaml.safe_load(file)
 
     pod_spec["metadata"]["name"] = workload_name
+    pod_spec["metadata"]["labels"]["app"] = workload_name
     pod_spec["spec"]["affinity"] = {
         "nodeAffinity": {
             "requiredDuringSchedulingIgnoredDuringExecution": {
@@ -93,7 +94,7 @@ def deploy_pod(pod_spec):
     try:
         k8s_api.create_namespaced_pod(namespace="default", body=pod_spec)
         logging.info(f"Pod {pod_spec['metadata']['name']} deployed successfully.")
-    except client.exceptions.ApiException as e:
+    except Exception as e:
         logging.error(f"Failed to deploy pod: {e}")
 
 
