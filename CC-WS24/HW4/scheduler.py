@@ -108,15 +108,7 @@ def monitor_pod_creation(spec, status, meta, **kwargs):
 
 def main():
     scheduling_period = int(os.getenv("SCHEDULING_PERIOD", DEFAULT_SCHEDULING_PERIOD))
-
-    # Determine if the scheduler should be carbon-aware
     carbon_aware = os.getenv("CARBON_AWARE", "true").lower() == "true"
-    if carbon_aware:
-        logging.info("Running carbon-aware placement strategy.")
-        best_node, intensity = get_lowest_intensity_node(carbon_data)
-    else:
-        logging.info("Running default scheduling strategy (no carbon-awareness).")
-        best_node, intensity = random.choice(list(NODES_TO_REGIONS.keys())), None
 
     while True:
         # Fetch carbon intensity data
@@ -127,7 +119,13 @@ def main():
             continue
 
         # Determine the best node
-        best_node, intensity = get_lowest_intensity_node(carbon_data)
+        if carbon_aware:
+            logging.info("Running carbon-aware placement strategy.")
+            best_node, intensity = get_lowest_intensity_node(carbon_data)
+        else:
+            logging.info("Running default scheduling strategy (no carbon-awareness).")
+            best_node, intensity = random.choice(list(NODES_TO_REGIONS.keys())), "N/A"
+
         if not best_node:
             logging.warning("No suitable node found. Skipping scheduling cycle.")
             time.sleep(scheduling_period)
