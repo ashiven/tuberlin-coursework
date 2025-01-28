@@ -84,7 +84,7 @@ def create_pod_spec(workload_name, node_name, execution_time):
     }
     pod_spec["spec"]["containers"][0]["command"][
         -1
-    ] = f"sysbench cpu --cpu-max-prime=10000 --time={execution_time} run"
+    ] = f"sysbench cpu --time={execution_time} run"
 
     return pod_spec
 
