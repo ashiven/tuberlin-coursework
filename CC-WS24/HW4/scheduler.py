@@ -98,6 +98,7 @@ def deploy_pod(pod_spec):
         logging.error(f"Failed to deploy pod: {e}")
 
 
+# TODO: this thang doesn't work
 @kopf.on.create("pods")
 def monitor_pod_creation(spec, status, meta, **kwargs):
     """Monitor the actual placement of the Pod."""
