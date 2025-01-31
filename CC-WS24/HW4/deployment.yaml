@@ -17,7 +17,7 @@ spec:
          serviceAccountName: scheduler-sa
          containers:
             - name: scheduler-container
-              image: ashiven/scheduler
+              image: ashiven/scheduler:1.2
               env:
                  - name: SCHEDULING_PERIOD
                    value: "10"
