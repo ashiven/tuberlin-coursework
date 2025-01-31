@@ -108,10 +108,13 @@ def monitor_pod_creation(spec, status, meta, **kwargs):
 
 
 def main():
-    scheduling_period = int(os.getenv("SCHEDULING_PERIOD", DEFAULT_SCHEDULING_PERIOD))
-    carbon_aware = os.getenv("CARBON_AWARE", "true").lower() == "true"
-
     while True:
+        # Load environment variables
+        scheduling_period = int(
+            os.getenv("SCHEDULING_PERIOD", DEFAULT_SCHEDULING_PERIOD)
+        )
+        carbon_aware = os.getenv("CARBON_AWARE", "true").lower() == "true"
+
         # Fetch carbon intensity data
         carbon_data = get_carbon_intensity()
         if not carbon_data:
