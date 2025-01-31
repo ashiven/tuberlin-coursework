@@ -23,8 +23,12 @@ NODES_TO_REGIONS = {
     "k8s-node-3": "NL",
 }
 
-# Load kubeconfig
-config.load_kube_config()
+# Load kubeconfig or in-cluster config
+try:
+    config.load_incluster_config()
+except:
+    config.load_kube_config()
+
 k8s_api = client.CoreV1Api()
 
 
