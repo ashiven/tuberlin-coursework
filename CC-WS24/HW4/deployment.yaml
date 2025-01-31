@@ -17,16 +17,9 @@ spec:
          serviceAccountName: scheduler-sa
          containers:
             - name: scheduler-container
-              image: your-dockerhub-username/scheduler-service:latest
+              image: ashiven/scheduler
               env:
                  - name: SCHEDULING_PERIOD
                    value: "10"
                  - name: CARBON_AWARE
-                   value: "true" # Set to "false" for default scheduling
-              resources:
-                 requests:
-                    cpu: "500m"
-                    memory: "256Mi"
-                 limits:
-                    cpu: "1"
-                    memory: "512Mi"
+                   value: "true"
