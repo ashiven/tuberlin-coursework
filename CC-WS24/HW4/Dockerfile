@@ -8,11 +8,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy scheduler script
+# Copy scheduler script and workload template
 COPY scheduler.py .
-
-# Expose default port (if necessary)
-EXPOSE 8080
+COPY workload.yaml .
 
 # Set the entrypoint
 ENTRYPOINT ["python", "scheduler.py"]
