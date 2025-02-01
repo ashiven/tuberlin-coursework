@@ -1,6 +1,8 @@
+import asyncio
 import logging
 import os
 import random
+import threading
 import time
 
 import kopf
@@ -110,7 +112,14 @@ def monitor_pod_creation(spec, status, meta, **_):
     logging.info(f"Pod {pod_name} placed on node: {node_ip}")
 
 
+def kopf_thread():
+    asyncio.run(kopf.operator())
+
+
 def main():
+    thread = threading.Thread(target=kopf_thread)
+    thread.start()
+
     while True:
         # Load environment variables
         scheduling_period = int(
@@ -127,10 +136,14 @@ def main():
 
         # Determine the best node
         if carbon_aware:
-            logging.info("Running carbon-aware placement strategy.")
+            logging.info(
+                f"Running carbon-aware placement strategy. --- Scheduling Period: {scheduling_period}s"
+            )
             best_node, intensity = get_lowest_intensity_node(carbon_data)
         else:
-            logging.info("Running default scheduling strategy (no carbon-awareness).")
+            logging.info(
+                f"Running default scheduling strategy (no carbon-awareness). --- Scheduling Period: {scheduling_period}s"
+            )
             best_node, intensity = random.choice(list(NODES_TO_REGIONS.keys())), "N/A"
 
         if not best_node:
@@ -154,6 +167,8 @@ def main():
 
         # Wait for the next scheduling cycle
         time.sleep(scheduling_period)
+
+    thread.join()
 
 
 if __name__ == "__main__":
