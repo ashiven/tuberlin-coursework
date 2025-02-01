@@ -102,12 +102,11 @@ def deploy_pod(pod_spec):
         logging.error(f"Failed to deploy pod: {e}")
 
 
-# TODO: this thang doesn't work
 @kopf.on.create("", "v1", "pods")
 def monitor_pod_creation(spec, status, meta, **_):
     """Monitor the actual placement of the Pod."""
-    pod_name = spec.get("name", "unknown")
-    node_name = meta.get("hostIP", "unknown")
+    pod_name = meta.get("name", "unknown")
+    node_name = status.get("hostIP", "unknown")
     logging.info(f"Pod {pod_name} placed on node: {node_name}")
 
 
