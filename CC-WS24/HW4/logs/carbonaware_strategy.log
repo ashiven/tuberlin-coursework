@@ -1,0 +1,1545 @@
+/usr/local/lib/python3.9/site-packages/kopf/_core/reactor/running.py:179: FutureWarning: Absence of either namespaces or cluster-wide flag will become an error soon. For now, switching to the cluster-wide mode for backward compatibility.
+  warnings.warn("Absence of either namespaces or cluster-wide flag will become an error soon."
+2025-02-01 16:46:43,446 - INFO - Initial authentication has been initiated.
+2025-02-01 16:46:43,448 - WARNING - OS signals are ignored: running not in the main thread.
+2025-02-01 16:46:43,449 - INFO - Activity 'login_via_client' succeeded.
+2025-02-01 16:46:43,449 - INFO - Initial authentication has finished.
+2025-02-01 16:46:43,604 - INFO - Pod scheduler-service-86bf55dcc8-tv24w placed on node: 10.214.0.28
+2025-02-01 16:46:43,650 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:46:43,651 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:46:43,804 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:46:43,804 - INFO - New workload: workload-1738428403, Recommended Node: k8s-node-2, Carbon Intensity: 352.74
+2025-02-01 16:46:43,829 - INFO - Pod workload-1738428403 deployed successfully.
+2025-02-01 16:46:43,945 - INFO - Pod workload-1738428403 placed on node: 10.214.0.27
+2025-02-01 16:46:43,946 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:46:43,946 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:46:54,178 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:46:54,178 - INFO - New workload: workload-1738428414, Recommended Node: k8s-node-2, Carbon Intensity: 352.74
+2025-02-01 16:46:54,193 - INFO - Pod workload-1738428414 deployed successfully.
+2025-02-01 16:46:54,319 - INFO - Pod workload-1738428414 placed on node: 10.214.0.27
+2025-02-01 16:46:54,320 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:46:54,320 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:47:04,564 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:47:04,564 - INFO - New workload: workload-1738428424, Recommended Node: k8s-node-3, Carbon Intensity: 368.19
+2025-02-01 16:47:04,579 - INFO - Pod workload-1738428424 deployed successfully.
+2025-02-01 16:47:04,701 - INFO - Pod workload-1738428424 placed on node: 10.214.0.28
+2025-02-01 16:47:04,701 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:47:04,702 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:47:14,965 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:47:14,965 - INFO - New workload: workload-1738428434, Recommended Node: k8s-node-3, Carbon Intensity: 368.19
+2025-02-01 16:47:14,990 - INFO - Pod workload-1738428434 deployed successfully.
+2025-02-01 16:47:15,115 - INFO - Pod workload-1738428434 placed on node: 10.214.0.28
+2025-02-01 16:47:15,117 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:47:15,130 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:47:25,365 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:47:25,366 - INFO - New workload: workload-1738428445, Recommended Node: k8s-node-3, Carbon Intensity: 368.19
+2025-02-01 16:47:25,430 - INFO - Pod workload-1738428445 deployed successfully.
+2025-02-01 16:47:25,545 - INFO - Pod workload-1738428445 placed on node: 10.214.0.28
+2025-02-01 16:47:25,546 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:47:25,549 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:47:35,804 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:47:35,805 - INFO - New workload: workload-1738428455, Recommended Node: k8s-node-3, Carbon Intensity: 368.19
+2025-02-01 16:47:35,858 - INFO - Pod workload-1738428455 deployed successfully.
+2025-02-01 16:47:35,966 - INFO - Pod workload-1738428455 placed on node: 10.214.0.28
+2025-02-01 16:47:35,967 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:47:35,970 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:47:46,259 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:47:46,261 - INFO - New workload: workload-1738428466, Recommended Node: k8s-node-3, Carbon Intensity: 368.19
+2025-02-01 16:47:46,318 - INFO - Pod workload-1738428466 deployed successfully.
+2025-02-01 16:47:46,424 - INFO - Pod workload-1738428466 placed on node: 10.214.0.28
+2025-02-01 16:47:46,426 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:47:46,426 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:47:56,682 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:47:56,683 - INFO - New workload: workload-1738428476, Recommended Node: k8s-node-3, Carbon Intensity: 368.19
+2025-02-01 16:47:56,749 - INFO - Pod workload-1738428476 deployed successfully.
+2025-02-01 16:47:56,848 - INFO - Pod workload-1738428476 placed on node: 10.214.0.28
+2025-02-01 16:47:56,848 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:47:56,851 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:48:07,120 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:48:07,123 - INFO - New workload: workload-1738428487, Recommended Node: k8s-node-3, Carbon Intensity: 344.68
+2025-02-01 16:48:07,186 - INFO - Pod workload-1738428487 deployed successfully.
+2025-02-01 16:48:07,294 - INFO - Pod workload-1738428487 placed on node: 10.214.0.28
+2025-02-01 16:48:07,296 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:48:07,298 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:48:17,642 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:48:17,642 - INFO - New workload: workload-1738428497, Recommended Node: k8s-node-3, Carbon Intensity: 344.68
+2025-02-01 16:48:17,699 - INFO - Pod workload-1738428497 deployed successfully.
+2025-02-01 16:48:17,815 - INFO - Pod workload-1738428497 placed on node: 10.214.0.28
+2025-02-01 16:48:17,818 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:48:17,819 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:48:28,114 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:48:28,115 - INFO - New workload: workload-1738428508, Recommended Node: k8s-node-3, Carbon Intensity: 344.68
+2025-02-01 16:48:28,175 - INFO - Pod workload-1738428508 deployed successfully.
+2025-02-01 16:48:28,278 - INFO - Pod workload-1738428508 placed on node: 10.214.0.28
+2025-02-01 16:48:28,282 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:48:28,283 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:48:38,594 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:48:38,594 - INFO - New workload: workload-1738428518, Recommended Node: k8s-node-3, Carbon Intensity: 344.68
+2025-02-01 16:48:38,668 - INFO - Pod workload-1738428518 deployed successfully.
+2025-02-01 16:48:38,781 - INFO - Pod workload-1738428518 placed on node: 10.214.0.28
+2025-02-01 16:48:38,782 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:48:38,786 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:48:49,066 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:48:49,067 - INFO - New workload: workload-1738428529, Recommended Node: k8s-node-3, Carbon Intensity: 344.68
+2025-02-01 16:48:49,170 - INFO - Pod workload-1738428529 deployed successfully.
+2025-02-01 16:48:49,297 - INFO - Pod workload-1738428529 placed on node: 10.214.0.28
+2025-02-01 16:48:49,299 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:48:49,304 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:48:59,539 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:48:59,541 - INFO - New workload: workload-1738428539, Recommended Node: k8s-node-3, Carbon Intensity: 344.68
+2025-02-01 16:48:59,636 - INFO - Pod workload-1738428539 deployed successfully.
+2025-02-01 16:48:59,738 - INFO - Pod workload-1738428539 placed on node: 10.214.0.28
+2025-02-01 16:48:59,740 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:48:59,741 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:49:10,079 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:49:10,082 - INFO - New workload: workload-1738428550, Recommended Node: k8s-node-3, Carbon Intensity: 339.9
+2025-02-01 16:49:10,157 - INFO - Pod workload-1738428550 deployed successfully.
+2025-02-01 16:49:10,276 - INFO - Pod workload-1738428550 placed on node: 10.214.0.28
+2025-02-01 16:49:10,278 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:49:10,281 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:49:20,562 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:49:20,562 - INFO - New workload: workload-1738428560, Recommended Node: k8s-node-3, Carbon Intensity: 339.9
+2025-02-01 16:49:20,624 - INFO - Pod workload-1738428560 deployed successfully.
+2025-02-01 16:49:20,754 - INFO - Pod workload-1738428560 placed on node: 10.214.0.28
+2025-02-01 16:49:20,759 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:49:20,764 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:49:31,152 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:49:31,153 - INFO - New workload: workload-1738428571, Recommended Node: k8s-node-3, Carbon Intensity: 339.9
+2025-02-01 16:49:31,206 - INFO - Pod workload-1738428571 deployed successfully.
+2025-02-01 16:49:31,319 - INFO - Pod workload-1738428571 placed on node: 10.214.0.28
+2025-02-01 16:49:31,320 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:49:31,322 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:49:41,561 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:49:41,563 - INFO - New workload: workload-1738428581, Recommended Node: k8s-node-3, Carbon Intensity: 339.9
+2025-02-01 16:49:41,627 - INFO - Pod workload-1738428581 deployed successfully.
+2025-02-01 16:49:41,736 - INFO - Pod workload-1738428581 placed on node: 10.214.0.28
+2025-02-01 16:49:41,739 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:49:41,740 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:49:52,022 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:49:52,024 - INFO - New workload: workload-1738428592, Recommended Node: k8s-node-3, Carbon Intensity: 339.9
+2025-02-01 16:49:52,079 - INFO - Pod workload-1738428592 deployed successfully.
+2025-02-01 16:49:52,187 - INFO - Pod workload-1738428592 placed on node: 10.214.0.28
+2025-02-01 16:49:52,190 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:49:52,192 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:50:02,444 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:50:02,446 - INFO - New workload: workload-1738428602, Recommended Node: k8s-node-3, Carbon Intensity: 336.45
+2025-02-01 16:50:02,510 - INFO - Pod workload-1738428602 deployed successfully.
+2025-02-01 16:50:02,606 - INFO - Pod workload-1738428602 placed on node: 10.214.0.28
+2025-02-01 16:50:02,609 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:50:02,610 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:50:12,858 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:50:12,862 - INFO - New workload: workload-1738428612, Recommended Node: k8s-node-3, Carbon Intensity: 336.45
+2025-02-01 16:50:12,922 - INFO - Pod workload-1738428612 deployed successfully.
+2025-02-01 16:50:13,059 - INFO - Pod workload-1738428612 placed on node: 10.214.0.28
+2025-02-01 16:50:13,061 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:50:13,061 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:50:23,337 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:50:23,341 - INFO - New workload: workload-1738428623, Recommended Node: k8s-node-3, Carbon Intensity: 336.45
+2025-02-01 16:50:23,426 - INFO - Pod workload-1738428623 deployed successfully.
+2025-02-01 16:50:23,528 - INFO - Pod workload-1738428623 placed on node: 10.214.0.28
+2025-02-01 16:50:23,536 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:50:23,538 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:50:33,784 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:50:33,785 - INFO - New workload: workload-1738428633, Recommended Node: k8s-node-3, Carbon Intensity: 336.45
+2025-02-01 16:50:33,843 - INFO - Pod workload-1738428633 deployed successfully.
+2025-02-01 16:50:33,953 - INFO - Pod workload-1738428633 placed on node: 10.214.0.28
+2025-02-01 16:50:33,957 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:50:33,958 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:50:44,197 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:50:44,200 - INFO - New workload: workload-1738428644, Recommended Node: k8s-node-3, Carbon Intensity: 336.45
+2025-02-01 16:50:44,248 - INFO - Pod workload-1738428644 deployed successfully.
+2025-02-01 16:50:44,367 - INFO - Pod workload-1738428644 placed on node: 10.214.0.28
+2025-02-01 16:50:44,370 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:50:44,372 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:50:54,638 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:50:54,638 - INFO - New workload: workload-1738428654, Recommended Node: k8s-node-3, Carbon Intensity: 336.45
+2025-02-01 16:50:54,729 - INFO - Pod workload-1738428654 deployed successfully.
+2025-02-01 16:50:54,834 - INFO - Pod workload-1738428654 placed on node: 10.214.0.28
+2025-02-01 16:50:54,838 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:50:54,838 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:51:05,091 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:51:05,092 - INFO - New workload: workload-1738428665, Recommended Node: k8s-node-3, Carbon Intensity: 341.63
+2025-02-01 16:51:05,152 - INFO - Pod workload-1738428665 deployed successfully.
+2025-02-01 16:51:05,260 - INFO - Pod workload-1738428665 placed on node: 10.214.0.28
+2025-02-01 16:51:05,261 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:51:05,261 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:51:15,508 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:51:15,508 - INFO - New workload: workload-1738428675, Recommended Node: k8s-node-3, Carbon Intensity: 341.63
+2025-02-01 16:51:15,557 - INFO - Pod workload-1738428675 deployed successfully.
+2025-02-01 16:51:15,668 - INFO - Pod workload-1738428675 placed on node: 10.214.0.28
+2025-02-01 16:51:15,669 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:51:15,669 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:51:26,001 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:51:26,002 - INFO - New workload: workload-1738428686, Recommended Node: k8s-node-3, Carbon Intensity: 341.63
+2025-02-01 16:51:26,062 - INFO - Pod workload-1738428686 deployed successfully.
+2025-02-01 16:51:26,165 - INFO - Pod workload-1738428686 placed on node: 10.214.0.28
+2025-02-01 16:51:26,167 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:51:26,171 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:51:36,483 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:51:36,483 - INFO - New workload: workload-1738428696, Recommended Node: k8s-node-3, Carbon Intensity: 341.63
+2025-02-01 16:51:36,534 - INFO - Pod workload-1738428696 deployed successfully.
+2025-02-01 16:51:36,645 - INFO - Pod workload-1738428696 placed on node: 10.214.0.28
+2025-02-01 16:51:36,646 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:51:36,648 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:51:46,732 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:51:46,735 - INFO - New workload: workload-1738428706, Recommended Node: k8s-node-3, Carbon Intensity: 341.63
+2025-02-01 16:51:46,791 - INFO - Pod workload-1738428706 deployed successfully.
+2025-02-01 16:51:46,909 - INFO - Pod workload-1738428706 placed on node: 10.214.0.28
+2025-02-01 16:51:46,911 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:51:46,918 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:51:56,989 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:51:56,991 - INFO - New workload: workload-1738428716, Recommended Node: k8s-node-3, Carbon Intensity: 341.63
+2025-02-01 16:51:57,035 - INFO - Pod workload-1738428716 deployed successfully.
+2025-02-01 16:51:57,165 - INFO - Pod workload-1738428716 placed on node: 10.214.0.28
+2025-02-01 16:51:57,167 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:51:57,167 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:52:07,437 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:52:07,439 - INFO - New workload: workload-1738428727, Recommended Node: k8s-node-3, Carbon Intensity: 337.87
+2025-02-01 16:52:07,485 - INFO - Pod workload-1738428727 deployed successfully.
+2025-02-01 16:52:07,604 - INFO - Pod workload-1738428727 placed on node: 10.214.0.28
+2025-02-01 16:52:07,607 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:52:07,608 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:52:17,895 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:52:17,897 - INFO - New workload: workload-1738428737, Recommended Node: k8s-node-3, Carbon Intensity: 337.87
+2025-02-01 16:52:17,943 - INFO - Pod workload-1738428737 deployed successfully.
+2025-02-01 16:52:18,074 - INFO - Pod workload-1738428737 placed on node: 10.214.0.28
+2025-02-01 16:52:18,075 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:52:18,075 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:52:28,386 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:52:28,387 - INFO - New workload: workload-1738428748, Recommended Node: k8s-node-3, Carbon Intensity: 337.87
+2025-02-01 16:52:28,460 - INFO - Pod workload-1738428748 deployed successfully.
+2025-02-01 16:52:28,570 - INFO - Pod workload-1738428748 placed on node: 10.214.0.28
+2025-02-01 16:52:28,570 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:52:28,572 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:52:38,662 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:52:38,663 - INFO - New workload: workload-1738428758, Recommended Node: k8s-node-3, Carbon Intensity: 337.87
+2025-02-01 16:52:38,716 - INFO - Pod workload-1738428758 deployed successfully.
+2025-02-01 16:52:38,833 - INFO - Pod workload-1738428758 placed on node: 10.214.0.28
+2025-02-01 16:52:38,835 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:52:38,839 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:52:48,916 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:52:48,918 - INFO - New workload: workload-1738428768, Recommended Node: k8s-node-3, Carbon Intensity: 337.87
+2025-02-01 16:52:48,984 - INFO - Pod workload-1738428768 deployed successfully.
+2025-02-01 16:52:49,090 - INFO - Pod workload-1738428768 placed on node: 10.214.0.28
+2025-02-01 16:52:49,091 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:52:49,091 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:52:59,375 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:52:59,379 - INFO - New workload: workload-1738428779, Recommended Node: k8s-node-3, Carbon Intensity: 337.87
+2025-02-01 16:52:59,470 - INFO - Pod workload-1738428779 deployed successfully.
+2025-02-01 16:52:59,574 - INFO - Pod workload-1738428779 placed on node: 10.214.0.28
+2025-02-01 16:52:59,576 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:52:59,579 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:53:09,824 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:53:09,825 - INFO - New workload: workload-1738428789, Recommended Node: k8s-node-3, Carbon Intensity: 348.95
+2025-02-01 16:53:09,881 - INFO - Pod workload-1738428789 deployed successfully.
+2025-02-01 16:53:09,994 - INFO - Pod workload-1738428789 placed on node: 10.214.0.28
+2025-02-01 16:53:10,001 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:53:10,004 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:53:20,269 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:53:20,270 - INFO - New workload: workload-1738428800, Recommended Node: k8s-node-3, Carbon Intensity: 348.95
+2025-02-01 16:53:20,316 - INFO - Pod workload-1738428800 deployed successfully.
+2025-02-01 16:53:20,445 - INFO - Pod workload-1738428800 placed on node: 10.214.0.28
+2025-02-01 16:53:20,446 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:53:20,448 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:53:30,563 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:53:30,565 - INFO - New workload: workload-1738428810, Recommended Node: k8s-node-3, Carbon Intensity: 348.95
+2025-02-01 16:53:30,634 - INFO - Pod workload-1738428810 deployed successfully.
+2025-02-01 16:53:30,743 - INFO - Pod workload-1738428810 placed on node: 10.214.0.28
+2025-02-01 16:53:30,744 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:53:30,749 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:53:41,013 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:53:41,021 - INFO - New workload: workload-1738428821, Recommended Node: k8s-node-3, Carbon Intensity: 348.95
+2025-02-01 16:53:41,086 - INFO - Pod workload-1738428821 deployed successfully.
+2025-02-01 16:53:41,205 - INFO - Pod workload-1738428821 placed on node: 10.214.0.28
+2025-02-01 16:53:41,206 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:53:41,206 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:53:51,452 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:53:51,453 - INFO - New workload: workload-1738428831, Recommended Node: k8s-node-3, Carbon Intensity: 348.95
+2025-02-01 16:53:51,498 - INFO - Pod workload-1738428831 deployed successfully.
+2025-02-01 16:53:51,611 - INFO - Pod workload-1738428831 placed on node: 10.214.0.28
+2025-02-01 16:53:51,613 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:53:51,616 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:54:01,863 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:54:01,863 - INFO - New workload: workload-1738428841, Recommended Node: k8s-node-3, Carbon Intensity: 359.03
+2025-02-01 16:54:01,901 - INFO - Pod workload-1738428841 deployed successfully.
+2025-02-01 16:54:02,023 - INFO - Pod workload-1738428841 placed on node: 10.214.0.28
+2025-02-01 16:54:02,025 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:54:02,027 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:54:12,273 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:54:12,276 - INFO - New workload: workload-1738428852, Recommended Node: k8s-node-3, Carbon Intensity: 359.03
+2025-02-01 16:54:12,322 - INFO - Pod workload-1738428852 deployed successfully.
+2025-02-01 16:54:12,430 - INFO - Pod workload-1738428852 placed on node: 10.214.0.28
+2025-02-01 16:54:12,431 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:54:12,432 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:54:22,682 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:54:22,683 - INFO - New workload: workload-1738428862, Recommended Node: k8s-node-3, Carbon Intensity: 359.03
+2025-02-01 16:54:22,732 - INFO - Pod workload-1738428862 deployed successfully.
+2025-02-01 16:54:22,847 - INFO - Pod workload-1738428862 placed on node: 10.214.0.28
+2025-02-01 16:54:22,849 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:54:22,852 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:54:33,109 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:54:33,111 - INFO - New workload: workload-1738428873, Recommended Node: k8s-node-3, Carbon Intensity: 359.03
+2025-02-01 16:54:33,168 - INFO - Pod workload-1738428873 deployed successfully.
+2025-02-01 16:54:33,275 - INFO - Pod workload-1738428873 placed on node: 10.214.0.28
+2025-02-01 16:54:33,281 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:54:33,282 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:54:43,552 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:54:43,555 - INFO - New workload: workload-1738428883, Recommended Node: k8s-node-3, Carbon Intensity: 359.03
+2025-02-01 16:54:43,630 - INFO - Pod workload-1738428883 deployed successfully.
+2025-02-01 16:54:43,737 - INFO - Pod workload-1738428883 placed on node: 10.214.0.28
+2025-02-01 16:54:43,742 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:54:43,743 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:54:53,996 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:54:53,997 - INFO - New workload: workload-1738428893, Recommended Node: k8s-node-3, Carbon Intensity: 359.03
+2025-02-01 16:54:54,047 - INFO - Pod workload-1738428893 deployed successfully.
+2025-02-01 16:54:54,153 - INFO - Pod workload-1738428893 placed on node: 10.214.0.28
+2025-02-01 16:54:54,155 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:54:54,158 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:55:04,419 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:55:04,419 - INFO - New workload: workload-1738428904, Recommended Node: k8s-node-3, Carbon Intensity: 239.5
+2025-02-01 16:55:04,490 - INFO - Pod workload-1738428904 deployed successfully.
+2025-02-01 16:55:04,588 - INFO - Pod workload-1738428904 placed on node: 10.214.0.28
+2025-02-01 16:55:04,590 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:55:04,591 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:55:14,874 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:55:14,877 - INFO - New workload: workload-1738428914, Recommended Node: k8s-node-3, Carbon Intensity: 239.5
+2025-02-01 16:55:14,933 - INFO - Pod workload-1738428914 deployed successfully.
+2025-02-01 16:55:15,045 - INFO - Pod workload-1738428914 placed on node: 10.214.0.28
+2025-02-01 16:55:15,051 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:55:15,054 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:55:25,299 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:55:25,301 - INFO - New workload: workload-1738428925, Recommended Node: k8s-node-3, Carbon Intensity: 239.5
+2025-02-01 16:55:25,341 - INFO - Pod workload-1738428925 deployed successfully.
+2025-02-01 16:55:25,465 - INFO - Pod workload-1738428925 placed on node: 10.214.0.28
+2025-02-01 16:55:25,466 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:55:25,468 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:55:35,725 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:55:35,726 - INFO - New workload: workload-1738428935, Recommended Node: k8s-node-3, Carbon Intensity: 239.5
+2025-02-01 16:55:35,820 - INFO - Pod workload-1738428935 deployed successfully.
+2025-02-01 16:55:35,932 - INFO - Pod workload-1738428935 placed on node: 10.214.0.28
+2025-02-01 16:55:35,935 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:55:35,936 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:55:46,258 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:55:46,261 - INFO - New workload: workload-1738428946, Recommended Node: k8s-node-3, Carbon Intensity: 239.5
+2025-02-01 16:55:46,316 - INFO - Pod workload-1738428946 deployed successfully.
+2025-02-01 16:55:46,431 - INFO - Pod workload-1738428946 placed on node: 10.214.0.28
+2025-02-01 16:55:46,433 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:55:46,434 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:55:56,719 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:55:56,720 - INFO - New workload: workload-1738428956, Recommended Node: k8s-node-3, Carbon Intensity: 239.5
+2025-02-01 16:55:56,794 - INFO - Pod workload-1738428956 deployed successfully.
+2025-02-01 16:55:56,911 - INFO - Pod workload-1738428956 placed on node: 10.214.0.28
+2025-02-01 16:55:56,918 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:55:56,919 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:56:07,219 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:56:07,219 - INFO - New workload: workload-1738428967, Recommended Node: k8s-node-3, Carbon Intensity: 198.33
+2025-02-01 16:56:07,285 - INFO - Pod workload-1738428967 deployed successfully.
+2025-02-01 16:56:07,401 - INFO - Pod workload-1738428967 placed on node: 10.214.0.28
+2025-02-01 16:56:07,405 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:56:07,406 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:56:17,671 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:56:17,673 - INFO - New workload: workload-1738428977, Recommended Node: k8s-node-3, Carbon Intensity: 198.33
+2025-02-01 16:56:17,738 - INFO - Pod workload-1738428977 deployed successfully.
+2025-02-01 16:56:17,849 - INFO - Pod workload-1738428977 placed on node: 10.214.0.28
+2025-02-01 16:56:17,854 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:56:17,854 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:56:28,089 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:56:28,093 - INFO - New workload: workload-1738428988, Recommended Node: k8s-node-3, Carbon Intensity: 198.33
+2025-02-01 16:56:28,145 - INFO - Pod workload-1738428988 deployed successfully.
+2025-02-01 16:56:28,245 - INFO - Pod workload-1738428988 placed on node: 10.214.0.28
+2025-02-01 16:56:28,246 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:56:28,248 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:56:38,562 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:56:38,562 - INFO - New workload: workload-1738428998, Recommended Node: k8s-node-3, Carbon Intensity: 198.33
+2025-02-01 16:56:38,729 - INFO - Pod workload-1738428998 placed on node: unknown
+2025-02-01 16:56:38,734 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:56:38,731 - INFO - Pod workload-1738428998 deployed successfully.
+2025-02-01 16:56:38,737 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:56:49,156 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:56:49,156 - INFO - New workload: workload-1738429009, Recommended Node: k8s-node-3, Carbon Intensity: 198.33
+2025-02-01 16:56:49,192 - INFO - Pod workload-1738429009 deployed successfully.
+2025-02-01 16:56:49,315 - INFO - Pod workload-1738429009 placed on node: 10.214.0.28
+2025-02-01 16:56:49,316 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:56:49,319 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:56:59,384 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:56:59,384 - INFO - New workload: workload-1738429019, Recommended Node: k8s-node-3, Carbon Intensity: 198.33
+2025-02-01 16:56:59,452 - INFO - Pod workload-1738429019 deployed successfully.
+2025-02-01 16:56:59,544 - INFO - Pod workload-1738429019 placed on node: 10.214.0.28
+2025-02-01 16:56:59,546 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:56:59,549 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:57:09,886 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:57:09,888 - INFO - New workload: workload-1738429029, Recommended Node: k8s-node-3, Carbon Intensity: 191.31
+2025-02-01 16:57:09,971 - INFO - Pod workload-1738429029 deployed successfully.
+2025-02-01 16:57:10,082 - INFO - Pod workload-1738429029 placed on node: 10.214.0.28
+2025-02-01 16:57:10,083 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:57:10,085 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:57:20,420 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:57:20,421 - INFO - New workload: workload-1738429040, Recommended Node: k8s-node-3, Carbon Intensity: 191.31
+2025-02-01 16:57:20,476 - INFO - Pod workload-1738429040 deployed successfully.
+2025-02-01 16:57:20,605 - INFO - Pod workload-1738429040 placed on node: 10.214.0.28
+2025-02-01 16:57:20,608 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:57:20,609 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:57:30,901 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:57:30,902 - INFO - New workload: workload-1738429050, Recommended Node: k8s-node-3, Carbon Intensity: 191.31
+2025-02-01 16:57:30,967 - INFO - Pod workload-1738429050 deployed successfully.
+2025-02-01 16:57:31,078 - INFO - Pod workload-1738429050 placed on node: 10.214.0.28
+2025-02-01 16:57:31,078 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:57:31,078 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:57:41,408 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:57:41,410 - INFO - New workload: workload-1738429061, Recommended Node: k8s-node-3, Carbon Intensity: 191.31
+2025-02-01 16:57:41,470 - INFO - Pod workload-1738429061 deployed successfully.
+2025-02-01 16:57:41,573 - INFO - Pod workload-1738429061 placed on node: 10.214.0.28
+2025-02-01 16:57:41,574 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:57:41,575 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:57:51,681 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:57:51,681 - INFO - New workload: workload-1738429071, Recommended Node: k8s-node-3, Carbon Intensity: 191.31
+2025-02-01 16:57:51,782 - INFO - Pod workload-1738429071 deployed successfully.
+2025-02-01 16:57:51,889 - INFO - Pod workload-1738429071 placed on node: 10.214.0.28
+2025-02-01 16:57:51,892 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:57:51,893 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:58:02,270 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:58:02,270 - INFO - New workload: workload-1738429082, Recommended Node: k8s-node-3, Carbon Intensity: 188.49
+2025-02-01 16:58:02,354 - INFO - Pod workload-1738429082 deployed successfully.
+2025-02-01 16:58:02,463 - INFO - Pod workload-1738429082 placed on node: 10.214.0.28
+2025-02-01 16:58:02,466 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:58:02,467 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:58:12,571 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:58:12,572 - INFO - New workload: workload-1738429092, Recommended Node: k8s-node-3, Carbon Intensity: 188.49
+2025-02-01 16:58:12,657 - INFO - Pod workload-1738429092 deployed successfully.
+2025-02-01 16:58:12,777 - INFO - Pod workload-1738429092 placed on node: 10.214.0.28
+2025-02-01 16:58:12,787 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:58:12,795 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:58:23,044 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:58:23,050 - INFO - New workload: workload-1738429103, Recommended Node: k8s-node-3, Carbon Intensity: 188.49
+2025-02-01 16:58:23,140 - INFO - Pod workload-1738429103 deployed successfully.
+2025-02-01 16:58:23,248 - INFO - Pod workload-1738429103 placed on node: 10.214.0.28
+2025-02-01 16:58:23,250 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:58:23,257 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:58:33,505 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:58:33,507 - INFO - New workload: workload-1738429113, Recommended Node: k8s-node-3, Carbon Intensity: 188.49
+2025-02-01 16:58:33,559 - INFO - Pod workload-1738429113 deployed successfully.
+2025-02-01 16:58:33,665 - INFO - Pod workload-1738429113 placed on node: 10.214.0.28
+2025-02-01 16:58:33,666 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:58:33,668 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:58:43,942 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:58:43,943 - INFO - New workload: workload-1738429123, Recommended Node: k8s-node-3, Carbon Intensity: 188.49
+2025-02-01 16:58:43,992 - INFO - Pod workload-1738429123 deployed successfully.
+2025-02-01 16:58:44,110 - INFO - Pod workload-1738429123 placed on node: 10.214.0.28
+2025-02-01 16:58:44,112 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:58:44,115 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:58:54,374 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:58:54,374 - INFO - New workload: workload-1738429134, Recommended Node: k8s-node-3, Carbon Intensity: 188.49
+2025-02-01 16:58:54,433 - INFO - Pod workload-1738429134 deployed successfully.
+2025-02-01 16:58:54,543 - INFO - Pod workload-1738429134 placed on node: 10.214.0.28
+2025-02-01 16:58:54,545 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:58:54,547 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:59:04,794 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:59:04,796 - INFO - New workload: workload-1738429144, Recommended Node: k8s-node-3, Carbon Intensity: 181.46
+2025-02-01 16:59:04,858 - INFO - Pod workload-1738429144 deployed successfully.
+2025-02-01 16:59:04,962 - INFO - Pod workload-1738429144 placed on node: 10.214.0.28
+2025-02-01 16:59:04,964 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:59:04,965 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:59:15,231 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:59:15,232 - INFO - New workload: workload-1738429155, Recommended Node: k8s-node-3, Carbon Intensity: 181.46
+2025-02-01 16:59:15,306 - INFO - Pod workload-1738429155 deployed successfully.
+2025-02-01 16:59:15,413 - INFO - Pod workload-1738429155 placed on node: 10.214.0.28
+2025-02-01 16:59:15,415 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:59:15,418 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:59:25,688 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:59:25,689 - INFO - New workload: workload-1738429165, Recommended Node: k8s-node-3, Carbon Intensity: 181.46
+2025-02-01 16:59:25,753 - INFO - Pod workload-1738429165 deployed successfully.
+2025-02-01 16:59:25,863 - INFO - Pod workload-1738429165 placed on node: 10.214.0.28
+2025-02-01 16:59:25,865 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:59:25,866 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:59:36,134 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:59:36,135 - INFO - New workload: workload-1738429176, Recommended Node: k8s-node-3, Carbon Intensity: 181.46
+2025-02-01 16:59:36,190 - INFO - Pod workload-1738429176 deployed successfully.
+2025-02-01 16:59:36,301 - INFO - Pod workload-1738429176 placed on node: 10.214.0.28
+2025-02-01 16:59:36,303 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:59:36,305 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:59:46,566 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:59:46,566 - INFO - New workload: workload-1738429186, Recommended Node: k8s-node-3, Carbon Intensity: 181.46
+2025-02-01 16:59:46,638 - INFO - Pod workload-1738429186 deployed successfully.
+2025-02-01 16:59:46,744 - INFO - Pod workload-1738429186 placed on node: 10.214.0.28
+2025-02-01 16:59:46,746 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:59:46,747 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 16:59:57,065 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 16:59:57,068 - INFO - New workload: workload-1738429197, Recommended Node: k8s-node-3, Carbon Intensity: 181.46
+2025-02-01 16:59:57,138 - INFO - Pod workload-1738429197 deployed successfully.
+2025-02-01 16:59:57,248 - INFO - Pod workload-1738429197 placed on node: 10.214.0.28
+2025-02-01 16:59:57,265 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 16:59:57,266 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:00:07,337 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:00:07,337 - INFO - New workload: workload-1738429207, Recommended Node: k8s-node-3, Carbon Intensity: 160.92
+2025-02-01 17:00:07,406 - INFO - Pod workload-1738429207 deployed successfully.
+2025-02-01 17:00:07,519 - INFO - Pod workload-1738429207 placed on node: 10.214.0.28
+2025-02-01 17:00:07,523 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:00:07,524 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:00:17,655 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:00:17,656 - INFO - New workload: workload-1738429217, Recommended Node: k8s-node-3, Carbon Intensity: 160.92
+2025-02-01 17:00:17,712 - INFO - Pod workload-1738429217 deployed successfully.
+2025-02-01 17:00:17,823 - INFO - Pod workload-1738429217 placed on node: 10.214.0.28
+2025-02-01 17:00:17,825 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:00:17,825 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:00:28,097 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:00:28,099 - INFO - New workload: workload-1738429228, Recommended Node: k8s-node-3, Carbon Intensity: 160.92
+2025-02-01 17:00:28,164 - INFO - Pod workload-1738429228 deployed successfully.
+2025-02-01 17:00:28,278 - INFO - Pod workload-1738429228 placed on node: 10.214.0.28
+2025-02-01 17:00:28,280 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:00:28,287 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:00:38,533 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:00:38,535 - INFO - New workload: workload-1738429238, Recommended Node: k8s-node-3, Carbon Intensity: 160.92
+2025-02-01 17:00:38,580 - INFO - Pod workload-1738429238 deployed successfully.
+2025-02-01 17:00:38,815 - INFO - Pod workload-1738429238 placed on node: 10.214.0.28
+2025-02-01 17:00:38,820 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:00:38,822 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:00:48,950 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:00:48,951 - INFO - New workload: workload-1738429248, Recommended Node: k8s-node-3, Carbon Intensity: 160.92
+2025-02-01 17:00:49,022 - INFO - Pod workload-1738429248 deployed successfully.
+2025-02-01 17:00:49,133 - INFO - Pod workload-1738429248 placed on node: 10.214.0.28
+2025-02-01 17:00:49,134 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:00:49,135 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:00:59,512 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:00:59,514 - INFO - New workload: workload-1738429259, Recommended Node: k8s-node-3, Carbon Intensity: 160.92
+2025-02-01 17:00:59,572 - INFO - Pod workload-1738429259 deployed successfully.
+2025-02-01 17:00:59,684 - INFO - Pod workload-1738429259 placed on node: 10.214.0.28
+2025-02-01 17:00:59,686 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:00:59,688 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:01:09,988 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:01:09,991 - INFO - New workload: workload-1738429269, Recommended Node: k8s-node-3, Carbon Intensity: 174.34
+2025-02-01 17:01:10,086 - INFO - Pod workload-1738429269 deployed successfully.
+2025-02-01 17:01:10,203 - INFO - Pod workload-1738429269 placed on node: 10.214.0.28
+2025-02-01 17:01:10,219 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:01:10,224 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:01:20,295 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:01:20,296 - INFO - New workload: workload-1738429280, Recommended Node: k8s-node-3, Carbon Intensity: 174.34
+2025-02-01 17:01:20,355 - INFO - Pod workload-1738429280 deployed successfully.
+2025-02-01 17:01:20,469 - INFO - Pod workload-1738429280 placed on node: 10.214.0.28
+2025-02-01 17:01:20,471 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:01:20,471 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:01:30,548 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:01:30,551 - INFO - New workload: workload-1738429290, Recommended Node: k8s-node-3, Carbon Intensity: 174.34
+2025-02-01 17:01:30,605 - INFO - Pod workload-1738429290 deployed successfully.
+2025-02-01 17:01:30,711 - INFO - Pod workload-1738429290 placed on node: 10.214.0.28
+2025-02-01 17:01:30,713 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:01:30,715 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:01:41,007 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:01:41,015 - INFO - New workload: workload-1738429301, Recommended Node: k8s-node-3, Carbon Intensity: 174.34
+2025-02-01 17:01:41,051 - INFO - Pod workload-1738429301 deployed successfully.
+2025-02-01 17:01:41,177 - INFO - Pod workload-1738429301 placed on node: 10.214.0.28
+2025-02-01 17:01:41,180 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:01:41,181 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:01:51,480 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:01:51,483 - INFO - New workload: workload-1738429311, Recommended Node: k8s-node-3, Carbon Intensity: 174.34
+2025-02-01 17:01:51,533 - INFO - Pod workload-1738429311 deployed successfully.
+2025-02-01 17:01:51,656 - INFO - Pod workload-1738429311 placed on node: 10.214.0.28
+2025-02-01 17:01:51,660 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:01:51,662 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:02:01,792 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:02:01,793 - INFO - New workload: workload-1738429321, Recommended Node: k8s-node-3, Carbon Intensity: 197.7
+2025-02-01 17:02:01,935 - INFO - Pod workload-1738429321 deployed successfully.
+2025-02-01 17:02:02,034 - INFO - Pod workload-1738429321 placed on node: 10.214.0.28
+2025-02-01 17:02:02,036 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:02:02,041 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:02:12,132 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:02:12,133 - INFO - New workload: workload-1738429332, Recommended Node: k8s-node-3, Carbon Intensity: 197.7
+2025-02-01 17:02:12,182 - INFO - Pod workload-1738429332 deployed successfully.
+2025-02-01 17:02:12,297 - INFO - Pod workload-1738429332 placed on node: 10.214.0.28
+2025-02-01 17:02:12,301 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:02:12,302 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:02:22,608 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:02:22,608 - INFO - New workload: workload-1738429342, Recommended Node: k8s-node-3, Carbon Intensity: 197.7
+2025-02-01 17:02:22,680 - INFO - Pod workload-1738429342 deployed successfully.
+2025-02-01 17:02:22,790 - INFO - Pod workload-1738429342 placed on node: 10.214.0.28
+2025-02-01 17:02:22,793 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:02:22,794 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:02:33,104 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:02:33,106 - INFO - New workload: workload-1738429353, Recommended Node: k8s-node-3, Carbon Intensity: 197.7
+2025-02-01 17:02:33,160 - INFO - Pod workload-1738429353 deployed successfully.
+2025-02-01 17:02:33,274 - INFO - Pod workload-1738429353 placed on node: 10.214.0.28
+2025-02-01 17:02:33,276 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:02:33,278 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:02:43,359 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:02:43,361 - INFO - New workload: workload-1738429363, Recommended Node: k8s-node-3, Carbon Intensity: 197.7
+2025-02-01 17:02:43,415 - INFO - Pod workload-1738429363 deployed successfully.
+2025-02-01 17:02:43,526 - INFO - Pod workload-1738429363 placed on node: 10.214.0.28
+2025-02-01 17:02:43,528 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:02:43,529 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:02:53,832 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:02:53,833 - INFO - New workload: workload-1738429373, Recommended Node: k8s-node-3, Carbon Intensity: 197.7
+2025-02-01 17:02:53,895 - INFO - Pod workload-1738429373 deployed successfully.
+2025-02-01 17:02:54,019 - INFO - Pod workload-1738429373 placed on node: 10.214.0.28
+2025-02-01 17:02:54,020 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:02:54,020 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:03:04,251 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:03:04,253 - INFO - New workload: workload-1738429384, Recommended Node: k8s-node-3, Carbon Intensity: 227.42
+2025-02-01 17:03:04,314 - INFO - Pod workload-1738429384 deployed successfully.
+2025-02-01 17:03:04,422 - INFO - Pod workload-1738429384 placed on node: 10.214.0.28
+2025-02-01 17:03:04,423 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:03:04,424 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:03:14,664 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:03:14,665 - INFO - New workload: workload-1738429394, Recommended Node: k8s-node-3, Carbon Intensity: 227.42
+2025-02-01 17:03:14,752 - INFO - Pod workload-1738429394 deployed successfully.
+2025-02-01 17:03:14,870 - INFO - Pod workload-1738429394 placed on node: 10.214.0.28
+2025-02-01 17:03:14,871 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:03:14,873 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:03:25,107 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:03:25,109 - INFO - New workload: workload-1738429405, Recommended Node: k8s-node-3, Carbon Intensity: 227.42
+2025-02-01 17:03:25,165 - INFO - Pod workload-1738429405 deployed successfully.
+2025-02-01 17:03:25,306 - INFO - Pod workload-1738429405 placed on node: 10.214.0.28
+2025-02-01 17:03:25,310 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:03:25,312 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:03:35,575 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:03:35,575 - INFO - New workload: workload-1738429415, Recommended Node: k8s-node-3, Carbon Intensity: 227.42
+2025-02-01 17:03:35,657 - INFO - Pod workload-1738429415 deployed successfully.
+2025-02-01 17:03:35,773 - INFO - Pod workload-1738429415 placed on node: 10.214.0.28
+2025-02-01 17:03:35,774 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:03:35,778 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:03:46,027 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:03:46,027 - INFO - New workload: workload-1738429426, Recommended Node: k8s-node-3, Carbon Intensity: 227.42
+2025-02-01 17:03:46,092 - INFO - Pod workload-1738429426 deployed successfully.
+2025-02-01 17:03:46,201 - INFO - Pod workload-1738429426 placed on node: 10.214.0.28
+2025-02-01 17:03:46,202 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:03:46,203 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:03:56,470 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:03:56,472 - INFO - New workload: workload-1738429436, Recommended Node: k8s-node-3, Carbon Intensity: 227.42
+2025-02-01 17:03:56,548 - INFO - Pod workload-1738429436 deployed successfully.
+2025-02-01 17:03:56,661 - INFO - Pod workload-1738429436 placed on node: 10.214.0.28
+2025-02-01 17:03:56,663 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:03:56,664 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:04:06,984 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:04:06,987 - INFO - New workload: workload-1738429446, Recommended Node: k8s-node-3, Carbon Intensity: 243.96
+2025-02-01 17:04:07,049 - INFO - Pod workload-1738429446 deployed successfully.
+2025-02-01 17:04:07,166 - INFO - Pod workload-1738429446 placed on node: 10.214.0.28
+2025-02-01 17:04:07,171 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:04:07,174 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:04:17,458 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:04:17,459 - INFO - New workload: workload-1738429457, Recommended Node: k8s-node-3, Carbon Intensity: 243.96
+2025-02-01 17:04:17,508 - INFO - Pod workload-1738429457 deployed successfully.
+2025-02-01 17:04:17,626 - INFO - Pod workload-1738429457 placed on node: 10.214.0.28
+2025-02-01 17:04:17,628 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:04:17,628 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:04:27,719 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:04:27,719 - INFO - New workload: workload-1738429467, Recommended Node: k8s-node-3, Carbon Intensity: 243.96
+2025-02-01 17:04:27,786 - INFO - Pod workload-1738429467 deployed successfully.
+2025-02-01 17:04:27,896 - INFO - Pod workload-1738429467 placed on node: 10.214.0.28
+2025-02-01 17:04:27,900 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:04:27,901 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:04:38,200 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:04:38,201 - INFO - New workload: workload-1738429478, Recommended Node: k8s-node-3, Carbon Intensity: 243.96
+2025-02-01 17:04:38,246 - INFO - Pod workload-1738429478 deployed successfully.
+2025-02-01 17:04:38,381 - INFO - Pod workload-1738429478 placed on node: 10.214.0.28
+2025-02-01 17:04:38,386 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:04:38,389 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:04:48,613 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:04:48,617 - INFO - New workload: workload-1738429488, Recommended Node: k8s-node-3, Carbon Intensity: 243.96
+2025-02-01 17:04:48,686 - INFO - Pod workload-1738429488 deployed successfully.
+2025-02-01 17:04:48,807 - INFO - Pod workload-1738429488 placed on node: 10.214.0.28
+2025-02-01 17:04:48,809 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:04:48,814 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:04:59,063 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:04:59,068 - INFO - New workload: workload-1738429499, Recommended Node: k8s-node-3, Carbon Intensity: 243.96
+2025-02-01 17:04:59,153 - INFO - Pod workload-1738429499 deployed successfully.
+2025-02-01 17:04:59,251 - INFO - Pod workload-1738429499 placed on node: 10.214.0.28
+2025-02-01 17:04:59,255 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:04:59,255 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:05:09,593 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:05:09,594 - INFO - New workload: workload-1738429509, Recommended Node: k8s-node-3, Carbon Intensity: 321.16
+2025-02-01 17:05:09,660 - INFO - Pod workload-1738429509 deployed successfully.
+2025-02-01 17:05:09,760 - INFO - Pod workload-1738429509 placed on node: 10.214.0.28
+2025-02-01 17:05:09,762 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:05:09,762 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:05:20,068 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:05:20,068 - INFO - New workload: workload-1738429520, Recommended Node: k8s-node-3, Carbon Intensity: 321.16
+2025-02-01 17:05:20,142 - INFO - Pod workload-1738429520 deployed successfully.
+2025-02-01 17:05:20,256 - INFO - Pod workload-1738429520 placed on node: 10.214.0.28
+2025-02-01 17:05:20,260 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:05:20,261 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:05:30,348 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:05:30,348 - INFO - New workload: workload-1738429530, Recommended Node: k8s-node-3, Carbon Intensity: 321.16
+2025-02-01 17:05:30,453 - INFO - Pod workload-1738429530 deployed successfully.
+2025-02-01 17:05:30,546 - INFO - Pod workload-1738429530 placed on node: 10.214.0.28
+2025-02-01 17:05:30,547 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:05:30,549 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:05:40,647 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:05:40,648 - INFO - New workload: workload-1738429540, Recommended Node: k8s-node-3, Carbon Intensity: 321.16
+2025-02-01 17:05:40,708 - INFO - Pod workload-1738429540 deployed successfully.
+2025-02-01 17:05:40,823 - INFO - Pod workload-1738429540 placed on node: 10.214.0.28
+2025-02-01 17:05:40,826 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:05:40,827 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:05:51,137 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:05:51,138 - INFO - New workload: workload-1738429551, Recommended Node: k8s-node-3, Carbon Intensity: 321.16
+2025-02-01 17:05:51,219 - INFO - Pod workload-1738429551 deployed successfully.
+2025-02-01 17:05:51,314 - INFO - Pod workload-1738429551 placed on node: 10.214.0.28
+2025-02-01 17:05:51,317 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:05:51,321 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:06:01,634 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:06:01,636 - INFO - New workload: workload-1738429561, Recommended Node: k8s-node-2, Carbon Intensity: 336.31
+2025-02-01 17:06:01,677 - INFO - Pod workload-1738429561 deployed successfully.
+2025-02-01 17:06:01,809 - INFO - Pod workload-1738429561 placed on node: 10.214.0.27
+2025-02-01 17:06:01,812 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:06:01,812 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:06:12,107 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:06:12,111 - INFO - New workload: workload-1738429572, Recommended Node: k8s-node-2, Carbon Intensity: 336.31
+2025-02-01 17:06:12,156 - INFO - Pod workload-1738429572 deployed successfully.
+2025-02-01 17:06:12,294 - INFO - Pod workload-1738429572 placed on node: 10.214.0.27
+2025-02-01 17:06:12,295 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:06:12,298 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:06:22,569 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:06:22,569 - INFO - New workload: workload-1738429582, Recommended Node: k8s-node-2, Carbon Intensity: 336.31
+2025-02-01 17:06:22,611 - INFO - Pod workload-1738429582 deployed successfully.
+2025-02-01 17:06:22,725 - INFO - Pod workload-1738429582 placed on node: 10.214.0.27
+2025-02-01 17:06:22,727 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:06:22,727 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:06:33,012 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:06:33,012 - INFO - New workload: workload-1738429593, Recommended Node: k8s-node-2, Carbon Intensity: 336.31
+2025-02-01 17:06:33,032 - INFO - Pod workload-1738429593 deployed successfully.
+2025-02-01 17:06:33,156 - INFO - Pod workload-1738429593 placed on node: 10.214.0.27
+2025-02-01 17:06:33,157 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:06:33,158 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:06:43,230 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:06:43,230 - INFO - New workload: workload-1738429603, Recommended Node: k8s-node-2, Carbon Intensity: 336.31
+2025-02-01 17:06:43,248 - INFO - Pod workload-1738429603 deployed successfully.
+2025-02-01 17:06:43,377 - INFO - Pod workload-1738429603 placed on node: 10.214.0.27
+2025-02-01 17:06:43,378 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:06:43,379 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:06:53,426 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:06:53,426 - INFO - New workload: workload-1738429613, Recommended Node: k8s-node-2, Carbon Intensity: 336.31
+2025-02-01 17:06:53,441 - INFO - Pod workload-1738429613 deployed successfully.
+2025-02-01 17:06:53,566 - INFO - Pod workload-1738429613 placed on node: 10.214.0.27
+2025-02-01 17:06:53,566 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:06:53,567 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:07:03,644 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:07:03,644 - INFO - New workload: workload-1738429623, Recommended Node: k8s-node-2, Carbon Intensity: 320.04
+2025-02-01 17:07:03,665 - INFO - Pod workload-1738429623 deployed successfully.
+2025-02-01 17:07:03,817 - INFO - Pod workload-1738429623 placed on node: 10.214.0.27
+2025-02-01 17:07:03,819 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:07:03,820 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:07:13,851 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:07:13,851 - INFO - New workload: workload-1738429633, Recommended Node: k8s-node-2, Carbon Intensity: 320.04
+2025-02-01 17:07:13,865 - INFO - Pod workload-1738429633 deployed successfully.
+2025-02-01 17:07:13,991 - INFO - Pod workload-1738429633 placed on node: 10.214.0.27
+2025-02-01 17:07:13,991 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:07:13,992 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:07:24,261 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:07:24,261 - INFO - New workload: workload-1738429644, Recommended Node: k8s-node-2, Carbon Intensity: 320.04
+2025-02-01 17:07:24,275 - INFO - Pod workload-1738429644 deployed successfully.
+2025-02-01 17:07:24,403 - INFO - Pod workload-1738429644 placed on node: 10.214.0.27
+2025-02-01 17:07:24,404 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:07:24,405 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:07:34,462 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:07:34,462 - INFO - New workload: workload-1738429654, Recommended Node: k8s-node-2, Carbon Intensity: 320.04
+2025-02-01 17:07:34,483 - INFO - Pod workload-1738429654 deployed successfully.
+2025-02-01 17:07:34,612 - INFO - Pod workload-1738429654 placed on node: 10.214.0.27
+2025-02-01 17:07:34,612 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:07:34,613 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:07:44,885 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:07:44,885 - INFO - New workload: workload-1738429664, Recommended Node: k8s-node-2, Carbon Intensity: 320.04
+2025-02-01 17:07:44,899 - INFO - Pod workload-1738429664 deployed successfully.
+2025-02-01 17:07:45,025 - INFO - Pod workload-1738429664 placed on node: 10.214.0.27
+2025-02-01 17:07:45,025 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:07:45,026 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:07:55,304 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:07:55,304 - INFO - New workload: workload-1738429675, Recommended Node: k8s-node-2, Carbon Intensity: 320.04
+2025-02-01 17:07:55,318 - INFO - Pod workload-1738429675 deployed successfully.
+2025-02-01 17:07:55,440 - INFO - Pod workload-1738429675 placed on node: 10.214.0.27
+2025-02-01 17:07:55,441 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:07:55,442 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:08:05,729 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:08:05,730 - INFO - New workload: workload-1738429685, Recommended Node: k8s-node-2, Carbon Intensity: 310.92
+2025-02-01 17:08:05,750 - INFO - Pod workload-1738429685 deployed successfully.
+2025-02-01 17:08:05,876 - INFO - Pod workload-1738429685 placed on node: 10.214.0.27
+2025-02-01 17:08:05,876 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:08:05,877 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:08:16,121 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:08:16,121 - INFO - New workload: workload-1738429696, Recommended Node: k8s-node-2, Carbon Intensity: 310.92
+2025-02-01 17:08:16,137 - INFO - Pod workload-1738429696 deployed successfully.
+2025-02-01 17:08:16,263 - INFO - Pod workload-1738429696 placed on node: 10.214.0.27
+2025-02-01 17:08:16,264 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:08:16,264 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:08:26,494 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:08:26,494 - INFO - New workload: workload-1738429706, Recommended Node: k8s-node-2, Carbon Intensity: 310.92
+2025-02-01 17:08:26,509 - INFO - Pod workload-1738429706 deployed successfully.
+2025-02-01 17:08:26,644 - INFO - Pod workload-1738429706 placed on node: 10.214.0.27
+2025-02-01 17:08:26,644 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:08:26,645 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:08:36,881 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:08:36,882 - INFO - New workload: workload-1738429716, Recommended Node: k8s-node-2, Carbon Intensity: 310.92
+2025-02-01 17:08:36,901 - INFO - Pod workload-1738429716 deployed successfully.
+2025-02-01 17:08:37,030 - INFO - Pod workload-1738429716 placed on node: 10.214.0.27
+2025-02-01 17:08:37,031 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:08:37,032 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:08:47,315 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:08:47,315 - INFO - New workload: workload-1738429727, Recommended Node: k8s-node-2, Carbon Intensity: 310.92
+2025-02-01 17:08:47,333 - INFO - Pod workload-1738429727 deployed successfully.
+2025-02-01 17:08:47,461 - INFO - Pod workload-1738429727 placed on node: 10.214.0.27
+2025-02-01 17:08:47,462 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:08:47,462 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:08:57,727 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:08:57,727 - INFO - New workload: workload-1738429737, Recommended Node: k8s-node-2, Carbon Intensity: 310.92
+2025-02-01 17:08:57,742 - INFO - Pod workload-1738429737 deployed successfully.
+2025-02-01 17:08:57,872 - INFO - Pod workload-1738429737 placed on node: 10.214.0.27
+2025-02-01 17:08:57,873 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:08:57,873 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:09:08,155 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:09:08,155 - INFO - New workload: workload-1738429748, Recommended Node: k8s-node-2, Carbon Intensity: 306.98
+2025-02-01 17:09:08,177 - INFO - Pod workload-1738429748 deployed successfully.
+2025-02-01 17:09:08,298 - INFO - Pod workload-1738429748 placed on node: 10.214.0.27
+2025-02-01 17:09:08,299 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:09:08,300 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:09:18,522 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:09:18,522 - INFO - New workload: workload-1738429758, Recommended Node: k8s-node-2, Carbon Intensity: 306.98
+2025-02-01 17:09:18,536 - INFO - Pod workload-1738429758 deployed successfully.
+2025-02-01 17:09:18,661 - INFO - Pod workload-1738429758 placed on node: 10.214.0.27
+2025-02-01 17:09:18,662 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:09:18,662 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:09:28,856 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:09:28,856 - INFO - New workload: workload-1738429768, Recommended Node: k8s-node-2, Carbon Intensity: 306.98
+2025-02-01 17:09:28,873 - INFO - Pod workload-1738429768 deployed successfully.
+2025-02-01 17:09:28,998 - INFO - Pod workload-1738429768 placed on node: 10.214.0.27
+2025-02-01 17:09:28,998 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:09:28,999 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:09:39,203 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:09:39,203 - INFO - New workload: workload-1738429779, Recommended Node: k8s-node-2, Carbon Intensity: 306.98
+2025-02-01 17:09:39,226 - INFO - Pod workload-1738429779 deployed successfully.
+2025-02-01 17:09:39,353 - INFO - Pod workload-1738429779 placed on node: 10.214.0.27
+2025-02-01 17:09:39,353 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:09:39,354 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:09:49,426 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:09:49,427 - INFO - New workload: workload-1738429789, Recommended Node: k8s-node-2, Carbon Intensity: 306.98
+2025-02-01 17:09:49,450 - INFO - Pod workload-1738429789 deployed successfully.
+2025-02-01 17:09:49,569 - INFO - Pod workload-1738429789 placed on node: 10.214.0.27
+2025-02-01 17:09:49,569 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:09:49,570 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:09:59,843 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:09:59,843 - INFO - New workload: workload-1738429799, Recommended Node: k8s-node-2, Carbon Intensity: 306.98
+2025-02-01 17:09:59,859 - INFO - Pod workload-1738429799 deployed successfully.
+2025-02-01 17:09:59,982 - INFO - Pod workload-1738429799 placed on node: 10.214.0.27
+2025-02-01 17:09:59,983 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:09:59,984 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:10:10,403 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:10:10,404 - INFO - New workload: workload-1738429810, Recommended Node: k8s-node-2, Carbon Intensity: 329.23
+2025-02-01 17:10:10,429 - INFO - Pod workload-1738429810 deployed successfully.
+2025-02-01 17:10:10,563 - INFO - Pod workload-1738429810 placed on node: 10.214.0.27
+2025-02-01 17:10:10,564 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:10:10,565 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:10:20,613 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:10:20,613 - INFO - New workload: workload-1738429820, Recommended Node: k8s-node-2, Carbon Intensity: 329.23
+2025-02-01 17:10:20,629 - INFO - Pod workload-1738429820 deployed successfully.
+2025-02-01 17:10:20,750 - INFO - Pod workload-1738429820 placed on node: 10.214.0.27
+2025-02-01 17:10:20,751 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:10:20,751 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:10:31,026 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:10:31,026 - INFO - New workload: workload-1738429831, Recommended Node: k8s-node-2, Carbon Intensity: 329.23
+2025-02-01 17:10:31,045 - INFO - Pod workload-1738429831 deployed successfully.
+2025-02-01 17:10:31,169 - INFO - Pod workload-1738429831 placed on node: 10.214.0.27
+2025-02-01 17:10:31,170 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:10:31,171 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:10:41,240 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:10:41,240 - INFO - New workload: workload-1738429841, Recommended Node: k8s-node-2, Carbon Intensity: 329.23
+2025-02-01 17:10:41,262 - INFO - Pod workload-1738429841 deployed successfully.
+2025-02-01 17:10:41,390 - INFO - Pod workload-1738429841 placed on node: 10.214.0.27
+2025-02-01 17:10:41,391 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:10:41,391 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:10:51,612 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:10:51,612 - INFO - New workload: workload-1738429851, Recommended Node: k8s-node-2, Carbon Intensity: 329.23
+2025-02-01 17:10:51,628 - INFO - Pod workload-1738429851 deployed successfully.
+2025-02-01 17:10:51,757 - INFO - Pod workload-1738429851 placed on node: 10.214.0.27
+2025-02-01 17:10:51,758 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:10:51,758 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:11:01,991 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:11:01,991 - INFO - New workload: workload-1738429861, Recommended Node: k8s-node-2, Carbon Intensity: 373.1
+2025-02-01 17:11:02,007 - INFO - Pod workload-1738429861 deployed successfully.
+2025-02-01 17:11:02,132 - INFO - Pod workload-1738429861 placed on node: 10.214.0.27
+2025-02-01 17:11:02,133 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:11:02,133 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:11:12,362 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:11:12,363 - INFO - New workload: workload-1738429872, Recommended Node: k8s-node-2, Carbon Intensity: 373.1
+2025-02-01 17:11:12,383 - INFO - Pod workload-1738429872 deployed successfully.
+2025-02-01 17:11:12,507 - INFO - Pod workload-1738429872 placed on node: 10.214.0.27
+2025-02-01 17:11:12,508 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:11:12,508 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:11:22,721 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:11:22,721 - INFO - New workload: workload-1738429882, Recommended Node: k8s-node-2, Carbon Intensity: 373.1
+2025-02-01 17:11:22,736 - INFO - Pod workload-1738429882 deployed successfully.
+2025-02-01 17:11:22,855 - INFO - Pod workload-1738429882 placed on node: 10.214.0.27
+2025-02-01 17:11:22,856 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:11:22,856 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:11:33,059 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:11:33,060 - INFO - New workload: workload-1738429893, Recommended Node: k8s-node-2, Carbon Intensity: 373.1
+2025-02-01 17:11:33,076 - INFO - Pod workload-1738429893 deployed successfully.
+2025-02-01 17:11:33,200 - INFO - Pod workload-1738429893 placed on node: 10.214.0.27
+2025-02-01 17:11:33,201 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:11:33,201 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:11:43,423 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:11:43,424 - INFO - New workload: workload-1738429903, Recommended Node: k8s-node-2, Carbon Intensity: 373.1
+2025-02-01 17:11:43,443 - INFO - Pod workload-1738429903 deployed successfully.
+2025-02-01 17:11:43,576 - INFO - Pod workload-1738429903 placed on node: 10.214.0.27
+2025-02-01 17:11:43,577 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:11:43,577 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:11:53,643 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:11:53,643 - INFO - New workload: workload-1738429913, Recommended Node: k8s-node-2, Carbon Intensity: 373.1
+2025-02-01 17:11:53,667 - INFO - Pod workload-1738429913 deployed successfully.
+2025-02-01 17:11:53,794 - INFO - Pod workload-1738429913 placed on node: 10.214.0.27
+2025-02-01 17:11:53,795 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:11:53,796 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:12:04,061 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:12:04,061 - INFO - New workload: workload-1738429924, Recommended Node: k8s-node-3, Carbon Intensity: 398.38
+2025-02-01 17:12:04,080 - INFO - Pod workload-1738429924 deployed successfully.
+2025-02-01 17:12:04,205 - INFO - Pod workload-1738429924 placed on node: 10.214.0.28
+2025-02-01 17:12:04,206 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:12:04,207 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:12:14,490 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:12:14,491 - INFO - New workload: workload-1738429934, Recommended Node: k8s-node-3, Carbon Intensity: 398.38
+2025-02-01 17:12:14,516 - INFO - Pod workload-1738429934 deployed successfully.
+2025-02-01 17:12:14,655 - INFO - Pod workload-1738429934 placed on node: 10.214.0.28
+2025-02-01 17:12:14,656 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:12:14,658 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:12:24,940 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:12:24,944 - INFO - New workload: workload-1738429944, Recommended Node: k8s-node-3, Carbon Intensity: 398.38
+2025-02-01 17:12:25,007 - INFO - Pod workload-1738429944 deployed successfully.
+2025-02-01 17:12:25,127 - INFO - Pod workload-1738429944 placed on node: 10.214.0.28
+2025-02-01 17:12:25,130 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:12:25,132 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:12:35,420 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:12:35,422 - INFO - New workload: workload-1738429955, Recommended Node: k8s-node-3, Carbon Intensity: 398.38
+2025-02-01 17:12:35,477 - INFO - Pod workload-1738429955 deployed successfully.
+2025-02-01 17:12:35,587 - INFO - Pod workload-1738429955 placed on node: 10.214.0.28
+2025-02-01 17:12:35,588 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:12:35,588 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:12:45,681 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:12:45,682 - INFO - New workload: workload-1738429965, Recommended Node: k8s-node-3, Carbon Intensity: 398.38
+2025-02-01 17:12:45,724 - INFO - Pod workload-1738429965 deployed successfully.
+2025-02-01 17:12:45,850 - INFO - Pod workload-1738429965 placed on node: 10.214.0.28
+2025-02-01 17:12:45,852 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:12:45,853 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:12:56,156 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:12:56,161 - INFO - New workload: workload-1738429976, Recommended Node: k8s-node-3, Carbon Intensity: 398.38
+2025-02-01 17:12:56,227 - INFO - Pod workload-1738429976 deployed successfully.
+2025-02-01 17:12:56,340 - INFO - Pod workload-1738429976 placed on node: 10.214.0.28
+2025-02-01 17:12:56,342 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:12:56,343 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:13:06,633 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:13:06,634 - INFO - New workload: workload-1738429986, Recommended Node: k8s-node-3, Carbon Intensity: 392.86
+2025-02-01 17:13:06,682 - INFO - Pod workload-1738429986 deployed successfully.
+2025-02-01 17:13:06,801 - INFO - Pod workload-1738429986 placed on node: 10.214.0.28
+2025-02-01 17:13:06,804 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:13:06,805 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:13:17,116 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:13:17,118 - INFO - New workload: workload-1738429997, Recommended Node: k8s-node-3, Carbon Intensity: 392.86
+2025-02-01 17:13:17,199 - INFO - Pod workload-1738429997 deployed successfully.
+2025-02-01 17:13:17,313 - INFO - Pod workload-1738429997 placed on node: 10.214.0.28
+2025-02-01 17:13:17,316 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:13:17,318 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:13:27,628 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:13:27,629 - INFO - New workload: workload-1738430007, Recommended Node: k8s-node-3, Carbon Intensity: 392.86
+2025-02-01 17:13:27,695 - INFO - Pod workload-1738430007 deployed successfully.
+2025-02-01 17:13:27,806 - INFO - Pod workload-1738430007 placed on node: 10.214.0.28
+2025-02-01 17:13:27,808 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:13:27,812 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:13:38,109 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:13:38,112 - INFO - New workload: workload-1738430018, Recommended Node: k8s-node-3, Carbon Intensity: 392.86
+2025-02-01 17:13:38,147 - INFO - Pod workload-1738430018 deployed successfully.
+2025-02-01 17:13:38,275 - INFO - Pod workload-1738430018 placed on node: 10.214.0.28
+2025-02-01 17:13:38,280 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:13:38,281 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:13:48,563 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:13:48,567 - INFO - New workload: workload-1738430028, Recommended Node: k8s-node-3, Carbon Intensity: 392.86
+2025-02-01 17:13:48,634 - INFO - Pod workload-1738430028 deployed successfully.
+2025-02-01 17:13:48,747 - INFO - Pod workload-1738430028 placed on node: 10.214.0.28
+2025-02-01 17:13:48,750 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:13:48,752 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:13:59,016 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:13:59,016 - INFO - New workload: workload-1738430039, Recommended Node: k8s-node-3, Carbon Intensity: 392.86
+2025-02-01 17:13:59,098 - INFO - Pod workload-1738430039 deployed successfully.
+2025-02-01 17:13:59,232 - INFO - Pod workload-1738430039 placed on node: 10.214.0.28
+2025-02-01 17:13:59,234 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:13:59,236 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:14:09,461 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:14:09,461 - INFO - New workload: workload-1738430049, Recommended Node: k8s-node-3, Carbon Intensity: 372.56
+2025-02-01 17:14:09,547 - INFO - Pod workload-1738430049 deployed successfully.
+2025-02-01 17:14:09,662 - INFO - Pod workload-1738430049 placed on node: 10.214.0.28
+2025-02-01 17:14:09,664 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:14:09,664 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:14:19,919 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:14:19,922 - INFO - New workload: workload-1738430059, Recommended Node: k8s-node-3, Carbon Intensity: 372.56
+2025-02-01 17:14:20,023 - INFO - Pod workload-1738430059 deployed successfully.
+2025-02-01 17:14:20,159 - INFO - Pod workload-1738430059 placed on node: 10.214.0.28
+2025-02-01 17:14:20,161 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:14:20,168 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:14:30,463 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:14:30,463 - INFO - New workload: workload-1738430070, Recommended Node: k8s-node-3, Carbon Intensity: 372.56
+2025-02-01 17:14:30,531 - INFO - Pod workload-1738430070 deployed successfully.
+2025-02-01 17:14:30,634 - INFO - Pod workload-1738430070 placed on node: 10.214.0.28
+2025-02-01 17:14:30,638 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:14:30,639 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:14:40,940 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:14:40,943 - INFO - New workload: workload-1738430080, Recommended Node: k8s-node-3, Carbon Intensity: 372.56
+2025-02-01 17:14:40,997 - INFO - Pod workload-1738430080 deployed successfully.
+2025-02-01 17:14:41,126 - INFO - Pod workload-1738430080 placed on node: 10.214.0.28
+2025-02-01 17:14:41,127 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:14:41,130 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:14:51,394 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:14:51,396 - INFO - New workload: workload-1738430091, Recommended Node: k8s-node-3, Carbon Intensity: 372.56
+2025-02-01 17:14:51,476 - INFO - Pod workload-1738430091 deployed successfully.
+2025-02-01 17:14:51,602 - INFO - Pod workload-1738430091 placed on node: 10.214.0.28
+2025-02-01 17:14:51,607 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:14:51,610 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:15:01,749 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:15:01,750 - INFO - New workload: workload-1738430101, Recommended Node: k8s-node-3, Carbon Intensity: 342.73
+2025-02-01 17:15:01,823 - INFO - Pod workload-1738430101 deployed successfully.
+2025-02-01 17:15:01,939 - INFO - Pod workload-1738430101 placed on node: 10.214.0.28
+2025-02-01 17:15:01,943 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:15:01,944 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:15:12,251 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:15:12,252 - INFO - New workload: workload-1738430112, Recommended Node: k8s-node-3, Carbon Intensity: 342.73
+2025-02-01 17:15:12,311 - INFO - Pod workload-1738430112 deployed successfully.
+2025-02-01 17:15:12,424 - INFO - Pod workload-1738430112 placed on node: 10.214.0.28
+2025-02-01 17:15:12,426 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:15:12,426 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:15:22,729 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:15:22,729 - INFO - New workload: workload-1738430122, Recommended Node: k8s-node-3, Carbon Intensity: 342.73
+2025-02-01 17:15:22,770 - INFO - Pod workload-1738430122 deployed successfully.
+2025-02-01 17:15:22,910 - INFO - Pod workload-1738430122 placed on node: 10.214.0.28
+2025-02-01 17:15:22,911 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:15:22,918 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:15:33,198 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:15:33,198 - INFO - New workload: workload-1738430133, Recommended Node: k8s-node-3, Carbon Intensity: 342.73
+2025-02-01 17:15:33,270 - INFO - Pod workload-1738430133 deployed successfully.
+2025-02-01 17:15:33,397 - INFO - Pod workload-1738430133 placed on node: 10.214.0.28
+2025-02-01 17:15:33,404 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:15:33,406 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:15:43,457 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:15:43,459 - INFO - New workload: workload-1738430143, Recommended Node: k8s-node-3, Carbon Intensity: 342.73
+2025-02-01 17:15:43,516 - INFO - Pod workload-1738430143 deployed successfully.
+2025-02-01 17:15:43,635 - INFO - Pod workload-1738430143 placed on node: 10.214.0.28
+2025-02-01 17:15:43,636 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:15:43,641 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:15:53,942 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:15:53,942 - INFO - New workload: workload-1738430153, Recommended Node: k8s-node-3, Carbon Intensity: 342.73
+2025-02-01 17:15:54,002 - INFO - Pod workload-1738430153 deployed successfully.
+2025-02-01 17:15:54,111 - INFO - Pod workload-1738430153 placed on node: 10.214.0.28
+2025-02-01 17:15:54,111 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:15:54,112 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:16:04,218 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:16:04,219 - INFO - New workload: workload-1738430164, Recommended Node: k8s-node-3, Carbon Intensity: 320.39
+2025-02-01 17:16:04,278 - INFO - Pod workload-1738430164 deployed successfully.
+2025-02-01 17:16:04,388 - INFO - Pod workload-1738430164 placed on node: 10.214.0.28
+2025-02-01 17:16:04,390 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:16:04,392 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:16:14,691 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:16:14,691 - INFO - New workload: workload-1738430174, Recommended Node: k8s-node-3, Carbon Intensity: 320.39
+2025-02-01 17:16:14,733 - INFO - Pod workload-1738430174 deployed successfully.
+2025-02-01 17:16:14,863 - INFO - Pod workload-1738430174 placed on node: 10.214.0.28
+2025-02-01 17:16:14,865 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:16:14,865 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:16:24,953 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:16:24,955 - INFO - New workload: workload-1738430184, Recommended Node: k8s-node-3, Carbon Intensity: 320.39
+2025-02-01 17:16:25,030 - INFO - Pod workload-1738430184 deployed successfully.
+2025-02-01 17:16:25,141 - INFO - Pod workload-1738430184 placed on node: 10.214.0.28
+2025-02-01 17:16:25,142 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:16:25,145 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:16:35,291 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:16:35,293 - INFO - New workload: workload-1738430195, Recommended Node: k8s-node-3, Carbon Intensity: 320.39
+2025-02-01 17:16:35,370 - INFO - Pod workload-1738430195 deployed successfully.
+2025-02-01 17:16:35,483 - INFO - Pod workload-1738430195 placed on node: 10.214.0.28
+2025-02-01 17:16:35,486 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:16:35,487 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:16:45,784 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:16:45,787 - INFO - New workload: workload-1738430205, Recommended Node: k8s-node-3, Carbon Intensity: 320.39
+2025-02-01 17:16:45,869 - INFO - Pod workload-1738430205 deployed successfully.
+2025-02-01 17:16:45,989 - INFO - Pod workload-1738430205 placed on node: 10.214.0.28
+2025-02-01 17:16:45,989 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:16:45,995 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:16:56,291 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:16:56,291 - INFO - New workload: workload-1738430216, Recommended Node: k8s-node-3, Carbon Intensity: 320.39
+2025-02-01 17:16:56,360 - INFO - Pod workload-1738430216 deployed successfully.
+2025-02-01 17:16:56,471 - INFO - Pod workload-1738430216 placed on node: 10.214.0.28
+2025-02-01 17:16:56,473 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:16:56,475 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:17:06,553 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:17:06,554 - INFO - New workload: workload-1738430226, Recommended Node: k8s-node-3, Carbon Intensity: 306.93
+2025-02-01 17:17:06,623 - INFO - Pod workload-1738430226 deployed successfully.
+2025-02-01 17:17:06,728 - INFO - Pod workload-1738430226 placed on node: 10.214.0.28
+2025-02-01 17:17:06,729 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:17:06,731 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:17:16,885 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:17:16,902 - INFO - New workload: workload-1738430236, Recommended Node: k8s-node-3, Carbon Intensity: 306.93
+2025-02-01 17:17:17,074 - INFO - Pod workload-1738430236 deployed successfully.
+2025-02-01 17:17:17,191 - INFO - Pod workload-1738430236 placed on node: 10.214.0.28
+2025-02-01 17:17:17,193 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:17:17,194 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:17:27,492 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:17:27,494 - INFO - New workload: workload-1738430247, Recommended Node: k8s-node-3, Carbon Intensity: 306.93
+2025-02-01 17:17:27,532 - INFO - Pod workload-1738430247 deployed successfully.
+2025-02-01 17:17:27,663 - INFO - Pod workload-1738430247 placed on node: 10.214.0.28
+2025-02-01 17:17:27,664 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:17:27,666 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:17:37,958 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:17:37,958 - INFO - New workload: workload-1738430257, Recommended Node: k8s-node-3, Carbon Intensity: 306.93
+2025-02-01 17:17:38,041 - INFO - Pod workload-1738430257 deployed successfully.
+2025-02-01 17:17:38,154 - INFO - Pod workload-1738430257 placed on node: 10.214.0.28
+2025-02-01 17:17:38,159 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:17:38,159 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:17:48,471 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:17:48,471 - INFO - New workload: workload-1738430268, Recommended Node: k8s-node-3, Carbon Intensity: 306.93
+2025-02-01 17:17:48,538 - INFO - Pod workload-1738430268 deployed successfully.
+2025-02-01 17:17:48,655 - INFO - Pod workload-1738430268 placed on node: 10.214.0.28
+2025-02-01 17:17:48,659 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:17:48,660 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:17:58,969 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:17:58,969 - INFO - New workload: workload-1738430278, Recommended Node: k8s-node-3, Carbon Intensity: 306.93
+2025-02-01 17:17:59,029 - INFO - Pod workload-1738430278 deployed successfully.
+2025-02-01 17:17:59,143 - INFO - Pod workload-1738430278 placed on node: 10.214.0.28
+2025-02-01 17:17:59,146 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:17:59,147 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:18:09,467 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:18:09,471 - INFO - New workload: workload-1738430289, Recommended Node: k8s-node-3, Carbon Intensity: 296.8
+2025-02-01 17:18:09,554 - INFO - Pod workload-1738430289 deployed successfully.
+2025-02-01 17:18:09,658 - INFO - Pod workload-1738430289 placed on node: 10.214.0.28
+2025-02-01 17:18:09,661 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:18:09,664 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:18:19,995 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:18:19,999 - INFO - New workload: workload-1738430299, Recommended Node: k8s-node-3, Carbon Intensity: 296.8
+2025-02-01 17:18:20,103 - INFO - Pod workload-1738430299 deployed successfully.
+2025-02-01 17:18:20,225 - INFO - Pod workload-1738430299 placed on node: 10.214.0.28
+2025-02-01 17:18:20,240 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:18:20,243 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:18:30,549 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:18:30,549 - INFO - New workload: workload-1738430310, Recommended Node: k8s-node-3, Carbon Intensity: 296.8
+2025-02-01 17:18:30,667 - INFO - Pod workload-1738430310 deployed successfully.
+2025-02-01 17:18:30,791 - INFO - Pod workload-1738430310 placed on node: 10.214.0.28
+2025-02-01 17:18:30,801 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:18:30,802 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:18:41,138 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:18:41,142 - INFO - New workload: workload-1738430321, Recommended Node: k8s-node-3, Carbon Intensity: 296.8
+2025-02-01 17:18:41,246 - INFO - Pod workload-1738430321 deployed successfully.
+2025-02-01 17:18:41,350 - INFO - Pod workload-1738430321 placed on node: 10.214.0.28
+2025-02-01 17:18:41,351 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:18:41,353 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:18:51,670 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:18:51,677 - INFO - New workload: workload-1738430331, Recommended Node: k8s-node-3, Carbon Intensity: 296.8
+2025-02-01 17:18:51,771 - INFO - Pod workload-1738430331 deployed successfully.
+2025-02-01 17:18:51,899 - INFO - Pod workload-1738430331 placed on node: 10.214.0.28
+2025-02-01 17:18:51,901 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:18:51,904 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:19:02,188 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:19:02,190 - INFO - New workload: workload-1738430342, Recommended Node: k8s-node-3, Carbon Intensity: 233.89
+2025-02-01 17:19:02,282 - INFO - Pod workload-1738430342 deployed successfully.
+2025-02-01 17:19:02,386 - INFO - Pod workload-1738430342 placed on node: 10.214.0.28
+2025-02-01 17:19:02,387 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:19:02,388 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:19:12,702 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:19:12,705 - INFO - New workload: workload-1738430352, Recommended Node: k8s-node-3, Carbon Intensity: 233.89
+2025-02-01 17:19:12,795 - INFO - Pod workload-1738430352 deployed successfully.
+2025-02-01 17:19:12,907 - INFO - Pod workload-1738430352 placed on node: 10.214.0.28
+2025-02-01 17:19:12,913 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:19:12,913 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:19:23,199 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:19:23,204 - INFO - New workload: workload-1738430363, Recommended Node: k8s-node-3, Carbon Intensity: 233.89
+2025-02-01 17:19:23,277 - INFO - Pod workload-1738430363 deployed successfully.
+2025-02-01 17:19:23,391 - INFO - Pod workload-1738430363 placed on node: 10.214.0.28
+2025-02-01 17:19:23,392 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:19:23,393 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:19:33,513 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:19:33,515 - INFO - New workload: workload-1738430373, Recommended Node: k8s-node-3, Carbon Intensity: 233.89
+2025-02-01 17:19:33,592 - INFO - Pod workload-1738430373 deployed successfully.
+2025-02-01 17:19:33,704 - INFO - Pod workload-1738430373 placed on node: 10.214.0.28
+2025-02-01 17:19:33,706 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:19:33,709 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:19:44,003 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:19:44,004 - INFO - New workload: workload-1738430384, Recommended Node: k8s-node-3, Carbon Intensity: 233.89
+2025-02-01 17:19:44,039 - INFO - Pod workload-1738430384 deployed successfully.
+2025-02-01 17:19:44,174 - INFO - Pod workload-1738430384 placed on node: 10.214.0.28
+2025-02-01 17:19:44,176 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:19:44,180 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:19:54,446 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:19:54,447 - INFO - New workload: workload-1738430394, Recommended Node: k8s-node-3, Carbon Intensity: 233.89
+2025-02-01 17:19:54,491 - INFO - Pod workload-1738430394 deployed successfully.
+2025-02-01 17:19:54,627 - INFO - Pod workload-1738430394 placed on node: 10.214.0.28
+2025-02-01 17:19:54,630 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:19:54,631 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:20:04,709 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:20:04,710 - INFO - New workload: workload-1738430404, Recommended Node: k8s-node-3, Carbon Intensity: 207.01
+2025-02-01 17:20:04,770 - INFO - Pod workload-1738430404 deployed successfully.
+2025-02-01 17:20:04,886 - INFO - Pod workload-1738430404 placed on node: 10.214.0.28
+2025-02-01 17:20:04,887 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:20:04,888 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:20:15,123 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:20:15,125 - INFO - New workload: workload-1738430415, Recommended Node: k8s-node-3, Carbon Intensity: 207.01
+2025-02-01 17:20:15,190 - INFO - Pod workload-1738430415 deployed successfully.
+2025-02-01 17:20:15,293 - INFO - Pod workload-1738430415 placed on node: 10.214.0.28
+2025-02-01 17:20:15,294 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:20:15,295 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:20:25,691 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:20:25,693 - INFO - New workload: workload-1738430425, Recommended Node: k8s-node-3, Carbon Intensity: 207.01
+2025-02-01 17:20:25,744 - INFO - Pod workload-1738430425 deployed successfully.
+2025-02-01 17:20:25,874 - INFO - Pod workload-1738430425 placed on node: 10.214.0.28
+2025-02-01 17:20:25,879 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:20:25,880 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:20:36,084 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:20:36,085 - INFO - New workload: workload-1738430436, Recommended Node: k8s-node-3, Carbon Intensity: 207.01
+2025-02-01 17:20:36,150 - INFO - Pod workload-1738430436 deployed successfully.
+2025-02-01 17:20:36,268 - INFO - Pod workload-1738430436 placed on node: 10.214.0.28
+2025-02-01 17:20:36,270 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:20:36,272 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:20:46,601 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:20:46,605 - INFO - New workload: workload-1738430446, Recommended Node: k8s-node-3, Carbon Intensity: 207.01
+2025-02-01 17:20:46,668 - INFO - Pod workload-1738430446 deployed successfully.
+2025-02-01 17:20:46,782 - INFO - Pod workload-1738430446 placed on node: 10.214.0.28
+2025-02-01 17:20:46,783 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:20:46,786 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:20:57,086 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:20:57,088 - INFO - New workload: workload-1738430457, Recommended Node: k8s-node-3, Carbon Intensity: 207.01
+2025-02-01 17:20:57,160 - INFO - Pod workload-1738430457 deployed successfully.
+2025-02-01 17:20:57,298 - INFO - Pod workload-1738430457 placed on node: 10.214.0.28
+2025-02-01 17:20:57,301 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:20:57,304 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:21:07,358 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:21:07,360 - INFO - New workload: workload-1738430467, Recommended Node: k8s-node-3, Carbon Intensity: 186.93
+2025-02-01 17:21:07,446 - INFO - Pod workload-1738430467 deployed successfully.
+2025-02-01 17:21:07,562 - INFO - Pod workload-1738430467 placed on node: 10.214.0.28
+2025-02-01 17:21:07,564 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:21:07,570 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:21:17,882 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:21:17,883 - INFO - New workload: workload-1738430477, Recommended Node: k8s-node-3, Carbon Intensity: 186.93
+2025-02-01 17:21:17,965 - INFO - Pod workload-1738430477 deployed successfully.
+2025-02-01 17:21:18,073 - INFO - Pod workload-1738430477 placed on node: 10.214.0.28
+2025-02-01 17:21:18,079 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:21:18,080 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:21:28,427 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:21:28,427 - INFO - New workload: workload-1738430488, Recommended Node: k8s-node-3, Carbon Intensity: 186.93
+2025-02-01 17:21:28,513 - INFO - Pod workload-1738430488 deployed successfully.
+2025-02-01 17:21:28,619 - INFO - Pod workload-1738430488 placed on node: 10.214.0.28
+2025-02-01 17:21:28,621 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:21:28,623 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:21:38,718 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:21:38,719 - INFO - New workload: workload-1738430498, Recommended Node: k8s-node-3, Carbon Intensity: 186.93
+2025-02-01 17:21:38,781 - INFO - Pod workload-1738430498 deployed successfully.
+2025-02-01 17:21:38,899 - INFO - Pod workload-1738430498 placed on node: 10.214.0.28
+2025-02-01 17:21:38,901 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:21:38,901 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:21:49,212 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:21:49,213 - INFO - New workload: workload-1738430509, Recommended Node: k8s-node-3, Carbon Intensity: 186.93
+2025-02-01 17:21:49,271 - INFO - Pod workload-1738430509 deployed successfully.
+2025-02-01 17:21:49,385 - INFO - Pod workload-1738430509 placed on node: 10.214.0.28
+2025-02-01 17:21:49,387 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:21:49,390 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:21:59,681 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:21:59,681 - INFO - New workload: workload-1738430519, Recommended Node: k8s-node-3, Carbon Intensity: 186.93
+2025-02-01 17:21:59,747 - INFO - Pod workload-1738430519 deployed successfully.
+2025-02-01 17:21:59,857 - INFO - Pod workload-1738430519 placed on node: 10.214.0.28
+2025-02-01 17:21:59,859 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:21:59,863 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:22:10,182 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:22:10,183 - INFO - New workload: workload-1738430530, Recommended Node: k8s-node-3, Carbon Intensity: 173.34
+2025-02-01 17:22:10,265 - INFO - Pod workload-1738430530 deployed successfully.
+2025-02-01 17:22:10,401 - INFO - Pod workload-1738430530 placed on node: 10.214.0.28
+2025-02-01 17:22:10,403 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:22:10,406 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:22:20,660 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:22:20,661 - INFO - New workload: workload-1738430540, Recommended Node: k8s-node-3, Carbon Intensity: 173.34
+2025-02-01 17:22:20,746 - INFO - Pod workload-1738430540 deployed successfully.
+2025-02-01 17:22:20,849 - INFO - Pod workload-1738430540 placed on node: 10.214.0.28
+2025-02-01 17:22:20,851 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:22:20,852 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:22:31,107 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:22:31,107 - INFO - New workload: workload-1738430551, Recommended Node: k8s-node-3, Carbon Intensity: 173.34
+2025-02-01 17:22:31,187 - INFO - Pod workload-1738430551 deployed successfully.
+2025-02-01 17:22:31,307 - INFO - Pod workload-1738430551 placed on node: 10.214.0.28
+2025-02-01 17:22:31,310 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:22:31,315 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:22:41,388 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:22:41,392 - INFO - New workload: workload-1738430561, Recommended Node: k8s-node-3, Carbon Intensity: 173.34
+2025-02-01 17:22:41,484 - INFO - Pod workload-1738430561 deployed successfully.
+2025-02-01 17:22:41,587 - INFO - Pod workload-1738430561 placed on node: 10.214.0.28
+2025-02-01 17:22:41,589 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:22:41,590 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:22:51,936 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:22:51,936 - INFO - New workload: workload-1738430571, Recommended Node: k8s-node-3, Carbon Intensity: 173.34
+2025-02-01 17:22:52,006 - INFO - Pod workload-1738430571 deployed successfully.
+2025-02-01 17:22:52,118 - INFO - Pod workload-1738430571 placed on node: 10.214.0.28
+2025-02-01 17:22:52,121 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:22:52,124 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:23:02,444 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:23:02,465 - INFO - New workload: workload-1738430582, Recommended Node: k8s-node-3, Carbon Intensity: 173.11
+2025-02-01 17:23:02,622 - INFO - Pod workload-1738430582 deployed successfully.
+2025-02-01 17:23:02,762 - INFO - Pod workload-1738430582 placed on node: 10.214.0.28
+2025-02-01 17:23:02,773 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:23:02,774 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:23:13,049 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:23:13,052 - INFO - New workload: workload-1738430593, Recommended Node: k8s-node-3, Carbon Intensity: 173.11
+2025-02-01 17:23:13,109 - INFO - Pod workload-1738430593 deployed successfully.
+2025-02-01 17:23:13,229 - INFO - Pod workload-1738430593 placed on node: 10.214.0.28
+2025-02-01 17:23:13,231 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:23:13,234 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:23:23,537 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:23:23,540 - INFO - New workload: workload-1738430603, Recommended Node: k8s-node-3, Carbon Intensity: 173.11
+2025-02-01 17:23:23,627 - INFO - Pod workload-1738430603 deployed successfully.
+2025-02-01 17:23:23,740 - INFO - Pod workload-1738430603 placed on node: 10.214.0.28
+2025-02-01 17:23:23,741 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:23:23,742 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:23:34,052 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:23:34,055 - INFO - New workload: workload-1738430614, Recommended Node: k8s-node-3, Carbon Intensity: 173.11
+2025-02-01 17:23:34,130 - INFO - Pod workload-1738430614 deployed successfully.
+2025-02-01 17:23:34,249 - INFO - Pod workload-1738430614 placed on node: 10.214.0.28
+2025-02-01 17:23:34,252 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:23:34,257 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:23:44,350 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:23:44,352 - INFO - New workload: workload-1738430624, Recommended Node: k8s-node-3, Carbon Intensity: 173.11
+2025-02-01 17:23:44,422 - INFO - Pod workload-1738430624 deployed successfully.
+2025-02-01 17:23:44,533 - INFO - Pod workload-1738430624 placed on node: 10.214.0.28
+2025-02-01 17:23:44,537 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:23:44,539 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:23:54,843 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:23:54,847 - INFO - New workload: workload-1738430634, Recommended Node: k8s-node-3, Carbon Intensity: 173.11
+2025-02-01 17:23:54,926 - INFO - Pod workload-1738430634 deployed successfully.
+2025-02-01 17:23:55,047 - INFO - Pod workload-1738430634 placed on node: 10.214.0.28
+2025-02-01 17:23:55,048 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:23:55,051 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:24:05,475 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:24:05,476 - INFO - New workload: workload-1738430645, Recommended Node: k8s-node-3, Carbon Intensity: 173.61
+2025-02-01 17:24:05,511 - INFO - Pod workload-1738430645 deployed successfully.
+2025-02-01 17:24:05,638 - INFO - Pod workload-1738430645 placed on node: 10.214.0.28
+2025-02-01 17:24:05,640 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:24:05,641 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:24:15,770 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:24:15,770 - INFO - New workload: workload-1738430655, Recommended Node: k8s-node-3, Carbon Intensity: 173.61
+2025-02-01 17:24:15,827 - INFO - Pod workload-1738430655 deployed successfully.
+2025-02-01 17:24:15,940 - INFO - Pod workload-1738430655 placed on node: 10.214.0.28
+2025-02-01 17:24:15,944 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:24:15,945 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:24:26,205 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:24:26,206 - INFO - New workload: workload-1738430666, Recommended Node: k8s-node-3, Carbon Intensity: 173.61
+2025-02-01 17:24:26,280 - INFO - Pod workload-1738430666 deployed successfully.
+2025-02-01 17:24:26,386 - INFO - Pod workload-1738430666 placed on node: 10.214.0.28
+2025-02-01 17:24:26,388 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:24:26,390 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:24:36,674 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:24:36,674 - INFO - New workload: workload-1738430676, Recommended Node: k8s-node-3, Carbon Intensity: 173.61
+2025-02-01 17:24:36,792 - INFO - Pod workload-1738430676 deployed successfully.
+2025-02-01 17:24:36,929 - INFO - Pod workload-1738430676 placed on node: 10.214.0.28
+2025-02-01 17:24:36,931 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:24:36,933 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:24:47,162 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:24:47,167 - INFO - New workload: workload-1738430687, Recommended Node: k8s-node-3, Carbon Intensity: 173.61
+2025-02-01 17:24:47,221 - INFO - Pod workload-1738430687 deployed successfully.
+2025-02-01 17:24:47,355 - INFO - Pod workload-1738430687 placed on node: 10.214.0.28
+2025-02-01 17:24:47,357 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:24:47,358 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:24:57,618 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:24:57,618 - INFO - New workload: workload-1738430697, Recommended Node: k8s-node-3, Carbon Intensity: 173.61
+2025-02-01 17:24:57,680 - INFO - Pod workload-1738430697 deployed successfully.
+2025-02-01 17:24:57,790 - INFO - Pod workload-1738430697 placed on node: 10.214.0.28
+2025-02-01 17:24:57,792 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:24:57,794 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:25:08,039 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:25:08,039 - INFO - New workload: workload-1738430708, Recommended Node: k8s-node-3, Carbon Intensity: 178.27
+2025-02-01 17:25:08,112 - INFO - Pod workload-1738430708 deployed successfully.
+2025-02-01 17:25:08,256 - INFO - Pod workload-1738430708 placed on node: 10.214.0.28
+2025-02-01 17:25:08,258 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:25:08,261 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:25:18,521 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:25:18,523 - INFO - New workload: workload-1738430718, Recommended Node: k8s-node-3, Carbon Intensity: 178.27
+2025-02-01 17:25:18,583 - INFO - Pod workload-1738430718 deployed successfully.
+2025-02-01 17:25:18,717 - INFO - Pod workload-1738430718 placed on node: 10.214.0.28
+2025-02-01 17:25:18,720 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:25:18,725 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:25:28,958 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:25:28,959 - INFO - New workload: workload-1738430728, Recommended Node: k8s-node-3, Carbon Intensity: 178.27
+2025-02-01 17:25:29,102 - INFO - Pod workload-1738430728 deployed successfully.
+2025-02-01 17:25:29,217 - INFO - Pod workload-1738430728 placed on node: 10.214.0.28
+2025-02-01 17:25:29,219 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:25:29,219 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:25:39,467 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:25:39,467 - INFO - New workload: workload-1738430739, Recommended Node: k8s-node-3, Carbon Intensity: 178.27
+2025-02-01 17:25:39,533 - INFO - Pod workload-1738430739 deployed successfully.
+2025-02-01 17:25:39,671 - INFO - Pod workload-1738430739 placed on node: 10.214.0.28
+2025-02-01 17:25:39,672 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:25:39,672 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:25:49,910 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:25:49,911 - INFO - New workload: workload-1738430749, Recommended Node: k8s-node-3, Carbon Intensity: 178.27
+2025-02-01 17:25:49,982 - INFO - Pod workload-1738430749 deployed successfully.
+2025-02-01 17:25:50,100 - INFO - Pod workload-1738430749 placed on node: 10.214.0.28
+2025-02-01 17:25:50,102 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:25:50,103 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:26:00,404 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:26:00,405 - INFO - New workload: workload-1738430760, Recommended Node: k8s-node-3, Carbon Intensity: 181.25
+2025-02-01 17:26:00,521 - INFO - Pod workload-1738430760 deployed successfully.
+2025-02-01 17:26:00,735 - INFO - Pod workload-1738430760 placed on node: 10.214.0.28
+2025-02-01 17:26:00,737 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:26:00,738 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:26:10,719 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:26:10,720 - INFO - New workload: workload-1738430770, Recommended Node: k8s-node-3, Carbon Intensity: 181.25
+2025-02-01 17:26:10,816 - INFO - Pod workload-1738430770 deployed successfully.
+2025-02-01 17:26:10,933 - INFO - Pod workload-1738430770 placed on node: 10.214.0.28
+2025-02-01 17:26:10,935 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:26:10,940 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:26:21,315 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:26:21,315 - INFO - New workload: workload-1738430781, Recommended Node: k8s-node-3, Carbon Intensity: 181.25
+2025-02-01 17:26:21,363 - INFO - Pod workload-1738430781 deployed successfully.
+2025-02-01 17:26:21,516 - INFO - Pod workload-1738430781 placed on node: 10.214.0.28
+2025-02-01 17:26:21,522 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:26:21,523 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:26:31,814 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:26:31,814 - INFO - New workload: workload-1738430791, Recommended Node: k8s-node-3, Carbon Intensity: 181.25
+2025-02-01 17:26:31,898 - INFO - Pod workload-1738430791 deployed successfully.
+2025-02-01 17:26:31,992 - INFO - Pod workload-1738430791 placed on node: 10.214.0.28
+2025-02-01 17:26:31,993 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:26:31,995 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:26:42,354 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:26:42,357 - INFO - New workload: workload-1738430802, Recommended Node: k8s-node-3, Carbon Intensity: 181.25
+2025-02-01 17:26:42,418 - INFO - Pod workload-1738430802 deployed successfully.
+2025-02-01 17:26:42,547 - INFO - Pod workload-1738430802 placed on node: 10.214.0.28
+2025-02-01 17:26:42,549 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:26:42,551 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:26:52,882 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:26:52,882 - INFO - New workload: workload-1738430812, Recommended Node: k8s-node-3, Carbon Intensity: 181.25
+2025-02-01 17:26:52,953 - INFO - Pod workload-1738430812 deployed successfully.
+2025-02-01 17:26:53,084 - INFO - Pod workload-1738430812 placed on node: 10.214.0.28
+2025-02-01 17:26:53,092 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:26:53,093 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:27:03,517 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:27:03,519 - INFO - New workload: workload-1738430823, Recommended Node: k8s-node-3, Carbon Intensity: 192.19
+2025-02-01 17:27:03,597 - INFO - Pod workload-1738430823 deployed successfully.
+2025-02-01 17:27:03,701 - INFO - Pod workload-1738430823 placed on node: 10.214.0.28
+2025-02-01 17:27:03,703 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:27:03,704 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:27:14,053 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:27:14,054 - INFO - New workload: workload-1738430834, Recommended Node: k8s-node-3, Carbon Intensity: 192.19
+2025-02-01 17:27:14,110 - INFO - Pod workload-1738430834 deployed successfully.
+2025-02-01 17:27:14,220 - INFO - Pod workload-1738430834 placed on node: 10.214.0.28
+2025-02-01 17:27:14,228 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:27:14,230 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:27:24,568 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:27:24,572 - INFO - New workload: workload-1738430844, Recommended Node: k8s-node-3, Carbon Intensity: 192.19
+2025-02-01 17:27:24,643 - INFO - Pod workload-1738430844 deployed successfully.
+2025-02-01 17:27:24,750 - INFO - Pod workload-1738430844 placed on node: 10.214.0.28
+2025-02-01 17:27:24,752 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:27:24,752 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:27:35,127 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:27:35,127 - INFO - New workload: workload-1738430855, Recommended Node: k8s-node-3, Carbon Intensity: 192.19
+2025-02-01 17:27:35,205 - INFO - Pod workload-1738430855 deployed successfully.
+2025-02-01 17:27:35,420 - INFO - Pod workload-1738430855 placed on node: 10.214.0.28
+2025-02-01 17:27:35,422 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:27:35,424 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:27:45,450 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:27:45,450 - INFO - New workload: workload-1738430865, Recommended Node: k8s-node-3, Carbon Intensity: 192.19
+2025-02-01 17:27:45,527 - INFO - Pod workload-1738430865 deployed successfully.
+2025-02-01 17:27:45,640 - INFO - Pod workload-1738430865 placed on node: 10.214.0.28
+2025-02-01 17:27:45,641 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:27:45,644 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:27:56,026 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:27:56,032 - INFO - New workload: workload-1738430876, Recommended Node: k8s-node-3, Carbon Intensity: 192.19
+2025-02-01 17:27:56,142 - INFO - Pod workload-1738430876 deployed successfully.
+2025-02-01 17:27:56,256 - INFO - Pod workload-1738430876 placed on node: 10.214.0.28
+2025-02-01 17:27:56,260 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:27:56,262 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:28:06,407 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:28:06,411 - INFO - New workload: workload-1738430886, Recommended Node: k8s-node-3, Carbon Intensity: 211.51
+2025-02-01 17:28:06,477 - INFO - Pod workload-1738430886 deployed successfully.
+2025-02-01 17:28:06,634 - INFO - Pod workload-1738430886 placed on node: 10.214.0.28
+2025-02-01 17:28:06,637 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:28:06,638 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:28:16,742 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:28:16,742 - INFO - New workload: workload-1738430896, Recommended Node: k8s-node-3, Carbon Intensity: 211.51
+2025-02-01 17:28:16,877 - INFO - Pod workload-1738430896 deployed successfully.
+2025-02-01 17:28:16,892 - INFO - Pod workload-1738430896 placed on node: unknown
+2025-02-01 17:28:16,898 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:28:16,899 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:28:27,348 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:28:27,352 - INFO - New workload: workload-1738430907, Recommended Node: k8s-node-3, Carbon Intensity: 211.51
+2025-02-01 17:28:27,453 - INFO - Pod workload-1738430907 deployed successfully.
+2025-02-01 17:28:27,572 - INFO - Pod workload-1738430907 placed on node: 10.214.0.28
+2025-02-01 17:28:27,574 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:28:27,578 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:28:38,057 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:28:38,059 - INFO - New workload: workload-1738430918, Recommended Node: k8s-node-3, Carbon Intensity: 211.51
+2025-02-01 17:28:38,090 - INFO - Pod workload-1738430918 deployed successfully.
+2025-02-01 17:28:38,230 - INFO - Pod workload-1738430918 placed on node: 10.214.0.28
+2025-02-01 17:28:38,232 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:28:38,234 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:28:48,331 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:28:48,333 - INFO - New workload: workload-1738430928, Recommended Node: k8s-node-3, Carbon Intensity: 211.51
+2025-02-01 17:28:48,425 - INFO - Pod workload-1738430928 deployed successfully.
+2025-02-01 17:28:48,532 - INFO - Pod workload-1738430928 placed on node: 10.214.0.28
+2025-02-01 17:28:48,533 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:28:48,534 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:28:58,895 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:28:58,896 - INFO - New workload: workload-1738430938, Recommended Node: k8s-node-3, Carbon Intensity: 211.51
+2025-02-01 17:28:58,973 - INFO - Pod workload-1738430938 deployed successfully.
+2025-02-01 17:28:59,078 - INFO - Pod workload-1738430938 placed on node: 10.214.0.28
+2025-02-01 17:28:59,080 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:28:59,082 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:29:09,252 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:29:09,252 - INFO - New workload: workload-1738430949, Recommended Node: k8s-node-3, Carbon Intensity: 262.99
+2025-02-01 17:29:09,303 - INFO - Pod workload-1738430949 deployed successfully.
+2025-02-01 17:29:09,431 - INFO - Pod workload-1738430949 placed on node: 10.214.0.28
+2025-02-01 17:29:09,434 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:29:09,434 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:29:19,751 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:29:19,751 - INFO - New workload: workload-1738430959, Recommended Node: k8s-node-3, Carbon Intensity: 262.99
+2025-02-01 17:29:19,789 - INFO - Pod workload-1738430959 deployed successfully.
+2025-02-01 17:29:19,954 - INFO - Pod workload-1738430959 placed on node: 10.214.0.28
+2025-02-01 17:29:19,955 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:29:19,957 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:29:30,259 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:29:30,261 - INFO - New workload: workload-1738430970, Recommended Node: k8s-node-3, Carbon Intensity: 262.99
+2025-02-01 17:29:30,330 - INFO - Pod workload-1738430970 deployed successfully.
+2025-02-01 17:29:30,437 - INFO - Pod workload-1738430970 placed on node: 10.214.0.28
+2025-02-01 17:29:30,442 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:29:30,442 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:29:40,804 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:29:40,805 - INFO - New workload: workload-1738430980, Recommended Node: k8s-node-3, Carbon Intensity: 262.99
+2025-02-01 17:29:40,843 - INFO - Pod workload-1738430980 deployed successfully.
+2025-02-01 17:29:40,976 - INFO - Pod workload-1738430980 placed on node: 10.214.0.28
+2025-02-01 17:29:40,978 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:29:40,980 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:29:51,297 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:29:51,297 - INFO - New workload: workload-1738430991, Recommended Node: k8s-node-3, Carbon Intensity: 262.99
+2025-02-01 17:29:51,344 - INFO - Pod workload-1738430991 deployed successfully.
+2025-02-01 17:29:51,463 - INFO - Pod workload-1738430991 placed on node: 10.214.0.28
+2025-02-01 17:29:51,464 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:29:51,466 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:30:01,833 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:30:01,834 - INFO - New workload: workload-1738431001, Recommended Node: k8s-node-2, Carbon Intensity: 279.98
+2025-02-01 17:30:01,877 - INFO - Pod workload-1738431001 deployed successfully.
+2025-02-01 17:30:01,994 - INFO - Pod workload-1738431001 placed on node: 10.214.0.27
+2025-02-01 17:30:01,998 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:30:01,999 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:30:12,253 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:30:12,256 - INFO - New workload: workload-1738431012, Recommended Node: k8s-node-2, Carbon Intensity: 279.98
+2025-02-01 17:30:12,288 - INFO - Pod workload-1738431012 deployed successfully.
+2025-02-01 17:30:12,420 - INFO - Pod workload-1738431012 placed on node: 10.214.0.27
+2025-02-01 17:30:12,422 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:30:12,425 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:30:22,659 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:30:22,661 - INFO - New workload: workload-1738431022, Recommended Node: k8s-node-2, Carbon Intensity: 279.98
+2025-02-01 17:30:22,697 - INFO - Pod workload-1738431022 deployed successfully.
+2025-02-01 17:30:22,808 - INFO - Pod workload-1738431022 placed on node: 10.214.0.27
+2025-02-01 17:30:22,810 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:30:22,811 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:30:33,064 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:30:33,065 - INFO - New workload: workload-1738431033, Recommended Node: k8s-node-2, Carbon Intensity: 279.98
+2025-02-01 17:30:33,093 - INFO - Pod workload-1738431033 deployed successfully.
+2025-02-01 17:30:33,226 - INFO - Pod workload-1738431033 placed on node: 10.214.0.27
+2025-02-01 17:30:33,227 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:30:33,229 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:30:43,288 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:30:43,288 - INFO - New workload: workload-1738431043, Recommended Node: k8s-node-2, Carbon Intensity: 279.98
+2025-02-01 17:30:43,302 - INFO - Pod workload-1738431043 deployed successfully.
+2025-02-01 17:30:43,430 - INFO - Pod workload-1738431043 placed on node: 10.214.0.27
+2025-02-01 17:30:43,431 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:30:43,432 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:30:53,754 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:30:53,755 - INFO - New workload: workload-1738431053, Recommended Node: k8s-node-2, Carbon Intensity: 279.98
+2025-02-01 17:30:53,769 - INFO - Pod workload-1738431053 deployed successfully.
+2025-02-01 17:30:53,895 - INFO - Pod workload-1738431053 placed on node: 10.214.0.27
+2025-02-01 17:30:53,896 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:30:53,896 - INFO - Creation is processed: 1 succeeded; 0 failed.
+2025-02-01 17:31:04,236 - INFO - Running carbon-aware placement strategy. --- Scheduling Period: 10s
+2025-02-01 17:31:04,236 - INFO - New workload: workload-1738431064, Recommended Node: k8s-node-2, Carbon Intensity: 266.26
+2025-02-01 17:31:04,263 - INFO - Pod workload-1738431064 deployed successfully.
+2025-02-01 17:31:04,390 - INFO - Pod workload-1738431064 placed on node: 10.214.0.27
+2025-02-01 17:31:04,390 - INFO - Handler 'monitor_pod_creation' succeeded.
+2025-02-01 17:31:04,391 - INFO - Creation is processed: 1 succeeded; 0 failed.
