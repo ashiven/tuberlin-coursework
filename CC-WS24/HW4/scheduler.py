@@ -56,7 +56,7 @@ def get_lowest_intensity_node(carbon_data):
             min_intensity = intensity
             best_node = node
 
-    return best_node, min_intensity
+    return best_node
 
 
 def generate_unique_workload_name():
@@ -139,24 +139,26 @@ def main():
             logging.info(
                 f"Running carbon-aware placement strategy. --- Scheduling Period: {scheduling_period}s"
             )
-            best_node, intensity = get_lowest_intensity_node(carbon_data)
+            best_node = get_lowest_intensity_node(carbon_data)
         else:
             logging.info(
                 f"Running default scheduling strategy (no carbon-awareness). --- Scheduling Period: {scheduling_period}s"
             )
-            best_node, intensity = random.choice(list(NODES_TO_REGIONS.keys())), "N/A"
+            best_node = random.choice(list(NODES_TO_REGIONS.keys()))
 
         if not best_node:
             logging.warning("No suitable node found. Skipping scheduling cycle.")
             time.sleep(scheduling_period)
             continue
 
+        intensity = carbon_data.get(NODES_TO_REGIONS[best_node], "unknown")
+
         # Generate workload name and execution time
         workload_name = generate_unique_workload_name()
         execution_time = random.randint(20, 60)
 
         logging.info(
-            f"New workload: {workload_name}, Carbon Intensity: {intensity}, Recommended Node: {best_node}"
+            f"New workload: {workload_name}, Recommended Node: {best_node}, Carbon Intensity: {intensity}"
         )
 
         # Create pod specification
