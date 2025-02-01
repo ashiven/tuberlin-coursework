@@ -106,8 +106,8 @@ def deploy_pod(pod_spec):
 def monitor_pod_creation(spec, status, meta, **_):
     """Monitor the actual placement of the Pod."""
     pod_name = meta.get("name", "unknown")
-    node_name = status.get("hostIP", "unknown")
-    logging.info(f"Pod {pod_name} placed on node: {node_name}")
+    node_ip = status.get("hostIP", "unknown")
+    logging.info(f"Pod {pod_name} placed on node: {node_ip}")
 
 
 def main():
