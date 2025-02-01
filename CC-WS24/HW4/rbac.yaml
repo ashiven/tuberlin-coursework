@@ -6,25 +6,47 @@ metadata:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-   namespace: default
-   name: scheduler-role
+   name: scheduler-role-cluster
 rules:
+   # Framework: knowing which other operators are running (i.e. peering).
+   - apiGroups: [kopf.dev]
+     resources: [clusterkopfpeerings]
+     verbs: [list, watch, patch, get]
+
+   # Framework: runtime observation of namespaces & CRDs (addition/deletion).
+   - apiGroups: [apiextensions.k8s.io]
+     resources: [customresourcedefinitions]
+     verbs: [list, watch]
+   - apiGroups: [""]
+     resources: [namespaces]
+     verbs: [list, watch]
+
+   # Framework: admission webhook configuration management.
+   - apiGroups:
+        [admissionregistration.k8s.io/v1, admissionregistration.k8s.io/v1beta1]
+     resources: [validatingwebhookconfigurations, mutatingwebhookconfigurations]
+     verbs: [create, patch]
+
    - apiGroups: [""]
      resources: [pods]
-     verbs: [get, list, create, delete]
+     verbs: [get, list, create, delete, watch, patch]
+
+   - apiGroups: [""]
+     resources: ["events"]
+     verbs: ["create", "patch"]
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-   name: scheduler-rolebinding
-   namespace: default
+   name: scheduler-rolebinding-cluster
 roleRef:
    apiGroup: rbac.authorization.k8s.io
-   kind: Role
-   name: scheduler-role
+   kind: ClusterRole
+   name: scheduler-role-cluster
 subjects:
    - kind: ServiceAccount
      name: scheduler-sa
+     namespace: default
